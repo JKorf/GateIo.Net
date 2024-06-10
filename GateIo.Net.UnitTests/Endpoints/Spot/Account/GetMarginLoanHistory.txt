@@ -1,0 +1,12 @@
+GET
+/api/v4/margin/uni/loan_records
+true
+[
+  {
+    "type": "borrow",
+    "currency_pair": "AE_USDT",
+    "currency": "USDT",
+    "amount": "1000",
+    "create_time": 1673247054000
+  }
+]

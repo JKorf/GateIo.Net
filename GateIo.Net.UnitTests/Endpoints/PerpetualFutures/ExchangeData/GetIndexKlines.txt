@@ -1,0 +1,12 @@
+GET
+/api/v4/futures/usdt/premium_index
+false
+[
+  {
+    "t": 1539852480,
+    "c": "0",
+    "h": "0.00023",
+    "l": "0",
+    "o": "0"
+  }
+]

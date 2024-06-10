@@ -1,0 +1,13 @@
+GET
+/api/v4/wallet/saved_address
+true
+[
+  {
+    "currency": "usdt",
+    "chain": "TRX",
+    "address": "TWYirLzw2RARB2jfeFcfRPmeuU3rC7rakT",
+    "name": "gate",
+    "tag": "",
+    "verified": "1"
+  }
+]

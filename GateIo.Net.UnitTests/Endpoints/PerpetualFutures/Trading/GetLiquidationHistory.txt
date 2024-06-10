@@ -1,0 +1,19 @@
+GET
+/api/v4/futures/usdt/liquidates
+true
+[
+  {
+    "time": 1548654951,
+    "contract": "BTC_USDT",
+    "size": 600,
+    "leverage": "25",
+    "margin": "0.006705256878",
+    "entry_price": "3536.123",
+    "liq_price": "3421.54",
+    "mark_price": "3420.27",
+    "order_id": 317393847,
+    "order_price": "3405",
+    "fill_price": "3424",
+    "left": 0
+  }
+]

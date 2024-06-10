@@ -1,0 +1,16 @@
+GET
+/api/v4/unified/loan_margin_tiers
+false
+[
+  {
+    "currency": "USDT",
+    "margin_tiers": [
+      {
+        "tier": "1",
+        "margin_rate": "0.02",
+        "lower_limit": "200000",
+        "upper_limit": "400000"
+      }
+    ]
+  }
+]

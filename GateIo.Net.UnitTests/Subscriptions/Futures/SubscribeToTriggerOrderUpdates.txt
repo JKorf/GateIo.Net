@@ -1,0 +1,46 @@
+> {"time":"1","id":-999,"channel":"futures.autoorders","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.autoorders","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1596798126,
+  "time_ms": 1596798126123,
+  "channel": "futures.autoorders",
+  "event": "update",
+  "result": [
+    {
+      "user": 123456,
+      "trigger": {
+        "strategy_type": 0,
+        "price_type": 0,
+        "price": "10000",
+        "rule": 2,
+        "expiration": 86400
+      },
+      "initial": {
+        "contract": "BTC_USDT",
+        "size": 10,
+        "price": "10000",
+        "tif": "gtc",
+        "text": "web",
+        "iceberg": 0,
+        "is_close": false,
+        "is_reduce_only": false,
+        "auto_size": ""
+      },
+      "id": 9256,
+      "trade_id": 0,
+      "status": "open",
+      "reason": "",
+      "create_time": 1596798126,
+      "name": "price_autoorders",
+      "is_stop_order": false,
+      "stop_trigger": {
+        "rule": 0,
+        "trigger_price": "",
+        "order_price": ""
+      },
+      "order_type": "close-long-order",
+      "me_order_id": "213867453823"
+    }
+  ]
+}

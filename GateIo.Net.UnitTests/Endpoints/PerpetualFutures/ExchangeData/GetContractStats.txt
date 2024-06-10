@@ -1,0 +1,21 @@
+GET
+/api/v4/futures/usdt/contract_stats
+false
+[
+  {
+    "time": 1603865400,
+    "lsr_taker": 100,
+    "lsr_account": 0.5,
+    "long_liq_size": 0,
+    "short_liq_size": 0,
+    "open_interest": 124724,
+    "short_liq_usd": 0,
+    "mark_price": "8865",
+    "top_lsr_size": 1.02,
+    "short_liq_amount": 0,
+    "long_liq_amount": 0,
+    "open_interest_usd": 1511,
+    "top_lsr_account": 1.5,
+    "long_liq_usd": 0
+  }
+]

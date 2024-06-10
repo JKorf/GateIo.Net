@@ -1,0 +1,11 @@
+GET
+/api/v4/margin/uni/currency_pairs
+false
+[
+  {
+    "currency_pair": "AE_USDT",
+    "base_min_borrow_amount": "100",
+    "quote_min_borrow_amount": "100",
+    "leverage": "3"
+  }
+]

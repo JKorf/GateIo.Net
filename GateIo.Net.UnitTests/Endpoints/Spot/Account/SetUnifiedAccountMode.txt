@@ -1,0 +1,3 @@
+PUT
+/api/v4/unified/unified_mode
+true

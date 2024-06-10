@@ -1,0 +1,14 @@
+GET
+/api/v4/spot/account_book
+true
+[
+  {
+    "id": "123456",
+    "time": 1547633726123,
+    "currency": "BTC",
+    "change": "1.03",
+    "balance": "4.59316525194",
+    "type": "margin_in",
+    "text": "3815099"
+  }
+]

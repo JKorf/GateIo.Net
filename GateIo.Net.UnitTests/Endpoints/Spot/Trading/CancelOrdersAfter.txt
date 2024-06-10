@@ -1,0 +1,6 @@
+POST
+/api/v4/spot/countdown_cancel_all
+true
+{
+  "triggerTime": "1660039145000"
+}

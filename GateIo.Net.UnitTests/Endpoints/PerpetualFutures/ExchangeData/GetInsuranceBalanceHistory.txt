@@ -1,0 +1,9 @@
+GET
+/api/v4/futures/usdt/insurance
+false
+[
+  {
+    "t": 1543968000,
+    "b": "83.0031"
+  }
+]

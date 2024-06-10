@@ -1,0 +1,22 @@
+> {"time":"1","id":-999,"channel":"spot.order_book_update","event":"subscribe","payload":["ETH_USDT", "1000ms"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.order_book_update","event":"subscribe","payload":["ETH_USDT", "1000ms"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1606294781,
+  "time_ms": 1606294781236,
+  "channel": "spot.order_book_update",
+  "event": "update",
+  "result": {
+    "t": 1606294781123,
+    "e": "depthUpdate",
+    "E": 1606294781,
+    "s": "ETH_USDT",
+    "U": 48776301,
+    "u": 48776306,
+    "b": [
+      ["19137.74", "0.0001"],
+      ["19088.37", "0"]
+    ],
+    "a": [["19137.75", "0.6135"]]
+  }
+}

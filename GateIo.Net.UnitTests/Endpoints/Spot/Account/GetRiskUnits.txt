@@ -1,0 +1,19 @@
+GET
+/api/v4/unified/risk_units
+true
+{
+  "user_id": 0,
+  "spot_hedge": true,
+  "risk_units": [
+    {
+      "symbol": "BTC",
+      "spot_in_use": "-13500.000001223",
+      "maintain_margin": "2334.002",
+      "initial_margin": "2334.002",
+      "delta": "0.22",
+      "gamma": "0.42",
+      "theta": "0.29",
+      "vega": "0.22"
+    }
+  ]
+}

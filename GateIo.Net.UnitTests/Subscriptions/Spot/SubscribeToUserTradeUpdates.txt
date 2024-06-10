@@ -1,0 +1,27 @@
+> {"time":"1","id":-999,"channel":"spot.usertrades","event":"subscribe","payload":["!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.usertrades","event":"subscribe","payload":["!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1605176741,
+  "time_ms": 1605176741763,
+  "channel": "spot.usertrades",
+  "event": "update",
+  "result": [
+    {
+      "id": 5736713,
+      "user_id": 1000001,
+      "order_id": "30784428",
+      "currency_pair": "BTC_USDT",
+      "create_time": 1605176741,
+      "create_time_ms": "1605176741123.456",
+      "side": "sell",
+      "amount": "1.00000000",
+      "role": "taker",
+      "price": "10000.00000000",
+      "fee": "0.00200000000000",
+      "point_fee": "0",
+      "gt_fee": "0",
+      "text": "apiv4"
+    }
+  ]
+}

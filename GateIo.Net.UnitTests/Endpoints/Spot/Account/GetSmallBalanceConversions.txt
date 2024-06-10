@@ -1,0 +1,12 @@
+GET
+/api/v4/wallet/small_balance_history
+true
+[
+  {
+    "id": "28583810",
+    "create_time": 1706670777,
+    "currency": "FLOKI",
+    "amount": "182.29400000",
+    "gt_amount": "0.001079"
+  }
+]

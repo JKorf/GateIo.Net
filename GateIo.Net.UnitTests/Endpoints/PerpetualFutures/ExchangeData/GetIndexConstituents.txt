@@ -1,0 +1,26 @@
+GET
+/api/v4/futures/usdt/index_constituents/ETH_USDT
+false
+{
+  "index": "BTC_USDT",
+  "constituents": [
+    {
+      "exchange": "Binance",
+      "symbols": [
+        "BTC_USDT"
+      ]
+    },
+    {
+      "exchange": "Gate.io",
+      "symbols": [
+        "BTC_USDT"
+      ]
+    },
+    {
+      "exchange": "Huobi",
+      "symbols": [
+        "BTC_USDT"
+      ]
+    }
+  ]
+}

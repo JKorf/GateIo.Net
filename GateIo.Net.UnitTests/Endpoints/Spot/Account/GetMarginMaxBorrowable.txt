@@ -1,0 +1,8 @@
+GET
+/api/v4/margin/uni/borrowable
+true
+{
+  "currency": "AE",
+  "borrowable": "1123.344",
+  "currency_pair": "AE_USDT"
+}

@@ -1,0 +1,14 @@
+GET
+/api/v4/spot/currencies
+false
+[
+  {
+    "currency": "GT",
+    "delisted": false,
+    "withdraw_disabled": false,
+    "withdraw_delayed": false,
+    "deposit_disabled": false,
+    "trade_disabled": false,
+    "chain": "GT"
+  }
+]

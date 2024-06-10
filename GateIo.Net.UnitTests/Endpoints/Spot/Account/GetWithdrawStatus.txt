@@ -1,0 +1,27 @@
+GET
+/api/v4/wallet/withdraw_status
+true
+[
+  {
+    "currency": "GT",
+    "name": "GateToken",
+    "name_cn": "GateToken",
+    "deposit": "0",
+    "withdraw_percent": "0%",
+    "withdraw_fix": "0.01",
+    "withdraw_day_limit": "20000",
+    "withdraw_day_limit_remain": "20000",
+    "withdraw_amount_mini": "0.11",
+    "withdraw_eachtime_limit": "20000",
+    "withdraw_fix_on_chains": {
+      "BTC": "20",
+      "ETH": "15",
+      "TRX": "0",
+      "EOS": "2.5"
+    },
+    "withdraw_percent_on_chains": {
+      "ETH": "0%",
+      "GTEVM": "0%"
+    }
+  }
+]

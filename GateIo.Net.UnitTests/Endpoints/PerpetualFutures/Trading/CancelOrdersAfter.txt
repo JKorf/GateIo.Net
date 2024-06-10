@@ -1,0 +1,6 @@
+POST
+/api/v4/futures/usdt/countdown_cancel_all
+true
+{
+  "triggerTime": "1660039145000"
+}

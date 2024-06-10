@@ -1,0 +1,17 @@
+GET
+/api/v4/wallet/small_balance
+true
+[
+  {
+    "currency": "FLOKI",
+    "available_balance": "182.29400000",
+    "estimated_as_btc": "0.00000012",
+    "convertible_to_gt": "0.001080"
+  },
+  {
+    "currency": "MBLK",
+    "available_balance": "0.91723337",
+    "estimated_as_btc": "0.00000102",
+    "convertible_to_gt": "0.009188"
+  }
+]

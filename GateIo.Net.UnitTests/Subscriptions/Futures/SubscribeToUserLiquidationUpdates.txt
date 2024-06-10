@@ -1,0 +1,27 @@
+> {"time":"1","id":-999,"channel":"futures.liquidates","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.liquidates","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "channel": "futures.liquidates",
+  "event": "update",
+  "time": 1541505434,
+  "time_ms": 1541505434123,
+  "result": [
+    {
+      "entry_price": 209,
+      "fill_price": 215.1,
+      "left": 0,
+      "leverage": 0.0,
+      "liq_price": 213,
+      "margin": 0.007816722941,
+      "mark_price": 213,
+      "order_id": 4093362,
+      "order_price": 215.1,
+      "size": -124,
+      "time": 1541486601,
+      "time_ms": 1541486601123,
+      "contract": "BTC_USD",
+      "user": "104"
+    }
+  ]
+}

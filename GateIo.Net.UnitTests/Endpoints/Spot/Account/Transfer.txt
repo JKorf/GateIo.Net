@@ -1,0 +1,6 @@
+POST
+/api/v4/wallet/transfers
+true
+{
+  "tx_id": 59636381286
+}

@@ -1,0 +1,14 @@
+GET
+/api/v4/spot/trades
+false
+[
+  {
+    "id": "1232893232",
+    "create_time": "1548000000",
+    "create_time_ms": "1548000000123.456",
+    "side": "buy",
+    "amount": "0.15",
+    "price": "0.03",
+    "sequence_id": "588018"
+  }
+]

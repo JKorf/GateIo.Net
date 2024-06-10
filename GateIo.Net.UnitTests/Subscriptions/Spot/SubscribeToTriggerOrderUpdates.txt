@@ -1,0 +1,35 @@
+> {"time":"1","id":-999,"channel":"spot.priceorders","event":"subscribe","payload":["!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.priceorders","event":"subscribe","payload":["!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1691847986,
+  "time_ms": 1691847986454,
+  "channel": "spot.priceorders",
+  "event": "update",
+  "result": {
+    "market": "METAN_USDT",
+    "uid": "13679450",
+    "id": "247480109",
+    "currency_type": "METAN",
+    "exchange_type": "USDT",
+    "reason": "",
+    "err_msg": "",
+    "fired_order_id": 0,
+    "instant_cancel": false,
+    "trigger_price": "0.00302",
+    "trigger_rule": "<=",
+    "trigger_expiration": 900,
+    "price": "0.00300",
+    "amount": "26666.667",
+    "source": "",
+    "order_type": "limit",
+    "side": "buy",
+    "engine_type": "normal",
+    "is_stop_order": false,
+    "stop_trigger_price": "",
+    "stop_trigger_rule": "",
+    "stop_price": "",
+    "ctime": "1691517983131",
+    "ftime": "-62135596800000"
+  }
+}

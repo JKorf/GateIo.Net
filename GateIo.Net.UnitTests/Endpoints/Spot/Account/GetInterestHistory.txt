@@ -1,0 +1,14 @@
+GET
+/api/v4/unified/interest_records
+true
+[
+  {
+    "status": 1,
+    "currency_pair": "BTC_USDT",
+    "currency": "USDT",
+    "actual_rate": "0.00000236",
+    "interest": "0.00006136",
+    "type": "platform",
+    "create_time": 1673247054000
+  }
+]

@@ -1,0 +1,12 @@
+GET
+/api/v4/futures/usdt/trades
+false
+[
+  {
+    "id": 121234231,
+    "create_time": 1514764800,
+    "contract": "BTC_USDT",
+    "size": -100,
+    "price": "100.123"
+  }
+]

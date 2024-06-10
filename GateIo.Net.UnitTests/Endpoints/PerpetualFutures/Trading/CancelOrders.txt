@@ -1,0 +1,11 @@
+POST
+/api/v4/futures/usdt/batch_cancel_orders
+true
+[
+  {
+    "user_id": 111,
+    "id": "123456",
+    "succeeded": true,
+    "message": ""
+  }
+]

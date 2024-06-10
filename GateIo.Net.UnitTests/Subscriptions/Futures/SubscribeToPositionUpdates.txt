@@ -1,0 +1,33 @@
+> {"time":"1","id":-999,"channel":"futures.positions","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.positions","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1588212926,
+  "time_ms": 1588212926123,
+  "channel": "futures.positions",
+  "event": "update",
+  "result": [
+    {
+      "contract": "BTC_USD",
+      "cross_leverage_limit": 0,
+      "entry_price": 40000.36666661111,
+      "history_pnl": -0.000108569505,
+      "history_point": 0,
+      "last_close_pnl": -0.000050123368,
+      "leverage": 0,
+      "leverage_max": 100,
+      "liq_price": 0.1,
+      "maintenance_rate": 0.005,
+      "margin": 49.999890611186,
+      "mode": "single",
+      "realised_pnl": -1.25e-8,
+      "realised_point": 0,
+      "risk_limit": 100,
+      "size": 3,
+      "time": 1628736848,
+      "time_ms": 1628736848321,
+      "user": "110",
+      "update_id": 170919
+    }
+  ]
+}

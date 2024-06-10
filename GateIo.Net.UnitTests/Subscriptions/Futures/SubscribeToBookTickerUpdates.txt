@@ -1,0 +1,18 @@
+> {"time":"1","id":-999,"channel":"futures.book_ticker","event":"subscribe","payload":["ETH_USDT"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.book_ticker","event":"subscribe","payload":["ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1615366379,
+  "time_ms": 1615366379123,
+  "channel": "futures.book_ticker",
+  "event": "update",
+  "result": {
+    "t": 1615366379123,
+    "u": 2517661076,
+    "s": "ETH_USDT",
+    "b": "54696.6",
+    "B": 37000,
+    "a": "54696.7",
+    "A": 47061
+  }
+}

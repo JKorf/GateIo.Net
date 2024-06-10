@@ -1,0 +1,14 @@
+GET
+/api/v4/margin/cross/repayments
+true
+[
+  {
+    "id": "51",
+    "create_time": 1620696347990,
+    "loan_id": "30",
+    "currency": "BTC",
+    "principal": "5.385542",
+    "interest": "0.000044879516",
+    "repayment_type": "auto_repay"
+  }
+]

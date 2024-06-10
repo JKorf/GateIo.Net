@@ -1,0 +1,20 @@
+GET
+/api/v4/spot/currency_pairs
+false
+[
+  {
+    "id": "ETH_USDT",
+    "base": "ETH",
+    "quote": "USDT",
+    "fee": "0.2",
+    "min_base_amount": "0.001",
+    "min_quote_amount": "1.0",
+    "max_base_amount": "10000",
+    "max_quote_amount": "10000000",
+    "amount_precision": 3,
+    "precision": 6,
+    "trade_status": "tradable",
+    "sell_start": 1516378650,
+    "buy_start": 1516378650
+  }
+]

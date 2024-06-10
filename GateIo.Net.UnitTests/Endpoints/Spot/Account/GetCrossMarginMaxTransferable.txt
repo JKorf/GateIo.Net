@@ -1,0 +1,7 @@
+GET
+/api/v4/margin/cross/transferable
+true
+{
+  "currency": "ETH",
+  "amount": "10000"
+}

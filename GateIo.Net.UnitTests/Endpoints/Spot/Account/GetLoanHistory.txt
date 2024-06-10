@@ -1,0 +1,15 @@
+GET
+/api/v4/unified/loan_records
+true
+[
+  {
+    "id": 16442,
+    "type": "borrow",
+    "margin_mode": "cross",
+    "currency_pair": "AE_USDT",
+    "currency": "USDT",
+    "amount": "1000",
+    "create_time": 1673247054000,
+    "repayment_type": "auto_repay"
+  }
+]

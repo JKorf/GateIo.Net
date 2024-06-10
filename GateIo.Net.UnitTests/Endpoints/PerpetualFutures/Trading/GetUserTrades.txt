@@ -1,0 +1,17 @@
+GET
+/api/v4/futures/usdt/my_trades
+true
+[
+  {
+    "id": 121234231,
+    "create_time": 1514764800.123,
+    "contract": "BTC_USDT",
+    "order_id": "21893289839",
+    "size": 100,
+    "price": "100.123",
+    "text": "t-123456",
+    "fee": "0.01",
+    "point_fee": "0",
+    "role": "taker"
+  }
+]

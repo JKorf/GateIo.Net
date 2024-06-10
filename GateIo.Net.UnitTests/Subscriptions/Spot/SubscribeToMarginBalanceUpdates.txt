@@ -1,0 +1,23 @@
+> {"time":"1","id":-999,"channel":"spot.margin_balances","event":"subscribe","payload":["!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.margin_balances","event":"subscribe","payload":["!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1605248616,
+  "time_ms": 1605248616763,
+  "channel": "spot.margin_balances",
+  "event": "update",
+  "result": [
+    {
+      "timestamp": "1605248812",
+      "timestamp_ms": "1605248812123",
+      "user": "1000001",
+      "currency_pair": "BTC_USDT",
+      "currency": "BTC",
+      "change": "-0.002",
+      "available": "999.999836",
+      "freeze": "1",
+      "borrowed": "0",
+      "interest": "0"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+GET
+/api/v4/spot/my_trades
+true
+[
+  {
+    "id": "1232893232",
+    "create_time": "1548000000",
+    "create_time_ms": "1548000000123.456",
+    "order_id": "4128442423",
+    "side": "buy",
+    "role": "maker",
+    "amount": "0.15",
+    "price": "0.03",
+    "fee": "0.0005",
+    "fee_currency": "ETH",
+    "point_fee": "0",
+    "gt_fee": "0",
+    "sequence_id": "588018",
+    "text": "t-test"
+  }
+]

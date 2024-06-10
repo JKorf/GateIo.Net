@@ -1,0 +1,13 @@
+POST
+/api/v4/spot/cancel_batch_orders
+true
+[
+  {
+    "currency_pair": "BTC_USDT",
+    "id": "123456",
+    "text": "123456",
+    "succeeded": true,
+    "label": null,
+    "message": null
+  }
+]

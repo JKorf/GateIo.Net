@@ -1,0 +1,19 @@
+GET
+/api/v4/futures/usdt/position_close
+true
+[
+  {
+    "time": 1546487347,
+    "pnl": "0.00013",
+    "pnl_pnl": "0.00011",
+    "pnl_fund": "0.00001",
+    "pnl_fee": "0.00001",
+    "side": "long",
+    "contract": "BTC_USDT",
+    "text": "web",
+    "max_size": "100",
+    "first_open_time": 1546487347,
+    "long_price": "2026.87",
+    "short_price": "2544.4"
+  }
+]

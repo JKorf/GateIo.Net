@@ -1,0 +1,20 @@
+> {"time":"1","id":-999,"channel":"futures.position_closes","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.position_closes","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "channel": "futures.position_closes",
+  "event": "update",
+  "time": 1541505434,
+  "time_ms": 1541505434123,
+  "result": [
+    {
+      "contract": "BTC_USD",
+      "pnl": -0.000624354791,
+      "side": "long",
+      "text": "web",
+      "time": 1547198562,
+      "time_ms": 1547198562123,
+      "user": "21"
+    }
+  ]
+}

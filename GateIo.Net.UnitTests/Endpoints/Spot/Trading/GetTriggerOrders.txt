@@ -1,0 +1,29 @@
+GET
+/api/v4/spot/price_orders
+true
+[
+  {
+    "trigger": {
+      "price": "100",
+      "rule": ">=",
+      "expiration": 3600
+    },
+    "put": {
+      "type": "limit",
+      "side": "buy",
+      "price": "2.15",
+      "amount": "2.00000000",
+      "account": "normal",
+      "time_in_force": "gtc",
+      "text": "api"
+    },
+    "id": 1283293,
+    "user": 1234,
+    "market": "GT_USDT",
+    "ctime": 1616397800,
+    "ftime": 1616397801,
+    "fired_order_id": 0,
+    "status": "",
+    "reason": ""
+  }
+]

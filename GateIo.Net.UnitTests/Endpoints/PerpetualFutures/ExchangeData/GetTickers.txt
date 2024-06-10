@@ -1,0 +1,25 @@
+GET
+/api/v4/futures/usdt/tickers
+false
+[
+  {
+    "contract": "BTC_USDT",
+    "last": "6432",
+    "low_24h": "6278",
+    "high_24h": "6790",
+    "change_percentage": "4.43",
+    "total_size": "32323904",
+    "volume_24h": "184040233284",
+    "volume_24h_btc": "28613220",
+    "volume_24h_usd": "184040233284",
+    "volume_24h_base": "28613220",
+    "volume_24h_quote": "184040233284",
+    "volume_24h_settle": "28613220",
+    "mark_price": "6534",
+    "funding_rate": "0.0001",
+    "funding_rate_indicative": "0.0001",
+    "index_price": "6531",
+    "highest_bid": "34089.7",
+    "lowest_ask": "34217.9"
+  }
+]

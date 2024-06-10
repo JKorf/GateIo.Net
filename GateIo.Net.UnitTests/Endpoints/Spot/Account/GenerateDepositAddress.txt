@@ -1,0 +1,16 @@
+GET
+/api/v4/wallet/deposit_address
+true
+{
+  "currency": "USDT",
+  "address": "LPXtk1kWHioP62SzfqwKbYE3Z7Wt2ujYEc",
+  "multichain_addresses": [
+    {
+      "chain": "TRX",
+      "address": "LPXtk1kWHioP62SzfqwKbYE3Z7Wt2ujYEc",
+      "payment_id": "",
+      "payment_name": "",
+      "obtain_failed": 0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+GET
+/api/v4/wallet/currency_chains
+false
+[
+  {
+    "chain": "ETH",
+    "name_cn": "ERC20",
+    "name_en": "ETH/ERC20",
+    "is_disabled": 0,
+    "is_deposit_disabled": 0,
+    "is_withdraw_disabled": 0
+  }
+]

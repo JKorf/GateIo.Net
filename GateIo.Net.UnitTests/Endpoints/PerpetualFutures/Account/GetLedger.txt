@@ -1,0 +1,14 @@
+GET
+/api/v4/futures/usdt/account_book
+true
+[
+  {
+    "time": 1682294400.123456,
+    "change": "0.000010152188",
+    "balance": "4.59316525194",
+    "text": "ETH_USD:6086261",
+    "type": "fee",
+    "contract": "ETH_USD",
+    "trade_id": "1"
+  }
+]

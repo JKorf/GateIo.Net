@@ -1,0 +1,13 @@
+GET
+/api/v4/futures/usdt/liq_orders
+false
+[
+  {
+    "time": 1548654951,
+    "contract": "BTC_USDT",
+    "size": 600,
+    "order_price": "3405",
+    "fill_price": "3424",
+    "left": 0
+  }
+]

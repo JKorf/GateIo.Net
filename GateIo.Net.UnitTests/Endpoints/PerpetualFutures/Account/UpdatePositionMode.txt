@@ -1,0 +1,28 @@
+POST
+/api/v4/futures/usdt/dual_mode
+true
+{
+  "user": 1666,
+  "currency": "USDT",
+  "total": "9707.803567115145",
+  "unrealised_pnl": "3371.248828",
+  "position_margin": "38.712189181",
+  "order_margin": "0",
+  "available": "9669.091377934145",
+  "point": "0",
+  "bonus": "0",
+  "in_dual_mode": false,
+  "enable_evolved_classic": false,
+  "history": {
+    "dnw": "10000",
+    "pnl": "68.3685",
+    "fee": "-1.645812875",
+    "refr": "0",
+    "fund": "-358.919120009855",
+    "point_dnw": "0",
+    "point_fee": "0",
+    "point_refr": "0",
+    "bonus_dnw": "0",
+    "bonus_offset": "0"
+  }
+}

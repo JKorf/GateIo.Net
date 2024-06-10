@@ -1,0 +1,21 @@
+> {"time":"1","id":-999,"channel":"futures.balances","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.balances","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "channel": "futures.balances",
+  "event": "update",
+  "time": 1541505434,
+  "time_ms": 1541505434123,
+  "result": [
+    {
+      "balance": 9.998739899488,
+      "change": -0.000002074115,
+      "text": "BTC_USD:3914424",
+      "time": 1547199246,
+      "time_ms": 1547199246123,
+      "type": "fee",
+      "user": "211",
+      "currency": "btc"
+    }
+  ]
+}

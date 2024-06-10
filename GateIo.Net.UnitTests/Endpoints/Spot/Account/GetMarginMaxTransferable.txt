@@ -1,0 +1,8 @@
+GET
+/api/v4/margin/transferable
+true
+{
+  "currency": "ETH",
+  "currency_pair": "ETH_USDT",
+  "amount": "10000"
+}

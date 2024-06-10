@@ -1,0 +1,20 @@
+> {"time":"1","id":-999,"channel":"futures.trades","event":"subscribe","payload":["ETH_USDT"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.trades","event":"subscribe","payload":["ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "channel": "futures.trades",
+  "event": "update",
+  "time": 1541503698,
+  "time_ms": 1541503698123,
+  "result": [
+    {
+      "size": -108,
+      "id": 27753479,
+      "create_time": 1545136464,
+      "create_time_ms": 1545136464123,
+      "price": "96.4",
+      "contract": "ETH_USDT",
+      "is_internal": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+GET
+/api/v4/margin/cross/currencies/ETH
+false
+{
+  "name": "BTC",
+  "rate": "0.0002",
+  "prec": "0.000001",
+  "discount": "1",
+  "min_borrow_amount": "0.01",
+  "user_max_borrow_amount": "1000000",
+  "total_max_borrow_amount": "10000000",
+  "price": "63015.5214",
+  "loanable": true,
+  "status": 1
+}

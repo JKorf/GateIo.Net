@@ -1,0 +1,9 @@
+GET
+/api/v4/futures/usdt/funding_rate
+false
+[
+  {
+    "t": 1543968000,
+    "r": "0.000157"
+  }
+]

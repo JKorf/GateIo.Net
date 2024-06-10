@@ -1,0 +1,13 @@
+GET
+/api/v4/margin/cross/account_book
+true
+[
+  {
+    "id": "123456",
+    "time": 1547633726123,
+    "currency": "BTC",
+    "change": "1.03",
+    "balance": "4.59316525194",
+    "type": "in"
+  }
+]

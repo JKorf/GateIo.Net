@@ -1,0 +1,4 @@
+> {"time":"1","id":-999,"channel":"spot.tickers","event":"subscribe","payload":["ETH_USDT"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.tickers","event":"subscribe","payload":["ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{"time":1717595233,"time_ms":1717595233666,"conn_id":"","channel":"spot.tickers","event":"update","result":{"currency_pair":"ETH_USDT","last":"70775.2","lowest_ask":"70773.1","highest_bid":"70773","change_percentage":"1.618","base_volume":"4643.108806389","quote_volume":"328461488.44111","high_24h":"71366","low_24h":"69336.2"}}

@@ -1,0 +1,26 @@
+GET
+/api/v4/futures/usdt/risk_limit_tiers
+false
+[
+  {
+    "maintenance_rate": "0.01",
+    "tier": 1,
+    "initial_rate": "0.02",
+    "leverage_max": "50",
+    "risk_limit": "500000"
+  },
+  {
+    "initial_rate": "0.03",
+    "maintenance_rate": "0.02",
+    "tier": 2,
+    "risk_limit": "1000000",
+    "leverage_max": "33.33"
+  },
+  {
+    "maintenance_rate": "0.01",
+    "tier": 1,
+    "initial_rate": "0.02",
+    "leverage_max": "50",
+    "risk_limit": "500000"
+  }
+]

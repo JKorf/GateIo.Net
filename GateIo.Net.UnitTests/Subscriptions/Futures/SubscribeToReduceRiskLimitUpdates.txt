@@ -1,0 +1,22 @@
+> {"time":"1","id":-999,"channel":"futures.reduce_risk_limits","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.reduce_risk_limits","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1551858330,
+  "time_ms": 1551858330123,
+  "channel": "futures.reduce_risk_limits",
+  "event": "update",
+  "result": [
+    {
+      "cancel_orders": 0,
+      "contract": "ETH_USD",
+      "leverage_max": 10,
+      "liq_price": 136.53,
+      "maintenance_rate": 0.09,
+      "risk_limit": 450,
+      "time": 1551858330,
+      "time_ms": 1551858330123,
+      "user": "20011"
+    }
+  ]
+}

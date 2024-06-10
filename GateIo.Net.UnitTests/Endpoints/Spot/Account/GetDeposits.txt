@@ -1,0 +1,17 @@
+GET
+/api/v4/wallet/deposits
+true
+[
+  {
+    "id": "210496",
+    "timestamp": "1542000000",
+    "withdraw_order_id": "order_123456",
+    "currency": "USDT",
+    "address": "1HkxtBAMrA3tP5ENnYY2CZortjZvFDH5Cs",
+    "txid": "128988928203223323290",
+    "amount": "222.61",
+    "memo": "",
+    "status": "DONE",
+    "chain": "TRX"
+  }
+]

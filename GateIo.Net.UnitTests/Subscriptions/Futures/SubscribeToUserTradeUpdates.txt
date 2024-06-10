@@ -1,0 +1,24 @@
+> {"time":"1","id":-999,"channel":"futures.usertrades","event":"subscribe","payload":[123, "!all"],"auth":{"method": "api_key", "KEY": "123"}}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.usertrades","event":"subscribe","payload":[123, "!all"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{
+  "time": 1543205083,
+  "time_ms": 1543205083123,
+  "channel": "futures.usertrades",
+  "event": "update",
+  "result": [
+    {
+      "id": "3335259",
+      "create_time": 1628736848,
+      "create_time_ms": 1628736848321,
+      "contract": "BTC_USD",
+      "order_id": "4872460",
+      "size": 1,
+      "price": "40000.4",
+      "role": "maker",
+      "text": "api",
+      "fee": 0.0009290592,
+      "point_fee": 0
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+GET
+/api/v4/futures/usdt/auto_deleverages
+true
+[
+  {
+    "time": 1675841679,
+    "contract": "ACH_USDT",
+    "order_id": 73873128,
+    "user": 1666,
+    "cross_leverage_limit": "0",
+    "leverage": "0",
+    "entry_price": "2649.648633636364",
+    "fill_price": "2790.8082",
+    "position_size": 1,
+    "trade_size": -10
+  }
+]

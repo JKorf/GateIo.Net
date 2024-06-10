@@ -1,0 +1,16 @@
+GET
+/api/v4/account/detail
+true
+{
+  "user_id": 1667201533,
+  "ip_whitelist": [
+    "127.0.0.1"
+  ],
+  "currency_pairs": [
+    "USDT_BTC"
+  ],
+  "key": {
+    "mode": 1
+  },
+  "tier": 2
+}
