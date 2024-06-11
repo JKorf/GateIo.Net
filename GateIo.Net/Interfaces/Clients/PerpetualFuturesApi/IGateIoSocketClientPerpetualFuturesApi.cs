@@ -171,5 +171,103 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpTriggerOrderUpdate>>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new order
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-place" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contract">Contract</param>
+        /// <param name="orderSide">Order side</param>
+        /// <param name="quantity">Order quantity in number of contracts. Use the `Multiplier` property of the ExchangeData.GetContractsAsync endpoint to see how much currency 1 size contract represents</param>
+        /// <param name="price">Limit price</param>
+        /// <param name="closePosition">Close position flag, set as true to close the position, with quantity set to 0</param>
+        /// <param name="reduceOnly">Set as true to be reduce-only order</param>
+        /// <param name="timeInForce">Time in force</param>
+        /// <param name="icebergQuantity">Iceberg quantity</param>
+        /// <param name="closeSide">Set side to close dual-mode position</param>
+        /// <param name="stpMode">Self-Trading Prevention action</param>
+        /// <param name="text">User defined text</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoPerpOrder>> PlaceOrderAsync(
+            string settlementAsset,
+            string contract,
+            OrderSide orderSide,
+            int quantity,
+            decimal? price = null,
+            bool? closePosition = null,
+            bool? reduceOnly = null,
+            TimeInForce? timeInForce = null,
+            int? icebergQuantity = null,
+            CloseSide? closeSide = null,
+            SelfTradePreventionMode? stpMode = null,
+            string? text = null);
+
+        /// <summary>
+        /// Place multiple orders
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="orders">Orders</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoPerpOrder>>> PlaceMultipleOrderAsync(
+            string settlementAsset,
+            IEnumerable<GateIoPerpBatchPlaceRequest> orders);
+
+        /// <summary>
+        /// Cancel an order by id
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-cancel" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="orderId">Order id</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoPerpOrder>> CancelOrderAsync(string settlementAsset, long orderId);
+
+        /// <summary>
+        /// Get order info by id
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-status" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="orderId">Order id</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoPerpOrder>> GetOrderAsync(string settlementAsset, long orderId);
+
+        /// <summary>
+        /// Get orders
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-list" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="open">True for open orders, false for closed orders</param>
+        /// <param name="contract">Filter by contract</param>
+        /// <param name="limit">Max number of results</param>
+        /// <param name="offset">Offset</param>
+        /// <param name="lastId">Last id to retrieve from</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(string settlementAsset, bool open, string? contract = null, int? limit = null, int? offset = null, string? lastId = null);
+
+        /// <summary>
+        /// Cancel orders
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#cancel-all-open-orders-matched" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contract">Contract</param>
+        /// <param name="side">Order side</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(string settlementAsset, string contract, OrderSide? side = null);
+
+        /// <summary>
+        /// Edit an order
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-amend" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="price">New price</param>
+        /// <param name="quantity">New quantity</param>
+        /// <param name="amendText">Amend text</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoOrder>> EditOrderAsync(string settlementAsset,
+            long orderId,
+            decimal? price = null,
+            int? quantity = null,
+            string? amendText = null);
     }
 }

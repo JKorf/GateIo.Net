@@ -2,11 +2,11 @@
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoSocketError
+    internal class GateIoSocketRequestError
     {
-        [JsonPropertyName("code")]
-        public int Code { get; set; }
         [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;
+        [JsonPropertyName("label")]
+        public string Label { get; set; } = string.Empty;
     }
 }

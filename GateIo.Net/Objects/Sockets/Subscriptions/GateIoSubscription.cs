@@ -1,7 +1,9 @@
-﻿using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using GateIo.Net.Objects.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -43,11 +45,11 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
         /// <inheritdoc />
         public override Query? GetSubQuery(SocketConnection connection)
-            => new GateIoQuery<GateIoSubscriptionResponse>(_channel, "subscribe", _payload);
+            => new GateIoQuery<IEnumerable<string>, GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "subscribe", _payload);
 
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
-            => new GateIoQuery<GateIoSubscriptionResponse>(_channel, "unsubscribe", _payload);
+            => new GateIoQuery<IEnumerable<string>, GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
 
 
         /// <inheritdoc />

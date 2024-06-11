@@ -1,7 +1,9 @@
-﻿using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using GateIo.Net.Objects.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -45,7 +47,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         {
             var provider = (GateIoAuthenticationProvider)connection.ApiClient.AuthenticationProvider!;
             var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_channel, "subscribe", _payload);
-            var request = (GateIoSocketAuthRequest)query.Request;
+            var request = (GateIoSocketAuthRequest<IEnumerable<string>>)query.Request;
             var sign = provider.SignSocketRequest($"channel={_channel}&event=subscribe&time={request.Timestamp}");
             request.Auth = new GateIoSocketAuth { Key = provider.GetApiKey(), Sign = sign, Method = "api_key" };
             return query;
@@ -54,7 +56,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         { 
-            return new GateIoQuery<GateIoSubscriptionResponse>(_channel, "unsubscribe", _payload);
+            return new GateIoQuery<IEnumerable<string>, GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
         }
 
         /// <inheritdoc />

@@ -1,6 +1,9 @@
 ﻿using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Collections.Generic;
+using GateIo.Net.Objects.Internal;
+using System;
 
 namespace GateIo.Net.Objects.Models
 {
@@ -15,7 +18,7 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// Quantity, negaative for sell, positive for buy
         /// </summary>
         [JsonPropertyName("size")]
         public int Quantity { get; set; }

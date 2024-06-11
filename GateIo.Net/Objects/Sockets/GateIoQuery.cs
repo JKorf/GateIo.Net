@@ -5,22 +5,24 @@ using System.Collections.Generic;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Converters.JsonNet;
 using System;
+using System.Collections;
+using GateIo.Net.Objects.Internal;
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoQuery<T> : Query<GateIoSocketResponse<T>>
+    internal class GateIoQuery<TRequest, TResponse> : Query<GateIoSocketResponse<TResponse>>
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public GateIoQuery(string channel, string evnt, IEnumerable<string>? payload) : base(new GateIoSocketRequest { Channel = channel, Event = evnt, Id = ExchangeHelpers.NextId(), Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
+        public GateIoQuery(long id, string channel, string evnt, TRequest? payload, bool authenticated = false) : base(new GateIoSocketRequest<TRequest> { Channel = channel, Event = evnt, Id = id, Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, authenticated, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { ((GateIoSocketRequest)Request).Id.ToString() };
+            ListenerIdentifiers = new HashSet<string> { id.ToString() };
         }
 
-        public override CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<T>> message)
+        public override CallResult<GateIoSocketResponse<TResponse>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<TResponse>> message)
         {
             if (message.Data.Error != null)
-                return message.ToCallResult<GateIoSocketResponse<T>>(new ServerError(message.Data.Error.Code, message.Data.Error.Message));
+                return message.ToCallResult<GateIoSocketResponse<TResponse>>(new ServerError(message.Data.Error.Code, message.Data.Error.Message));
 
             return message.ToCallResult(message.Data);
         }

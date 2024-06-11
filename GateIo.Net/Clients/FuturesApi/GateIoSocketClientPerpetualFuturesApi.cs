@@ -18,6 +18,8 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Collections.Generic;
 using System.Linq;
 using GateIo.Net.Enums;
+using GateIo.Net.Objects.Internal;
+using GateIo.Net.Objects.Sockets;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -32,6 +34,9 @@ namespace GateIo.Net.Clients.FuturesApi
         private static readonly MessagePath _contractPath = MessagePath.Get().Property("result").Index(0).Property("contract");
         private static readonly MessagePath _contractPath2 = MessagePath.Get().Property("result").Property("s");
         private static readonly MessagePath _klinePath = MessagePath.Get().Property("result").Index(0).Property("n");
+        private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
+        private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
+        private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
         #endregion
 
         #region constructor/destructor
@@ -157,11 +162,149 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<GateIoPerpOrder>> PlaceOrderAsync(
+            string settlementAsset,
+            string contract,
+            OrderSide orderSide,
+            int quantity,
+            decimal? price = null,
+            bool? closePosition = null,
+            bool? reduceOnly = null,
+            TimeInForce? timeInForce = null,
+            int? icebergQuantity = null,
+            CloseSide? closeSide = null,
+            SelfTradePreventionMode? stpMode = null,
+            string? text = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoFuturesPlaceOrderRequest, GateIoPerpOrder>(id, "futures.order_place", "api", new GateIoFuturesPlaceOrderRequest
+            {
+                Close = closePosition,
+                CloseSide = closeSide,
+                Contract = contract,
+                Iceberg = icebergQuantity,
+                Price = price,
+                Quantity = orderSide == OrderSide.Buy ? quantity : -quantity,
+                ReduceOnly = reduceOnly,
+                StpMode = stpMode,
+                Text = text,
+                TimeInForce = timeInForce
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> PlaceMultipleOrderAsync(
+            string settlementAsset,
+            IEnumerable<GateIoPerpBatchPlaceRequest> orders)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<IEnumerable<GateIoFuturesPlaceOrderRequest>, IEnumerable<GateIoPerpOrder>>(id, "futures.order_batch_place", "api", orders.Select(o => new GateIoFuturesPlaceOrderRequest
+            {
+                Close = o.ClosePosition,
+                CloseSide = o.CloseSide,
+                Contract = o.Contract,
+                Iceberg = o.IcebergQuantity,
+                Price = o.Price,
+                Quantity = o.Quantity,
+                ReduceOnly = o.ReduceOnly,
+                StpMode = o.StpMode,
+                Text = o.Text,
+                TimeInForce = o.TimeInForce
+            }), true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GateIoPerpOrder>> GetOrderAsync(string settlementAsset, long orderId)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoFuturesGetOrderRequest, GateIoPerpOrder>(id, "futures.order_status", "api", new GateIoFuturesGetOrderRequest
+            {
+                OrderId = orderId.ToString()
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(string settlementAsset, bool open, string? contract = null, int? limit = null, int? offset = null, string? lastId = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoFuturesListOrdersRequest, IEnumerable<GateIoPerpOrder>>(id, "futures.order_list", "api", new GateIoFuturesListOrdersRequest
+            {
+                Contract = contract,
+                LastId = lastId,
+                Limit = limit,
+                Offset = offset,
+                Status = open ? "open" : "close"
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GateIoPerpOrder>> CancelOrderAsync(string settlementAsset, long orderId)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoFuturesGetOrderRequest, GateIoPerpOrder>(id, "futures.order_cancel", "api", new GateIoFuturesGetOrderRequest
+            {
+                OrderId = orderId.ToString()
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(string settlementAsset, string contract, OrderSide? side = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoFuturesCancelAllOrderRequest, IEnumerable<GateIoPerpOrder>>(id, "futures.order_cancel_cp", "api", new GateIoFuturesCancelAllOrderRequest
+            {
+                Contract = contract,
+                Side = side == null ? null : side == OrderSide.Buy ? "bid" : "ask"
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GateIoOrder>> EditOrderAsync(string settlementAsset,
+            long orderId,
+            decimal? price = null,
+            int? quantity = null,
+            string? amendText = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoFuturesAmendOrderRequest, GateIoOrder>(id, "futures.order_amend", "api", new GateIoFuturesAmendOrderRequest
+            {
+                Quantity = quantity,
+                Price = price,
+                AmendText = amendText,
+                OrderId = orderId.ToString()
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             var id = message.GetValue<long?>(_idPath);
             if (id != null)
                 return id.ToString();
+
+            var id2 = message.GetValue<string?>(_idPath2);
+            if (id2 != null)
+            {
+                if (message.GetValue<bool?>(_ackPath) == true
+                    && message.GetValue<string>(_statusPath) == "200")
+                    return null;
+
+                return id2;
+            }
 
             var channel = message.GetValue<string>(_channelPath);
 
@@ -183,7 +326,14 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest() => null;
+        protected override Query? GetAuthenticationRequest()
+        {
+            var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
+            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow).Value;
+            var signStr = $"api\nfutures.login\n\n{timestamp}";
+            var id = ExchangeHelpers.NextId();
+            return new GateIoLoginQuery(id, "futures.login", "api", provider.GetApiKey(), provider.SignSocketRequest(signStr), timestamp);
+        }
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();

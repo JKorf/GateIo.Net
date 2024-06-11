@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace GateIo.Net.Objects.Sockets
+namespace GateIo.Net.Objects.Internal
 {
     internal class GateIoSocketMessage<T>
     {
@@ -20,7 +20,7 @@ namespace GateIo.Net.Objects.Sockets
         public T Result { get; set; } = default!;
     }
 
-    internal class GateIoSocketResponse<T>: GateIoSocketMessage<T>
+    internal class GateIoSocketResponse<T> : GateIoSocketMessage<T>
     {
 
         [JsonPropertyName("id")]

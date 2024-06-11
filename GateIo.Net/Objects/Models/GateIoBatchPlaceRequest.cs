@@ -18,7 +18,7 @@ namespace GateIo.Net.Objects.Models
         /// Text
         /// </summary>
         [JsonPropertyName("text")]
-        public string Text { get; set; } = string.Empty;
+        public string? Text { get; set; }
         /// <summary>
         /// Order type
         /// </summary>

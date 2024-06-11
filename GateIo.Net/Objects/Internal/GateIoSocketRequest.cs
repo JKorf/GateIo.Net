@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace GateIo.Net.Objects.Sockets
+namespace GateIo.Net.Objects.Internal
 {
-    internal class GateIoSocketRequest
+    internal class GateIoSocketRequest<T>
     {
         [JsonPropertyName("time")]
         public long Timestamp { get; set; }
@@ -14,10 +14,10 @@ namespace GateIo.Net.Objects.Sockets
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
         [JsonPropertyName("payload"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<object>? Payload { get; set; }
+        public T? Payload { get; set; }
     }
 
-    internal class GateIoSocketAuthRequest : GateIoSocketRequest
+    internal class GateIoSocketAuthRequest<T> : GateIoSocketRequest<T>
     {
         [JsonPropertyName("auth"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public GateIoSocketAuth? Auth { get; set; }

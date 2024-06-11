@@ -257,6 +257,27 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToTriggerOrderUpdatesAsync(System.Int64,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpTriggerOrderUpdate}}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetOrderAsync(System.String,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetOrdersAsync(System.String,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CancelOrderAsync(System.String,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CancelOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
@@ -716,6 +737,27 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoTriggerOrderUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -2443,6 +2485,86 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+            <summary>
+            Place a new order
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-place" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="contract">Contract</param>
+            <param name="orderSide">Order side</param>
+            <param name="quantity">Order quantity in number of contracts. Use the `Multiplier` property of the ExchangeData.GetContractsAsync endpoint to see how much currency 1 size contract represents</param>
+            <param name="price">Limit price</param>
+            <param name="closePosition">Close position flag, set as true to close the position, with quantity set to 0</param>
+            <param name="reduceOnly">Set as true to be reduce-only order</param>
+            <param name="timeInForce">Time in force</param>
+            <param name="icebergQuantity">Iceberg quantity</param>
+            <param name="closeSide">Set side to close dual-mode position</param>
+            <param name="stpMode">Self-Trading Prevention action</param>
+            <param name="text">User defined text</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest})">
+            <summary>
+            Place multiple orders
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="orders">Orders</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.CancelOrderAsync(System.String,System.Int64)">
+            <summary>
+            Cancel an order by id
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-cancel" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="orderId">Order id</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.GetOrderAsync(System.String,System.Int64)">
+            <summary>
+            Get order info by id
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-status" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="orderId">Order id</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.GetOrdersAsync(System.String,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Get orders
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-list" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="open">True for open orders, false for closed orders</param>
+            <param name="contract">Filter by contract</param>
+            <param name="limit">Max number of results</param>
+            <param name="offset">Offset</param>
+            <param name="lastId">Last id to retrieve from</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.CancelOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide})">
+            <summary>
+            Cancel orders
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#cancel-all-open-orders-matched" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="contract">Contract</param>
+            <param name="side">Order side</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Edit an order
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-amend" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="orderId">Order id</param>
+            <param name="price">New price</param>
+            <param name="quantity">New quantity</param>
+            <param name="amendText">Amend text</param>
+            <returns></returns>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi">
             <summary>
             GateIo Spot API endpoints
@@ -3535,6 +3657,84 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+            <summary>
+            Place a new order
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="type">Order type</param>
+            <param name="side">Order side</param>
+            <param name="quantity">Order quantity in base asset. For Market Buy orders it's in quote asset</param>
+            <param name="price">Price of the order for limit orders</param>
+            <param name="timeInForce">Time in force</param>
+            <param name="icebergQuantity">Iceberg quantity</param>
+            <param name="accountType">Account type</param>
+            <param name="autoBorrow">Auto borrow enabled</param>
+            <param name="autoRepay">Auto repay enabled</param>
+            <param name="selfTradePreventionMode">Self trade prevention mode</param>
+            <param name="text">User defined info</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest})">
+            <summary>
+            Place multiple orders
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
+            </summary>
+            <param name="orders">Orders</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <summary>
+            Cancel an order by id
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="orderId">Order id</param>
+            <param name="accountType">Account type</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest})">
+            <summary>
+            Cancel multiple orders
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+            </summary>
+            <param name="cancelRequests">Cancel requests</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <summary>
+            Cancel all orders on a symbol
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="side">Filter by side</param>
+            <param name="accountType">Account type</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <summary>
+            Edit an order
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="orderId">Order id</param>
+            <param name="price">New price</param>
+            <param name="quantity">New quantity</param>
+            <param name="amendText">Custom info during amending order</param>
+            <param name="accountType">Specify operation account. Default to spot ,portfolio and margin account if not specified. Set to cross_margin to operate against margin account. Portfolio margin account must set to cross_margin only</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+            <summary>
+            Get an order by id
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-status" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="orderId">Order id</param>
+            <param name="accountType">Account type</param>
+            <returns></returns>
+        </member>
         <member name="T:GateIo.Net.Interfaces.IGateIoOrderBookFactory">
             <summary>
             Gate.io local order book factory
@@ -3601,6 +3801,69 @@
             <summary>
             The default addresses to connect to the Gate.io API
             </summary>
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.GateIoLoginQuery.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.GateIoRequestQuery`2.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.ListenerIdentifiers">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
+            <summary>
+            ctor
+            </summary>
+            <param name="logger"></param>
+            <param name="channel"></param>
+            <param name="handler"></param>
+            <param name="identifiers"></param>
+            <param name="payload"></param>
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.ListenerIdentifiers">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+            <param name="logger"></param>
+            <param name="channel"></param>
+            <param name="identifiers"></param>
+            <param name="payload"></param>
+            <param name="handler"></param>
+            <param name="auth"></param>
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+            <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAccountInfo">
             <summary>
@@ -6114,7 +6377,7 @@
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest.Quantity">
             <summary>
-            Quantity
+            Quantity, negaative for sell, positive for buy
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest.IcebergQuantity">
@@ -9141,63 +9404,6 @@
             <summary>
             Options for the Perpetual Futures API
             </summary>
-        </member>
-        <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
-            <summary>
-            ctor
-            </summary>
-            <param name="logger"></param>
-            <param name="channel"></param>
-            <param name="handler"></param>
-            <param name="identifiers"></param>
-            <param name="payload"></param>
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
-            <inheritdoc />
-        </member>
-        <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
-            <summary>
-            ctor
-            </summary>
-            <param name="logger"></param>
-            <param name="channel"></param>
-            <param name="identifiers"></param>
-            <param name="payload"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
-            <inheritdoc />
         </member>
         <member name="T:GateIo.Net.SymbolOrderBooks.GateIoOrderBookFactory">
             <summary>

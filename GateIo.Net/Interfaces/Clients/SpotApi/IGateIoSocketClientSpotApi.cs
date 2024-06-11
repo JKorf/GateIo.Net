@@ -171,5 +171,99 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<GateIoTriggerOrderUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new order
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="type">Order type</param>
+        /// <param name="side">Order side</param>
+        /// <param name="quantity">Order quantity in base asset. For Market Buy orders it's in quote asset</param>
+        /// <param name="price">Price of the order for limit orders</param>
+        /// <param name="timeInForce">Time in force</param>
+        /// <param name="icebergQuantity">Iceberg quantity</param>
+        /// <param name="accountType">Account type</param>
+        /// <param name="autoBorrow">Auto borrow enabled</param>
+        /// <param name="autoRepay">Auto repay enabled</param>
+        /// <param name="selfTradePreventionMode">Self trade prevention mode</param>
+        /// <param name="text">User defined info</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoOrder>> PlaceOrderAsync(string symbol,
+            OrderSide side,
+            NewOrderType type,
+            decimal quantity,
+            decimal? price = null,
+            TimeInForce? timeInForce = null,
+            decimal? icebergQuantity = null,
+            SpotAccountType? accountType = null,
+            bool? autoBorrow = null,
+            bool? autoRepay = null,
+            SelfTradePreventionMode? selfTradePreventionMode = null,
+            string? text = null);
+
+        /// <summary>
+        /// Place multiple orders
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
+        /// </summary>
+        /// <param name="orders">Orders</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoOrder>>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders);
+
+        /// <summary>
+        /// Cancel an order by id
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="accountType">Account type</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null);
+
+        /// <summary>
+        /// Cancel multiple orders
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+        /// </summary>
+        /// <param name="cancelRequests">Cancel requests</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests);
+
+        /// <summary>
+        /// Cancel all orders on a symbol
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="side">Filter by side</param>
+        /// <param name="accountType">Account type</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoOrder>>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null);
+
+        /// <summary>
+        /// Edit an order
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="price">New price</param>
+        /// <param name="quantity">New quantity</param>
+        /// <param name="amendText">Custom info during amending order</param>
+        /// <param name="accountType">Specify operation account. Default to spot ,portfolio and margin account if not specified. Set to cross_margin to operate against margin account. Portfolio margin account must set to cross_margin only</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoOrder>> EditOrderAsync(string symbol,
+            long orderId,
+            decimal? price = null,
+            decimal? quantity = null,
+            string? amendText = null,
+            SpotAccountType? accountType = null);
+
+        /// <summary>
+        /// Get an order by id
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-status" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="accountType">Account type</param>
+        /// <returns></returns>
+        Task<CallResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null);
     }
 }

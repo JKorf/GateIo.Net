@@ -18,6 +18,8 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Collections.Generic;
 using System.Linq;
 using GateIo.Net.Enums;
+using GateIo.Net.Objects.Sockets;
+using GateIo.Net.Objects.Internal;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -32,6 +34,9 @@ namespace GateIo.Net.Clients.SpotApi
         private static readonly MessagePath _symbolPath = MessagePath.Get().Property("result").Property("currency_pair");
         private static readonly MessagePath _symbolPath2 = MessagePath.Get().Property("result").Property("s");
         private static readonly MessagePath _klinePath = MessagePath.Get().Property("result").Property("n");
+        private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
+        private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
+        private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
         #endregion
 
         #region constructor/destructor
@@ -175,11 +180,151 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<GateIoOrder>> PlaceOrderAsync(string symbol,
+            OrderSide side,
+            NewOrderType type,
+            decimal quantity,
+            decimal? price = null,
+            TimeInForce? timeInForce = null,
+            decimal? icebergQuantity = null,
+            SpotAccountType? accountType = null,
+            bool? autoBorrow = null,
+            bool? autoRepay = null,
+            SelfTradePreventionMode? selfTradePreventionMode = null,
+            string? text = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoSpotPlaceOrderRequest, GateIoOrder>(id, "spot.order_place", "api", new GateIoSpotPlaceOrderRequest
+            {
+                Symbol = symbol,
+                AccountType = accountType,
+                Side = side,
+                OrderType = type,
+                Quantity = quantity,
+                Price = price,
+                TimeInForce = timeInForce,
+                Iceberg = icebergQuantity,
+                AutoBorrow = autoBorrow,
+                AutoRepay = autoRepay,
+                StpMode = selfTradePreventionMode,
+                Text = text ?? "t-" + ExchangeHelpers.RandomString(20)
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoOrder>>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<IEnumerable<GateIoSpotPlaceOrderRequest>, IEnumerable<GateIoOrder>>(id, "spot.order_place", "api", orders.Select(o => new GateIoSpotPlaceOrderRequest
+            {
+                Text = o.Text ?? "t-" + ExchangeHelpers.RandomString(20),
+                TimeInForce = o.TimeInForce,
+                AccountType = o.AccountType,
+                AutoBorrow = o.AutoBorrow,
+                AutoRepay = o.AutoRepay,
+                Iceberg = o.IcebergQuantity,
+                OrderType = o.Type,
+                Price = o.Price,
+                Quantity = o.Quantity,
+                Side = o.Side,
+                StpMode = o.SelfTradePreventionMode,
+                Symbol = o.Symbol
+            }), true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GateIoOrder>> EditOrderAsync(string symbol,
+            long orderId,
+            decimal? price = null,
+            decimal? quantity = null,
+            string? amendText = null,
+            SpotAccountType? accountType = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoSpotAmendOrderRequest, GateIoOrder>(id, "spot.order_amend", "api", new GateIoSpotAmendOrderRequest
+            {
+                Symbol = symbol,
+                AccountType = accountType,
+                Quantity = quantity,
+                Price = price,
+                AmendText = amendText,
+                OrderId = orderId.ToString()
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoSpotGetOrderRequest, GateIoOrder>(id, "spot.order_cancel", "api", new GateIoSpotGetOrderRequest
+            {
+                OrderId = orderId.ToString(),
+                Symbol = symbol,
+                AccountType = accountType
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<IEnumerable<GateIoBatchCancelRequest>, IEnumerable<GateIoCancelResult>>(id, "spot.order_cancel_ids", "api", cancelRequests, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoOrder>>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoSpotCancelAllOrderRequest, IEnumerable<GateIoOrder>>(id, "spot.order_cancel_cp", "api", new GateIoSpotCancelAllOrderRequest
+            {
+                Symbol = symbol,
+                Side = side == null ? null : side == OrderSide.Buy ? "buy" : "sell",
+                AccountType = accountType
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoSpotGetOrderRequest, GateIoOrder>(id, "spot.order_status", "api", new GateIoSpotGetOrderRequest
+            {
+                OrderId = orderId.ToString(),
+                Symbol = symbol,
+                AccountType = accountType
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             var id = message.GetValue<long?>(_idPath);
             if (id != null)
                 return id.ToString();
+
+            var id2 = message.GetValue<string?>(_idPath2);
+            if (id2 != null)
+            {
+                if (message.GetValue<bool?>(_ackPath) == true
+                    && message.GetValue<string>(_statusPath) == "200")
+                    return null;
+
+                return id2;
+            }
 
             var channel = message.GetValue<string>(_channelPath);
 
@@ -201,7 +346,15 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest() => null;
+        protected override Query? GetAuthenticationRequest()
+        {
+
+            var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
+            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow).Value;
+            var signStr = $"api\nspot.login\n\n{timestamp}";
+            var id = ExchangeHelpers.NextId();
+            return new GateIoLoginQuery(id, "spot.login", "api", provider.GetApiKey(), provider.SignSocketRequest(signStr), timestamp);
+        }
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Converters.JsonNet;
 using System;
+using GateIo.Net.Objects.Internal;
 
 namespace GateIo.Net.Objects.Sockets
 {
@@ -13,9 +14,9 @@ namespace GateIo.Net.Objects.Sockets
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
         public GateIoAuthQuery(string channel, string evnt, IEnumerable<string>? payload) 
-            : base(new GateIoSocketAuthRequest { Channel = channel, Event = evnt, Id = ExchangeHelpers.NextId(), Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
+            : base(new GateIoSocketAuthRequest<IEnumerable<string>> { Channel = channel, Event = evnt, Id = ExchangeHelpers.NextId(), Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { ((GateIoSocketAuthRequest)Request).Id.ToString() };
+            ListenerIdentifiers = new HashSet<string> { ((GateIoSocketAuthRequest<IEnumerable<string>>)Request).Id.ToString() };
         }
 
         public override CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<T>> message)

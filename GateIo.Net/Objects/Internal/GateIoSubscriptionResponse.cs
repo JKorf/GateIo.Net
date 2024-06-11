@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GateIo.Net.Objects.Sockets
+namespace GateIo.Net.Objects.Internal
 {
     internal class GateIoSubscriptionResponse
     {
