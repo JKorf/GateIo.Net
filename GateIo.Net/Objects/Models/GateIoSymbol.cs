@@ -53,12 +53,12 @@ namespace GateIo.Net.Objects.Models
         /// Quantity decimal precision
         /// </summary>
         [JsonPropertyName("amount_precision")]
-        public decimal QuantityPrecision { get; set; }
+        public int QuantityPrecision { get; set; }
         /// <summary>
         /// Price decimal precision
         /// </summary>
         [JsonPropertyName("precision")]
-        public decimal PricePrecision { get; set; }
+        public int PricePrecision { get; set; }
         /// <summary>
         /// Trading status
         /// </summary>
