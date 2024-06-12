@@ -36,6 +36,7 @@ namespace GateIo.Net.Objects.Options
         internal GateIoRestOptions Copy()
         {
             var options = Copy<GateIoRestOptions>();
+            options.BrokerId = BrokerId;
             options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
             options.PerpetualFuturesOptions = PerpetualFuturesOptions.Copy<RestApiOptions>();
             return options;

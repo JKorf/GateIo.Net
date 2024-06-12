@@ -9395,6 +9395,11 @@
             Default options for new clients
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoSocketOptions.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Options.GateIoSocketOptions.SpotOptions">
             <summary>
             Options for the Spot API

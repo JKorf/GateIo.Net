@@ -37,6 +37,7 @@ namespace GateIo.Net.Clients.FuturesApi
         private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
         private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
         private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
+        internal string _brokerId;
         #endregion
 
         #region constructor/destructor
@@ -47,6 +48,7 @@ namespace GateIo.Net.Clients.FuturesApi
         internal GateIoSocketClientPerpetualFuturesApi(ILogger logger, GateIoSocketOptions options) :
             base(logger, options.Environment.FuturesSocketClientAddress!, options, options.PerpetualFuturesOptions)
         {
+            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
         }
         #endregion
 
@@ -189,7 +191,11 @@ namespace GateIo.Net.Clients.FuturesApi
                 StpMode = stpMode,
                 Text = text,
                 TimeInForce = timeInForce
-            }, true);
+            }, true,
+            new Dictionary<string, string>
+            {
+                { "X-Gate-Channel-Id", _brokerId }
+            });
 
             return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
         }
@@ -212,7 +218,11 @@ namespace GateIo.Net.Clients.FuturesApi
                 StpMode = o.StpMode,
                 Text = o.Text,
                 TimeInForce = o.TimeInForce
-            }), true);
+            }), true,
+            new Dictionary<string, string>
+            {
+                { "X-Gate-Channel-Id", _brokerId }
+            });
 
             return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
         }
@@ -329,7 +339,7 @@ namespace GateIo.Net.Clients.FuturesApi
         protected override Query? GetAuthenticationRequest()
         {
             var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
-            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow).Value;
+            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
             var signStr = $"api\nfutures.login\n\n{timestamp}";
             var id = ExchangeHelpers.NextId();
             return new GateIoLoginQuery(id, "futures.login", "api", provider.GetApiKey(), provider.SignSocketRequest(signStr), timestamp);

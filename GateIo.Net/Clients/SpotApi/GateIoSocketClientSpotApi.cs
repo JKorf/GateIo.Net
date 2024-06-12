@@ -37,6 +37,7 @@ namespace GateIo.Net.Clients.SpotApi
         private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
         private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
         private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
+        internal string _brokerId;
         #endregion
 
         #region constructor/destructor
@@ -47,6 +48,7 @@ namespace GateIo.Net.Clients.SpotApi
         internal GateIoSocketClientSpotApi(ILogger logger, GateIoSocketOptions options) :
             base(logger, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
         {
+            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
         }
         #endregion 
 
@@ -208,7 +210,11 @@ namespace GateIo.Net.Clients.SpotApi
                 AutoRepay = autoRepay,
                 StpMode = selfTradePreventionMode,
                 Text = text ?? "t-" + ExchangeHelpers.RandomString(20)
-            }, true);
+            }, true,
+            new Dictionary<string, string>
+            {
+                { "X-Gate-Channel-Id", _brokerId }
+            });
 
             return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
         }
@@ -231,7 +237,11 @@ namespace GateIo.Net.Clients.SpotApi
                 Side = o.Side,
                 StpMode = o.SelfTradePreventionMode,
                 Symbol = o.Symbol
-            }), true);
+            }), true,
+            new Dictionary<string, string>
+            {
+                { "X-Gate-Channel-Id", _brokerId }
+            });
 
             return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
         }
@@ -350,7 +360,7 @@ namespace GateIo.Net.Clients.SpotApi
         {
 
             var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
-            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow).Value;
+            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
             var signStr = $"api\nspot.login\n\n{timestamp}";
             var id = ExchangeHelpers.NextId();
             return new GateIoLoginQuery(id, "spot.login", "api", provider.GetApiKey(), provider.SignSocketRequest(signStr), timestamp);

@@ -18,6 +18,11 @@ namespace GateIo.Net.Objects.Options
         };
 
         /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
+
+        /// <summary>
         /// Options for the Spot API
         /// </summary>
         public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions()
@@ -32,6 +37,7 @@ namespace GateIo.Net.Objects.Options
         internal GateIoSocketOptions Copy()
         {
             var options = Copy<GateIoSocketOptions>();
+            options.BrokerId = BrokerId;
             options.SpotOptions = SpotOptions.Copy<SocketApiOptions>();
             options.PerpetualFuturesOptions = PerpetualFuturesOptions.Copy<SocketApiOptions>();
             return options;

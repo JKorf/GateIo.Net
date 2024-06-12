@@ -18,13 +18,18 @@ namespace GateIo.Net.Objects.Sockets
         /// <inheritdoc />
         public override Type? GetMessageType(IMessageAccessor message) => typeof(GateIoSocketRequestResponse<TResponse>);
 
-        public GateIoRequestQuery(long id, string channel, string evnt, TRequest? payload, bool authenticated = false) 
+        public GateIoRequestQuery(long id, string channel, string evnt, TRequest? payload, bool authenticated = false, Dictionary<string, string>? headers = null) 
             : base(new GateIoSocketRequest<GateIoSocketRequestWrapper<TRequest>> { 
                 Channel = channel,
                 Event = evnt,
                 Id = id,
-                Payload = new GateIoSocketRequestWrapper<TRequest> { Parameters = payload, Id = id.ToString() }, 
-                Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, authenticated, 1)
+                Payload = new GateIoSocketRequestWrapper<TRequest> 
+                { 
+                    Parameters = payload, 
+                    Id = id.ToString(),
+                    Headers = headers
+                }, 
+                Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)) }, authenticated, 1)
         {
             ListenerIdentifiers = new HashSet<string> { id.ToString() };
         }

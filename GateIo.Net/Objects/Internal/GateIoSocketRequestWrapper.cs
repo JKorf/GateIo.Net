@@ -15,5 +15,7 @@ namespace GateIo.Net.Objects.Internal
     {
         [JsonPropertyName("req_param")]
         public T? Parameters { get; set; }
+        [JsonPropertyName("req_header"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public Dictionary<string, string>? Headers { get; set; }
     }
 }
