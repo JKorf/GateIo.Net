@@ -1,8 +1,8 @@
-# ![GateIo.Net](https://raw.githubusercontent.com/JKorf/GateIo.Net/main/GateIo.Net/Icon/icon.png) GateIo.Net  
+# ![GateIo.Net](https://github.com/JKorf/GateIo.Net/blob/07cc75279de9dc4b9c7dbcf4df6bf6a8cc3cf9ef/GateIo.Net/Icon/icon.png) GateIo.Net  
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/GateIo.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/GateIo.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/GateIo.Net?style=for-the-badge)
 
-GateIo.Net is a client library for accessing the [Gate.io REST and Websocket API](https://www.gate.io/docs/developers/apiv4). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
+GateIo.Net is a client library for accessing the [Gate.io REST and Websocket API](https://www.gate.io/docs/developers/apiv4). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, automatic ratelimiting, easy integration with other exchange client libraries and more.
 
 ## Supported Frameworks
 The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
@@ -40,7 +40,7 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 	});
 	```
 
-For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/GateIo.Net), or have a look at the examples [here](https://github.com/JKorf/GateIo.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/GateIo.Net), or have a look at the examples [here](https://github.com/JKorf/GateIo.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
 GateIo.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
