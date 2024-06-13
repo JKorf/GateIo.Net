@@ -279,8 +279,8 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalEnum("status", status);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/orders_timerange", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -384,8 +384,8 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("contract", contract);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptionalEnum("role", role);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/my_trades_timerange", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpUserTrade>>(request, parameters, ct).ConfigureAwait(false);
@@ -411,8 +411,8 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("contract", contract);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptionalEnum("role", role);
             parameters.AddOptionalEnum("side", side);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/position_close", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);

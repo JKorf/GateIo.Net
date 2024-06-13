@@ -137,8 +137,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("account", accountType);
             parameters.AddOptionalEnum("side", side);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -301,8 +301,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("order_id", orderId);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("page", page);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/my_trades", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoUserTrade>>(request, parameters, ct).ConfigureAwait(false);

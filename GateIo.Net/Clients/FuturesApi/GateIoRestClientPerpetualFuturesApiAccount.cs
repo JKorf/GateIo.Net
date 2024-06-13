@@ -43,8 +43,8 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("type", type);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/account_book", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpLedgerEntry>>(request, parameters, ct).ConfigureAwait(false);
         }

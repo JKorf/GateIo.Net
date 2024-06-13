@@ -118,8 +118,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("last_id", lastId);
             parameters.AddOptional("reverse", reverse);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("page", page);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/trades", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoTrade>>(request, parameters, ct).ConfigureAwait(false);
@@ -136,8 +136,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.Add("currency_pair", symbol);
             parameters.AddEnum("interval", interval);
             parameters.AddOptional("limit", limit);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/candlesticks", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoKline>>(request, parameters, ct).ConfigureAwait(false);
         }

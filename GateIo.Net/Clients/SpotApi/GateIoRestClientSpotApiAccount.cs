@@ -44,8 +44,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("type", type);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/account_book", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoLedgerEntry>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -107,8 +107,8 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptional("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/withdrawals", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
@@ -130,8 +130,8 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptional("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/deposits", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
@@ -509,8 +509,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("currency", asset);
             parameters.AddOptional("currency_pair", symbol);
             parameters.AddOptional("type", type);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/account_book", GateIoExchange.RateLimiter.RestPrivate, 1, true);
@@ -599,8 +599,8 @@ namespace GateIo.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             parameters.AddOptional("type", type);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/cross/account_book", GateIoExchange.RateLimiter.RestPrivate, 1, true);
@@ -716,8 +716,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("currency", asset);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("page", page);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/cross/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginInterest>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -860,8 +860,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("currency_pair", symbol);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
-            parameters.AddOptionalMilliseconds("from", startTime);
-            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/uni/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoInterestRecord>>(request, parameters, ct).ConfigureAwait(false);
         }
