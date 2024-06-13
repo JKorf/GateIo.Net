@@ -137,6 +137,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.0.1 - 13 Jun 2024
+    * Fixed startTime/endTime filtering on multiple endpoints
+
 * Version 1.0.0 - 12 Jun 2024
     * Initial release
 
