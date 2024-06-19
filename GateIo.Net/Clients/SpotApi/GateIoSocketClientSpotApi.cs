@@ -356,7 +356,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest()
+        protected override Query? GetAuthenticationRequest(SocketConnection connection)
         {
 
             var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
