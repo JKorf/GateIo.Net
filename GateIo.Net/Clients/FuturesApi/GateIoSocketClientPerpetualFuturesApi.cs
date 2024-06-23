@@ -336,7 +336,7 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest()
+        protected override Query? GetAuthenticationRequest(SocketConnection connection)
         {
             var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
             var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
