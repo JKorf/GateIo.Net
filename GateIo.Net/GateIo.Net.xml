@@ -739,25 +739,25 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoTriggerOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -3657,7 +3657,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
@@ -3674,17 +3674,19 @@
             <param name="autoRepay">Auto repay enabled</param>
             <param name="selfTradePreventionMode">Self trade prevention mode</param>
             <param name="text">User defined info</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest})">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
             <summary>
             Place multiple orders
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
             </summary>
             <param name="orders">Orders</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Cancel an order by id
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel" /></para>
@@ -3692,17 +3694,19 @@
             <param name="symbol">Symbol</param>
             <param name="orderId">Order id</param>
             <param name="accountType">Account type</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest})">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple orders
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
             </summary>
             <param name="cancelRequests">Cancel requests</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Cancel all orders on a symbol
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
@@ -3710,9 +3714,10 @@
             <param name="symbol">Symbol</param>
             <param name="side">Filter by side</param>
             <param name="accountType">Account type</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Edit an order
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
@@ -3723,9 +3728,10 @@
             <param name="quantity">New quantity</param>
             <param name="amendText">Custom info during amending order</param>
             <param name="accountType">Specify operation account. Default to spot ,portfolio and margin account if not specified. Set to cross_margin to operate against margin account. Portfolio margin account must set to cross_margin only</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType})">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Get an order by id
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-status" /></para>
@@ -3733,6 +3739,7 @@
             <param name="symbol">Symbol</param>
             <param name="orderId">Order id</param>
             <param name="accountType">Account type</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="T:GateIo.Net.Interfaces.IGateIoOrderBookFactory">
