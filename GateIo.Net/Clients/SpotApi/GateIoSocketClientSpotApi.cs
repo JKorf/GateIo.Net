@@ -195,7 +195,8 @@ namespace GateIo.Net.Clients.SpotApi
             bool? autoBorrow = null,
             bool? autoRepay = null,
             SelfTradePreventionMode? selfTradePreventionMode = null,
-            string? text = null)
+            string? text = null, 
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotPlaceOrderRequest, GateIoOrder>(id, "spot.order_place", "api", new GateIoSpotPlaceOrderRequest
@@ -218,11 +219,11 @@ namespace GateIo.Net.Clients.SpotApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<GateIoOrder>>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders)
+        public async Task<CallResult<IEnumerable<GateIoOrder>>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<IEnumerable<GateIoSpotPlaceOrderRequest>, IEnumerable<GateIoOrder>>(id, "spot.order_place", "api", orders.Select(o => new GateIoSpotPlaceOrderRequest
@@ -245,7 +246,7 @@ namespace GateIo.Net.Clients.SpotApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -254,7 +255,8 @@ namespace GateIo.Net.Clients.SpotApi
             decimal? price = null,
             decimal? quantity = null,
             string? amendText = null,
-            SpotAccountType? accountType = null)
+            SpotAccountType? accountType = null,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotAmendOrderRequest, GateIoOrder>(id, "spot.order_amend", "api", new GateIoSpotAmendOrderRequest
@@ -267,11 +269,11 @@ namespace GateIo.Net.Clients.SpotApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null)
+        public async Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotGetOrderRequest, GateIoOrder>(id, "spot.order_cancel", "api", new GateIoSpotGetOrderRequest
@@ -281,20 +283,20 @@ namespace GateIo.Net.Clients.SpotApi
                 AccountType = accountType
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests)
+        public async Task<CallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<IEnumerable<GateIoBatchCancelRequest>, IEnumerable<GateIoCancelResult>>(id, "spot.order_cancel_ids", "api", cancelRequests, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<GateIoOrder>>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null)
+        public async Task<CallResult<IEnumerable<GateIoOrder>>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotCancelAllOrderRequest, IEnumerable<GateIoOrder>>(id, "spot.order_cancel_cp", "api", new GateIoSpotCancelAllOrderRequest
@@ -304,11 +306,11 @@ namespace GateIo.Net.Clients.SpotApi
                 AccountType = accountType
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null)
+        public async Task<CallResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotGetOrderRequest, GateIoOrder>(id, "spot.order_status", "api", new GateIoSpotGetOrderRequest
@@ -318,7 +320,7 @@ namespace GateIo.Net.Clients.SpotApi
                 AccountType = accountType
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
