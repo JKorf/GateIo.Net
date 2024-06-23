@@ -49,6 +49,8 @@ namespace GateIo.Net.Clients.SpotApi
             base(logger, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
         {
             _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
+
+            SetDedicatedConnection(BaseAddress.AppendPath("ws/v4/") + "/", true);
         }
         #endregion 
 
