@@ -567,6 +567,12 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetMarginMaxBorrowableAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetGTDeductionStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.SetGTDeductionStatusAsync(System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -3129,6 +3135,23 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetGTDeductionStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get GT deduction enabled status
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-gt-deduction-configuration" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.SetGTDeductionStatusAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Set GT deduction enabled status
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#set-gt-deduction" /></para>
+            </summary>
+            <param name="enabled">Enabled</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData">
             <summary>
             GateIo Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -5140,6 +5163,16 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoFuturesCancelResult.Message">
             <summary>
             Message
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoGTDeducationStatus">
+            <summary>
+            Get GT deduction status
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoGTDeducationStatus.Enabled">
+            <summary>
+            Is enabled
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoId">

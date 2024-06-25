@@ -681,5 +681,22 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             string asset,
             string symbol,
             CancellationToken ct = default);
+
+        /// <summary>
+        /// Get GT deduction enabled status
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-gt-deduction-configuration" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<GateIoGTDeducationStatus>> GetGTDeductionStatusAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Set GT deduction enabled status
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#set-gt-deduction" /></para>
+        /// </summary>
+        /// <param name="enabled">Enabled</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> SetGTDeductionStatusAsync(bool enabled, CancellationToken ct = default);
     }
 }

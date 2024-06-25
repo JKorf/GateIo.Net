@@ -1,0 +1,3 @@
+POST
+/api/v4/account/debit_fee
+true

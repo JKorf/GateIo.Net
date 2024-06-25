@@ -884,5 +884,30 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
+        #region Get GT Deduction Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoGTDeducationStatus>> GetGTDeductionStatusAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/account/debit_fee", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            return await _baseClient.SendAsync<GateIoGTDeducationStatus>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Set GT Deduction Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> SetGTDeductionStatusAsync(bool enabled, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("enabled", enabled);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/account/debit_fee", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }
