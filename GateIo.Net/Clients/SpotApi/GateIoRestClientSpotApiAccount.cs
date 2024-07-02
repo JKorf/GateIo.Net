@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -64,7 +65,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.Add("chain", network);
             parameters.AddOptional("withdraw_order_id", clientOrderId);
             parameters.AddOptional("memo", memo);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/withdrawals", GateIoExchange.RateLimiter.RestSpotOther, 1, true, 1, TimeSpan.FromSeconds(3));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/withdrawals", GateIoExchange.RateLimiter.RestSpotOther, 1, true,
+                limitGuard: new SingleLimitGuard(1, TimeSpan.FromSeconds(3), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<GateIoWithdrawal>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -159,7 +161,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddString("amount", quantity);
             parameters.AddOptional("currency_pair", marginSymbol);
             parameters.AddOptional("settle", settleAsset);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/wallet/transfers", GateIoExchange.RateLimiter.RestSpotOther, 1, true, 80, TimeSpan.FromSeconds(10));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/wallet/transfers", GateIoExchange.RateLimiter.RestSpotOther, 1, true,
+                limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<GateIoTransfer>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -227,7 +230,8 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", valuationAsset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/total_balance", GateIoExchange.RateLimiter.Public, 1, true, 80, TimeSpan.FromSeconds(10));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/total_balance", GateIoExchange.RateLimiter.Public, 1, true,
+                limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<GateIoAccountValuation>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -343,7 +347,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddString("amount", quantity);
             parameters.AddOptional("repaid_all", repayAll);
             parameters.AddOptional("text", text);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/unified/loans", GateIoExchange.RateLimiter.RestPrivate, 1, true, 15, TimeSpan.FromSeconds(10));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/unified/loans", GateIoExchange.RateLimiter.RestPrivate, 1, true,
+                limitGuard: new SingleLimitGuard(15, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
 
