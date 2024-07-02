@@ -137,6 +137,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.2.1 - 02 Jul 2024
+    * Updated CryptoExchange.Net to V7.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.8.0
+    * Updated ratelimiting for per-endpoint limits
+
 * Version 1.2.0 - 25 Jun 2024
     * Updated CryptoExchange.Net to 7.7.2, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.7.2
     * Added SpotApi.Account.GetGTDeductionStatusAsync endpoint
