@@ -14,7 +14,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 namespace GateIo.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class GateIoRestClientSpotApiTrading : IGateIoRestClientSpotApiTrading
+    internal class GateIoRestClientSpotApiTrading : IGateIoRestClientSpotApiTrading
     {
         private readonly GateIoRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();

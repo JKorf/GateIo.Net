@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class GateIoRestClientPerpetualFuturesApiAccount : IGateIoRestClientPerpetualFuturesApiAccount
+    internal class GateIoRestClientPerpetualFuturesApiAccount : IGateIoRestClientPerpetualFuturesApiAccount
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
         private readonly GateIoRestClientPerpetualFuturesApi _baseClient;

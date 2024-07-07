@@ -26,7 +26,7 @@ namespace GateIo.Net.Clients.SpotApi
     /// <summary>
     /// Client providing access to the GateIo spot websocket Api
     /// </summary>
-    public class GateIoSocketClientSpotApi : SocketApiClient, IGateIoSocketClientSpotApi
+    internal class GateIoSocketClientSpotApi : SocketApiClient, IGateIoSocketClientSpotApi
     {
         #region fields
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");

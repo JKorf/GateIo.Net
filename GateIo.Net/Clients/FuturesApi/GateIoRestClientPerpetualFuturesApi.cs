@@ -17,7 +17,7 @@ using System.Linq;
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IGateIoRestClientPerpetualFuturesApi" />
-    public class GateIoRestClientPerpetualFuturesApi : RestApiClient, IGateIoRestClientPerpetualFuturesApi
+    internal class GateIoRestClientPerpetualFuturesApi : RestApiClient, IGateIoRestClientPerpetualFuturesApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Perpetual Futures Api");

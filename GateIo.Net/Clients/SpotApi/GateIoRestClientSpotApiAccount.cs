@@ -12,7 +12,7 @@ using CryptoExchange.Net.RateLimiting.Guards;
 namespace GateIo.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class GateIoRestClientSpotApiAccount : IGateIoRestClientSpotApiAccount
+    internal class GateIoRestClientSpotApiAccount : IGateIoRestClientSpotApiAccount
     {
         private readonly GateIoRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();

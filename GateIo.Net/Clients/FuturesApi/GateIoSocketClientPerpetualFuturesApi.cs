@@ -26,7 +26,7 @@ namespace GateIo.Net.Clients.FuturesApi
     /// <summary>
     /// Client providing access to the GateIo futures websocket Api
     /// </summary>
-    public class GateIoSocketClientPerpetualFuturesApi : SocketApiClient, IGateIoSocketClientPerpetualFuturesApi
+    internal class GateIoSocketClientPerpetualFuturesApi : SocketApiClient, IGateIoSocketClientPerpetualFuturesApi
     {
         #region fields
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");

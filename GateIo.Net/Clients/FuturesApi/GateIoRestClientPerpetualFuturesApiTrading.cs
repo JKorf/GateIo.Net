@@ -13,7 +13,7 @@ using System.Linq;
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class GateIoRestClientPerpetualFuturesApiTrading : IGateIoRestClientPerpetualFuturesApiTrading
+    internal class GateIoRestClientPerpetualFuturesApiTrading : IGateIoRestClientPerpetualFuturesApiTrading
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
         private readonly GateIoRestClientPerpetualFuturesApi _baseClient;

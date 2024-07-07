@@ -20,7 +20,7 @@ using System.Linq;
 namespace GateIo.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IGateIoRestClientSpotApi" />
-    public class GateIoRestClientSpotApi : RestApiClient, IGateIoRestClientSpotApi, ISpotClient
+    internal class GateIoRestClientSpotApi : RestApiClient, IGateIoRestClientSpotApi, ISpotClient
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");

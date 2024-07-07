@@ -12,7 +12,7 @@ using GateIo.Net.Enums;
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class GateIoRestClientPerpetualFuturesApiExchangeData : IGateIoRestClientPerpetualFuturesApiExchangeData
+    internal class GateIoRestClientPerpetualFuturesApiExchangeData : IGateIoRestClientPerpetualFuturesApiExchangeData
     {
         private readonly ILogger _logger;
 

@@ -12,7 +12,7 @@ using GateIo.Net.Enums;
 namespace GateIo.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class GateIoRestClientSpotApiExchangeData : IGateIoRestClientSpotApiExchangeData
+    internal class GateIoRestClientSpotApiExchangeData : IGateIoRestClientSpotApiExchangeData
     {
         private readonly GateIoRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
