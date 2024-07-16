@@ -55,6 +55,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("max_size")]
         public decimal? MaxSize { get; set; }
         /// <summary>
+        /// Accumelated size
+        /// </summary>
+        [JsonPropertyName("accum_size")]
+        public decimal? AccumelatedSize { get; set; }
+        /// <summary>
         /// First opening time
         /// </summary>
         [JsonPropertyName("first_open_time")]

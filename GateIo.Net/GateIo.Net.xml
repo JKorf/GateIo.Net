@@ -7360,6 +7360,11 @@
             Max Trade Size
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpPositionClose.AccumelatedSize">
+            <summary>
+            Accumelated size
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpPositionClose.FirstOpenTime">
             <summary>
             First opening time
