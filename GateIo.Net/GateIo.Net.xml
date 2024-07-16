@@ -900,6 +900,21 @@
             Repaid
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.BorrowType">
+            <summary>
+            Borrow type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.BorrowType.ManualBorrow">
+            <summary>
+            Manual borrow
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.BorrowType.AutoBorrow">
+            <summary>
+            Auto borrow
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.CloseSide">
             <summary>
             Close side
@@ -5546,6 +5561,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoLoanRecord.RepaymentType">
+            <summary>
+            Repay type
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLoanRecord.BorrowType">
             <summary>
             Repay type
             </summary>

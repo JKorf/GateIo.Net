@@ -48,6 +48,11 @@ namespace GateIo.Net.Objects.Models
         /// Repay type
         /// </summary>
         [JsonPropertyName("repayment_type")]
-        public RepayType RepaymentType { get; set; }
+        public RepayType? RepaymentType { get; set; }
+        /// <summary>
+        /// Repay type
+        /// </summary>
+        [JsonPropertyName("borrow_type")]
+        public BorrowType? BorrowType { get; set; }
     }
 }
