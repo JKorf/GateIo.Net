@@ -26,10 +26,21 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 |UWP|`10.0.16299` and higher|
 |Unity|`2018.1` and higher|
 
-## Get the library
-[![Nuget version](https://img.shields.io/nuget/v/GateIo.net.svg?style=for-the-badge)](https://www.nuget.org/packages/GateIo.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/GateIo.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/GateIo.Net)
+## Install the library
+
+### NuGet 
+[![NuGet version](https://img.shields.io/nuget/v/GateIo.net.svg?style=for-the-badge)](https://www.nuget.org/packages/GateIo.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/GateIo.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/GateIo.Net)
 
 	dotnet add package GateIo.Net
+	
+### GitHub packages
+GateIo.Net is available on [GitHub packages](https://github.com/JKorf/GateIo.Net/pkgs/nuget/GateIo.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
+
+### Download release
+[![GitHub Release](https://img.shields.io/github/v/release/JKorf/GateIo.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/GateIo.Net/releases)
+
+The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/GateIo.Net/releases).
+
 	
 ## How to use
 * REST Endpoints
