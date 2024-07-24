@@ -201,8 +201,8 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(
             string settlementAsset,
+            OrderStatus status,
             string? contract = null,
-            OrderStatus? status = null,
             int? limit = null,
             int? offset = null,
             string? lastId = null, 
@@ -210,7 +210,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract", contract);
-            parameters.AddOptionalEnum("status", status);
+            parameters.AddEnum("status", status);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             parameters.AddOptional("last_id", lastId);
