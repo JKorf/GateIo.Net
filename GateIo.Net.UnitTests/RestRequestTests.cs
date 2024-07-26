@@ -191,7 +191,7 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.UpdateDualModePositionRiskLimitAsync("usdt", "ETH_USDT", 10), "UpdateDualModePositionRiskLimit");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.PlaceOrderAsync("usdt", "ETH_USDT", OrderSide.Buy, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.PlaceMultipleOrderAsync("usdt", new[] { new GateIoPerpBatchPlaceRequest() }), "PlaceMultipleOrder");
-            await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetOrdersAsync("usdt", "ETH_USDT"), "GetOrders");
+            await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetOrdersAsync("usdt", OrderStatus.Canceled), "GetOrders");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetOrdersByTimestampAsync("usdt", "ETH_USDT"), "GetOrdersByTime");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.CancelAllOrdersAsync("usdt", "ETH_USDT"), "CancelAllOrders");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetOrderAsync("usdt", 123), "GetOrder");

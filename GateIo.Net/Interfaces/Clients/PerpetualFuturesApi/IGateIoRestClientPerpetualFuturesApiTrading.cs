@@ -174,8 +174,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(
             string settlementAsset,
+            OrderStatus status,
             string? contract = null,
-            OrderStatus? status = null,
             int? limit = null,
             int? offset = null,
             string? lastId = null,

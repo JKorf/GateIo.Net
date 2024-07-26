@@ -142,7 +142,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetOrdersAsync(System.String,GateIo.Net.Enums.OrderStatus,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.CancelAllOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Threading.CancellationToken)">
@@ -2116,7 +2116,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.GetOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.GetOrdersAsync(System.String,GateIo.Net.Enums.OrderStatus,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Get orders
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-futures-orders" /></para>
