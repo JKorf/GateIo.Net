@@ -49,7 +49,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
             var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_channel, "subscribe", _payload);
             var request = (GateIoSocketAuthRequest<IEnumerable<string>>)query.Request;
             var sign = provider.SignSocketRequest($"channel={_channel}&event=subscribe&time={request.Timestamp}");
-            request.Auth = new GateIoSocketAuth { Key = provider.GetApiKey(), Sign = sign, Method = "api_key" };
+            request.Auth = new GateIoSocketAuth { Key = provider.ApiKey, Sign = sign, Method = "api_key" };
             return query;
         }
 

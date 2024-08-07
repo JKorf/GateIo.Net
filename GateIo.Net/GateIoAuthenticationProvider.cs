@@ -15,8 +15,6 @@ namespace GateIo.Net
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
 
-        public string GetApiKey() => _credentials.Key!.GetString();
-
         public GateIoAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
@@ -25,9 +23,9 @@ namespace GateIo.Net
             RestApiClient apiClient,
             Uri uri,
             HttpMethod method,
-            IDictionary<string, object> uriParameters,
-            IDictionary<string, object> bodyParameters,
-            Dictionary<string, string> headers,
+            ref IDictionary<string, object>? uriParameters,
+            ref IDictionary<string, object>? bodyParameters,
+            ref Dictionary<string, string>? headers,
             bool auth,
             ArrayParametersSerialization arraySerialization,
             HttpMethodParameterPosition parameterPosition,
@@ -36,13 +34,16 @@ namespace GateIo.Net
             if (!auth)
                 return;
 
-            uri = uri.SetParameters(uriParameters, arraySerialization);
+            if (uriParameters != null)
+                uri = uri.SetParameters(uriParameters, arraySerialization);
+
             var timestamp = long.Parse(GetMillisecondTimestamp(apiClient)) / 1000;
-            var payload = SignSHA512(bodyParameters.Any() ? GetSerializedBody(_serializer, bodyParameters) : "").ToLowerInvariant();
+            var payload = SignSHA512(bodyParameters?.Any() == true ? GetSerializedBody(_serializer, bodyParameters) : "").ToLowerInvariant();
             var signStr = $"{method.ToString().ToUpper()}\n{uri.AbsolutePath}\n{uri.Query.Replace("?", "")}\n{payload}\n{timestamp}";
             var signed = SignHMACSHA512(signStr).ToLowerInvariant();
 
-            headers["KEY"] = GetApiKey();
+            headers ??= new Dictionary<string, string>();
+            headers["KEY"] = ApiKey;
             headers["Timestamp"] = timestamp.ToString();
             headers["SIGN"] = signed;
         }

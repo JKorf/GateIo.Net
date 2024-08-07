@@ -367,7 +367,7 @@ namespace GateIo.Net.Clients.SpotApi
             var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
             var signStr = $"api\nspot.login\n\n{timestamp}";
             var id = ExchangeHelpers.NextId();
-            return new GateIoLoginQuery(id, "spot.login", "api", provider.GetApiKey(), provider.SignSocketRequest(signStr), timestamp);
+            return new GateIoLoginQuery(id, "spot.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp);
         }
 
         /// <inheritdoc />
