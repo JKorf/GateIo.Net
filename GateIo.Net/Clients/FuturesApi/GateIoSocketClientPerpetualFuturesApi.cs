@@ -342,7 +342,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
             var signStr = $"api\nfutures.login\n\n{timestamp}";
             var id = ExchangeHelpers.NextId();
-            return new GateIoLoginQuery(id, "futures.login", "api", provider.GetApiKey(), provider.SignSocketRequest(signStr), timestamp);
+            return new GateIoLoginQuery(id, "futures.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp);
         }
 
         /// <inheritdoc />

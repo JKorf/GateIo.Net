@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoinEx.Net.UnitTests
+namespace GateIo.Net.UnitTests
 {
     [NonParallelizable]
     internal class GateIoRestIntegrationTests : RestIntergrationTest<GateIoRestClient>
