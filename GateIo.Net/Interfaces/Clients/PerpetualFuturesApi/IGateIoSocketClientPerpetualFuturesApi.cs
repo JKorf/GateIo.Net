@@ -20,7 +20,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#trades-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -31,7 +31,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#tickers-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -42,7 +42,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -53,7 +53,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="updateMs">Update interval in ms. 20, 100 or 1000</param>
         /// <param name="depth">Book depth. 5, 10, 20, 50 or 100. For the 20ms update interval only 20 depth is supported</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -66,7 +66,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -78,7 +78,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#orders-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -89,7 +89,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#user-trades-notification" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -100,7 +100,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#user-trades-notification" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -111,7 +111,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#user-trades-notification" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -122,7 +122,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#position-closes-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -133,7 +133,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#balances-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -144,7 +144,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#reduce-risk-limits-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -152,10 +152,10 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to position updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#positions-notification" /></para>
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#positions-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -166,7 +166,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#auto-orders-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="userId">User id</param>
+        /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -177,7 +177,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-place" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="orderSide">Order side</param>
         /// <param name="quantity">Order quantity in number of contracts. Use the `Multiplier` property of the ExchangeData.GetContractsAsync endpoint to see how much currency 1 size contract represents</param>
         /// <param name="price">Limit price</param>
@@ -237,7 +237,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="open">True for open orders, false for closed orders</param>
-        /// <param name="contract">Filter by contract</param>
+        /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Offset</param>
         /// <param name="lastId">Last id to retrieve from</param>
@@ -249,7 +249,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#cancel-all-open-orders-matched" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="side">Order side</param>
         /// <returns></returns>
         Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(string settlementAsset, string contract, OrderSide? side = null);

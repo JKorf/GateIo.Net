@@ -33,7 +33,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get info on a specific asset
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-details-of-a-specific-currency" /></para>
         /// </summary>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoAsset>> GetAssetAsync(string asset, CancellationToken ct = default);
@@ -42,7 +42,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get info on a specific symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-details-of-a-specifc-currency-pair" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol name</param>
+        /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoSymbol>> GetSymbolAsync(string symbol, CancellationToken ct = default);
@@ -59,7 +59,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get tickers for all or a single symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-ticker-information" /></para>
         /// </summary>
-        /// <param name="symbol">Filter for a single symbol</param>
+        /// <param name="symbol">Filter for a single symbol, for example `ETH_USDT`</param>
         /// <param name="timezone">Timezone, utc0, utc8 or all</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get the orderbook for a symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-order-book" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol name</param>
+        /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="mergeDepth">Merge depth, defaults to 0</param>
         /// <param name="limit">Book depth to return, defaults to 10</param>
         /// <param name="ct">Cancellation token</param>
@@ -80,7 +80,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get market trades for a symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-market-trades" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol name</param>
+        /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="limit">Max amount of results</param>
         /// <param name="lastId">Specify list staring point using the id of last record in previous list-query results</param>
         /// <param name="reverse">Whether the id of records to be retrieved should be less than the last_id specified. Default to false.</param>
@@ -95,7 +95,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get kline/candlesticks for a symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#market-candlesticks" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol name</param>
+        /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="interval">The kline interval</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -108,7 +108,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of networks for an asset
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#list-chains-supported-for-specified-currency" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoNetwork>>> GetNetworksAsync(string asset, CancellationToken ct = default);
@@ -133,7 +133,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get supported cross margin asset
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /></para>
         /// </summary>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoCrossMarginAsset>> GetCrossMarginAssetAsync(string asset, CancellationToken ct = default);
@@ -158,7 +158,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get lending symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-detail-of-lending-market" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoLendingSymbol>> GetLendingSymbolAsync(string symbol, CancellationToken ct = default);

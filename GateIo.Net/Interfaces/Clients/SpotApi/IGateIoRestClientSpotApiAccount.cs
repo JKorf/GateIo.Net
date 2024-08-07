@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get spot account balances
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-spot-accounts" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoBalance>>> GetBalancesAsync(string? asset = null, CancellationToken ct = default);
@@ -26,7 +26,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of balance changes for the user
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#query-account-book" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="page">Page number</param>
@@ -40,7 +40,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Withdraw
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#withdraw" /></para>
         /// </summary>
-        /// <param name="asset">Asset to withdraw</param>
+        /// <param name="asset">Asset to withdraw, for example `ETH`</param>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="address">Withdrawal address</param>
         /// <param name="network">Network to use</param>
@@ -63,7 +63,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Generate deposit address
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#generate-currency-deposit-address" /></para>
         /// </summary>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoDepositAddress>> GenerateDepositAddressAsync(string asset, CancellationToken ct = default);
@@ -72,7 +72,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-withdrawal-records" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
@@ -91,7 +91,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get deposit history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-deposit-records" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
@@ -110,7 +110,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Transfer between accounts
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#transfer-between-trading-accounts" /></para>
         /// </summary>
-        /// <param name="asset">Asset to transfer</param>
+        /// <param name="asset">Asset to transfer, for example `ETH`</param>
         /// <param name="from">From account</param>
         /// <param name="to">To account</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -131,7 +131,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get account withdrawal status
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-withdrawal-status" /></para>
         /// </summary>
-        /// <param name="asset">Filter for a single asset</param>
+        /// <param name="asset">Filter for a single asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoWithdrawStatus>>> GetWithdrawStatusAsync(
@@ -142,7 +142,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get saved addresses
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#query-saved-address" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="network">Filter by network</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="page">Page number</param>
@@ -159,7 +159,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get trading fees
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-personal-trading-fee" /></para>
         /// </summary>
-        /// <param name="symbol">Specify a symbol to retrieve precise fee rate</param>
+        /// <param name="symbol">Specify a symbol to retrieve precise fee rate, for example `ETH_USDT`</param>
         /// <param name="settleAsset">Specify the settlement asset of the contract to get more accurate rate settings</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -192,7 +192,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Convert small balances
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#convert-small-balance" /></para>
         /// </summary>
-        /// <param name="assets">Assets to convert</param>
+        /// <param name="assets">Assets to convert, for example `ETH`</param>
         /// <param name="all">Convert all</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -205,7 +205,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get small balances conversion history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#list-small-balance-history" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -220,7 +220,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get unified account info
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#get-unified-account-information" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoUnifiedAccountInfo>> GetUnifiedAccountInfoAsync(
@@ -231,7 +231,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max borrowable amount
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#query-about-the-maximum-borrowing-for-the-unified-account" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoUnifiedAccountMax>> GetUnifiedAccountBorrowableAsync(
@@ -242,7 +242,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max transferable amount
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#query-about-the-maximum-transferable-for-the-unified-account" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoUnifiedAccountMax>> GetUnifiedAccountTransferableAsync(
@@ -253,7 +253,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Borrow or repay
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#borrow-or-repay" /></para>
         /// </summary>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="direction">Direction</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="repayAll">When set to 'true,' it overrides the 'amount,' allowing for direct full repayment.</param>
@@ -272,7 +272,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get loans
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-loans" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Limit</param>
         /// <param name="type">Loan type</param>
@@ -289,7 +289,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get loan history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-load-records" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="direction">Direction</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
@@ -306,7 +306,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get interest history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-interest-records" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="type">Filter by type</param>
@@ -351,7 +351,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get estimated lending rates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#get-unified-estimate-rate" /></para>
         /// </summary>
-        /// <param name="assets">Up to 10 assets</param>
+        /// <param name="assets">Up to 10 assets, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<Dictionary<string, decimal?>>> GetUnifiedAccountEstimatedLendingRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
@@ -368,7 +368,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin account list
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#margin-account-list" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoMarginAccount>>> GetMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
@@ -377,8 +377,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin accounts balance change history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-margin-account-balance-change-history" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -400,7 +400,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin funding accounts
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#funding-account-list" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoMarginFundingAccount>>> GetMarginFundingAccountsAsync(
@@ -430,8 +430,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max transferable quantity
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-transferable-amount-for-a-specific-margin-currency" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoMarginMaxTransferable>> GetMarginMaxTransferableAsync(string asset, string? symbol = null, CancellationToken ct = default);
@@ -448,7 +448,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin accounts balance change history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -468,7 +468,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Create a cross margin borrow loan
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="text">User defined text</param>
         /// <param name="ct">Cancellation token</param>
@@ -483,7 +483,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List cross margin borrow history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-cross-margin-borrow-history" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Offset</param>
         /// <param name="reverse">Reverse results</param>
@@ -510,7 +510,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cross margin repayment
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -523,7 +523,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get cross margin loan repayments
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-repayments" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="loanId">Loan id</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Offset</param>
@@ -542,7 +542,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get cross margin interest records
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#interest-records-for-the-cross-margin-account" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="startTime">Filter by start time</param>
@@ -561,7 +561,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max cross margin transferable
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-transferable-amount-for-a-specific-cross-margin-currency" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoMarginMaxTransferable>> GetCrossMarginMaxTransferableAsync(string asset, CancellationToken ct = default);
@@ -570,7 +570,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get cross margin estimated interest rates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#estimated-interest-rates" /></para>
         /// </summary>
-        /// <param name="assets">Assets, max 10</param>
+        /// <param name="assets">Assets, max 10, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<Dictionary<string, decimal>>> GetCrossMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
@@ -579,7 +579,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max borrowable for a cross margin asset
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-borrowable-amount-for-a-specific-cross-margin-currency" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoUnifiedAccountMax>> GetCrossMarginMaxBorrowableAsync(string asset, CancellationToken ct = default);
@@ -588,7 +588,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin estimated interest rates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#estimate-interest-rate" /></para>
         /// </summary>
-        /// <param name="assets">Assets, max 10</param>
+        /// <param name="assets">Assets, max 10, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<Dictionary<string, decimal>>> GetMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
@@ -597,7 +597,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Borrow or repay margin loan
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#borrow-or-repay-2" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="symbol">Symbol</param>
         /// <param name="direction">Borrow or repay</param>
         /// <param name="quantity">Quantity</param>
@@ -616,8 +616,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List margin loans
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-loans-2" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -633,8 +633,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List margin loan history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-load-records-2" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="direction">Filter by direction</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
@@ -652,8 +652,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List margin interest records
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-interest-records-2" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="startTime">Filter by start time</param>
@@ -673,8 +673,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin max borrowable quantity
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-maximum-borrowable" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoMarginMaxBorrowable>> GetMarginMaxBorrowableAsync(

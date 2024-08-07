@@ -28,7 +28,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-account-book-2" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Filter by contract</param>
+        /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="page">Page number</param>
@@ -53,7 +53,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Filter by contract</param>
+        /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<Dictionary<string, GateIoPerpFee>>> GetTradingFeeAsync(string settlementAsset, string? contract = null, CancellationToken ct = default);

@@ -19,7 +19,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to public trade updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -29,7 +29,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to public trade updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
         /// </summary>
-        /// <param name="symbols">Symbols</param>
+        /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -39,7 +39,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to ticker updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#tickers-channel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -49,7 +49,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to ticker updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#tickers-channel" /></para>
         /// </summary>
-        /// <param name="symbols">Symbols</param>
+        /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -59,7 +59,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#candlesticks-channel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -70,7 +70,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to book ticker updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#best-bid-or-ask-price" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -80,7 +80,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to book ticker updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#best-bid-or-ask-price" /></para>
         /// </summary>
-        /// <param name="symbols">Symbols</param>
+        /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -90,7 +90,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to order book change events. Only the changed entries will be pushed
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#changed-order-book-levels" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="updateMs">Update speed in milliseconds. 100 or 1000</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -101,7 +101,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Subscribe to partial full order book updates, Full order book will be pushed for a limited depth
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#limited-level-full-order-book-snapshot" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="depth">Depth of the book. 5, 10, 20, 50 or 100</param>
         /// <param name="updateMs">Update speed in milliseconds. 100 or 1000</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -176,7 +176,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="type">Order type</param>
         /// <param name="side">Order side</param>
         /// <param name="quantity">Order quantity in base asset. For Market Buy orders it's in quote asset</param>
@@ -217,7 +217,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel an order by id
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
@@ -237,7 +237,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
@@ -248,7 +248,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Edit an order
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="price">New price</param>
         /// <param name="quantity">New quantity</param>
@@ -268,7 +268,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get an order by id
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-status" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>

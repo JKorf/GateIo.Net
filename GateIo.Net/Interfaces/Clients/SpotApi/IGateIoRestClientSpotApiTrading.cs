@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#create-an-order" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="type">Order type</param>
         /// <param name="side">Order side</param>
         /// <param name="quantity">Order quantity in base asset. For Market Buy orders it's in quote asset</param>
@@ -66,7 +66,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-orders" /></para>
         /// </summary>
         /// <param name="open">Open orders (true) or closed orders (false)</param>
-        /// <param name="symbol">Filter by symbol, required for open orders</param>
+        /// <param name="symbol">Filter by symbol, required for open orders, for example `ETH_USDT`</param>
         /// <param name="page">Page</param>
         /// <param name="limit">Max amount of results</param>
         /// <param name="accountType">Filter by account type</param>
@@ -90,7 +90,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a specific order by id
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-a-single-order" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="accountType">Filter by account type</param>
         /// <param name="ct">Cancellation token</param>
@@ -105,7 +105,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a specific symbol
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#cancel-all-open-orders-in-specified-currency-pair" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="side">Only cancel orders on this side</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
@@ -131,7 +131,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Edit an active order
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#amend-an-order" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="price">New price</param>
         /// <param name="quantity">New quantity</param>
@@ -152,7 +152,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel an order
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#cancel-a-single-order" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol of the order</param>
+        /// <param name="symbol">Symbol of the order, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
@@ -167,7 +167,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of trades for the current user
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#list-personal-trading-history" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Filter by order id</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="page">Page number</param>
@@ -191,7 +191,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#countdown-cancel-orders" /></para>
         /// </summary>
         /// <param name="cancelAfter">Cancel after period</param>
-        /// <param name="symbol">Only cancel on this symbol</param>
+        /// <param name="symbol">Only cancel on this symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoCancelAfter>> CancelOrdersAfterAsync(
@@ -235,7 +235,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-running-auto-order-list" /></para>
         /// </summary>
         /// <param name="open">True for open orders, false for closed orders</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="accountType">Filter by account type</param>
         /// <param name="limit">Max amount of results</param>
         /// <param name="offset">Offset</param>
@@ -253,7 +253,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel all trigger orders
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#cancel-all-open-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="accountType">Filter by account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

@@ -35,7 +35,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-a-single-contract" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract name</param>
+        /// <param name="contract">Contract name, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoPerpFuturesContract>> GetContractAsync(string settlementAsset, string contract, CancellationToken ct = default);
@@ -45,7 +45,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#futures-order-book" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract name</param>
+        /// <param name="contract">Contract name, for example `ETH_USDT`</param>
         /// <param name="mergeDepth">Merge depth</param>
         /// <param name="depth">Number of rows</param>
         /// <param name="ct">Cancellation token</param>
@@ -57,7 +57,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract name</param>
+        /// <param name="contract">Contract name, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Offset</param>
         /// <param name="lastId">Specify the starting point for this list based on a previously retrieved id</param>
@@ -80,7 +80,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract name</param>
+        /// <param name="contract">Contract name, for example `ETH_USDT`</param>
         /// <param name="interval">Interval</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="startime">Filter by start time</param>
@@ -101,7 +101,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#premium-index-k-line" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract name</param>
+        /// <param name="contract">Contract name, for example `ETH_USDT`</param>
         /// <param name="interval">Interval</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="startime">Filter by start time</param>
@@ -122,7 +122,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-futures-tickers" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoPerpTicker>>> GetTickersAsync(
@@ -135,7 +135,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#funding-rate-history" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -163,7 +163,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#futures-stats" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="limit">Limit</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="ct">Cancellation token</param>
@@ -180,7 +180,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-index-constituents" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoPerpConstituent>> GetIndexConstituentsAsync(
@@ -193,7 +193,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-liquidation-history" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Fitler by end time</param>
         /// <param name="limit">Max number of results</param>
@@ -212,7 +212,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-risk-limit-tiers" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="contract">Contract</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
