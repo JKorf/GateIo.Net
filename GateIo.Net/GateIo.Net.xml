@@ -43,7 +43,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiAccount">
@@ -284,7 +284,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Clients.GateIoRestClient">
@@ -405,7 +405,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
             <inheritdoc />
         </member>
         <member name="P:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.CommonSpotClient">
@@ -772,7 +772,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Enums.AccountType">
