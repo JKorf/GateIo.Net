@@ -346,6 +346,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, FuturesType? futuresType = null) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
     }
 }
