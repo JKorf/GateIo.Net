@@ -26,7 +26,7 @@ namespace GateIo.Net.Clients.SpotApi
     /// <summary>
     /// Client providing access to the GateIo spot websocket Api
     /// </summary>
-    internal class GateIoSocketClientSpotApi : SocketApiClient, IGateIoSocketClientSpotApi
+    internal partial class GateIoSocketClientSpotApi : SocketApiClient, IGateIoSocketClientSpotApi
     {
         #region fields
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
@@ -62,6 +62,8 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
+
+        public IGateIoSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<GateIoTradeUpdate>> onMessage, CancellationToken ct = default)

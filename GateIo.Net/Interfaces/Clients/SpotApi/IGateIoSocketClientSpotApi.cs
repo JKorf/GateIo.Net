@@ -15,6 +15,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IGateIoSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        public IGateIoSocketClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to public trade updates
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
