@@ -139,6 +139,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<IEnumerable<GateIoOrderUpdate>>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoOrderUpdate>>(_logger, "spot.orders", new[] { "spot.orders" }, new[] { "!all" }, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
@@ -146,6 +149,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<IEnumerable<GateIoUserTradeUpdate>>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoUserTradeUpdate>>(_logger, "spot.usertrades", new[] { "spot.usertrades" }, new[] { "!all" }, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
@@ -153,6 +159,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoBalanceUpdate>>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoBalanceUpdate>>(_logger, "spot.balances", new[] { "spot.balances" }, null, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
@@ -160,6 +169,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarginBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoMarginBalanceUpdate>>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoMarginBalanceUpdate>>(_logger, "spot.margin_balances", new[] { "spot.margin_balances" }, null, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
@@ -167,6 +179,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoFundingBalanceUpdate>>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoFundingBalanceUpdate>>(_logger, "spot.funding_balances", new[] { "spot.funding_balances" }, null, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
@@ -174,6 +189,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoCrossMarginBalanceUpdate>>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoCrossMarginBalanceUpdate>>(_logger, "spot.cross_balances", new[] { "spot.cross_balances" }, null, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
@@ -181,6 +199,9 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<GateIoTriggerOrderUpdate>> onMessage, CancellationToken ct = default)
         {
+            if (AuthenticationProvider == null)
+                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+
             var subscription = new GateIoAuthSubscription<GateIoTriggerOrderUpdate>(_logger, "spot.priceorders", new[] { "spot.priceorders" }, new[] { "!all" }, onMessage);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }

@@ -83,6 +83,27 @@ namespace GateIo.Net.Clients.SpotApi
             return result;
         }
 
+        async Task<CallResult<UpdateSubscription>> ISpotUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
+        {
+            var result = await SubscribeToUserTradeUpdatesAsync(
+                update => handler(update.As(update.Data.Select(x =>
+                    new SharedUserTrade(
+                        x.OrderId.ToString(),
+                        x.Id.ToString(),
+                        x.Quantity,
+                        x.Price!.Value,
+                        x.CreateTime)
+                    {
+                        Role = x.Role == Enums.Role.Maker ? SharedRole.Maker : SharedRole.Taker,
+                        Fee = x.Fee,
+                        FeeAsset = x.FeeAsset
+                    }
+                ))),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
+
         private SharedOrderStatus GetOrderStatus(GateIoOrderUpdate update)
         {
             if (update.QuantityRemaining == 0)
@@ -90,10 +111,7 @@ namespace GateIo.Net.Clients.SpotApi
 
             if (update.Event != "finish")
             {
-                if (update.QuantityRemaining != 0)
-                    return SharedOrderStatus.PartiallyFilled;
-                else
-                    return SharedOrderStatus.Open;
+                return SharedOrderStatus.Open;
             }
             else
             {

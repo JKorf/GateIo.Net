@@ -9260,6 +9260,11 @@
             Fee paid
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserTradeUpdate.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoUserTradeUpdate.PointFee">
             <summary>
             Points used to deduct fee

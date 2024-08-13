@@ -20,7 +20,7 @@ using System.Linq;
 namespace GateIo.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IGateIoRestClientSpotApi" />
-    internal class GateIoRestClientSpotApi : RestApiClient, IGateIoRestClientSpotApi, ISpotClient
+    internal partial class GateIoRestClientSpotApi : RestApiClient, IGateIoRestClientSpotApi, ISpotClient
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
@@ -160,6 +160,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IGateIoRestClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public string GetSymbolName(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();

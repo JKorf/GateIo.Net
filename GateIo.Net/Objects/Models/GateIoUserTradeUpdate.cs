@@ -60,6 +60,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
+        /// Fee asset
+        /// </summary>
+        [JsonPropertyName("fee_currency")]
+        public string? FeeAsset { get; set; }
+        /// <summary>
         /// Points used to deduct fee
         /// </summary>
         [JsonPropertyName("point_fee")]
