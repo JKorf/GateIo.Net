@@ -1,4 +1,5 @@
 ﻿using GateIo.Net.Interfaces.Clients.SpotApi;
+using GateIo.Net.Enums;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis.Interfaces;
 using CryptoExchange.Net.SharedApis.Models.Rest;
@@ -10,12 +11,35 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.SharedApis.Enums;
+using GateIo.Net.Objects.Models;
 
 namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoRestClientSpotApi : IGateIoRestClientSpotApiShared
     {
         public string Exchange => "GateIo";
+
+        public IEnumerable<SharedOrderType> SupportedOrderType { get; } = new[]
+        {
+            SharedOrderType.Limit,
+            SharedOrderType.Market,
+            SharedOrderType.LimitMaker
+        };
+
+        public IEnumerable<SharedTimeInForce> SupportedTimeInForce { get; } = new[]
+        {
+            SharedTimeInForce.GoodTillCanceled,
+            SharedTimeInForce.ImmediateOrCancel,
+            SharedTimeInForce.FillOrKill
+        };
+
+        public SharedQuantitySupport OrderQuantitySupport { get; } =
+            new SharedQuantitySupport(
+                SharedQuantityType.BaseAssetQuantity,
+                SharedQuantityType.BaseAssetQuantity,
+                SharedQuantityType.QuoteAssetQuantity,
+                SharedQuantityType.BaseAssetQuantity);
 
         async Task<WebCallResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, CancellationToken ct)
         {
@@ -95,6 +119,218 @@ namespace GateIo.Net.Clients.SpotApi
                 return result.As<IEnumerable<SharedBalance>>(default);
 
             return result.As(result.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Locked)));
+        }
+
+        async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotPlaceOrderRequest request, CancellationToken ct)
+        {
+            if (request.OrderType == SharedOrderType.Other)
+                throw new ArgumentException("OrderType can't be `Other`", nameof(request.OrderType));
+
+            var result = await Trading.PlaceOrderAsync(
+                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.Side == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
+                GetOrderType(request.OrderType),
+                quantity: (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy ? request.QuoteQuantity : request.Quantity) ?? 0,
+                price: request.Price,
+                timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
+                text: "t-" + request.ClientOrderId,
+                accountType: SpotAccountType.Spot
+                ).ConfigureAwait(false);
+
+            if (!result)
+                return result.As<SharedOrderId>(default);
+
+            return result.As(new SharedOrderId(result.Data.Id.ToString()));
+        }
+
+        async Task<WebCallResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            if (!long.TryParse(request.OrderId, out var orderId))
+                return new WebCallResult<SharedSpotOrder>(new ArgumentError("Invalid order id"));
+
+            var orders = await Trading.GetOrderAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), orderId).ConfigureAwait(false);
+            if (!orders)
+                return orders.As<SharedSpotOrder>(default);
+
+            return orders.As(new SharedSpotOrder(
+                orders.Data.Symbol,
+                orders.Data.Id.ToString(),
+                ParseOrderType(orders.Data.Type, orders.Data.TimeInForce),
+                orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(orders.Data.Status),
+                orders.Data.CreateTime)
+            {
+                ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
+                Price = orders.Data.Price,
+                Quantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity,
+                QuantityFilled = orders.Data.QuantityFilled,
+                UpdateTime = orders.Data.UpdateTime,
+                QuoteQuantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? orders.Data.Quantity : null,
+                QuoteQuantityFilled = orders.Data.QuoteQuantityFilled,
+                Fee = orders.Data.Fee,
+                FeeAsset = orders.Data.FeeAsset,
+                TimeInForce = ParseTimeInForce(orders.Data.TimeInForce)
+            });
+        }
+
+        async Task<WebCallResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
+        {
+            string? symbol = null;
+            if (request.BaseAsset != null && request.QuoteAsset != null)
+                symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+
+            var orders = await Trading.GetOpenOrdersAsync().ConfigureAwait(false);
+            if (!orders)
+                return orders.As<IEnumerable<SharedSpotOrder>>(default);
+
+            IEnumerable<GateIoOrder> orderList;
+            if (symbol != null)
+                orderList = orders.Data.SingleOrDefault(x => x.Symbol == symbol)?.Orders ?? Array.Empty<GateIoOrder>();
+            else
+                orderList = orders.Data.SelectMany(x => x.Orders);
+
+            return orders.As(orderList.Select(x => new SharedSpotOrder(
+                x.Symbol,
+                x.Id.ToString(),
+                ParseOrderType(x.Type, x.TimeInForce),
+                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(x.Status),
+                x.CreateTime)
+            {
+                ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
+                Price = x.Price,
+                Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
+                QuantityFilled = x.QuantityFilled,
+                UpdateTime = x.UpdateTime,
+                QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
+                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                Fee = x.Fee,
+                FeeAsset = x.FeeAsset,
+                TimeInForce = ParseTimeInForce(x.TimeInForce)
+            }));
+        }
+
+        async Task<WebCallResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetClosedOrdersRequest request, CancellationToken ct)
+        {
+            var orders = await Trading.GetOrdersAsync(false, FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), startTime: request.StartTime, endTime: request.EndTime, limit: request.Limit).ConfigureAwait(false);
+            if (!orders)
+                return orders.As<IEnumerable<SharedSpotOrder>>(default);
+
+            return orders.As(orders.Data.Select(x => new SharedSpotOrder(
+                x.Symbol,
+                x.Id.ToString(),
+                ParseOrderType(x.Type, x.TimeInForce),
+                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(x.Status),
+                x.CreateTime)
+            {
+                ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
+                Price = x.Price,
+                Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
+                QuantityFilled = x.QuantityFilled,
+                UpdateTime = x.UpdateTime,
+                QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
+                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                Fee = x.Fee,
+                FeeAsset = x.FeeAsset,
+                TimeInForce = ParseTimeInForce(x.TimeInForce)
+            }));
+        }
+
+        async Task<WebCallResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
+        {
+            if (!long.TryParse(request.OrderId, out var orderId))
+                return new WebCallResult<IEnumerable<SharedUserTrade>>(new ArgumentError("Invalid order id"));
+
+            var orders = await Trading.GetUserTradesAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), orderId: orderId).ConfigureAwait(false);
+            if (!orders)
+                return orders.As<IEnumerable<SharedUserTrade>>(default);
+
+            return orders.As(orders.Data.Select(x => new SharedUserTrade(
+                x.Symbol,
+                x.OrderId.ToString(),
+                x.Id.ToString(),
+                x.Quantity,
+                x.Price,
+                x.CreateTime)
+            {
+                Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
+                Fee = x.Fee,
+                FeeAsset = x.FeeAsset,
+            }));
+        }
+
+        async Task<WebCallResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, CancellationToken ct)
+        {
+            var orders = await Trading.GetUserTradesAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), startTime: request.StartTime, endTime: request.EndTime, limit: request.Limit).ConfigureAwait(false);
+            if (!orders)
+                return orders.As<IEnumerable<SharedUserTrade>>(default);
+
+            return orders.As(orders.Data.Select(x => new SharedUserTrade(
+                x.Symbol,
+                x.OrderId.ToString(),
+                x.Id.ToString(),
+                x.Quantity,
+                x.Price,
+                x.CreateTime)
+            {
+                Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
+                Fee = x.Fee,
+                FeeAsset = x.FeeAsset,
+            }));
+        }
+
+        async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            if (!long.TryParse(request.OrderId, out var orderId))
+                return new WebCallResult<SharedOrderId>(new ArgumentError("Invalid order id"));
+
+            var order = await Trading.CancelOrderAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), orderId).ConfigureAwait(false);
+            if (!order)
+                return order.As<SharedOrderId>(default);
+
+            return order.As(new SharedOrderId(order.Data.Id.ToString()));
+        }
+
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status)
+        {
+            if (status == OrderStatus.Open) return SharedOrderStatus.Open;
+            if (status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
+            return SharedOrderStatus.Filled;
+        }
+
+        private SharedOrderType ParseOrderType(OrderType type, TimeInForce tif)
+        {
+            if (type == OrderType.Market) return SharedOrderType.Market;
+            if (tif == TimeInForce.PendingOrCancel) return SharedOrderType.LimitMaker;
+
+            return SharedOrderType.Limit;
+        }
+
+        private SharedTimeInForce? ParseTimeInForce(TimeInForce tif)
+        {
+            if (tif == TimeInForce.ImmediateOrCancel) return SharedTimeInForce.ImmediateOrCancel;
+            if (tif == TimeInForce.FillOrKill) return SharedTimeInForce.FillOrKill;
+            if (tif == TimeInForce.GoodTillCancel) return SharedTimeInForce.GoodTillCanceled;
+
+            return null;
+        }
+
+        private NewOrderType GetOrderType(SharedOrderType type)
+        {
+            if (type == SharedOrderType.Market) return NewOrderType.Market;
+
+            return NewOrderType.Limit;
+        }
+
+        private TimeInForce? GetTimeInForce(SharedOrderType orderType, SharedTimeInForce? tif)
+        {
+            if (orderType == SharedOrderType.LimitMaker) return TimeInForce.PendingOrCancel;
+            if (tif == SharedTimeInForce.ImmediateOrCancel) return TimeInForce.ImmediateOrCancel;
+            if (tif == SharedTimeInForce.FillOrKill) return TimeInForce.FillOrKill;
+            if (tif == SharedTimeInForce.GoodTillCanceled) return TimeInForce.GoodTillCancel;
+
+            return null;
         }
     }
 }
