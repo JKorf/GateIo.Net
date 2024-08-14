@@ -88,6 +88,7 @@ namespace GateIo.Net.Clients.SpotApi
             var result = await SubscribeToUserTradeUpdatesAsync(
                 update => handler(update.As(update.Data.Select(x =>
                     new SharedUserTrade(
+                        x.Symbol,
                         x.OrderId.ToString(),
                         x.Id.ToString(),
                         x.Quantity,
