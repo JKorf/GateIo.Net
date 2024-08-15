@@ -96,15 +96,10 @@ namespace GateIo.Net.Clients.SpotApi
             return result.AsExchangeResult<IEnumerable<SharedTicker>>(Exchange, result.Data.Select(x => new SharedTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice)));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> ITradeRestClient.GetTradesAsync(GetTradesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
-            if (request.StartTime != null || request.EndTime != null)
-                return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, new ArgumentError("Start/EndTime filtering not supported"));
-
             var result = await ExchangeData.GetTradesAsync(
                 FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
-                startTime: request.StartTime,
-                endTime: request.EndTime,
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -261,11 +256,31 @@ namespace GateIo.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var orders = await Trading.GetUserTradesAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), startTime: request.StartTime, endTime: request.EndTime, limit: request.Limit).ConfigureAwait(false);
+            // Determine page token
+            int page = 1;
+            int pageSize = request.Limit ?? 500;
+            if (pageToken is PageToken token)
+            {
+                page = token.Page;
+                pageSize = token.PageSize;
+            }
+
+            // Get data
+            var orders = await Trading.GetUserTradesAsync(
+                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                startTime: request.StartTime, 
+                endTime: request.EndTime, 
+                page: page,
+                limit: pageSize).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+
+            // Get next token
+            PageToken? nextToken = null;
+            if (orders.Data.Count() == pageSize)
+                nextToken = new PageToken(page + 1, pageSize);
 
             return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
@@ -278,7 +293,7 @@ namespace GateIo.Net.Clients.SpotApi
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
-            }));
+            }), nextToken);
         }
 
         async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
