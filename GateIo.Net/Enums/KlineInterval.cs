@@ -11,56 +11,56 @@ namespace GateIo.Net.Enums
         /// 10 seconds
         /// </summary>
         [Map("10s")]
-        TenSeconds,
+        TenSeconds = 10,
         /// <summary>
         /// 1 minute
         /// </summary>
         [Map("1m")]
-        OneMinute,
+        OneMinute = 60,
         /// <summary>
         /// 5 minutes
         /// </summary>
         [Map("5m")]
-        FiveMinutes,
+        FiveMinutes = 60 * 5,
         /// <summary>
         /// 15 minutes
         /// </summary>
         [Map("15m")]
-        FifteenMinutes,
+        FifteenMinutes = 60 * 15,
         /// <summary>
         /// 30 minutes
         /// </summary>
         [Map("30m")]
-        ThirtyMinutes,
+        ThirtyMinutes = 60 * 30,
         /// <summary>
         /// 1 hour
         /// </summary>
         [Map("1h")]
-        OneHour,
+        OneHour = 60 * 60,
         /// <summary>
         /// 4 hours
         /// </summary>
         [Map("4h")]
-        FourHours,
+        FourHours = 60 * 60 * 4,
         /// <summary>
         /// 8 hours
         /// </summary>
         [Map("8h")]
-        EightHours,
+        EightHours = 60 * 60 * 8,
         /// <summary>
         /// 1 day
         /// </summary>
         [Map("1d")]
-        OneDay,
+        OneDay = 60 * 60 * 24,
         /// <summary>
         /// 1 week
         /// </summary>
         [Map("7d")]
-        OneWeek,
+        OneWeek = 60 * 60 * 24 * 7,
         /// <summary>
         /// 1 month
         /// </summary>
         [Map("30d")]
-        OneMonth
+        OneMonth = 60 * 60 * 24 * 30
     }
 }
