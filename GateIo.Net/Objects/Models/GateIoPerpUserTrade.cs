@@ -28,7 +28,7 @@ namespace GateIo.Net.Objects.Models
         /// Quantity
         /// </summary>
         [JsonPropertyName("size")]
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Trade price
         /// </summary>
@@ -59,5 +59,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("role")]
         public Role Role { get; set; }
+        /// <summary>
+        /// Close quantiy
+        /// </summary>
+        [JsonPropertyName("close_size")]
+        public long CloseQuantity { get; set; }
     }
 }
