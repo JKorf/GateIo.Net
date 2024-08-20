@@ -7970,6 +7970,11 @@
             Role
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpUserTrade.CloseQuantity">
+            <summary>
+            Close quantiy
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPosition">
             <summary>
             Position info

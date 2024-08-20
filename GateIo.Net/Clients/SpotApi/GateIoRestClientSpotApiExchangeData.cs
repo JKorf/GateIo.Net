@@ -117,7 +117,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.Add("currency_pair", symbol);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("last_id", lastId);
-            parameters.AddOptional("reverse", reverse);
+            parameters.AddOptional("reverse", reverse == null ? null : reverse == true ? "true" : "false");
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("page", page);
