@@ -24,12 +24,12 @@ namespace GateIo.Net.Clients.SpotApi
 
         #region Kline client
 
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true)
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true, false)
         {
             MaxRequestDataPoints = 1000
         };
 
-        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
@@ -81,7 +81,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         #region Spot Symbol client
 
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSpotSymbolsAsync(CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSpotSymbolsAsync(ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var result = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!result)
@@ -100,7 +100,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         #region Ticker client
 
-        async Task<ExchangeWebResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var result = await ExchangeData.GetTickersAsync(request.GetSymbol(FormatSymbol), null, ct).ConfigureAwait(false);
             if (!result)
@@ -110,7 +110,7 @@ namespace GateIo.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, new SharedTicker(ticker.Symbol, ticker.LastPrice, ticker.HighPrice, ticker.LowPrice));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedTicker>>> ITickerRestClient.GetTickersAsync(ApiType? apiType, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedTicker>>> ITickerRestClient.GetTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var result = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
             if (!result)
@@ -124,7 +124,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Recent Trade client
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(1000);
 
-        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var result = await ExchangeData.GetTradesAsync(
                 request.GetSymbol(FormatSymbol),
@@ -139,6 +139,7 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region Balance client
+        EndpointOptions IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions(true);
 
         async Task<ExchangeWebResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
@@ -228,7 +229,7 @@ namespace GateIo.Net.Clients.SpotApi
         {
             string? symbol = null;
             if (request.BaseAsset != null && request.QuoteAsset != null)
-                symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+                symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, ApiType.Spot);
 
             var orders = await Trading.GetOpenOrdersAsync().ConfigureAwait(false);
             if (!orders)
@@ -428,8 +429,9 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region Asset client
+        EndpointOptions IAssetRestClient.GetAssetsOptions { get; } = new EndpointOptions(false);
 
-        async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetRestClient.GetAssetsAsync(CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetRestClient.GetAssetsAsync(ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var assets = await ExchangeData.GetAssetsAsync(ct: ct).ConfigureAwait(false);
             if (!assets)
@@ -443,7 +445,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         #region Deposit client
 
-        async Task<ExchangeWebResult<IEnumerable<SharedDepositAddress>>> IDepositRestClient.GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedDepositAddress>>> IDepositRestClient.GetDepositAddressesAsync(GetDepositAddressesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var depositAddresses = await Account.GenerateDepositAddressAsync(request.Asset).ConfigureAwait(false);
             if (!depositAddresses)
@@ -458,7 +460,7 @@ namespace GateIo.Net.Clients.SpotApi
             ));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedDeposit>>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, INextPageToken? pageToken, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedDeposit>>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             // Determine page token
             int? offset = null;
@@ -493,7 +495,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         #region Order Book client
         GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(1, 5000);
-        async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.Validate(request);
             if (validationError != null)
@@ -512,7 +514,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         #region Withdrawal client
 
-        async Task<ExchangeWebResult<IEnumerable<SharedWithdrawal>>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, INextPageToken? pageToken, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedWithdrawal>>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             // Determine page token
             int? offset = null;
