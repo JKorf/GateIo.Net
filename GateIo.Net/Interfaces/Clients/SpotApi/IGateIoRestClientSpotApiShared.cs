@@ -6,7 +6,7 @@ using System.Text;
 namespace GateIo.Net.Interfaces.Clients.SpotApi
 {
     public interface IGateIoRestClientSpotApiShared :
-        IAssetRestClient,
+        IAssetsRestClient,
         IBalanceRestClient,
         IDepositRestClient,
         IKlineRestClient,
