@@ -1869,7 +1869,7 @@
             <param name="limit">Max number of results</param>
             <param name="offset">Offset</param>
             <param name="lastId">Specify the starting point for this list based on a previously retrieved id</param>
-            <param name="startime">Filter by start time</param>
+            <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -6670,7 +6670,7 @@
             Contract type
             </summary>
         </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.Mulitplier">
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.Multiplier">
             <summary>
             Multiplier used in converting from invoicing to settlement asset
             </summary>
@@ -8023,6 +8023,16 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.Margin">
             <summary>
             Margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.InitialMargin">
+            <summary>
+            Initial margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.MaintenanceMargin">
+            <summary>
+            Maintenance margin
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.EntryPrice">

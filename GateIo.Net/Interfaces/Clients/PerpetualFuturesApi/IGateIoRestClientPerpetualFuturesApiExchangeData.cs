@@ -61,7 +61,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Offset</param>
         /// <param name="lastId">Specify the starting point for this list based on a previously retrieved id</param>
-        /// <param name="startime">Filter by start time</param>
+        /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -71,7 +71,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
             int? limit = null,
             int? offset = null,
             string? lastId = null,
-            DateTime? startime = null,
+            DateTime? startTime = null,
             DateTime? endTime = null,
             CancellationToken ct = default);
 
