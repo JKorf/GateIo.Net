@@ -311,16 +311,16 @@ namespace GateIo.Net.Clients.FuturesApi
             var orders = await Trading.GetOrdersByTimestampAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit ?? 1000,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 1000,
                 offset: offset).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
 
             // Get next token
             OffsetToken? nextToken = null;
-            if (orders.Data.Count() == (request.Filter?.Limit ?? 1000))
+            if (orders.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new OffsetToken((offset ?? 0) + orders.Data.Count());
 
             return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedFuturesOrder(
@@ -397,9 +397,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
             // Get data
             var orders = await Trading.GetUserTradesByTimestampAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit ?? 1000,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 1000,
                 offset: offset,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -408,7 +408,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             // Get next token
             OffsetToken? nextToken = null;
-            if (orders.Data.Count() == (request.Filter?.Limit ?? 1000))
+            if (orders.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new OffsetToken((offset ?? 0) + orders.Data.Count());
 
             return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedUserTrade(
@@ -467,15 +467,16 @@ namespace GateIo.Net.Clients.FuturesApi
                 var result = await Trading.GetPositionsAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
-                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, result.Data.Select(x => new SharedPosition(x.Contract, x.Size, x.UpdateTime ?? default)
+                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, result.Data.Select(x => new SharedPosition(x.Contract, Math.Abs(x.Size), x.UpdateTime)
                 {
+#warning assumes that shorts are negative size. Correct?
                     UnrealizedPnl = x.UnrealisedPnl,
                     LiquidationPrice = x.LiquidationPrice,
                     AverageEntryPrice = x.EntryPrice,
                     InitialMargin = x.InitialMargin,
                     Leverage = x.Leverage,
                     MaintenanceMargin = x.MaintenanceRate,
-                    PositionSide = x.PositionMode == PositionMode.Single ? SharedPositionSide.Both : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                    PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToList());
             }
             else
@@ -484,7 +485,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 if (!result)
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
 
-                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, new[] { new SharedPosition(result.Data.Contract, result.Data.Size, result.Data.UpdateTime ?? default)
+                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, new[] { new SharedPosition(result.Data.Contract, Math.Abs(result.Data.Size), result.Data.UpdateTime)
                 {
                     UnrealizedPnl = result.Data.UnrealisedPnl,
                     LiquidationPrice = result.Data.LiquidationPrice,
@@ -492,7 +493,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     InitialMargin = result.Data.InitialMargin,
                     Leverage = result.Data.Leverage,
                     MaintenanceMargin = result.Data.MaintenanceRate,
-                    PositionSide = result.Data.PositionMode == PositionMode.Single ? SharedPositionSide.Both : result.Data.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                    PositionSide = result.Data.PositionMode == PositionMode.Single ? (result.Data.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : result.Data.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
                 } });
             }
         }
@@ -517,7 +518,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 0,
                 null,
                 closePosition: true,
-                closeSide: request.PositionSide == SharedPositionSide.Both ? null : request.PositionSide == SharedPositionSide.Long ? CloseSide.CloseLong : CloseSide.CloseShort,
+                closeSide: request.PositionSide == null ? null : request.PositionSide == SharedPositionSide.Long ? CloseSide.CloseLong : CloseSide.CloseShort,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, default);
@@ -608,9 +609,9 @@ namespace GateIo.Net.Clients.FuturesApi
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                request.Filter?.Limit ?? 2000,
-                fromTimestamp ?? request.Filter?.StartTime,
-                request.Filter?.EndTime,
+                request.Limit ?? 2000,
+                fromTimestamp ?? request.StartTime,
+                request.EndTime,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -618,10 +619,10 @@ namespace GateIo.Net.Clients.FuturesApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -660,9 +661,9 @@ namespace GateIo.Net.Clients.FuturesApi
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
                 interval,
-                request.Filter?.Limit ?? 1000,
-                fromTimestamp ?? request.Filter?.StartTime,
-                request.Filter?.EndTime,
+                request.Limit ?? 1000,
+                fromTimestamp ?? request.StartTime,
+                request.EndTime,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -670,10 +671,10 @@ namespace GateIo.Net.Clients.FuturesApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -879,6 +880,49 @@ namespace GateIo.Net.Clients.FuturesApi
 
             // Return
             return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)));
+        }
+        #endregion
+
+        #region Position Mode client
+
+        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions(false)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IPositionModeRestClient)this).GetPositionModeOptions.ValidateRequest(Exchange, request, exchangeParameters, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
+
+            var result = await Account.GetAccountAsync(exchangeParameters.GetValue<string>(Exchange, "SettleAsset"), ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.DualMode ? SharedPositionMode.LongShort : SharedPositionMode.OneWay));
+        }
+
+        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(true, true, true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IPositionModeRestClient)this).SetPositionModeOptions.ValidateRequest(Exchange, request, exchangeParameters, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
+
+            var result = await Account.UpdatePositionModeAsync(exchangeParameters.GetValue<string>(Exchange, "SettleAsset"), request.Mode == SharedPositionMode.LongShort, ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, new SharedPositionModeResult(request.Mode));
         }
         #endregion
     }

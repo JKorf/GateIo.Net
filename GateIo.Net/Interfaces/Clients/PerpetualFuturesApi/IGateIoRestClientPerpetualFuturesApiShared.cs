@@ -19,7 +19,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         ILeverageRestClient,
         IOrderBookRestClient,
         IOpenInterestRestClient,
-        IFundingRateRestClient
+        IFundingRateRestClient,
+        IPositionModeRestClient
     {
     }
 }
