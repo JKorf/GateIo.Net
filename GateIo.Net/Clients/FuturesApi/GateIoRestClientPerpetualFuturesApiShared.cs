@@ -148,9 +148,12 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedFuturesSymbol(
+            var data = result.Data.Where(x => apiType == ApiType.PerpetualLinear ? x.Type == ContractType.Direct : x.Type == ContractType.Inverse);
+            return result.AsExchangeResult(Exchange, data.Select(s => new SharedFuturesSymbol(
                 s.Type == ContractType.Inverse ? SharedSymbolType.PerpetualInverse : SharedSymbolType.PerpetualLinear,
-                s.Name.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries)[0], s.Name.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries)[1], s.Name)
+                s.Name.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries)[0], s.Name.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries)[1],
+                s.Name,
+                !s.Delisting)
             {
                 MinTradeQuantity = s.MinOrderQuantity,
                 MaxTradeQuantity = s.MaxOrderQuantity,
