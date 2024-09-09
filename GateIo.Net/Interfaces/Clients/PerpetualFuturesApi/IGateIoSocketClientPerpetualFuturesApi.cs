@@ -15,6 +15,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
     /// </summary>
     public interface IGateIoSocketClientPerpetualFuturesApi : ISocketApiClient, IDisposable
     {
+        IGateIoSocketClientPerpetualFuturesApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to public trade updates
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#trades-api" /></para>

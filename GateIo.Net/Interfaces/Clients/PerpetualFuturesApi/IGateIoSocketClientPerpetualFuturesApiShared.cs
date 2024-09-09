@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GateIo.Net.Interfaces.Clients.SpotApi
+namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 {
-    public interface IGateIoSocketClientSpotApiShared :
+    public interface IGateIoSocketClientPerpetualFuturesApiShared :
         ITickerSocketClient,
         ITradeSocketClient,
         IBookTickerSocketClient,
         IKlineSocketClient,
         IOrderBookSocketClient,
         IBalanceSocketClient,
-        IUserTradeSocketClient,
-        ISpotOrderSocketClient
+        IFuturesOrderSocketClient,
+        IUserTradeSocketClient
     {
     }
 }
