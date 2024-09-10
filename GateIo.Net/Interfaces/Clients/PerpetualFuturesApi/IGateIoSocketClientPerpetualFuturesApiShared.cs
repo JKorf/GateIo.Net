@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.SharedApis.Interfaces.Socket;
+using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         IOrderBookSocketClient,
         IBalanceSocketClient,
         IFuturesOrderSocketClient,
-        IUserTradeSocketClient
+        IUserTradeSocketClient,
+        IPositionSocketClient
     {
     }
 }

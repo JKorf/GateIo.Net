@@ -469,13 +469,13 @@ namespace GateIo.Net.Clients.FuturesApi
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
                 return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, result.Data.Select(x => new SharedPosition(x.Contract, Math.Abs(x.Size), x.UpdateTime)
                 {
-#warning assumes that shorts are negative size. Correct?
                     UnrealizedPnl = x.UnrealisedPnl,
                     LiquidationPrice = x.LiquidationPrice,
                     AverageEntryPrice = x.EntryPrice,
                     InitialMargin = x.InitialMargin,
                     Leverage = x.Leverage,
                     MaintenanceMargin = x.MaintenanceRate,
+#warning assumes that shorts are negative size. Correct?
                     PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToList());
             }

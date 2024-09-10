@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis.Enums;
 using CryptoExchange.Net.SharedApis.Interfaces.Socket;
+using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
 using CryptoExchange.Net.SharedApis.Models;
 using CryptoExchange.Net.SharedApis.Models.FilterOptions;
 using CryptoExchange.Net.SharedApis.Models.Socket;
@@ -254,6 +255,40 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
+        #endregion
+
+        #region Position client
+        SubscriptionOptions IPositionSocketClient.SubscribePositionOptions { get; } = new SubscriptionOptions("SubscribePositionRequest", true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt"),
+                new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
+            }
+        };
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(Action<ExchangeEvent<IEnumerable<SharedPosition>>> handler, ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, exchangeParameters, ApiType.Spot, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToPositionUpdatesAsync(
+                exchangeParameters!.GetValue<long>(Exchange, "UserId")!,
+                exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
+                update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x => new SharedPosition(x.Contract, x.Size, update.Timestamp)
+                {
+                    AverageEntryPrice = x.EntryPrice,
+#warning assumes that shorts are negative size. Correct?
+                    PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                    LiquidationPrice = x.LiquidationPrice,
+                    MaintenanceMargin = x.MaintenanceRate,
+                    Leverage = x.Leverage
+                }))),
+                ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
         #endregion
     }
 }
