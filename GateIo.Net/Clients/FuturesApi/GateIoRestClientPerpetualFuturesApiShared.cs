@@ -73,8 +73,8 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
 
-            var resultContract = ExchangeData.GetContractAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), ct);
-            var resultTicker = ExchangeData.GetTickersAsync(exchangeParameters.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), ct);
+            var resultContract = ExchangeData.GetContractAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct);
+            var resultTicker = ExchangeData.GetTickersAsync(exchangeParameters.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct);
             await Task.WhenAll(resultContract, resultTicker).ConfigureAwait(false);
 
             if (!resultContract.Result)
@@ -199,7 +199,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await Trading.PlaceOrderAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 GetOrderSide(request.Side, request.PositionSide),
                 quantity: (int)(request.Quantity ?? 0),
                 price: request.Price,
@@ -265,7 +265,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
-            var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var orders = await Trading.GetOrdersAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, OrderStatus.Open, symbol).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
@@ -310,7 +310,7 @@ namespace GateIo.Net.Clients.FuturesApi
             // Get data
             var orders = await Trading.GetOrdersByTimestampAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 limit: request.Limit ?? 1000,
@@ -358,7 +358,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, new ArgumentError("Invalid order id"));
 
-            var orders = await Trading.GetUserTradesAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), orderId: orderId).ConfigureAwait(false);
+            var orders = await Trading.GetUserTradesAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), orderId: orderId).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
@@ -396,7 +396,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 offset = offsetToken.Offset;
 
             // Get data
-            var orders = await Trading.GetUserTradesByTimestampAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+            var orders = await Trading.GetUserTradesByTimestampAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 limit: request.Limit ?? 1000,
@@ -513,7 +513,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await Trading.PlaceOrderAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 request.PositionSide == SharedPositionSide.Long ? OrderSide.Sell : OrderSide.Buy,
                 0,
                 null,
@@ -607,7 +607,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetKlinesAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 interval,
                 request.Limit ?? 2000,
                 fromTimestamp ?? request.StartTime,
@@ -659,7 +659,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetIndexKlinesAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 interval,
                 request.Limit ?? 1000,
                 fromTimestamp ?? request.StartTime,
@@ -700,7 +700,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetTradesAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -733,7 +733,7 @@ namespace GateIo.Net.Clients.FuturesApi
             // Get data
             var result = await ExchangeData.GetTradesAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 startTime: fromId != null ? null : request.StartTime,
                 endTime: fromId != null ? null : request.EndTime,
                 limit: 1000,
@@ -768,7 +768,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await Trading.GetPositionAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, 
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedLeverage>(Exchange, default);
 
@@ -793,7 +793,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await Trading.UpdatePositionLeverageAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 request.Leverage,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -819,7 +819,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetOrderBookAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 depth: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -845,7 +845,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
 
-            var result = await ExchangeData.GetContractAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetContractAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedOpenInterest>(Exchange, default);
 
@@ -872,7 +872,7 @@ namespace GateIo.Net.Clients.FuturesApi
             // Get data
             var result = await ExchangeData.GetFundingRateHistoryAsync(
                 exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!,
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 limit: 1000,
                 ct: ct).ConfigureAwait(false);
             if (!result)

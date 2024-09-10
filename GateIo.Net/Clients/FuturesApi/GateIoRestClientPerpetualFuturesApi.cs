@@ -147,6 +147,6 @@ namespace GateIo.Net.Clients.FuturesApi
             => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType apiType, DateTime? deliveryDate = null) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
     }
 }
