@@ -35,6 +35,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
+        /// Block number including the withdrawal
+        /// </summary>
+        [JsonPropertyName("block_number")]
+        public string? BlockNumber { get; set; }
+        /// <summary>
         /// Memo
         /// </summary>
         [JsonPropertyName("memo")]

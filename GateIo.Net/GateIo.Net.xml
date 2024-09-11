@@ -9318,6 +9318,11 @@
             Network
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoWithdrawal.BlockNumber">
+            <summary>
+            Block number including the withdrawal
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoWithdrawal.Memo">
             <summary>
             Memo
