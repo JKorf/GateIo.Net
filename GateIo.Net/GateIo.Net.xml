@@ -480,13 +480,13 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountLoanHistoryAsync(System.String,System.Nullable{GateIo.Net.Enums.BorrowDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountRiskUnitsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.SetUnifiedAccountModeAsync(GateIo.Net.Enums.UnifiedAccountMode,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.SetUnifiedAccountModeAsync(GateIo.Net.Enums.UnifiedAccountMode,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountModeAsync(System.Threading.CancellationToken)">
@@ -2845,7 +2845,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get interest history
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-interest-records" /></para>
@@ -2854,6 +2854,8 @@
             <param name="page">Page</param>
             <param name="limit">Max number of results</param>
             <param name="type">Filter by type</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2865,7 +2867,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.SetUnifiedAccountModeAsync(GateIo.Net.Enums.UnifiedAccountMode,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.SetUnifiedAccountModeAsync(GateIo.Net.Enums.UnifiedAccountMode,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Set unified account mode
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#set-mode-of-the-unified-account" /></para>
@@ -2874,6 +2876,7 @@
             <param name="usdtFutures">USDT contract switch. This parameter is required when the mode is multi-currency margin mode</param>
             <param name="spotHedge">Spot hedging switch. This parameter is required when the mode is portfolio margin mode</param>
             <param name="useFunding">When the mode is set to combined margin mode, will funds be used as margin</param>
+            <param name="options">Option switch. If not transmitted, the current switch value is used. If not transmitted for the first time, the default value is off</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -9220,6 +9223,11 @@
             When the mode is set to combined margin mode, will funds be used as margin
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountSettings.Options">
+            <summary>
+            Option switch
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoUserTradeUpdate">
             <summary>
             User trade updates
@@ -9323,6 +9331,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoWithdrawal.Network">
             <summary>
             Network
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoWithdrawal.BlockNumber">
+            <summary>
+            Block number including the withdrawal
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoWithdrawal.Memo">

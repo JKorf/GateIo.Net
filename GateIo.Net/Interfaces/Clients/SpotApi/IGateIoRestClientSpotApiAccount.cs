@@ -310,6 +310,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="type">Filter by type</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoInterestRecord>>> GetUnifiedAccountInterestHistoryAsync(
@@ -317,6 +319,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             int? page = null,
             int? limit = null,
             LoanType? type = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
             CancellationToken ct = default);
 
         /// <summary>
@@ -335,9 +339,10 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="usdtFutures">USDT contract switch. This parameter is required when the mode is multi-currency margin mode</param>
         /// <param name="spotHedge">Spot hedging switch. This parameter is required when the mode is portfolio margin mode</param>
         /// <param name="useFunding">When the mode is set to combined margin mode, will funds be used as margin</param>
+        /// <param name="options">Option switch. If not transmitted, the current switch value is used. If not transmitted for the first time, the default value is off</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> SetUnifiedAccountModeAsync(UnifiedAccountMode mode, bool? usdtFutures = null, bool? spotHedge = null, bool? useFunding = null, CancellationToken ct = default);
+        Task<WebCallResult> SetUnifiedAccountModeAsync(UnifiedAccountMode mode, bool? usdtFutures = null, bool? spotHedge = null, bool? useFunding = null, bool? options = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get unified account mode

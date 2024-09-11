@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.RateLimiting.Guards;
+using Microsoft.Extensions.Options;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -404,6 +405,8 @@ namespace GateIo.Net.Clients.SpotApi
             int? page = null,
             int? limit = null,
             LoanType? type = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -411,6 +414,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("type", type);
+            parameters.AddOptionalMilliseconds("from", startTime);
+            parameters.AddOptionalMilliseconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoInterestRecord>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -431,7 +436,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Set Unified Account Mode
 
         /// <inheritdoc />
-        public async Task<WebCallResult> SetUnifiedAccountModeAsync(UnifiedAccountMode mode, bool? usdtFutures = null, bool? spotHedge = null, bool? useFunding = null, CancellationToken ct = default)
+        public async Task<WebCallResult> SetUnifiedAccountModeAsync(UnifiedAccountMode mode, bool? usdtFutures = null, bool? spotHedge = null, bool? useFunding = null, bool? options = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddEnum("mode", mode);
@@ -441,6 +446,7 @@ namespace GateIo.Net.Clients.SpotApi
                 inner.AddOptional("usdt_futures", usdtFutures);
                 inner.AddOptional("spot_hedge", spotHedge);
                 inner.AddOptional("use_funding", useFunding);
+                inner.AddOptional("options", options);
                 parameters.Add("settings", inner);
             }
             var request = _definitions.GetOrCreate(HttpMethod.Put, "/api/v4/unified/unified_mode", GateIoExchange.RateLimiter.RestPrivate, 1, true);
