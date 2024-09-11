@@ -310,6 +310,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="page">Page</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="type">Filter by type</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoInterestRecord>>> GetUnifiedAccountInterestHistoryAsync(
@@ -317,6 +319,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             int? page = null,
             int? limit = null,
             LoanType? type = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
             CancellationToken ct = default);
 
         /// <summary>

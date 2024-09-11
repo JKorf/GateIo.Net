@@ -480,7 +480,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountLoanHistoryAsync(System.String,System.Nullable{GateIo.Net.Enums.BorrowDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountRiskUnitsAsync(System.Threading.CancellationToken)">
@@ -2845,7 +2845,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetUnifiedAccountInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.LoanType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get interest history
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-interest-records" /></para>
@@ -2854,6 +2854,8 @@
             <param name="page">Page</param>
             <param name="limit">Max number of results</param>
             <param name="type">Filter by type</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

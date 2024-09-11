@@ -404,6 +404,8 @@ namespace GateIo.Net.Clients.SpotApi
             int? page = null,
             int? limit = null,
             LoanType? type = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -411,6 +413,8 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("type", type);
+            parameters.AddOptionalMilliseconds("from", startTime);
+            parameters.AddOptionalMilliseconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoInterestRecord>>(request, parameters, ct).ConfigureAwait(false);
         }
