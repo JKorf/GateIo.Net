@@ -158,6 +158,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.5.1 - 11 Sep 2024
+    * Added startTime and endTime filter to SpotApi.Account.GetUnifiedAccountInterestHistoryAsync endpoint
+    * Added options to SpotApi.Account.SetUnifiedAccountModeAsync and GetUnifiedAccountModeAsync endpoints
+    * Added BlockNumber field to SpotApi.Account.GetWithdrawalsAsync response
+
 * Version 1.5.0 - 07 Aug 2024
     * Updated CryptoExchange.Net to version 7.11.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.11.0
     * Updated XML code comments
