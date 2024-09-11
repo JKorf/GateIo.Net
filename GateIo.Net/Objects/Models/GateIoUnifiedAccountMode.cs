@@ -40,5 +40,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("use_funding")]
         public bool UseFunding { get; set; }
+        /// <summary>
+        /// Option switch
+        /// </summary>
+        [JsonPropertyName("options")]
+        public bool Options { get; set; }
     }
 }
