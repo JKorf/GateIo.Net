@@ -44,7 +44,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToTickerUpdatesAsync(exchangeParameters!.GetValue<string>(Exchange, "SettleAsset")!, symbol, update =>
             {
                 var data = update.Data.First();
-                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume)));
+                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume, data.ChangePercentage24h)));
             }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -279,7 +279,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 {
                     AverageEntryPrice = x.EntryPrice,
 #warning assumes that shorts are negative size. Correct?
-                    PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                    PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = x.LiquidationPrice,
                     MaintenanceMargin = x.MaintenanceRate,
                     Leverage = x.Leverage
