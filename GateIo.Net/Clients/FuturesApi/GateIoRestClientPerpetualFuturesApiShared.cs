@@ -182,10 +182,10 @@ namespace GateIo.Net.Clients.FuturesApi
                 SharedTimeInForce.FillOrKill
             },
             new SharedQuantitySupport(
-                SharedQuantityType.BaseAssetQuantity,
-                SharedQuantityType.BaseAssetQuantity,
-                SharedQuantityType.BaseAssetQuantity,
-                SharedQuantityType.BaseAssetQuantity))
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.BaseAsset))
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
