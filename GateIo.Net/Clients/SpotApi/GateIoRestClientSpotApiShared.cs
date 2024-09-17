@@ -543,7 +543,7 @@ namespace GateIo.Net.Clients.SpotApi
                 depositAddresses.Data.MultichainAddress.Where(x => string.IsNullOrEmpty(request.Network) ? true : x.Network == request.Network).Select(x => new SharedDepositAddress(depositAddresses.Data.Asset, x.Address)
                 {
                     Network = x.Network,
-                    Tag = x.PaymentId
+                    TagOrMemo = x.PaymentId
                 }
             ));
         }
