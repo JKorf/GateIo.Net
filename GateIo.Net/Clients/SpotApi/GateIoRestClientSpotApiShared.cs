@@ -24,6 +24,9 @@ namespace GateIo.Net.Clients.SpotApi
         public string Exchange => "GateIo";
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.Spot };
 
+        public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
+        public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
+
         #region Kline client
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Descending, false)
@@ -80,7 +83,7 @@ namespace GateIo.Net.Clients.SpotApi
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.BaseVolume)), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.BaseVolume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -98,13 +101,14 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.TradeStatus == SymbolStatus.Tradable)
+            return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.TradeStatus == SymbolStatus.Tradable)
             {
                 MinTradeQuantity = s.MinBaseQuantity,
                 MaxTradeQuantity = s.MaxBaseQuantity,
+                MinNotionalValue = s.MinQuoteQuantity,
                 PriceDecimals = s.PricePrecision,
                 QuantityDecimals = s.QuantityPrecision
-            }));
+            }).ToArray());
         }
 
         #endregion
@@ -137,7 +141,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.BaseVolume, x.ChangePercentage24h)));
+            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.BaseVolume, x.ChangePercentage24h)).ToArray());
         }
 
         #endregion
@@ -158,7 +162,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.CreateTime)));
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.CreateTime)).ToArray());
         }
 
         #endregion
@@ -176,7 +180,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Locked)));
+            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, result.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Locked)).ToArray());
         }
 
         #endregion
@@ -202,6 +206,9 @@ namespace GateIo.Net.Clients.SpotApi
                 SharedQuantityType.QuoteAsset,
                 SharedQuantityType.BaseAsset));
 
+        SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
+        SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
+
         async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).PlaceSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -215,7 +222,7 @@ namespace GateIo.Net.Clients.SpotApi
                 quantity: (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy ? request.QuoteQuantity : request.Quantity) ?? 0,
                 price: request.Price,
                 timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
-                text: "t-" + request.ClientOrderId,
+                text: string.IsNullOrEmpty(request.ClientOrderId) ? null : "t-" + request.ClientOrderId,
                 accountType: SpotAccountType.Spot
                 ).ConfigureAwait(false);
 
@@ -278,7 +285,7 @@ namespace GateIo.Net.Clients.SpotApi
             else
                 orderList = orders.Data.SelectMany(x => x.Orders);
 
-            return orders.AsExchangeResult(Exchange, orderList.Select(x => new SharedSpotOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, orderList.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 ParseOrderType(x.Type, x.TimeInForce),
@@ -296,10 +303,10 @@ namespace GateIo.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 TimeInForce = ParseTimeInForce(x.TimeInForce)
-            }));
+            }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -331,7 +338,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (orders.Data.Count() == pageSize)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedSpotOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, orders.Data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 ParseOrderType(x.Type, x.TimeInForce),
@@ -349,7 +356,7 @@ namespace GateIo.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 TimeInForce = ParseTimeInForce(x.TimeInForce)
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
@@ -366,7 +373,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
@@ -377,10 +384,10 @@ namespace GateIo.Net.Clients.SpotApi
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
-            }));
+            }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -411,7 +418,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (orders.Data.Count() == pageSize)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
@@ -422,7 +429,7 @@ namespace GateIo.Net.Clients.SpotApi
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelSpotOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -479,6 +486,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (tif == SharedTimeInForce.ImmediateOrCancel) return TimeInForce.ImmediateOrCancel;
             if (tif == SharedTimeInForce.FillOrKill) return TimeInForce.FillOrKill;
             if (tif == SharedTimeInForce.GoodTillCanceled) return TimeInForce.GoodTillCancel;
+            if (orderType == SharedOrderType.Market) return TimeInForce.FillOrKill;
 
             return null;
         }
@@ -504,11 +512,14 @@ namespace GateIo.Net.Clients.SpotApi
                     FullName = x.NetworkEn,
                     DepositEnabled = !x.IsDepositDisabled,
                     WithdrawEnabled = !x.IsWithdrawalDisabled,
-                })
+                }).ToArray()
             });
         }
 
-        EndpointOptions<GetAssetsRequest> IAssetsRestClient.GetAssetsOptions { get; } = new EndpointOptions<GetAssetsRequest>(false);
+        EndpointOptions<GetAssetsRequest> IAssetsRestClient.GetAssetsOptions { get; } = new EndpointOptions<GetAssetsRequest>(false)
+        {
+            ExchangeRequestInfo = "Network information is not available from this call, use the GetAssetAsync for specific asset networks"
+        };
 
         async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetsRestClient.GetAssetsAsync(GetAssetsRequest request, CancellationToken ct)
         {
@@ -520,8 +531,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (!assets)
                 return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, default);
 
-#warning Networks not supported, needs a different method for retrieving deposit/withdraw info for specific asset
-            return assets.AsExchangeResult(Exchange, assets.Data.Select(x => new SharedAsset(x.Asset)));
+            return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, assets.Data.Select(x => new SharedAsset(x.Asset)).ToArray());
         }
 
         #endregion
@@ -545,7 +555,7 @@ namespace GateIo.Net.Clients.SpotApi
                     Network = x.Network,
                     TagOrMemo = x.PaymentId
                 }
-            ));
+            ).ToArray());
         }
 
         GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationType.Descending, true);
@@ -576,12 +586,12 @@ namespace GateIo.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new OffsetToken((offset ?? 0) + deposits.Data.Count());
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
+            return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
                 Tag = x.Memo
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         #endregion
@@ -631,17 +641,17 @@ namespace GateIo.Net.Clients.SpotApi
                 return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
 
             // Determine next token
-            OffsetToken nextToken;
+            OffsetToken? nextToken = null;
             if (withdrawals.Data.Count() == (request.Limit ?? 100))
                 nextToken = new OffsetToken((offset ?? 0) + withdrawals.Data.Count());
 
-            return withdrawals.AsExchangeResult(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
+            return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
             {
                 Network = x.Network,
                 Tag = x.Memo,
                 TransactionId = x.TransactionId,
                 Fee = x.Fee
-            }));
+            }).ToArray(), nextToken);
         }
 
         #endregion

@@ -23,6 +23,8 @@ namespace GateIo.Net.Clients.SpotApi
     {
         public string Exchange => GateIoExchange.ExchangeName;
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.Spot };
+        public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
+        public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
         #region Ticker client
         SubscriptionOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscriptionOptions<SubscribeTickerRequest>(false);
@@ -49,7 +51,7 @@ namespace GateIo.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, new[] { new SharedTrade(update.Data.Price, update.Data.Quantity, update.Data.CreateTime) })), ct).ConfigureAwait(false);
+            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.CreateTime) })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -110,7 +112,7 @@ namespace GateIo.Net.Clients.SpotApi
         async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
         {
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)))),
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -126,7 +128,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
             var result = await SubscribeToOrderUpdatesAsync(
-                update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x =>
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotOrder>>(Exchange, update.Data.Select(x =>
                     new SharedSpotOrder(
                         x.Symbol,
                         x.Id.ToString(),
@@ -136,17 +138,18 @@ namespace GateIo.Net.Clients.SpotApi
                         x.CreateTime)
                     {
                         ClientOrderId = x.Text,
-                        Quantity = x.Quantity,
-                        QuantityFilled = x.Quantity - x.QuantityRemaining,
+                        Quantity = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity,
+                        QuantityFilled = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity - x.QuantityRemaining,
+                        QuoteQuantity = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? x.Quantity : null,
                         QuoteQuantityFilled = x.QuoteQuantityFilled,
                         UpdateTime = x.UpdateTime,
                         Price = x.Price,
-                        AveragePrice = x.AveragePrice,
+                        AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                         Fee = x.Fee,
                         FeeAsset = x.FeeAsset,
                         TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.GoodTillCanceled : null
                     }
-                ))),
+                ).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -162,7 +165,7 @@ namespace GateIo.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToUserTradeUpdatesAsync(
-                update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x =>
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, update.Data.Select(x =>
                     new SharedUserTrade(
                         x.Symbol,
                         x.OrderId.ToString(),
@@ -175,7 +178,7 @@ namespace GateIo.Net.Clients.SpotApi
                         Fee = x.Fee,
                         FeeAsset = x.FeeAsset
                     }
-                ))),
+                ).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -193,10 +196,10 @@ namespace GateIo.Net.Clients.SpotApi
             }
             else
             {
-                if (update.QuantityRemaining != 0)
-                    return SharedOrderStatus.Canceled;
+                if (update.FinishType == Enums.OrderFinishType.Filled)
+                    return SharedOrderStatus.Filled;
 
-                return SharedOrderStatus.Filled;
+                return SharedOrderStatus.Canceled;
             }
         }
     }

@@ -71,7 +71,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             parameters.AddString("leverage", leverage);
             parameters.AddOptionalString("cross_leverage_limit", crossLeverageLimit);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset}/positions/{contract}/leverage", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset}/positions/{contract}/leverage", GateIoExchange.RateLimiter.RestFuturesOther, 1, true, parameterPosition: HttpMethodParameterPosition.InUri);
             return await _baseClient.SendAsync<GateIoPosition>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -163,7 +163,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract", contract);
-            parameters.AddString("size", orderSide == OrderSide.Buy ? quantity: -quantity);
+            parameters.Add("size", orderSide == OrderSide.Buy ? quantity: -quantity);
             if (price.HasValue || ((timeInForce == TimeInForce.ImmediateOrCancel || timeInForce == TimeInForce.FillOrKill) && quantity != 0))
                 parameters.AddOptionalString("price", price ?? 0);
             parameters.AddOptional("close", closePosition);
