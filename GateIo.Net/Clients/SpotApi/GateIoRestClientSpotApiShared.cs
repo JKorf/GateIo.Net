@@ -518,7 +518,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         EndpointOptions<GetAssetsRequest> IAssetsRestClient.GetAssetsOptions { get; } = new EndpointOptions<GetAssetsRequest>(false)
         {
-            ExchangeRequestInfo = "Network information is not available from this call, use the GetAssetAsync for specific asset networks"
+            RequestNotes = "Network information is not available from this call, use the GetAssetAsync for specific asset networks"
         };
 
         async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetsRestClient.GetAssetsAsync(GetAssetsRequest request, CancellationToken ct)

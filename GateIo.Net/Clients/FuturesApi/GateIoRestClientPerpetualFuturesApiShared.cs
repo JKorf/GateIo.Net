@@ -206,18 +206,15 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-#warning unclear how to reduce a position in when in hedge mode
-            //var isIncrease = (request.Side == SharedOrderSide.Buy && request.PositionSide == SharedPositionSide.Long)
-            //    || (request.Side == SharedOrderSide.Sell && request.PositionSide == SharedPositionSide.Short);
-            //if (request.PositionSide == null || isIncrease)
-            //{
+            var isReduce = (request.Side == SharedOrderSide.Buy && request.PositionSide == SharedPositionSide.Short)
+                || (request.Side == SharedOrderSide.Sell && request.PositionSide == SharedPositionSide.Long);
             var result = await Trading.PlaceOrderAsync(
                     ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
                     request.Symbol.GetSymbol(FormatSymbol),
                     GetOrderSide(request.Side, request.PositionSide),
                     quantity: (int)(request.Quantity ?? 0),
                     price: request.Price,
-                    reduceOnly: request.ReduceOnly,
+                    reduceOnly: request.ReduceOnly ?? isReduce,
                     timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
                     text: request.ClientOrderId,
                     ct: ct).ConfigureAwait(false);
@@ -226,27 +223,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     return result.AsExchangeResult<SharedId>(Exchange, default);
 
                 return result.AsExchangeResult(Exchange, new SharedId(result.Data.Id.ToString()));
-            //}
-            //else
-            //{
-            //    var result = await Trading.PlaceOrderAsync(
-            //        ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-            //        request.Symbol.GetSymbol(FormatSymbol),
-            //        OrderSide.Buy,
-            //        quantity: (int)(Math.Abs(request.Quantity ?? 0)),
-            //        price: request.Price,
-            //        timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
-            //        text: request.ClientOrderId,
-            //        closePosition : true,
-            //        //closeSide: request.PositionSide == SharedPositionSide.Long ? CloseSide.CloseLong : CloseSide.CloseShort,
-            //        reduceOnly: true,
-            //        ct: ct).ConfigureAwait(false);
-
-            //    if (!result)
-            //        return result.AsExchangeResult<SharedId>(Exchange, default);
-
-            //    return result.AsExchangeResult(Exchange, new SharedId(result.Data.Id.ToString()));
-            //}
+            
         }
 
         EndpointOptions<GetOrderRequest> IFuturesOrderRestClient.GetFuturesOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
@@ -962,7 +939,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.DualMode ? SharedPositionMode.LongShort : SharedPositionMode.OneWay));
+            return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.DualMode ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
         }
 
         SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(true, true, true)
@@ -978,7 +955,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
 
-            var result = await Account.UpdatePositionModeAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, request.Mode == SharedPositionMode.LongShort, ct: ct).ConfigureAwait(false);
+            var result = await Account.UpdatePositionModeAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, request.Mode == SharedPositionMode.HedgeMode, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 
