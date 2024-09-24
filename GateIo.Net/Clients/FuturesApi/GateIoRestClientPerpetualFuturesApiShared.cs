@@ -1,23 +1,12 @@
 ﻿using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Enums;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.Models.Rest;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
-using GateIo.Net.Objects.Models;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Futures;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -388,6 +377,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 x.Contract,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
+                x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 Math.Abs(x.Quantity),
                 x.Price,
                 x.CreateTime)
@@ -437,6 +427,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 x.Contract,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
+                x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 Math.Abs(x.Quantity),
                 x.Price,
                 x.CreateTime)

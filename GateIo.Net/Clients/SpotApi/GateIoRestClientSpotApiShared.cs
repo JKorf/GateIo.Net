@@ -1,22 +1,13 @@
 ﻿using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Enums;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.Models.Rest;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
 using GateIo.Net.Objects.Models;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -254,7 +245,7 @@ namespace GateIo.Net.Clients.SpotApi
                 orders.Data.CreateTime)
             {
                 ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
-                OrderPrice = orders.Data.Price,
+                OrderPrice = orders.Data.Price == 0 ? null : orders.Data.Price,
                 Quantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity,
                 QuantityFilled = orders.Data.QuantityFilled,
                 UpdateTime = orders.Data.UpdateTime,
@@ -293,7 +284,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.CreateTime)
             {
                 ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
-                OrderPrice = x.Price,
+                OrderPrice = x.Price == 0 ? null : x.Price,
                 Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
                 QuantityFilled = x.QuantityFilled,
                 UpdateTime = x.UpdateTime,
@@ -346,7 +337,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.CreateTime)
             {
                 ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
-                OrderPrice = x.Price,
+                OrderPrice = x.Price == 0 ? null : x.Price,
                 Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
                 QuantityFilled = x.QuantityFilled,
                 UpdateTime = x.UpdateTime,
@@ -376,6 +367,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
+                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.CreateTime)
@@ -421,6 +413,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
+                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.CreateTime)

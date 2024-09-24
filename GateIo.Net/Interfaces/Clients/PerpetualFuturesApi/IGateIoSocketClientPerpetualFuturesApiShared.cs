@@ -1,11 +1,10 @@
-﻿using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 {
+    /// <summary>
+    /// Shared interface for Perpetual futures socket API usage
+    /// </summary>
     public interface IGateIoSocketClientPerpetualFuturesApiShared :
         ITickerSocketClient,
         ITradeSocketClient,

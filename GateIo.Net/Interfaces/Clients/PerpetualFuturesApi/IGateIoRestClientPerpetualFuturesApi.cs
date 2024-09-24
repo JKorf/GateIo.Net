@@ -24,6 +24,9 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         public IGateIoRestClientPerpetualFuturesApiTrading Trading { get; }
 
+        /// <summary>
+        /// Get the shared rest requests client
+        /// </summary>
         public IGateIoRestClientPerpetualFuturesApiShared SharedClient { get; }
     }
 }

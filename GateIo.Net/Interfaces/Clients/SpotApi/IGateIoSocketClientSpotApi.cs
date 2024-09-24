@@ -15,6 +15,9 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IGateIoSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         public IGateIoSocketClientSpotApiShared SharedClient { get; }
 
         /// <summary>

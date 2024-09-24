@@ -1,13 +1,7 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Enums;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Spot;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Models.Options.Subscriptions;
-using CryptoExchange.Net.SharedApis.Models.Socket;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+using CryptoExchange.Net.SharedApis;
+using GateIo.Net.Enums;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Models;
 using System;
@@ -132,8 +126,8 @@ namespace GateIo.Net.Clients.SpotApi
                     new SharedSpotOrder(
                         x.Symbol,
                         x.Id.ToString(),
-                        x.OrderType == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : x.OrderType == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
-                        x.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
+                        x.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : x.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                        x.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy :SharedOrderSide.Sell,
                         GetOrderStatus(x),
                         x.CreateTime)
                     {
@@ -143,11 +137,11 @@ namespace GateIo.Net.Clients.SpotApi
                         QuoteQuantity = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? x.Quantity : null,
                         QuoteQuantityFilled = x.QuoteQuantityFilled,
                         UpdateTime = x.UpdateTime,
-                        OrderPrice = x.Price,
+                        OrderPrice = x.Price == 0 ? null : x.Price,
                         AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                         Fee = x.Fee,
                         FeeAsset = x.FeeAsset,
-                        TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.GoodTillCanceled : null
+                        TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? SharedTimeInForce.GoodTillCanceled : null
                     }
                 ).ToArray())),
                 ct: ct).ConfigureAwait(false);
@@ -170,6 +164,7 @@ namespace GateIo.Net.Clients.SpotApi
                         x.Symbol,
                         x.OrderId.ToString(),
                         x.Id.ToString(),
+                        x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                         x.Quantity,
                         x.Price!.Value,
                         x.CreateTime)

@@ -1,21 +1,11 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Enums;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Models.Options;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Models.Options.Subscriptions;
-using CryptoExchange.Net.SharedApis.Models.Socket;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
-using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -195,7 +185,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         x.Contract,
                         x.Id.ToString(),
                         ParseOrderType(x),
-                        x.Quantity > 0 ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
+                        x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                         x.Status == Enums.OrderStatus.Open ? SharedOrderStatus.Open : x.FinishedAs == Enums.OrderFinishType.Filled ? SharedOrderStatus.Filled : SharedOrderStatus.Canceled,
                         x.CreateTime)
                     {
@@ -206,7 +196,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         OrderPrice = x.Price,
                         AveragePrice = x.FillPrice == 0 ? null : x.FillPrice,
                         ReduceOnly = x.IsReduceOnly,
-                        TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.GoodTillCanceled : null
+                        TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? SharedTimeInForce.GoodTillCanceled : null
                     }
                 ).ToArray())),
                 ct: ct).ConfigureAwait(false);
@@ -246,6 +236,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         x.Contract,
                         x.OrderId.ToString(),
                         x.Id.ToString(),
+                        x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                         Math.Abs(x.Quantity),
                         x.Price,
                         x.CreateTime)

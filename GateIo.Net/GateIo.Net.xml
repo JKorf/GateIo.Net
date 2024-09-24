@@ -1766,6 +1766,11 @@
             Endpoints related to orders and trades
             </summary>
         </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiAccount">
             <summary>
             GateIo futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
@@ -2349,6 +2354,11 @@
             GateIo futures streams
             </summary>
         </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
+            </summary>
+        </member>
         <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpTradeUpdate}}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to public trade updates
@@ -2586,6 +2596,16 @@
             <param name="amendText">Amend text</param>
             <returns></returns>
         </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApiShared">
+            <summary>
+            Shared interface for Perpetual futures socket API usage
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientPerpetualFuturesApiShared">
+            <summary>
+            Shared interface for Perpetual futures rest API usage
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi">
             <summary>
             GateIo Spot API endpoints
@@ -2611,6 +2631,11 @@
             Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
+            </summary>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount">
             <summary>
@@ -3325,6 +3350,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiShared">
+            <summary>
+            Shared interface for Spot rest API usage
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading">
             <summary>
             GateIo Spot trading endpoints, placing and managing orders.
@@ -3539,6 +3569,11 @@
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi">
             <summary>
             Gate.io spot streams
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
             </summary>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoTradeUpdate}},System.Threading.CancellationToken)">
@@ -3782,6 +3817,11 @@
             <param name="accountType">Account type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApiShared">
+            <summary>
+            Shared interface for Spot socket API usage
+            </summary>
         </member>
         <member name="T:GateIo.Net.Interfaces.IGateIoOrderBookFactory">
             <summary>
