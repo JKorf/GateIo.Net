@@ -1768,7 +1768,7 @@
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiAccount">
@@ -2356,7 +2356,7 @@
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SharedClient">
             <summary>
-            Get the shared socket subscription client
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpTradeUpdate}}},System.Threading.CancellationToken)">
@@ -2628,12 +2628,12 @@
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi.CommonSpotClient">
             <summary>
-            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="SHAREDDOCSURL" /> for more info.
+            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
             </summary>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi.SharedClient">
             <summary>
-            Get the shared rest requests client
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount">
@@ -3572,7 +3572,7 @@
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoTradeUpdate}},System.Threading.CancellationToken)">
