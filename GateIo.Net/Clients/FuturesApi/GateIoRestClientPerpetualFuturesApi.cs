@@ -14,6 +14,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Converters.MessageParsing;
 using System.Linq;
 using GateIo.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Clients.FuturesApi
 {

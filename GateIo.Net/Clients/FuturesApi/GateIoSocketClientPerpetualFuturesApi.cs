@@ -20,6 +20,7 @@ using System.Linq;
 using GateIo.Net.Enums;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Clients.FuturesApi
 {

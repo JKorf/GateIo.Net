@@ -16,6 +16,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Globalization;
 using System.Linq;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Clients.SpotApi
 {
