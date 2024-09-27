@@ -158,6 +158,18 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.6.0 - 27 Sep 2024
+    * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
+    * Added Shared client interfaces implementation for Spot and Perpetual Futures Rest and Socket clients
+    * Added api credentials check for Spot user subscriptions
+    * Added InitialMargin and MaintenanceMargin properties to GateIoPosition model
+    * Added FeeAsset property to GateIoUserTradeUpdate model
+    * Updated Sourcelink package version
+    * Updated KlineInterval Enum values to match number of seconds
+    * Fixed PerpetualFutures.Account.UpdatePositionModeAsync endpoint
+    * Fixed SpotApi.ExchangeData.GetTradesAsync reverse parameter
+    * Marked ISpotClient references as deprecated
+
 * Version 1.5.1 - 11 Sep 2024
     * Added startTime and endTime filter to SpotApi.Account.GetUnifiedAccountInterestHistoryAsync endpoint
     * Added options to SpotApi.Account.SetUnifiedAccountModeAsync and GetUnifiedAccountModeAsync endpoints
