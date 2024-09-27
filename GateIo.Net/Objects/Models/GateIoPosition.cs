@@ -55,6 +55,16 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("margin")]
         public decimal Margin { get; set; }
         /// <summary>
+        /// Initial margin
+        /// </summary>
+        [JsonPropertyName("initial_margin")]
+        public decimal? InitialMargin { get; set; }
+        /// <summary>
+        /// Maintenance margin
+        /// </summary>
+        [JsonPropertyName("maintenance_margin")]
+        public decimal? MaintenanceMargin { get; set; }
+        /// <summary>
         /// Entry price
         /// </summary>
         [JsonPropertyName("entry_price")]

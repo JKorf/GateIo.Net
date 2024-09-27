@@ -23,7 +23,7 @@ namespace GateIo.Net.Objects.Models
         /// Multiplier used in converting from invoicing to settlement asset
         /// </summary>
         [JsonPropertyName("quanto_multiplier")]
-        public decimal Mulitplier { get; set; }
+        public decimal Multiplier { get; set; }
         /// <summary>
         /// Referral fee rate discount
         /// </summary>

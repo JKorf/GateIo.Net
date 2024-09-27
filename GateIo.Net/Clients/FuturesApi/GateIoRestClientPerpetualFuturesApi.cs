@@ -13,11 +13,13 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Converters.MessageParsing;
 using System.Linq;
+using GateIo.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IGateIoRestClientPerpetualFuturesApi" />
-    internal class GateIoRestClientPerpetualFuturesApi : RestApiClient, IGateIoRestClientPerpetualFuturesApi
+    internal partial class GateIoRestClientPerpetualFuturesApi : RestApiClient, IGateIoRestClientPerpetualFuturesApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Perpetual Futures Api");
@@ -53,6 +55,8 @@ namespace GateIo.Net.Clients.FuturesApi
         protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+        public IGateIoRestClientPerpetualFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -144,6 +148,6 @@ namespace GateIo.Net.Clients.FuturesApi
             => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliveryDate = null) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
     }
 }

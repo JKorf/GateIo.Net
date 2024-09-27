@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using GateIo.Net.Interfaces.Clients.SpotApi;
 using System;
 
 namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
@@ -22,5 +23,10 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Endpoints related to orders and trades
         /// </summary>
         public IGateIoRestClientPerpetualFuturesApiTrading Trading { get; }
+
+        /// <summary>
+        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        public IGateIoRestClientPerpetualFuturesApiShared SharedClient { get; }
     }
 }

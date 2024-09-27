@@ -8,6 +8,7 @@ using GateIo.Net.Interfaces;
 using GateIo.Net.Interfaces.Clients;
 using GateIo.Net.Objects.Options;
 using GateIo.Net.SymbolOrderBooks;
+using CryptoExchange.Net;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -62,6 +63,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddSingleton<IGateIoOrderBookFactory, GateIoOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.CommonSpotClient);
+
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient);
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedClient);
+
             if (socketClientLifeTime == null)
                 services.AddSingleton<IGateIoSocketClient, GateIoSocketClient>();
             else

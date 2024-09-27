@@ -85,7 +85,7 @@ namespace GateIo.Net.Clients.FuturesApi
             int? limit = null, 
             int? offset = null, 
             string? lastId = null, 
-            DateTime? startime = null, 
+            DateTime? startTime = null, 
             DateTime? endTime = null, 
             CancellationToken ct = default)
         {
@@ -94,7 +94,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             parameters.AddOptional("last_id", lastId);
-            parameters.AddOptionalSeconds("from", startime);
+            parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/trades", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpTrade>>(request, parameters, ct).ConfigureAwait(false);
@@ -110,7 +110,7 @@ namespace GateIo.Net.Clients.FuturesApi
             string contract,
             KlineInterval interval,
             int? limit = null,
-            DateTime? startime = null,
+            DateTime? startTime = null,
             DateTime? endTime = null,
             CancellationToken ct = default)
         {
@@ -118,7 +118,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.Add("contract", contract);
             parameters.AddEnum("interval", interval);
             parameters.AddOptional("limit", limit);
-            parameters.AddOptionalSeconds("from", startime);
+            parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/candlesticks", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpKline>>(request, parameters, ct).ConfigureAwait(false);
@@ -134,7 +134,7 @@ namespace GateIo.Net.Clients.FuturesApi
             string contract,
             KlineInterval interval,
             int? limit = null,
-            DateTime? startime = null,
+            DateTime? startTime = null,
             DateTime? endTime = null,
             CancellationToken ct = default)
         {
@@ -142,7 +142,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.Add("contract", contract);
             parameters.AddEnum("interval", interval);
             parameters.AddOptional("limit", limit);
-            parameters.AddOptionalSeconds("from", startime);
+            parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/premium_index", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpIndexKline>>(request, parameters, ct).ConfigureAwait(false);

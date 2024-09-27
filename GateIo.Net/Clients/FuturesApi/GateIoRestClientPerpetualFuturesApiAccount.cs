@@ -58,7 +58,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("dual_mode", dualMode.ToString().ToLowerInvariant());
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset}/dual_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset}/dual_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true, parameterPosition: HttpMethodParameterPosition.InUri);
             return await _baseClient.SendAsync<GateIoFuturesAccount>(request, parameters, ct).ConfigureAwait(false);
         }
 

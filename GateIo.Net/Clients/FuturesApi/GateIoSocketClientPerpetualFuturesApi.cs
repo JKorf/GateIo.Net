@@ -20,13 +20,14 @@ using System.Linq;
 using GateIo.Net.Enums;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <summary>
     /// Client providing access to the GateIo futures websocket Api
     /// </summary>
-    internal class GateIoSocketClientPerpetualFuturesApi : SocketApiClient, IGateIoSocketClientPerpetualFuturesApi
+    internal partial class GateIoSocketClientPerpetualFuturesApi : SocketApiClient, IGateIoSocketClientPerpetualFuturesApi
     {
         #region fields
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
@@ -56,6 +57,8 @@ namespace GateIo.Net.Clients.FuturesApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
         /// <inheritdoc />
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+
+        public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -346,6 +349,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliveryDate = null) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
     }
 }
