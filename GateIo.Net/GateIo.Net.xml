@@ -639,7 +639,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.GetOrdersAsync(System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{GateIo.Net.Enums.OrderSide},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.GetOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
@@ -3406,13 +3406,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.GetOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Get a specific order by id
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-a-single-order" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either this or `clientOrderId` should be provided</param>
+            <param name="clientOrderId">Client order id, either this or `orderId` should be provided</param>
             <param name="accountType">Filter by account type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

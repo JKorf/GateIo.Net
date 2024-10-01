@@ -91,13 +91,15 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-a-single-order" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">Order id, either this or `clientOrderId` should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or `orderId` should be provided</param>
         /// <param name="accountType">Filter by account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoOrder>> GetOrderAsync(
             string symbol,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             SpotAccountType? accountType = null,
             CancellationToken ct = default);
 

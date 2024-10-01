@@ -150,14 +150,15 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoOrder>> GetOrderAsync(
             string symbol,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             SpotAccountType? accountType = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency_pair", symbol);
             parameters.AddOptionalEnum("account", accountType);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/orders/" + orderId, GateIoExchange.RateLimiter.RestSpotOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/orders/" + (orderId?.ToString() ?? clientOrderId), GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             return await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
