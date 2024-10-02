@@ -134,7 +134,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#amend-an-order" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">Order id, either orderId or clientOrderId required</param>
+        /// <param name="clientOrderId">user custom ID(i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
         /// <param name="price">New price</param>
         /// <param name="quantity">New quantity</param>
         /// <param name="amendText">Custom info during amending order</param>
@@ -143,7 +144,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <returns></returns>
         Task<WebCallResult<GateIoOrder>> EditOrderAsync(
             string symbol,
-            long orderId,
+            long? orderId,
+            string? clientOrderId = null,
             decimal? price = null,
             decimal? quantity = null,
             string? amendText = null,

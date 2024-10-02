@@ -223,13 +223,16 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoOrder>> EditOrderAsync(
             string symbol,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             decimal? price = null,
             decimal? quantity = null,
             string? amendText = null,
             SpotAccountType? accountType = null,
             CancellationToken ct = default)
         {
+            var id = orderId?.ToString() ?? clientOrderId;
+
             var queryParameters = new ParameterCollection();
             queryParameters.Add("currency_pair", symbol);
 
@@ -238,7 +241,7 @@ namespace GateIo.Net.Clients.SpotApi
             bodyParameters.AddOptionalString("amount", quantity);
             bodyParameters.AddOptional("amend_text", amendText);
             bodyParameters.AddOptionalEnum("account", accountType);
-            var request = _definitions.GetOrCreate(new HttpMethod("Patch"), "/api/v4/spot/orders/" + orderId, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
+            var request = _definitions.GetOrCreate(new HttpMethod("Patch"), "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct).ConfigureAwait(false);
         }
 
