@@ -275,7 +275,8 @@ namespace GateIo.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public async Task<CallResult<GateIoOrder>> EditOrderAsync(string symbol,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             decimal? price = null,
             decimal? quantity = null,
             string? amendText = null,
@@ -290,7 +291,7 @@ namespace GateIo.Net.Clients.SpotApi
                 Quantity = quantity,
                 Price = price,
                 AmendText = amendText,
-                OrderId = orderId.ToString()
+                OrderId = orderId?.ToString() ?? clientOrderId!
             }, true);
 
             return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);

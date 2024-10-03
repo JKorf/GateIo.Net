@@ -118,7 +118,7 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderAsync("ETH_USDT", 123), "GetOrder", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelAllOrdersAsync("ETH_USDT"), "CancelAllOders", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrdersAsync(new[] { new GateIoBatchCancelRequest { Id = "123", Symbol = "ETH_USDT" } }), "CancelOrders");
-            await tester.ValidateAsync(client => client.SpotApi.Trading.EditOrderAsync("ETH_USDT", 123, 123), "EditOrder", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
+            await tester.ValidateAsync(client => client.SpotApi.Trading.EditOrderAsync("ETH_USDT", 123, price: 123), "EditOrder", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderAsync("ETH_USDT", 123), "CancelOrder", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync(), "GetUserTrades", ignoreProperties: new List<string> { "create_time" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrdersAfterAsync(TimeSpan.Zero), "CancelOrdersAfter");
