@@ -1,0 +1,6 @@
+POST
+/api/v4/withdrawals/push
+true
+{
+  "id": 111
+}

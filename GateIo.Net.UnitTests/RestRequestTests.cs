@@ -74,6 +74,7 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetMarginMaxBorrowableAsync("ETH", "ETH_USDT"), "GetMarginMaxBorrowable");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetGTDeductionStatusAsync(), "GetGTDeductionStatus");
             await tester.ValidateAsync(client => client.SpotApi.Account.SetGTDeductionStatusAsync(true), "SetGTDeductionStatus");
+            await tester.ValidateAsync(client => client.SpotApi.Account.TransferToAccountAsync(123, "123", 0.1m), "TransferToAccount");
         }
 
         [Test]

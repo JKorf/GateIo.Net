@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.RateLimiting.Guards;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -168,6 +169,23 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
+        #region Transfer To Account
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoId>> TransferToAccountAsync(long receiveAccountId, string asset, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("receive_uid", receiveAccountId);
+            parameters.Add("currency", asset);
+            parameters.AddString("amount", quantity);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/withdrawals/push", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
+            var result = await _baseClient.SendAsync<GateIoId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
 
         #region Get Withdraw Status
 

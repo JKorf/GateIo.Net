@@ -441,6 +441,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.TransferAsync(System.String,GateIo.Net.Enums.AccountType,GateIo.Net.Enums.AccountType,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.TransferToAccountAsync(System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetWithdrawStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3252,6 +3255,16 @@
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results</param>
             <param name="offset">Result offset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.TransferToAccountAsync(System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer to another GateIo account
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#uid-transfer" /></para>
+            </summary>
+            <param name="receiveAccountId">Account id to transfer to</param>
+            <param name="asset">Asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData">

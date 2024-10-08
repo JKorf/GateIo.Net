@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace GateIo.Net.Interfaces.Clients.SpotApi
 {
@@ -715,6 +716,16 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="offset">Result offset</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<GateIoTransferEntry>>> GetTransferHistoryAsync(long? id = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer to another GateIo account
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#uid-transfer" /></para>
+        /// </summary>
+        /// <param name="receiveAccountId">Account id to transfer to</param>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<GateIoId>> TransferToAccountAsync(long receiveAccountId, string asset, decimal quantity, CancellationToken ct = default);
 
     }
 }
