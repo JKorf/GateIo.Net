@@ -159,6 +159,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.7.0 - 08 Oct 2024
+    * Added SpotApi.Account.GetTransferHistoryAsync endpoint
+    * Added SpotApi.Account.TransferToAccountAsync endpoint
+    * Added PerpetualFuturesApi.Trading.EditMultipleOrdersAsync endpoint
+    * Added BestBidQuantity/BestAskQuantity properties to GateIoPerpTicker response model
+    * Added startTime/endTime parameters to PerpetualFuturesApi.ExchangeData.GetFundingRateHistoryAsync and updated shared implementation to support pagination
+    * Added support for clientOrderId to SpotApi.Trading.GetOrderAsync endpoint
+    * Fixed some serialization issues in batch endpoints
+
 * Version 1.6.0 - 27 Sep 2024
     * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
     * Added Shared client interfaces implementation for Spot and Perpetual Futures Rest and Socket clients
