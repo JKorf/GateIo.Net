@@ -136,12 +136,16 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<GateIoPerpFundingRate>>> GetFundingRateHistoryAsync(
             string settlementAsset,
             string contract,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
             int? limit = null,
             CancellationToken ct = default);
 

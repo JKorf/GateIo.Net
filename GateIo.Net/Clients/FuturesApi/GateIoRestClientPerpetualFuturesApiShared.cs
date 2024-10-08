@@ -888,7 +888,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         #region Funding Rate client
-        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(SharedPaginationSupport.NotSupported, false)
+        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(SharedPaginationSupport.Descending, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -902,17 +902,27 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFundingRate>>(Exchange, validationError);
 
+            DateTime? fromTime = null;
+            if (pageToken is DateTimeToken token)
+                fromTime = token.LastTime;
+
             // Get data
             var result = await ExchangeData.GetFundingRateHistoryAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol(FormatSymbol),
-                limit: 1000,
+                startTime: request.StartTime,
+                endTime: fromTime ?? request.EndTime,
+                limit: request.Limit ?? 1000,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, null, default);
 
+            DateTimeToken? nextToken = null;
+            if (result.Data.Count() == (request.Limit ?? 1000))
+                nextToken = new DateTimeToken(result.Data.Min(x => x.Timestamp).AddSeconds(-1));
+
             // Return
-            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.TradingMode,result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.TradingMode,result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
         }
         #endregion
 

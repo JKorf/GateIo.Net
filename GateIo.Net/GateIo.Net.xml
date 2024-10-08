@@ -88,7 +88,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetTickersAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetInsuranceBalanceHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -1971,13 +1971,15 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#funding-rate-history" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="contract">Contract, for example `ETH_USDT`</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -7718,9 +7720,19 @@
             Best ask price
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpTicker.BestBidQuantity">
+            <summary>
+            Best ask price quantity
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpTicker.BestAskPrice">
             <summary>
             Best bid price
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpTicker.BestAskQuantity">
+            <summary>
+            Best bid price quantity
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpTickerUpdate">
