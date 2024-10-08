@@ -282,6 +282,15 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Edit multiple existing orders
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#batch-modify-orders-with-specified-ids" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">Settlement asset</param>
+        /// <param name="requests">Edit requests</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> EditMultipleOrdersAsync(string settlementAsset, IEnumerable<GateIoPerpBatchEditRequest> requests, CancellationToken ct = default);
+
+        /// <summary>
         /// Get user trades
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-personal-trading-history-2" /></para>
         /// </summary>

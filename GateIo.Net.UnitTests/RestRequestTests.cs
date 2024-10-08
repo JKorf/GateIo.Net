@@ -210,6 +210,7 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.CancelTriggerOrdersAsync("usdt", "ETH_USDT"), "CancelTriggerOrders", ignoreProperties: new List<string> { "strategy_type" });
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetTriggerOrderAsync("usdt", 123), "GetTriggerOrder", ignoreProperties: new List<string> { "strategy_type" });
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.CancelTriggerOrderAsync("usdt", 123), "CancelTriggerOrder", ignoreProperties: new List<string> { "strategy_type" });
+            await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.EditMultipleOrdersAsync("usdt", new[] { new GateIoPerpBatchEditRequest() }), "EditMultipleOrders");
         }
 
         private bool IsAuthenticated(WebCallResult result)

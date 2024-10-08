@@ -30,7 +30,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// Order price
         /// </summary>
-        [JsonPropertyName("price"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public decimal? Price { get; set; }
         /// <summary>
         /// Time in force

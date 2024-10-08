@@ -166,6 +166,9 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2265,6 +2268,15 @@
             <param name="amendText">Amend text</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.EditMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest},System.Threading.CancellationToken)">
+            <summary>
+            Edit multiple existing orders
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#batch-modify-orders-with-specified-ids" /></para>
+            </summary>
+            <param name="settlementAsset">Settlement asset</param>
+            <param name="requests">Edit requests</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
@@ -6541,6 +6553,36 @@
             Asset
             </summary>
         </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest">
+            <summary>
+            Batch order edit request
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.OrderId">
+            <summary>
+            The order id, either this or Text should be provied
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.Text">
+            <summary>
+            User defined order text, either this or OrderId should be provied
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.AmendText">
+            <summary>
+            Amend text
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.Price">
+            <summary>
+            Order price
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest">
             <summary>
             Batch order placement item
@@ -7339,6 +7381,16 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrder.AmendText">
             <summary>
             Amend text
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrder.Succeeded">
+            <summary>
+            Whether or not the requested operation succeeded
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrder.ErrorMessage">
+            <summary>
+            Error message if the requested operation failed
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpOrderBook">

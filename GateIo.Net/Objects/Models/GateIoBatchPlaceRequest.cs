@@ -37,17 +37,17 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonPropertyName("amount")]
+        [JsonPropertyName("amount"), JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Order price
         /// </summary>
-        [JsonPropertyName("price"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public decimal? Price { get; set; }
         /// <summary>
         /// Iceberg quantity
         /// </summary>
-        [JsonPropertyName("iceberg"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("iceberg"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public decimal? IcebergQuantity { get; set; }
         /// <summary>
         /// The type of account
