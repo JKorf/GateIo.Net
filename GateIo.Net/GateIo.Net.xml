@@ -462,6 +462,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetSmallBalanceConversionsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1398,6 +1401,51 @@
         <member name="F:GateIo.Net.Enums.TimeInForce.FillOrKill">
             <summary>
             Fill or kill
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.TransferStatus">
+            <summary>
+            Transfer status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Creating">
+            <summary>
+            Creating
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Pending">
+            <summary>
+            Waiting for receiving (please contact the other party to accept the transfer on the gate official website)
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Cancelling">
+            <summary>
+            Cancelling
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Cancelled">
+            <summary>
+            Revoked
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Refusing">
+            <summary>
+            Rejection
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Refused">
+            <summary>
+            Rejected
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Receiving">
+            <summary>
+            Receiving
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Received">
+            <summary>
+            Success
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.TriggerAccountType">
@@ -3193,6 +3241,18 @@
             <param name="enabled">Enabled</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get transfer history
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-the-uid-transfer-history" /></para>
+            </summary>
+            <param name="id">Filter by id</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="offset">Result offset</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData">
             <summary>
@@ -8821,6 +8881,51 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoTransfer.TransactionId">
             <summary>
             Transation id
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoTransferEntry">
+            <summary>
+            Transfer info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.FromUserId">
+            <summary>
+            From user id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.ToUserId">
+            <summary>
+            To user id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.TransferStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Message">
+            <summary>
+            Message
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoTriggerOrder">
