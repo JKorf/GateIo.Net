@@ -657,7 +657,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditMultipleOrderAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchEditRequest},System.Threading.CancellationToken)">
@@ -760,7 +760,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
@@ -3525,13 +3525,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Edit an active order
             <para><a href="https://www.gate.io/docs/developers/apiv4/#amend-an-order" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+            <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
             <param name="price">New price</param>
             <param name="quantity">New quantity</param>
             <param name="amendText">Custom info during amending order</param>
@@ -3880,13 +3881,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Edit an order
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+            <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
             <param name="price">New price</param>
             <param name="quantity">New quantity</param>
             <param name="amendText">Custom info during amending order</param>
