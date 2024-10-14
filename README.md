@@ -159,6 +159,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.8.0 - 14 Oct 2024
+    * Fixed ICoinbaseOrderBookFactory DI lifetime
+    * Added clientOrderId parameter to restClient.SpotApi.Trading.EditOrderAsync
+    * Added clientOrderId parameter to socketClient.SpotApi.EditOrderAsync
+
 * Version 1.7.0 - 08 Oct 2024
     * Added SpotApi.Account.GetTransferHistoryAsync endpoint
     * Added SpotApi.Account.TransferToAccountAsync endpoint
