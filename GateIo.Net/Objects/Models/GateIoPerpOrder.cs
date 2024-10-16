@@ -124,5 +124,17 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string? AmendText { get; set; }
+
+        /// <summary>
+        /// Whether or not the requested operation succeeded
+        /// </summary>
+        [JsonPropertyName("succeeded")]
+        public bool? Succeeded { get; set; }
+
+        /// <summary>
+        /// Error message if the requested operation failed
+        /// </summary>
+        [JsonPropertyName("label")]
+        public string? ErrorMessage { get; set; }
     }
 }

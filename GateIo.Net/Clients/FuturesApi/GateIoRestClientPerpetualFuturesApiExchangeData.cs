@@ -172,11 +172,15 @@ namespace GateIo.Net.Clients.FuturesApi
         public async Task<WebCallResult<IEnumerable<GateIoPerpFundingRate>>> GetFundingRateHistoryAsync(
             string settlementAsset,
             string contract,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
             int? limit = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract", contract);
+            parameters.AddOptionalSeconds("from", startTime);
+            parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/funding_rate", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpFundingRate>>(request, parameters, ct).ConfigureAwait(false);

@@ -143,7 +143,7 @@ namespace GateIo.Net.UnitTests
             await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetKlinesAsync("usdt", "ETH_USDT", GateIo.Net.Enums.KlineInterval.OneDay, default, default, default, default), false);
             await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetIndexKlinesAsync("usdt", "ETH_USDT", GateIo.Net.Enums.KlineInterval.FiveMinutes, default, default, default, default), false);
             await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetTickersAsync("usdt", default, default), false);
-            await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetFundingRateHistoryAsync("usdt", "ETH_USDT", default, default), false);
+            await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetFundingRateHistoryAsync("usdt", "ETH_USDT", default, default, default, default), false);
             await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetInsuranceBalanceHistoryAsync("usdt", default, default), false);
             await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetContractStatsAsync("usdt", "ETH_USDT", default, default, default), false);
             await RunAndCheckResult(client => client.PerpetualFuturesApi.ExchangeData.GetIndexConstituentsAsync("usdt", "ETH_USDT", default), false);

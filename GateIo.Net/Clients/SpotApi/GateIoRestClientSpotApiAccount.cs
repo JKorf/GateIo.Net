@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.RateLimiting.Guards;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -169,6 +170,23 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Transfer To Account
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoId>> TransferToAccountAsync(long receiveAccountId, string asset, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("receive_uid", receiveAccountId);
+            parameters.Add("currency", asset);
+            parameters.AddString("amount", quantity);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/withdrawals/push", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
+            var result = await _baseClient.SendAsync<GateIoId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+
         #region Get Withdraw Status
 
         /// <inheritdoc />
@@ -285,6 +303,25 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
+        #region Get Transfer History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<GateIoTransferEntry>>> GetTransferHistoryAsync(long? id = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("id", id);
+            parameters.AddOptionalMilliseconds("from", startTime);
+            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptional("limit", limit);
+            parameters.AddOptional("offset", offset);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/push", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
+            var result = await _baseClient.SendAsync<IEnumerable<GateIoTransferEntry>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
 
         #region Get Unified Account Info
 

@@ -7,38 +7,33 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Batch order edit request
     /// </summary>
-    public record GateIoBatchEditRequest
+    public record GateIoPerpBatchEditRequest
     {
         /// <summary>
-        /// The order id
+        /// The order id, either this or Text should be provied
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// The symbol the order is on
+        /// User defined order text, either this or OrderId should be provied
         /// </summary>
-        [JsonPropertyName("currency_pair")]
-        public string Symbol { get; set; } = string.Empty;
+        [JsonPropertyName("text")]
+        public string Text { get; set; } = string.Empty;
         /// <summary>
-        /// amend text
+        /// Amend text
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string AmendText { get; set; } = string.Empty;
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonPropertyName("amount"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public decimal? Quantity { get; set; }
+        [JsonPropertyName("size"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public int? Quantity { get; set; }
         /// <summary>
         /// Order price
         /// </summary>
         [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public decimal? Price { get; set; }
-        /// <summary>
-        /// The type of account
-        /// </summary>
-        [JsonPropertyName("account"), JsonConverter(typeof(EnumConverter))]
-        public SpotAccountType AccountType { get; set; }
 
     }
 }

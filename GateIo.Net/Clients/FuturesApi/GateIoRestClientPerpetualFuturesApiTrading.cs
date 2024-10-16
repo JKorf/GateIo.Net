@@ -341,6 +341,20 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Edit Multiple Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> EditMultipleOrdersAsync(string settlementAsset, IEnumerable<GateIoPerpBatchEditRequest> requests, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.SetBody(requests);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset}/batch_amend_orders", GateIoExchange.RateLimiter.RestFuturesOrderPlacement, 1, true);
+            var result = await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Get User Trades
 
         /// <inheritdoc />

@@ -88,7 +88,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetTickersAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiExchangeData.GetInsuranceBalanceHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -164,6 +164,9 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
@@ -441,6 +444,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.TransferAsync(System.String,GateIo.Net.Enums.AccountType,GateIo.Net.Enums.AccountType,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.TransferToAccountAsync(System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetWithdrawStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -460,6 +466,9 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetSmallBalanceConversionsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInfoAsync(System.String,System.Threading.CancellationToken)">
@@ -648,7 +657,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditMultipleOrderAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchEditRequest},System.Threading.CancellationToken)">
@@ -751,7 +760,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
@@ -1400,6 +1409,51 @@
             Fill or kill
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.TransferStatus">
+            <summary>
+            Transfer status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Creating">
+            <summary>
+            Creating
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Pending">
+            <summary>
+            Waiting for receiving (please contact the other party to accept the transfer on the gate official website)
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Cancelling">
+            <summary>
+            Cancelling
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Cancelled">
+            <summary>
+            Revoked
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Refusing">
+            <summary>
+            Rejection
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Refused">
+            <summary>
+            Rejected
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Receiving">
+            <summary>
+            Receiving
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferStatus.Received">
+            <summary>
+            Success
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.TriggerAccountType">
             <summary>
             Trigger account type
@@ -1917,13 +1971,15 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#funding-rate-history" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="contract">Contract, for example `ETH_USDT`</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2214,6 +2270,15 @@
             <param name="amendText">Amend text</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.EditMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest},System.Threading.CancellationToken)">
+            <summary>
+            Edit multiple existing orders
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#batch-modify-orders-with-specified-ids" /></para>
+            </summary>
+            <param name="settlementAsset">Settlement asset</param>
+            <param name="requests">Edit requests</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
@@ -3194,6 +3259,28 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get transfer history
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-the-uid-transfer-history" /></para>
+            </summary>
+            <param name="id">Filter by id</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="offset">Result offset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.TransferToAccountAsync(System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer to another GateIo account
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#uid-transfer" /></para>
+            </summary>
+            <param name="receiveAccountId">Account id to transfer to</param>
+            <param name="asset">Asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData">
             <summary>
             GateIo Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -3438,13 +3525,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Edit an active order
             <para><a href="https://www.gate.io/docs/developers/apiv4/#amend-an-order" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+            <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
             <param name="price">New price</param>
             <param name="quantity">New quantity</param>
             <param name="amendText">Custom info during amending order</param>
@@ -3793,13 +3881,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Edit an order
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+            <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
             <param name="price">New price</param>
             <param name="quantity">New quantity</param>
             <param name="amendText">Custom info during amending order</param>
@@ -6468,6 +6557,36 @@
             Asset
             </summary>
         </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest">
+            <summary>
+            Batch order edit request
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.OrderId">
+            <summary>
+            The order id, either this or Text should be provied
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.Text">
+            <summary>
+            User defined order text, either this or OrderId should be provied
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.AmendText">
+            <summary>
+            Amend text
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest.Price">
+            <summary>
+            Order price
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest">
             <summary>
             Batch order placement item
@@ -7268,6 +7387,16 @@
             Amend text
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrder.Succeeded">
+            <summary>
+            Whether or not the requested operation succeeded
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrder.ErrorMessage">
+            <summary>
+            Error message if the requested operation failed
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpOrderBook">
             <summary>
             Order book
@@ -7593,9 +7722,19 @@
             Best ask price
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpTicker.BestBidQuantity">
+            <summary>
+            Best ask price quantity
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpTicker.BestAskPrice">
             <summary>
             Best bid price
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpTicker.BestAskQuantity">
+            <summary>
+            Best bid price quantity
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpTickerUpdate">
@@ -8821,6 +8960,51 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoTransfer.TransactionId">
             <summary>
             Transation id
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoTransferEntry">
+            <summary>
+            Transfer info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.FromUserId">
+            <summary>
+            From user id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.ToUserId">
+            <summary>
+            To user id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.TransferStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Message">
+            <summary>
+            Message
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoTriggerOrder">

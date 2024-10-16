@@ -93,9 +93,19 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("highest_bid")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
+        /// Best ask price quantity
+        /// </summary>
+        [JsonPropertyName("highest_size")]
+        public decimal BestBidQuantity { get; set; }
+        /// <summary>
         /// Best bid price
         /// </summary>
         [JsonPropertyName("lowest_ask")]
         public decimal BestAskPrice { get; set; }
+        /// <summary>
+        /// Best bid price quantity
+        /// </summary>
+        [JsonPropertyName("lowest_size")]
+        public decimal BestAskQuantity { get; set; }
     }
 }
