@@ -298,13 +298,15 @@ namespace GateIo.Net.Clients.SpotApi
 
         async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol, CancellationToken ct)
         {
-            if (!long.TryParse(orderId, out var id))
+            var clientOrderId = orderId.StartsWith("t-") ? orderId : null;
+
+            if (!long.TryParse(orderId, out var id) && clientOrderId is null)
                 throw new ArgumentException("Order id invalid", nameof(orderId));
 
             if (string.IsNullOrWhiteSpace(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Gate.io " + nameof(ISpotClient.CancelOrderAsync), nameof(symbol));
 
-            var order = await Trading.CancelOrderAsync(symbol!, id, ct: ct).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(symbol!, orderId: id == 0 ? null : id, clientOrderId: clientOrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.As<OrderId>(null);
 

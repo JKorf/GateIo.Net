@@ -431,10 +431,12 @@ namespace GateIo.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            if (!long.TryParse(request.OrderId, out var orderId))
+            var clientOrderId = request.OrderId.StartsWith("t-") ? request.OrderId : null;
+            
+            if (!long.TryParse(request.OrderId, out var orderId) && clientOrderId is null)
                 return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
 
-            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), orderId).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), orderId == 0 ? null : orderId, clientOrderId).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
