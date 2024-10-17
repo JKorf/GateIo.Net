@@ -157,13 +157,15 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#cancel-a-single-order" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the order, for example `ETH_USDT`</param>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+        /// <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoOrder>> CancelOrderAsync(
             string symbol,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             SpotAccountType? accountType = null,
             CancellationToken ct = default);
 

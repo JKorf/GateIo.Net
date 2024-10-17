@@ -298,12 +298,16 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null, CancellationToken ct = default)
+        public async Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol,
+            long? orderId = null,
+            string? clientOrderId = null,
+            SpotAccountType? accountType = null,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotGetOrderRequest, GateIoOrder>(id, "spot.order_cancel", "api", new GateIoSpotGetOrderRequest
             {
-                OrderId = orderId.ToString(),
+                OrderId = orderId?.ToString() ?? clientOrderId ?? throw new ArgumentException($"Either {nameof(orderId)} or {nameof(clientOrderId)} must be provided"),
                 Symbol = symbol,
                 AccountType = accountType
             }, true);

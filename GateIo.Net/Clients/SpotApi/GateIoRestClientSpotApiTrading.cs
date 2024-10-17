@@ -267,14 +267,17 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoOrder>> CancelOrderAsync(
             string symbol,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             SpotAccountType? accountType = null,
             CancellationToken ct = default)
         {
+            var id = orderId?.ToString() ?? clientOrderId ?? throw new ArgumentException($"Either {nameof(orderId)} or {nameof(clientOrderId)} must be provided"); ;
+
             var parameters = new ParameterCollection();
             parameters.Add("currency_pair", symbol);
             parameters.AddOptionalEnum("account", accountType);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/orders/" + orderId, GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
