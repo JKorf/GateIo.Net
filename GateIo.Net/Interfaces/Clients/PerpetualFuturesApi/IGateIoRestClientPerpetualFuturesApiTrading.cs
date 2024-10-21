@@ -241,12 +241,14 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-a-single-order-2" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoPerpOrder>> GetOrderAsync(
             string settlementAsset,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             CancellationToken ct = default);
 
         /// <summary>
@@ -254,12 +256,14 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#cancel-a-single-order-2" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoPerpOrder>> CancelOrderAsync(
             string settlementAsset,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             CancellationToken ct = default);
 
         /// <summary>
@@ -267,7 +271,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#amend-an-order-2" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="quantity">New quantity</param>
         /// <param name="price">New price</param>
         /// <param name="amendText">Amend text</param>
@@ -275,7 +280,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <returns></returns>
         Task<WebCallResult<GateIoPerpOrder>> EditOrderAsync(
             string settlementAsset,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             int? quantity = null,
             decimal? price = null,
             string? amendText = null,

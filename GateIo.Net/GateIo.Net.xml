@@ -157,13 +157,13 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetOrdersByTimestampAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.GetOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.CancelOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.CancelOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiTrading.EditMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchEditRequest},System.Threading.CancellationToken)">
@@ -663,7 +663,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.EditMultipleOrderAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchEditRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.CancelOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
@@ -763,7 +763,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchCancelRequest},System.Threading.CancellationToken)">
@@ -2238,33 +2238,36 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.GetOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.GetOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <summary>
             Get order by id
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-a-single-order-2" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.CancelOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.CancelOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#cancel-a-single-order-2" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Edit an existing order
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#amend-an-order-2" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
             <param name="quantity">New quantity</param>
             <param name="price">New price</param>
             <param name="amendText">Amend text</param>
@@ -3540,13 +3543,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.CancelOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Cancel an order
             <para><a href="https://www.gate.io/docs/developers/apiv4/#cancel-a-single-order" /></para>
             </summary>
             <param name="symbol">Symbol of the order, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+            <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
             <param name="accountType">Account type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3850,13 +3854,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.CancelOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
             <summary>
             Cancel an order by id
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="orderId">Order id</param>
+            <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
+            <param name="clientOrderId">user custom ID (i.e., t-123c456f), either `orderId` or `clientOrderId` required</param>
             <param name="accountType">Account type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

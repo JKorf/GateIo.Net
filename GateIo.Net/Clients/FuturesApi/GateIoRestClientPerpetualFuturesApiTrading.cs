@@ -292,12 +292,12 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoPerpOrder>> GetOrderAsync(
             string settlementAsset,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/orders/" + orderId, GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/orders/" + (orderId?.ToString() ?? clientOrderId), GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<GateIoPerpOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -308,12 +308,12 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoPerpOrder>> CancelOrderAsync(
             string settlementAsset,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"/api/v4/futures/{settlementAsset}/orders/" + orderId, GateIoExchange.RateLimiter.RestFuturesOrderCancelation, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"/api/v4/futures/{settlementAsset}/orders/" + (orderId?.ToString() ?? clientOrderId), GateIoExchange.RateLimiter.RestFuturesOrderCancelation, 1, true);
             return await _baseClient.SendAsync<GateIoPerpOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -324,18 +324,18 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoPerpOrder>> EditOrderAsync(
             string settlementAsset,
-            long orderId,
+            long? orderId = null,
+            string? clientOrderId = null,
             int? quantity = null,
             decimal? price = null,
             string? amendText = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("order_id", orderId);
             parameters.AddOptional("size", quantity);
             parameters.AddOptionalString("price", price);
             parameters.AddOptional("amend_text", amendText);
-            var request = _definitions.GetOrCreate(HttpMethod.Put, $"/api/v4/futures/{settlementAsset}/orders/" + orderId, GateIoExchange.RateLimiter.RestFuturesOrderPlacement, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Put, $"/api/v4/futures/{settlementAsset}/orders/" + (orderId?.ToString() ?? clientOrderId), GateIoExchange.RateLimiter.RestFuturesOrderPlacement, 1, true);
             return await _baseClient.SendAsync<GateIoPerpOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
