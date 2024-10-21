@@ -582,6 +582,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.SetGTDeductionStatusAsync(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetRateLimitsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -1267,6 +1270,21 @@
         <member name="F:GateIo.Net.Enums.PriceType.IndexPrice">
             <summary>
             Index price
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.RateLimitType">
+            <summary>
+            Rate limit type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.RateLimitType.Spot">
+            <summary>
+            Spot
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.RateLimitType.Futures">
+            <summary>
+            Futures
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.RepayType">
@@ -3282,6 +3300,13 @@
             <param name="receiveAccountId">Account id to transfer to</param>
             <param name="asset">Asset to transfer</param>
             <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetRateLimitsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get rate limit ratios for the user
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-user-transaction-rate-limit-information" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData">
@@ -9455,6 +9480,36 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountSettings.Options">
             <summary>
             Option switch
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoUserRateLimit">
+            <summary>
+            User rate limits
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserRateLimit.RateLimitType">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserRateLimit.Tier">
+            <summary>
+            Tier
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserRateLimit.Ratio">
+            <summary>
+            Ratio
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserRateLimit.MainRatio">
+            <summary>
+            Main ratio
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserRateLimit.UpdatedAt">
+            <summary>
+            Update time
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoUserTradeUpdate">

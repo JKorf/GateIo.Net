@@ -957,5 +957,19 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
+        #region Get Rate Limits
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<GateIoUserRateLimit>>> GetRateLimitsAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/account/rate_limit", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
+            var result = await _baseClient.SendAsync<IEnumerable<GateIoUserRateLimit>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

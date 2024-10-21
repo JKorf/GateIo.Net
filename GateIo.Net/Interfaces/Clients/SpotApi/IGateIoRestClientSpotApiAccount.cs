@@ -727,5 +727,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<GateIoId>> TransferToAccountAsync(long receiveAccountId, string asset, decimal quantity, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get rate limit ratios for the user
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-user-transaction-rate-limit-information" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<GateIoUserRateLimit>>> GetRateLimitsAsync(CancellationToken ct = default);
+
     }
 }
