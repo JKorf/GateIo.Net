@@ -155,10 +155,10 @@ namespace GateIo.Net.Clients.SpotApi
         public override TimeSpan? GetTimeOffset()
             => _timeSyncState.TimeOffset;
 
-
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliveryDate = null) => baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
-        
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+                => GateIoExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
+
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
         public IGateIoRestClientSpotApiShared SharedClient => this;

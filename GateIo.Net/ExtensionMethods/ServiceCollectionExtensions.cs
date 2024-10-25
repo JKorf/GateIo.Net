@@ -9,6 +9,7 @@ using GateIo.Net.Interfaces.Clients;
 using GateIo.Net.Objects.Options;
 using GateIo.Net.SymbolOrderBooks;
 using CryptoExchange.Net;
+using GateIo.Net;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -62,6 +63,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IGateIoOrderBookFactory, GateIoOrderBookFactory>();
+            services.AddTransient<IGateIoTrackerFactory, GateIoTrackerFactory>();
             services.AddTransient(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.CommonSpotClient);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);

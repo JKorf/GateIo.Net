@@ -1761,6 +1761,16 @@
             Urls to the API documentation
             </summary>
         </member>
+        <member name="M:GateIo.Net.GateIoExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <summary>
+            Format a base and quote asset to a Gate.io recognized symbol 
+            </summary>
+            <param name="baseAsset">Base asset</param>
+            <param name="quoteAsset">Quote asset</param>
+            <param name="tradingMode">Trading mode</param>
+            <param name="deliverTime">Delivery time for delivery futures</param>
+            <returns></returns>
+        </member>
         <member name="P:GateIo.Net.GateIoExchange.RateLimiter">
             <summary>
             Rate limiter configuration for the Gate.io API
@@ -1775,6 +1785,21 @@
             <summary>
             Event for when a rate limit is triggered
             </summary>
+        </member>
+        <member name="T:GateIo.Net.GateIoTrackerFactory">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.GateIoTrackerFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.IGateIoRestClient">
             <summary>
@@ -3967,6 +3992,15 @@
             USDT perpetual futures order book factory methods
             </summary>
         </member>
+        <member name="M:GateIo.Net.Interfaces.IGateIoOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.String,System.Action{GateIo.Net.Objects.Options.GateIoOrderBookOptions})">
+            <summary>
+            Create a SymbolOrderBook for the symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="settlementAsset">Settlement asset for futures</param>
+            <param name="options">Book options</param>
+            <returns></returns>
+        </member>
         <member name="M:GateIo.Net.Interfaces.IGateIoOrderBookFactory.CreatePerpetualFutures(System.String,System.String,System.Action{GateIo.Net.Objects.Options.GateIoOrderBookOptions})">
             <summary>
             Create a new perpetual futures local order book instance
@@ -3982,6 +4016,30 @@
             </summary>
             <param name="symbol"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.IGateIoTrackerFactory">
+            <summary>
+            Tracker factory
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new kline tracker
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="interval">Kline interval</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new trade tracker for a symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
             <returns></returns>
         </member>
         <member name="T:GateIo.Net.Objects.GateIoApiAddresses">
@@ -9813,6 +9871,9 @@
             <inheritdoc />
         </member>
         <member name="P:GateIo.Net.SymbolOrderBooks.GateIoOrderBookFactory.PerpetualFuturesUsdt">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.SymbolOrderBooks.GateIoOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.String,System.Action{GateIo.Net.Objects.Options.GateIoOrderBookOptions})">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.SymbolOrderBooks.GateIoOrderBookFactory.CreateSpot(System.String,System.Action{GateIo.Net.Objects.Options.GateIoOrderBookOptions})">

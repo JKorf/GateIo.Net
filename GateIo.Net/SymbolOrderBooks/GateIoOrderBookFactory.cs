@@ -6,6 +6,7 @@ using GateIo.Net.Interfaces;
 using GateIo.Net.Interfaces.Clients;
 using GateIo.Net.Objects.Options;
 using CryptoExchange.Net.OrderBook;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.SymbolOrderBooks
 {
@@ -24,10 +25,18 @@ namespace GateIo.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
 
-            Spot = new OrderBookFactory<GateIoOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset + "_" + quoteAsset, options));
-            PerpetualFuturesBtc = new OrderBookFactory<GateIoOrderBookOptions>((symbol, options) => CreatePerpetualFutures("btc", symbol, options), (baseAsset, quoteAsset, options) => CreatePerpetualFutures("btc", baseAsset + "_" + quoteAsset, options));
-            PerpetualFuturesUsd = new OrderBookFactory<GateIoOrderBookOptions>((symbol, options) => CreatePerpetualFutures("usd", symbol, options), (baseAsset, quoteAsset, options) => CreatePerpetualFutures("usd", baseAsset + "_" + quoteAsset, options));
-            PerpetualFuturesUsdt = new OrderBookFactory<GateIoOrderBookOptions>((symbol, options) => CreatePerpetualFutures("usdt", symbol, options), (baseAsset, quoteAsset, options) => CreatePerpetualFutures("usdt", baseAsset + "_" + quoteAsset, options));
+            Spot = new OrderBookFactory<GateIoOrderBookOptions>(
+                CreateSpot,
+                (sharedSymbol, options) => CreateSpot(GateIoExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            PerpetualFuturesBtc = new OrderBookFactory<GateIoOrderBookOptions>(
+                (symbol, options) => CreatePerpetualFutures("btc", symbol, options),
+                (sharedSymbol, options) => CreatePerpetualFutures("btc", GateIoExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            PerpetualFuturesUsd = new OrderBookFactory<GateIoOrderBookOptions>(
+                (symbol, options) => CreatePerpetualFutures("usd", symbol, options),
+                (sharedSymbol, options) => CreatePerpetualFutures("usd", GateIoExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            PerpetualFuturesUsdt = new OrderBookFactory<GateIoOrderBookOptions>(
+                (symbol, options) => CreatePerpetualFutures("usdt", symbol, options),
+                (sharedSymbol, options) => CreatePerpetualFutures("usdt", GateIoExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
         }
 
         /// <inheritdoc />
@@ -38,6 +47,16 @@ namespace GateIo.Net.SymbolOrderBooks
         public IOrderBookFactory<GateIoOrderBookOptions> PerpetualFuturesUsd { get; }
         /// <inheritdoc />
         public IOrderBookFactory<GateIoOrderBookOptions> PerpetualFuturesUsdt { get; }
+
+        /// <inheritdoc />
+        public ISymbolOrderBook Create(SharedSymbol symbol, string? settlementAsset = null, Action<GateIoOrderBookOptions>? options = null)
+        {
+            var symbolName = GateIoExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            if (symbol.TradingMode == TradingMode.Spot)
+                return CreateSpot(symbolName, options);
+
+            return CreatePerpetualFutures(symbolName, settlementAsset ?? "usd", options);
+        }
 
         /// <inheritdoc />
         public ISymbolOrderBook CreateSpot(string symbol, Action<GateIoOrderBookOptions>? options = null)
