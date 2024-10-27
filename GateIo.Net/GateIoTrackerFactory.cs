@@ -2,6 +2,7 @@
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using GateIo.Net.Clients;
 using GateIo.Net.Interfaces;
 using GateIo.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,14 @@ namespace GateIo.Net
     /// <inheritdoc />
     public class GateIoTrackerFactory : IGateIoTrackerFactory
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider? _serviceProvider;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public GateIoTrackerFactory()
+        {
+        }
 
         /// <summary>
         /// ctor
@@ -27,23 +35,26 @@ namespace GateIo.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
-            IKlineRestClient restClient;
-            IKlineSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
+
+            IKlineRestClient sharedRestClient;
+            IKlineSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedClient;
+                sharedRestClient = restClient.PerpetualFuturesApi.SharedClient;
+                sharedSocketClient = socketClient.PerpetualFuturesApi.SharedClient;
             }
 
             return new KlineTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                sharedSocketClient,
                 symbol,
                 interval,
                 limit,
@@ -53,23 +64,27 @@ namespace GateIo.Net
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
         {
-            IRecentTradeRestClient? restClient = null;
-            ITradeSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
+
+            IRecentTradeRestClient? sharedRestClient;
+            ITradeSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedClient;
+                sharedRestClient = restClient.PerpetualFuturesApi.SharedClient;
+                sharedSocketClient = socketClient.PerpetualFuturesApi.SharedClient;
             }
 
             return new TradeTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                null,
+                sharedSocketClient,
                 symbol,
                 limit,
                 period
