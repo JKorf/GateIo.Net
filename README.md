@@ -160,6 +160,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.10.0 - 28 Oct 2024
+    * Updated CryptoExchange.Net to version 8.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.1.0
+    * Moved FormatSymbol to GateIoExchange class
+    * Added support Side setting on SharedTrade model
+    * Added GateIoTrackerFactory for creating trackers
+    * Added overload to Create method on GateIoOrderBookFactory support SharedSymbol parameter
+
 * Version 1.9.0 - 21 Oct 2024
     * Added restClient.SpotApi.Account.GetRateLimitsAsync endpoint
     * Added support for clientOrderId to restClient.PerpetualFuturesApi.Trading.GetOrderAsync, CancelOrderAsync and EditOrderAsync endpoints
