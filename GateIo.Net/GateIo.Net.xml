@@ -1789,6 +1789,11 @@
         <member name="T:GateIo.Net.GateIoTrackerFactory">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.GateIoTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="M:GateIo.Net.GateIoTrackerFactory.#ctor(System.IServiceProvider)">
             <summary>
             ctor
