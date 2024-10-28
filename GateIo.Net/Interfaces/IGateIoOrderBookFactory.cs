@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Interfaces;
 using System;
 using GateIo.Net.Objects.Options;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net.Interfaces
 {
@@ -25,6 +26,15 @@ namespace GateIo.Net.Interfaces
         /// USDT perpetual futures order book factory methods
         /// </summary>
         public IOrderBookFactory<GateIoOrderBookOptions> PerpetualFuturesUsdt { get; }
+
+        /// <summary>
+        /// Create a SymbolOrderBook for the symbol
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="settlementAsset">Settlement asset for futures</param>
+        /// <param name="options">Book options</param>
+        /// <returns></returns>
+        ISymbolOrderBook Create(SharedSymbol symbol, string? settlementAsset = null, Action<GateIoOrderBookOptions>? options = null);
 
         /// <summary>
         /// Create a new perpetual futures local order book instance

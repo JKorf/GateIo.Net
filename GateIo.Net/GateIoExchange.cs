@@ -3,6 +3,7 @@ using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.RateLimiting;
 using System;
+using CryptoExchange.Net.SharedApis;
 
 namespace GateIo.Net
 {
@@ -27,6 +28,19 @@ namespace GateIo.Net
         public static string[] ApiDocsUrl { get; } = new[] {
             "https://www.gate.io/docs/developers/apiv4/en/"
             };
+
+        /// <summary>
+        /// Format a base and quote asset to a Gate.io recognized symbol 
+        /// </summary>
+        /// <param name="baseAsset">Base asset</param>
+        /// <param name="quoteAsset">Quote asset</param>
+        /// <param name="tradingMode">Trading mode</param>
+        /// <param name="deliverTime">Delivery time for delivery futures</param>
+        /// <returns></returns>
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        }
 
         /// <summary>
         /// Rate limiter configuration for the Gate.io API
