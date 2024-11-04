@@ -7379,6 +7379,11 @@
             Trade id
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpLedgerEntry.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpLiquidation">
             <summary>
             User liquidation info

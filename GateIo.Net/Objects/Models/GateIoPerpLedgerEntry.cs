@@ -43,5 +43,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("trade_id")]
         public string? TradeId { get; set; } = string.Empty;
+        /// <summary>
+        /// Id
+        /// </summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = string.Empty;
     }
 }
