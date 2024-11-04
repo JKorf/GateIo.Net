@@ -24,10 +24,20 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("lowest_ask")]
         public decimal? BestAskPrice { get; set; }
         /// <summary>
+        /// Best ask quantity
+        /// </summary>
+        [JsonPropertyName("lowest_size")]
+        public decimal? BestAskQuantity { get; set; }
+        /// <summary>
         /// Best bid price
         /// </summary>
         [JsonPropertyName("highest_bid")]
         public decimal? BestBidPrice { get; set; }
+        /// <summary>
+        /// Best bid quantity
+        /// </summary>
+        [JsonPropertyName("highest_size")]
+        public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// Change percentage last 24h
         /// </summary>

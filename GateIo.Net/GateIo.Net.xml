@@ -8909,9 +8909,19 @@
             Best ask price
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTicker.BestAskQuantity">
+            <summary>
+            Best ask quantity
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoTicker.BestBidPrice">
             <summary>
             Best bid price
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTicker.BestBidQuantity">
+            <summary>
+            Best bid quantity
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoTicker.ChangePercentage24h">
