@@ -1,5 +1,5 @@
 GET
-/unified/leverage/user_currency_config
+/api/v4/unified/leverage/user_currency_config
 true
 {
   "current_leverage": "2",

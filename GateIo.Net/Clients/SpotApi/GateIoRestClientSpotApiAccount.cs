@@ -523,8 +523,44 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/unified/leverage/user_currency_config", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/leverage/user_currency_config", GateIoExchange.RateLimiter.RestPrivate, 1, true);
             var result = await _baseClient.SendAsync<GateIoLeverageConfig>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Unified Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<GateIoLeverageSetting>>> GetUnifiedLeverageAsync(string? asset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("currency", asset);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/leverage/user_currency_setting", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            if (asset == null)
+            {
+                return await _baseClient.SendAsync<IEnumerable<GateIoLeverageSetting>>(request, parameters, ct).ConfigureAwait(false);
+            }
+            else
+            {
+                var result = await _baseClient.SendAsync<GateIoLeverageSetting>(request, parameters, ct).ConfigureAwait(false);
+                return result.As<IEnumerable<GateIoLeverageSetting>>([result.Data]);
+            }
+        }
+
+        #endregion
+
+        #region Set Unified Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> SetUnifiedLeverageAsync(string asset, decimal leverage, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", asset);
+            parameters.AddString("leverage", leverage);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/unified/leverage/user_currency_setting", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

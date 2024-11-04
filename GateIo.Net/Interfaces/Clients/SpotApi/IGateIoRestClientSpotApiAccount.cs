@@ -371,6 +371,23 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<GateIoLeverageConfig>> GetUnifiedLeverageConfigsAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
+        /// Get the current leverage setttings
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-user-s-currency-leverage-if-currency-is-not-passed-query-all-currencies" /></para>
+        /// </summary>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<GateIoLeverageSetting>>> GetUnifiedLeverageAsync(string? asset = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set the leverage for an asset
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-user-s-currency-leverage-if-currency-is-not-passed-query-all-currencies" /></para>
+        /// </summary>
+        /// <param name="asset">The asset, for example `ETH`</param>
+        /// <param name="leverage">Leverage</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult> SetUnifiedLeverageAsync(string asset, decimal leverage, CancellationToken ct = default);
+
+        /// <summary>
         /// Get account and API key info
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-account-detail" /></para>
         /// </summary>

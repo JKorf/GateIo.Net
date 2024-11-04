@@ -77,6 +77,8 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.TransferToAccountAsync(123, "123", 0.1m), "TransferToAccount");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetRateLimitsAsync(), "GetRateLimits");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetUnifiedLeverageConfigsAsync("123"), "GetUnifiedLeverageConfigs"); ;
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetUnifiedLeverageAsync(), "GetUnifiedLeverage");
+            await tester.ValidateAsync(client => client.SpotApi.Account.SetUnifiedLeverageAsync("123", 0.1m), "SetUnifiedLeverage");
         }
 
         [Test]
