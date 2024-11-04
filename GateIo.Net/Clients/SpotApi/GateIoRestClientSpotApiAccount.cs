@@ -515,6 +515,20 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+        
+        #region Get Unified Leverage Configs
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoLeverageConfig>> GetUnifiedLeverageConfigsAsync(string asset, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", asset);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/unified/leverage/user_currency_config", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            var result = await _baseClient.SendAsync<GateIoLeverageConfig>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
 
         #region Get Account Info
 

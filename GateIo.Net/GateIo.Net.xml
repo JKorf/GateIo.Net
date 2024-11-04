@@ -504,6 +504,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountEstimatedLendingRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedLeverageConfigsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3036,6 +3039,14 @@
             <param name="assets">Up to 10 assets, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetUnifiedLeverageConfigsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get unified account min and max leverage rates
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#the-maximum-and-minimum-leverage-multiples-that-users-can-set-for-a-currency-type-are" /></para>
+            </summary>
+            <param name="asset">The asset, for example `ETH`</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
             <summary>
@@ -5633,6 +5644,46 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoLendingSymbol.Leverage">
             <summary>
             Leverage
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoLeverageConfig">
+            <summary>
+            Leverage config
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.CurrentLeverage">
+            <summary>
+            Current leverage
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.MinLeverage">
+            <summary>
+            Min leverage
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.MaxLeverage">
+            <summary>
+            Max leverage
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.Debit">
+            <summary>
+            Debit
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.AvailableMargin">
+            <summary>
+            Available margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.Borrowable">
+            <summary>
+            Borrowable
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLeverageConfig.ExceptLeverageBorrowable">
+            <summary>
+            Except leverage borrowable
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoLiquidation">

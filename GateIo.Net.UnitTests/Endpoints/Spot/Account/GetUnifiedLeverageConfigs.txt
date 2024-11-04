@@ -1,0 +1,12 @@
+GET
+/unified/leverage/user_currency_config
+true
+{
+  "current_leverage": "2",
+  "min_leverage": "0",
+  "max_leverage": "0",
+  "debit": "0",
+  "available_margin": "0",
+  "borrowable": "0",
+  "except_leverage_borrowable": "0"
+}

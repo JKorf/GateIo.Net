@@ -363,6 +363,14 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<Dictionary<string, decimal?>>> GetUnifiedAccountEstimatedLendingRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
         /// <summary>
+        /// Get unified account min and max leverage rates
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#the-maximum-and-minimum-leverage-multiples-that-users-can-set-for-a-currency-type-are" /></para>
+        /// </summary>
+        /// <param name="asset">The asset, for example `ETH`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<GateIoLeverageConfig>> GetUnifiedLeverageConfigsAsync(string asset, CancellationToken ct = default);
+
+        /// <summary>
         /// Get account and API key info
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-account-detail" /></para>
         /// </summary>
