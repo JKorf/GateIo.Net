@@ -47,6 +47,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("upper_limit")]
         public string UpperLimit { get; set; } = string.Empty;
+        /// <summary>
+        /// Position leverage
+        /// </summary>
+        [JsonPropertyName("leverage")]
+        public decimal Leverage { get; set; }
 
     }
 }

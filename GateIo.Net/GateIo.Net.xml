@@ -5194,6 +5194,11 @@
             Upper volume limit. Note that this is a string as '+' is returned for the most upper tier
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoDiscountTierEntry.Leverage">
+            <summary>
+            Position leverage
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoFeeRate">
             <summary>
             Fee rate info
