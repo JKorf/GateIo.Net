@@ -389,14 +389,14 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest(SocketConnection connection)
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
 
             var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
             var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
             var signStr = $"api\nspot.login\n\n{timestamp}";
             var id = ExchangeHelpers.NextId();
-            return new GateIoLoginQuery(id, "spot.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp);
+            return Task.FromResult<Query?>(new GateIoLoginQuery(id, "spot.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp));
         }
 
         /// <inheritdoc />

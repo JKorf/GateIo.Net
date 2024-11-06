@@ -339,13 +339,13 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest(SocketConnection connection)
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
             var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
             var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
             var signStr = $"api\nfutures.login\n\n{timestamp}";
             var id = ExchangeHelpers.NextId();
-            return new GateIoLoginQuery(id, "futures.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp);
+            return Task.FromResult<Query?>(new GateIoLoginQuery(id, "futures.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp));
         }
 
         /// <inheritdoc />
