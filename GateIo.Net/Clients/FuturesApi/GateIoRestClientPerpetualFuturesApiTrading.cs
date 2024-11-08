@@ -496,7 +496,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var initial = new ParameterCollection();
             initial.Add("contract", contract);
             initial.AddString("price", triggerPrice);
-            initial.AddString("size", orderSide == OrderSide.Buy ? quantity : -quantity);
+            initial.Add("size", orderSide == OrderSide.Buy ? quantity : -quantity);
             initial.AddOptional("close", closePosition);
             initial.AddOptional("reduce_only", reduceOnly);
             initial.AddOptionalEnum("tif", timeInForce);
