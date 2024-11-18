@@ -10,12 +10,20 @@ namespace GateIo.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static GateIoSocketOptions Default { get; set; } = new GateIoSocketOptions()
+        internal static GateIoSocketOptions Default { get; set; } = new GateIoSocketOptions()
         {
             Environment = GateIoEnvironment.Live,
             SocketSubscriptionsCombineTarget = 10,
             MaxSocketConnections = 300
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public GateIoSocketOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// Broker id
@@ -34,13 +42,13 @@ namespace GateIo.Net.Objects.Options
         /// </summary>
         public SocketApiOptions PerpetualFuturesOptions { get; private set; } = new SocketApiOptions();
 
-        internal GateIoSocketOptions Copy()
+        internal GateIoSocketOptions Set(GateIoSocketOptions targetOptions)
         {
-            var options = Copy<GateIoSocketOptions>();
-            options.BrokerId = BrokerId;
-            options.SpotOptions = SpotOptions.Copy<SocketApiOptions>();
-            options.PerpetualFuturesOptions = PerpetualFuturesOptions.Copy<SocketApiOptions>();
-            return options;
+            targetOptions = base.Set<GateIoSocketOptions>(targetOptions);
+            targetOptions.BrokerId = BrokerId;
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.PerpetualFuturesOptions = PerpetualFuturesOptions.Set(targetOptions.PerpetualFuturesOptions);
+            return targetOptions;
         }
     }
 }

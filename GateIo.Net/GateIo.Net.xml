@@ -305,11 +305,11 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:GateIo.Net.Clients.GateIoRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{GateIo.Net.Objects.Options.GateIoRestOptions})">
+        <member name="M:GateIo.Net.Clients.GateIoRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{GateIo.Net.Objects.Options.GateIoRestOptions})">
             <summary>
             Create a new instance of the GateIoRestClient using provided options
             </summary>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration delegate</param>
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
@@ -331,24 +331,18 @@
         <member name="P:GateIo.Net.Clients.GateIoSocketClient.PerpetualFuturesApi">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.GateIoSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
-            <summary>
-            Create a new instance of GateIoSocketClient
-            </summary>
-            <param name="loggerFactory">The logger factory</param>
-        </member>
         <member name="M:GateIo.Net.Clients.GateIoSocketClient.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions})">
             <summary>
             Create a new instance of GateIoSocketClient
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:GateIo.Net.Clients.GateIoSocketClient.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:GateIo.Net.Clients.GateIoSocketClient.#ctor(Microsoft.Extensions.Options.IOptions{GateIo.Net.Objects.Options.GateIoSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             Create a new instance of GateIoSocketClient
             </summary>
             <param name="loggerFactory">The logger factory</param>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration delegate</param>
         </member>
         <member name="M:GateIo.Net.Clients.GateIoSocketClient.SetDefaultOptions(System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions})">
             <summary>
@@ -1733,6 +1727,16 @@
         <member name="P:GateIo.Net.GateIoEnvironment.FuturesSocketClientAddress">
             <summary>
             Socket API futures address
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.GateIoEnvironment.#ctor">
+            <summary>
+            ctor for DI, use <see cref="M:GateIo.Net.GateIoEnvironment.CreateCustom(System.String,System.String,System.String,System.String)"/> for creating a custom environment
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.GateIoEnvironment.GetEnvironmentByName(System.String)">
+            <summary>
+            Get the GateIo environment by name
             </summary>
         </member>
         <member name="P:GateIo.Net.GateIoEnvironment.Live">
@@ -9889,6 +9893,36 @@
             Percentage withdrawal fee on multiple networks
             </summary>
         </member>
+        <member name="T:GateIo.Net.Objects.Options.GateIoOptions">
+            <summary>
+            GateIo options
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.Rest">
+            <summary>
+            Rest client options
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.Socket">
+            <summary>
+            Socket client options
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.Environment">
+            <summary>
+            Trade environment. Contains info about URL's to use to connect to the API. Use `GateIoEnvironment` to swap environment, for example `Environment = GateIoEnvironment.Live`
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.ApiCredentials">
+            <summary>
+            The api credentials used for signing requests.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.SocketClientLifeTime">
+            <summary>
+            The DI service lifetime for the IGateIoSocketClient
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Options.GateIoOrderBookOptions">
             <summary>
             Options for the GateIo SymbolOrderBook
@@ -9924,6 +9958,11 @@
             Default options for new clients
             </summary>
         </member>
+        <member name="M:GateIo.Net.Objects.Options.GateIoRestOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Options.GateIoRestOptions.BrokerId">
             <summary>
             Broker id
@@ -9947,6 +9986,11 @@
         <member name="P:GateIo.Net.Objects.Options.GateIoSocketOptions.Default">
             <summary>
             Default options for new clients
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Objects.Options.GateIoSocketOptions.#ctor">
+            <summary>
+            ctor
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Options.GateIoSocketOptions.BrokerId">
@@ -10092,15 +10136,26 @@
             Extensions for DI
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{GateIo.Net.Objects.Options.GateIoRestOptions},System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Add the IGateIoClient and IGateIoSocketClient to the sevice collection so they can be injected
+            Add services such as the IGateIoRestClient and IGateIoSocketClient. Configures the services based on the provided configuration.
             </summary>
             <param name="services">The service collection</param>
-            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-            <param name="socketClientLifeTime">The lifetime of the IGateIoSocketClient for the service collection. Defaults to Singleton.</param>
+            <param name="configuration">The configuration(section) containing the options</param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{GateIo.Net.Objects.Options.GateIoOptions})">
+            <summary>
+            Add services such as the IGateIoRestClient and IGateIoSocketClient. Services will be configured based on the provided options.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="optionsDelegate">Set options for the GateIo services</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{GateIo.Net.Objects.Options.GateIoRestOptions},System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{GateIo.Net.Objects.Options.GateIoOptions})" /> instead
+            </summary>
         </member>
     </members>
 </doc>
