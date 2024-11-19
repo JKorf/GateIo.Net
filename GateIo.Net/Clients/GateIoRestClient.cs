@@ -9,6 +9,7 @@ using GateIo.Net.Clients.SpotApi;
 using GateIo.Net.Clients.FuturesApi;
 using CryptoExchange.Net.Clients;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
+using Microsoft.Extensions.Options;
 
 namespace GateIo.Net.Clients
 {
@@ -30,25 +31,23 @@ namespace GateIo.Net.Clients
         /// Create a new instance of the GateIoRestClient using provided options
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public GateIoRestClient(Action<GateIoRestOptions>? optionsDelegate = null) : this(null, null, optionsDelegate)
+        public GateIoRestClient(Action<GateIoRestOptions>? optionsDelegate = null)
+            : this(null, null, Options.Create(ApplyOptionsDelegate(optionsDelegate)))
         {
         }
 
         /// <summary>
         /// Create a new instance of the GateIoRestClient using provided options
         /// </summary>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
+        /// <param name="options">Option configuration delegate</param>
         /// <param name="loggerFactory">The logger factory</param>
         /// <param name="httpClient">Http client for this client</param>
-        public GateIoRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, Action<GateIoRestOptions>? optionsDelegate = null) : base(loggerFactory, "GateIo")
+        public GateIoRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, IOptions<GateIoRestOptions> options) : base(loggerFactory, "GateIo")
         {
-            var options = GateIoRestOptions.Default.Copy();
-            if (optionsDelegate != null)
-                optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new GateIoRestClientSpotApi(_logger, httpClient, options));
-            PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(_logger, httpClient, options));
+            SpotApi = AddApiClient(new GateIoRestClientSpotApi(_logger, httpClient, options.Value));
+            PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(_logger, httpClient, options.Value));
         }
 
         #endregion
@@ -59,9 +58,7 @@ namespace GateIo.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<GateIoRestOptions> optionsDelegate)
         {
-            var options = GateIoRestOptions.Default.Copy();
-            optionsDelegate(options);
-            GateIoRestOptions.Default = options;
+            GateIoRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />

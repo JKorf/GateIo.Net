@@ -8,6 +8,7 @@ using GateIo.Net.Interfaces.Clients;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Options;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
+using Microsoft.Extensions.Options;
 
 namespace GateIo.Net.Clients
 {
@@ -28,19 +29,13 @@ namespace GateIo.Net.Clients
         #endregion
 
         #region constructor/destructor
-        /// <summary>
-        /// Create a new instance of GateIoSocketClient
-        /// </summary>
-        /// <param name="loggerFactory">The logger factory</param>
-        public GateIoSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
-        {
-        }
 
         /// <summary>
         /// Create a new instance of GateIoSocketClient
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public GateIoSocketClient(Action<GateIoSocketOptions> optionsDelegate) : this(optionsDelegate, null)
+        public GateIoSocketClient(Action<GateIoSocketOptions>? optionsDelegate = null)
+            : this(Options.Create(ApplyOptionsDelegate(optionsDelegate)), null)
         {
         }
 
@@ -48,15 +43,13 @@ namespace GateIo.Net.Clients
         /// Create a new instance of GateIoSocketClient
         /// </summary>
         /// <param name="loggerFactory">The logger factory</param>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
-        public GateIoSocketClient(Action<GateIoSocketOptions>? optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "GateIo")
+        /// <param name="options">Option configuration delegate</param>
+        public GateIoSocketClient(IOptions<GateIoSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "GateIo")
         {
-            var options = GateIoSocketOptions.Default.Copy();
-            optionsDelegate?.Invoke(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new GateIoSocketClientSpotApi(_logger, options));
-            PerpetualFuturesApi = AddApiClient(new GateIoSocketClientPerpetualFuturesApi(_logger, options));
+            SpotApi = AddApiClient(new GateIoSocketClientSpotApi(_logger, options.Value));
+            PerpetualFuturesApi = AddApiClient(new GateIoSocketClientPerpetualFuturesApi(_logger, options.Value));
         }
         #endregion
 
@@ -66,9 +59,7 @@ namespace GateIo.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<GateIoSocketOptions> optionsDelegate)
         {
-            var options = GateIoSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            GateIoSocketOptions.Default = options;
+            GateIoSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />

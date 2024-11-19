@@ -10,11 +10,19 @@ namespace GateIo.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static GateIoRestOptions Default { get; set; } = new GateIoRestOptions()
+        internal static GateIoRestOptions Default { get; set; } = new GateIoRestOptions()
         {
             Environment = GateIoEnvironment.Live,
             AutoTimestamp = true
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public GateIoRestOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// Broker id
@@ -33,13 +41,13 @@ namespace GateIo.Net.Objects.Options
         /// </summary>
         public RestApiOptions PerpetualFuturesOptions { get; private set; } = new RestApiOptions();
 
-        internal GateIoRestOptions Copy()
+        internal GateIoRestOptions Set(GateIoRestOptions targetOptions)
         {
-            var options = Copy<GateIoRestOptions>();
-            options.BrokerId = BrokerId;
-            options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
-            options.PerpetualFuturesOptions = PerpetualFuturesOptions.Copy<RestApiOptions>();
-            return options;
+            targetOptions = base.Set<GateIoRestOptions>(targetOptions);
+            targetOptions.BrokerId = BrokerId;
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.PerpetualFuturesOptions = PerpetualFuturesOptions.Set(targetOptions.PerpetualFuturesOptions);
+            return targetOptions;
         }
     }
 }

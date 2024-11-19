@@ -15,7 +15,17 @@ namespace GateIo.Net
         /// <summary>
         /// Exchange name
         /// </summary>
-        public static string ExchangeName => "Gate.io";
+        public static string ExchangeName => "GateIo";
+
+        /// <summary>
+        /// Exchange name
+        /// </summary>
+        public static string DisplayName => "Gate.io";
+
+        /// <summary>
+        /// Url to exchange image
+        /// </summary>
+        public static string ImageUrl { get; } = "https://raw.githubusercontent.com/JKorf/GateIo.Net/master/GateIo.Net/Icon/icon.png";
 
         /// <summary>
         /// Url to the main website
