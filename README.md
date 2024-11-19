@@ -161,6 +161,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.13.0 - 19 Nov 2024
+    * Updated CryptoExchange.Net to version 8.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.3.0
+    * Added support for loading client settings from IConfiguration
+    * Added DI registration method for configuring Rest and Socket options at the same time
+    * Added DisplayName and ImageUrl properties to GateIoExchange class
+    * Updated client constructors to accept IOptions from DI
+    * Updated GateIoExchange.ExchangeName value from Gate.io to GateIo
+    * Removed redundant GateIoSocketClient constructor
+
 * Version 1.12.1 - 08 Nov 2024
     * Fixed restClient.PerpetualFuturesApi.Trading.PlaceTriggerOrderAsync parameter serialization
 
