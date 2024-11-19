@@ -1764,6 +1764,16 @@
             Exchange name
             </summary>
         </member>
+        <member name="P:GateIo.Net.GateIoExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.GateIoExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
         <member name="P:GateIo.Net.GateIoExchange.Url">
             <summary>
             Url to the main website
