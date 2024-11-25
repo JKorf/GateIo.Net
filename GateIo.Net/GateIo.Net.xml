@@ -5373,6 +5373,36 @@
             Classic account margin mode
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossInitialMargin">
+            <summary>
+            Cross initial margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossMaintenanceMargin">
+            <summary>
+            Cross maintenance margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossOrderMargin">
+            <summary>
+            Cross order margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossUnrealizedPnl">
+            <summary>
+            Cross unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.IsolatedPositionMargin">
+            <summary>
+            Isolated position margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossAvailable">
+            <summary>
+            Cross available
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.Totals">
             <summary>
             Total history

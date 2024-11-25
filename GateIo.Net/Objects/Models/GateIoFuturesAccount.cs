@@ -63,6 +63,36 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("enable_evolved_classic")]
         public bool ClassicMarginMode { get; set; }
         /// <summary>
+        /// Cross initial margin
+        /// </summary>
+        [JsonPropertyName("cross_initial_margin")]
+        public decimal? CrossInitialMargin { get; set; }
+        /// <summary>
+        /// Cross maintenance margin
+        /// </summary>
+        [JsonPropertyName("cross_maintenance_margin")]
+        public decimal? CrossMaintenanceMargin { get; set; }
+        /// <summary>
+        /// Cross order margin
+        /// </summary>
+        [JsonPropertyName("cross_order_margin")]
+        public decimal? CrossOrderMargin { get; set; }
+        /// <summary>
+        /// Cross unrealized profit and loss
+        /// </summary>
+        [JsonPropertyName("cross_unrealised_pnl")]
+        public decimal? CrossUnrealizedPnl { get; set; }
+        /// <summary>
+        /// Isolated position margin
+        /// </summary>
+        [JsonPropertyName("isolated_position_margin")]
+        public decimal? IsolatedPositionMargin { get; set; }
+        /// <summary>
+        /// Cross available
+        /// </summary>
+        [JsonPropertyName("cross_available")]
+        public decimal? CrossAvailable { get; set; }
+        /// <summary>
         /// Total history
         /// </summary>
         [JsonPropertyName("history")]
