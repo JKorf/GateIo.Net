@@ -9938,31 +9938,6 @@
             GateIo options
             </summary>
         </member>
-        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.Rest">
-            <summary>
-            Rest client options
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.Socket">
-            <summary>
-            Socket client options
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.Environment">
-            <summary>
-            Trade environment. Contains info about URL's to use to connect to the API. Use `GateIoEnvironment` to swap environment, for example `Environment = GateIoEnvironment.Live`
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.ApiCredentials">
-            <summary>
-            The api credentials used for signing requests.
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Objects.Options.GateIoOptions.SocketClientLifeTime">
-            <summary>
-            The DI service lifetime for the IGateIoSocketClient
-            </summary>
-        </member>
         <member name="T:GateIo.Net.Objects.Options.GateIoOrderBookOptions">
             <summary>
             Options for the GateIo SymbolOrderBook
