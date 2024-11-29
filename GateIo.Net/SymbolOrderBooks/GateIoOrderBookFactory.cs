@@ -51,7 +51,7 @@ namespace GateIo.Net.SymbolOrderBooks
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, string? settlementAsset = null, Action<GateIoOrderBookOptions>? options = null)
         {
-            var symbolName = GateIoExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            var symbolName = symbol.GetSymbol(GateIoExchange.FormatSymbol);
             if (symbol.TradingMode == TradingMode.Spot)
                 return CreateSpot(symbolName, options);
 
