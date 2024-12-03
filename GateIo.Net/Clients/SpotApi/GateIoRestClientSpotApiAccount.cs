@@ -170,6 +170,24 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Transfer Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoTransferStatus>> GetTransferStatusAsync(
+            string? clientOrderId = null,
+            string? transactionId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("client_order_id", clientOrderId);
+            parameters.AddOptional("tx_id", transactionId);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/wallet/order_status", GateIoExchange.RateLimiter.RestSpotOther, 1, true,
+                limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            return await _baseClient.SendAsync<GateIoTransferStatus>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Transfer To Account
 
         /// <inheritdoc />

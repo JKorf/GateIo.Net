@@ -438,6 +438,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.TransferAsync(System.String,GateIo.Net.Enums.AccountType,GateIo.Net.Enums.AccountType,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetTransferStatusAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.TransferToAccountAsync(System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1473,6 +1476,31 @@
         <member name="F:GateIo.Net.Enums.TransferStatus.Received">
             <summary>
             Success
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.TransferSuccessStatus">
+            <summary>
+            Transfr status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferSuccessStatus.Pending">
+            <summary>
+            Pending
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferSuccessStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferSuccessStatus.Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransferSuccessStatus.PartialSuccess">
+            <summary>
+            Partial success
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.TriggerAccountType">
@@ -2874,6 +2902,15 @@
             <param name="settleAsset">Settle asset, required when from or to is futures</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetTransferStatusAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get transfer status
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#transfer-status-query" /></para>
+            </summary>
+            <param name="clientOrderId">Client order id, either this or transactionId should be provided</param>
+            <param name="transactionId">Transaction id, either this or clientOrderId should be provided</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetWithdrawStatusAsync(System.String,System.Threading.CancellationToken)">
             <summary>
@@ -9251,6 +9288,21 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoTransferEntry.Message">
             <summary>
             Message
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoTransferStatus">
+            <summary>
+            Transfer status
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferStatus.TransactionId">
+            <summary>
+            Transation id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTransferStatus.Status">
+            <summary>
+            Status
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoTriggerOrder">

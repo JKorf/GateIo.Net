@@ -129,6 +129,18 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Get transfer status
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#transfer-status-query" /></para>
+        /// </summary>
+        /// <param name="clientOrderId">Client order id, either this or transactionId should be provided</param>
+        /// <param name="transactionId">Transaction id, either this or clientOrderId should be provided</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<GateIoTransferStatus>> GetTransferStatusAsync(
+            string? clientOrderId = null,
+            string? transactionId = null,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Get account withdrawal status
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-withdrawal-status" /></para>
         /// </summary>
