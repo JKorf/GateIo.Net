@@ -72,7 +72,7 @@ namespace GateIo.Net.SymbolOrderBooks
         {
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
-                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, _updateInterval, HandleUpdate).ConfigureAwait(false);
+                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
             else
                 subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, _updateInterval, HandleUpdate).ConfigureAwait(false);
 

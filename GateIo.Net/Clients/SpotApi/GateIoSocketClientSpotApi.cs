@@ -117,12 +117,9 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int? updateMs, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            updateMs ??= 1000;
-            updateMs.Value.ValidateIntValues(nameof(updateMs), 100, 1000);
-
-            var subscription = new GateIoSubscription<GateIoOrderBookUpdate>(_logger, "spot.order_book_update", new[] { "spot.order_book_update." + symbol }, new[] { symbol, updateMs + "ms" }, x => onMessage(x.WithSymbol(x.Data.Symbol)), false);
+            var subscription = new GateIoSubscription<GateIoOrderBookUpdate>(_logger, "spot.order_book_update", new[] { "spot.order_book_update." + symbol }, new[] { symbol, "100ms" }, x => onMessage(x.WithSymbol(x.Data.Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
         }
 

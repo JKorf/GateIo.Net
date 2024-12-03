@@ -96,11 +96,10 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#changed-order-book-levels" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
-        /// <param name="updateMs">Update speed in milliseconds. 100 or 1000</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int? updateMs, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to partial full order book updates, Full order book will be pushed for a limited depth

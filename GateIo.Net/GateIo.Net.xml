@@ -736,7 +736,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoBookTickerUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoOrderBookUpdate}},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoOrderBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPartialOrderBookUpdate}},System.Threading.CancellationToken)">
@@ -3879,13 +3879,12 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoOrderBookUpdate}},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book change events. Only the changed entries will be pushed
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#changed-order-book-levels" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
-            <param name="updateMs">Update speed in milliseconds. 100 or 1000</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
