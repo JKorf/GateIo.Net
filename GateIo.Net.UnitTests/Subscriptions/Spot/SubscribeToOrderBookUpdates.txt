@@ -1,5 +1,5 @@
-> {"time":"1","id":-999,"channel":"spot.order_book_update","event":"subscribe","payload":["ETH_USDT", "1000ms"]}
-< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.order_book_update","event":"subscribe","payload":["ETH_USDT", "1000ms"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+> {"time":"1","id":-999,"channel":"spot.order_book_update","event":"subscribe","payload":["ETH_USDT", "100ms"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.order_book_update","event":"subscribe","payload":["ETH_USDT", "100ms"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
 = 
 {
   "time": 1606294781,

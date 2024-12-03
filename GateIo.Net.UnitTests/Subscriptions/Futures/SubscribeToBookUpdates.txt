@@ -1,4 +1,4 @@
-> {"time":"1","id":-999,"channel":"futures.order_book_update","event":"subscribe","payload":["ETH_USDT", "100ms", "5"]}
+> {"time":"1","id":-999,"channel":"futures.order_book_update","event":"subscribe","payload":["ETH_USDT", "100ms", "20"]}
 < {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.order_book_update","event":"subscribe","payload":["ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
 = 
 {
