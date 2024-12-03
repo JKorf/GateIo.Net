@@ -8575,6 +8575,11 @@
             Cross margin leverage
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.UpdateId">
+            <summary>
+            Update id
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.CloseOrder">
             <summary>
             Close order

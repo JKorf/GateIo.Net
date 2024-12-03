@@ -150,6 +150,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("cross_leverage_limit")]
         public int? CrossLeverageLimit { get; set; }
         /// <summary>
+        /// Update id
+        /// </summary>
+        [JsonPropertyName("update_id")]
+        public long? UpdateId { get; set; }
+        /// <summary>
         /// Close order
         /// </summary>
         [JsonPropertyName("close_order")]
