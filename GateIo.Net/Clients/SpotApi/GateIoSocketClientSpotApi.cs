@@ -52,6 +52,20 @@ namespace GateIo.Net.Clients.SpotApi
             _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
 
             SetDedicatedConnection(BaseAddress.AppendPath("ws/v4/") + "/", true);
+
+            RegisterPeriodicQuery(
+                "Ping",
+                TimeSpan.FromSeconds(30),
+                x => new GateIoPingQuery("spot.ping"),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
         }
         #endregion 
 

@@ -9,6 +9,7 @@ using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Options;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using Microsoft.Extensions.Options;
+using CryptoExchange.Net.Objects.Options;
 
 namespace GateIo.Net.Clients
 {
@@ -52,6 +53,13 @@ namespace GateIo.Net.Clients
             PerpetualFuturesApi = AddApiClient(new GateIoSocketClientPerpetualFuturesApi(_logger, options.Value));
         }
         #endregion
+
+        /// <inheritdoc />
+        public void SetOptions(UpdateOptions options)
+        {
+            SpotApi.SetOptions(options);
+            PerpetualFuturesApi.SetOptions(options);
+        }
 
         /// <summary>
         /// Set the default options to be used when creating new clients

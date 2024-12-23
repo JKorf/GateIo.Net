@@ -50,6 +50,20 @@ namespace GateIo.Net.Clients.FuturesApi
             base(logger, options.Environment.FuturesSocketClientAddress!, options, options.PerpetualFuturesOptions)
         {
             _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
+
+            RegisterPeriodicQuery(
+                "Ping",
+                TimeSpan.FromSeconds(30),
+                x => new GateIoPingQuery("futures.ping"),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
         }
         #endregion
 

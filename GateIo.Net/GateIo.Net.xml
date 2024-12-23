@@ -313,6 +313,9 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="M:GateIo.Net.Clients.GateIoRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.GateIoRestClient.SetDefaultOptions(System.Action{GateIo.Net.Objects.Options.GateIoRestOptions})">
             <summary>
             Set the default options to be used when creating new clients
@@ -343,6 +346,9 @@
             </summary>
             <param name="loggerFactory">The logger factory</param>
             <param name="options">Option configuration delegate</param>
+        </member>
+        <member name="M:GateIo.Net.Clients.GateIoSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.GateIoSocketClient.SetDefaultOptions(System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions})">
             <summary>
@@ -1872,6 +1878,12 @@
             Perpetual Futures API endpoints
             </summary>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.IGateIoRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
@@ -1892,6 +1904,12 @@
             <summary>
             Perpetual Futures streams
             </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.IGateIoSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
