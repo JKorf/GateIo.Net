@@ -150,5 +150,45 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("spot_in_use")]
         public decimal SpotInUse { get; set; }
+        /// <summary>
+        /// Cross margin balance
+        /// </summary>
+        [JsonPropertyName("cross_balance")]
+        public decimal? CrossMarginBalance { get; set; }
+        /// <summary>
+        /// Isolated margin balance
+        /// </summary>
+        [JsonPropertyName("iso_balance")]
+        public decimal? IsolatedMarginBalance { get; set; }
+        /// <summary>
+        /// Initial margin
+        /// </summary>
+        [JsonPropertyName("im")]
+        public decimal? InitialMargin { get; set; }
+        /// <summary>
+        /// Maintenance margin
+        /// </summary>
+        [JsonPropertyName("mm")]
+        public decimal? MaintenanceMargin { get; set; }
+        /// <summary>
+        /// Initial margin rate
+        /// </summary>
+        [JsonPropertyName("imr")]
+        public decimal? InitialMarginRate { get; set; }
+        /// <summary>
+        /// Maintenance margin rate
+        /// </summary>
+        [JsonPropertyName("mmr")]
+        public decimal? MaintenanceMarginRate { get; set; }
+        /// <summary>
+        /// Margin balance
+        /// </summary>
+        [JsonPropertyName("margin_balance")]
+        public decimal? MarginBalance { get; set; }
+        /// <summary>
+        /// Available margin
+        /// </summary>
+        [JsonPropertyName("available_margin")]
+        public decimal? AvailableMargin { get; set; }
     }
 }

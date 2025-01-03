@@ -9764,6 +9764,46 @@
             Spot hedging utilization
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.CrossMarginBalance">
+            <summary>
+            Cross margin balance
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.IsolatedMarginBalance">
+            <summary>
+            Isolated margin balance
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.InitialMargin">
+            <summary>
+            Initial margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.MaintenanceMargin">
+            <summary>
+            Maintenance margin
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.InitialMarginRate">
+            <summary>
+            Initial margin rate
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.MaintenanceMarginRate">
+            <summary>
+            Maintenance margin rate
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.MarginBalance">
+            <summary>
+            Margin balance
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUnifiedAccountBalance.AvailableMargin">
+            <summary>
+            Available margin
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoUnifiedAccountMax">
             <summary>
             Max borrowable info
