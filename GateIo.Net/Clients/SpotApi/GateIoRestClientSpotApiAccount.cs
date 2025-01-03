@@ -1039,5 +1039,30 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Insurance Fund History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<GateIoInsuranceFund>>> GetInsuranceFundHistoryAsync(
+            BusinessType businessType,
+            string asset,
+            DateTime startTime,
+            DateTime endTime,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("business", businessType);
+            parameters.Add("currency", asset);
+            parameters.AddSeconds("from", startTime);
+            parameters.AddSeconds("to", endTime);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("limit", pageSize);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/insurance_history", GateIoExchange.RateLimiter.Public, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<GateIoInsuranceFund>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

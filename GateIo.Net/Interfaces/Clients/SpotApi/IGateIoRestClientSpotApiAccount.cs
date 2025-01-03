@@ -771,5 +771,25 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<GateIoUserRateLimit>>> GetRateLimitsAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get insurance fund history
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-spot-insurance-fund-historical-data" /></para>
+        /// </summary>
+        /// <param name="businessType">Business type</param>
+        /// <param name="asset">Asset name</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<GateIoInsuranceFund>>> GetInsuranceFundHistoryAsync(
+            BusinessType businessType,
+            string asset,
+            DateTime startTime,
+            DateTime endTime,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default);
     }
 }
