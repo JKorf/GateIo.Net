@@ -21,6 +21,11 @@ namespace GateIo.Net.Enums
         /// Portfolio margin mode
         /// </summary>
         [Map("portfolio")]
-        Portfolio
+        Portfolio,
+        /// <summary>
+        /// Single-currency margin mode
+        /// </summary>
+        [Map("single_currency")]
+        SingleAsset
     }
 }

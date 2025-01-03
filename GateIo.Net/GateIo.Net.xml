@@ -1672,6 +1672,11 @@
             Portfolio margin mode
             </summary>
         </member>
+        <member name="F:GateIo.Net.Enums.UnifiedAccountMode.SingleAsset">
+            <summary>
+            Single-currency margin mode
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.WithdrawalStatus">
             <summary>
             Withdrawal status
