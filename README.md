@@ -162,6 +162,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.17.1 - 07 Jan 2025
+    * Updated CryptoExchange.Net version
+    * Added Type property to GateIoExchange class
+
 * Version 1.17.0 - 03 Jan 2025
     * Added restClient.SpotApi.Account.GetInsuranceFundHistoryAsync endpoint
     * Added SingleAsset enum value for restClient.SpotApi.Account.SetUnifiedAccountModeAsync
