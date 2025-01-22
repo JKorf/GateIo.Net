@@ -12,7 +12,7 @@ namespace GateIo.Net.Objects.Models
         /// Id
         /// </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; } = string.Empty;
+        public long Id { get; set; }
         /// <summary>
         /// Asset name
         /// </summary>
