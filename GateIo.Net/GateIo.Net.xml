@@ -1282,6 +1282,21 @@
             Short position
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.PreMarketStatus">
+            <summary>
+            Pre-Market trading status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.PreMarketStatus.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.PreMarketStatus.PreMarket">
+            <summary>
+            Pre-Market
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.PriceType">
             <summary>
             Price type
@@ -9053,6 +9068,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.BuyStart">
             <summary>
             Buy start time
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.PreMarketStatus">
+            <summary>
+            Status of the market
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoSymbolOrders">

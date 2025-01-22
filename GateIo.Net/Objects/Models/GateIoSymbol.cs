@@ -74,5 +74,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("buy_start")]
         public DateTime BuyStart { get; set; }
+        /// <summary>
+        /// Status of the market
+        /// </summary>
+        [JsonPropertyName("type")]
+        public PreMarketStatus PreMarketStatus { get; set; }
     }
 }
