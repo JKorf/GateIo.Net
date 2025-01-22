@@ -471,7 +471,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetSmallBalanceConversionsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{GateIo.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetUnifiedAccountInfoAsync(System.String,System.Threading.CancellationToken)">
@@ -1455,6 +1455,21 @@
         <member name="F:GateIo.Net.Enums.TimeInForce.FillOrKill">
             <summary>
             Fill or kill
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.TransactionType">
+            <summary>
+            Transaction type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransactionType.Deposit">
+            <summary>
+            Deposit
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.TransactionType.Withdrawal">
+            <summary>
+            Withdrawal
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.TransferStatus">
@@ -3441,12 +3456,13 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetTransferHistoryAsync(System.Nullable{System.Int64},System.Nullable{GateIo.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get transfer history
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-the-uid-transfer-history" /></para>
             </summary>
             <param name="id">Filter by id</param>
+            <param name="transactionType">Filter by transaction type</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results</param>

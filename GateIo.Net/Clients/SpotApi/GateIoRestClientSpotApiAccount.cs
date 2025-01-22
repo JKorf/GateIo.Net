@@ -325,13 +325,14 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoTransferEntry>>> GetTransferHistoryAsync(long? id = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<GateIoTransferEntry>>> GetTransferHistoryAsync(long? id = null, TransactionType? transactionType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("id", id);
             parameters.AddOptionalMilliseconds("from", startTime);
             parameters.AddOptionalMilliseconds("to", endTime);
-            parameters.AddOptional("limit", limit);
+            parameters.AddOptionalEnum("to", endTime);
+            parameters.AddOptional("transaction_type", transactionType);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/push", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             var result = await _baseClient.SendAsync<IEnumerable<GateIoTransferEntry>>(request, parameters, ct).ConfigureAwait(false);
