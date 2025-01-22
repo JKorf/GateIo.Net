@@ -5925,6 +5925,11 @@
             Quantity
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLiquidation.NumberOfOrders">
+            <summary>
+            Number of forced liquidation orders
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoLiquidation.OrderPrice">
             <summary>
             Order price

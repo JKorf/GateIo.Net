@@ -24,6 +24,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
+        /// Number of forced liquidation orders
+        /// </summary>
+        [JsonPropertyName("order_size")]
+        public decimal NumberOfOrders { get; set; }
+        /// <summary>
         /// Order price
         /// </summary>
         [JsonPropertyName("order_price")]
