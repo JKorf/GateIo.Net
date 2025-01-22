@@ -163,6 +163,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.18.0 - 22 Jan 2025
+    * Added transactionType parameter to restClient.SpotApi.Account.GetTransferHistoryAsync endpoint
+    * Added NumberOfOrders to restClient.PerpetualFuturesApi.ExchangeData.GetLiquidationsAsync response model
+    * Added PreMarketStatus property to restClient.SpotApi.ExchangeData.GetSymbolsAsync response model
+    * Fixed deserialization error in restClient.SpotApi.Account.GetSmallBalanceConversionsAsync
+
 * Version 1.17.1 - 07 Jan 2025
     * Updated CryptoExchange.Net version
     * Added Type property to GateIoExchange class
