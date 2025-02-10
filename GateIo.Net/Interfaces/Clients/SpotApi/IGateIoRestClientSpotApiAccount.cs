@@ -480,7 +480,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<GateIoMarginMaxTransferable>> GetMarginMaxTransferableAsync(string asset, string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get cross margin accounts
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -488,7 +488,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<GateIoCrossMarginAccount>> GetCrossMarginAccountsAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Get margin accounts balance change history
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -508,7 +508,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Create a cross margin borrow loan
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /></para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
@@ -523,7 +523,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// List cross margin borrow history
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-cross-margin-borrow-history" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -540,7 +540,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Get a cross margin loan by id
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /></para>
         /// </summary>
         /// <param name="id">Loan id</param>
@@ -550,7 +550,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Cross margin repayment
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /></para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
@@ -563,7 +563,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Get cross margin loan repayments
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-repayments" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -582,7 +582,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Get cross margin interest records
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#interest-records-for-the-cross-margin-account" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -601,7 +601,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Get max cross margin transferable
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-transferable-amount-for-a-specific-cross-margin-currency" /></para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
@@ -610,7 +610,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<GateIoMarginMaxTransferable>> GetCrossMarginMaxTransferableAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
-        /// Get cross margin estimated interest rates
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#estimated-interest-rates" /></para>
         /// </summary>
         /// <param name="assets">Assets, max 10, for example `ETH`</param>
@@ -619,7 +619,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<Dictionary<string, decimal>>> GetCrossMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
         /// <summary>
-        /// Get max borrowable for a cross margin asset
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-borrowable-amount-for-a-specific-cross-margin-currency" /></para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>

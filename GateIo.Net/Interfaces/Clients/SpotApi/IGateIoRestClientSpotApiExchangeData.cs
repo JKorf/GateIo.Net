@@ -130,7 +130,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<GateIoLoanMarginTier>>> GetLoanMarginTiersAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Get supported cross margin asset
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /></para>
         /// </summary>
         /// <param name="asset">Asset name, for example `ETH`</param>
@@ -139,7 +139,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<GateIoCrossMarginAsset>> GetCrossMarginAssetAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
-        /// Get supported cross margin assets
+        /// DEPRECATED
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#currencies-supported-by-cross-margin" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>

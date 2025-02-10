@@ -772,7 +772,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoTriggerOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
@@ -3288,7 +3288,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginAccountsAsync(System.Threading.CancellationToken)">
             <summary>
-            Get cross margin accounts
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -3296,7 +3296,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginBalanceHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Get margin accounts balance change history
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /></para>
             </summary>
             <param name="asset">Filter by asset, for example `ETH`</param>
@@ -3310,7 +3310,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.CreateCrossMarginLoanAsync(System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
-            Create a cross margin borrow loan
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /></para>
             </summary>
             <param name="asset">Asset, for example `ETH`</param>
@@ -3321,7 +3321,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginLoansAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
-            List cross margin borrow history
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-cross-margin-borrow-history" /></para>
             </summary>
             <param name="asset">Filter by asset, for example `ETH`</param>
@@ -3333,7 +3333,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginLoanAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get a cross margin loan by id
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /></para>
             </summary>
             <param name="id">Loan id</param>
@@ -3342,7 +3342,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.CrossMarginRepayAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
-            Cross margin repayment
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /></para>
             </summary>
             <param name="asset">Asset, for example `ETH`</param>
@@ -3352,7 +3352,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginRepaymentsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
-            Get cross margin loan repayments
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-cross-margin-repayments" /></para>
             </summary>
             <param name="asset">Filter by asset, for example `ETH`</param>
@@ -3365,7 +3365,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginInterestHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
-            Get cross margin interest records
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#interest-records-for-the-cross-margin-account" /></para>
             </summary>
             <param name="asset">Filter by asset, for example `ETH`</param>
@@ -3378,7 +3378,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginMaxTransferableAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get max cross margin transferable
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-transferable-amount-for-a-specific-cross-margin-currency" /></para>
             </summary>
             <param name="asset">Asset, for example `ETH`</param>
@@ -3387,7 +3387,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginEstimatedInterestRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
-            Get cross margin estimated interest rates
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#estimated-interest-rates" /></para>
             </summary>
             <param name="assets">Assets, max 10, for example `ETH`</param>
@@ -3396,7 +3396,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetCrossMarginMaxBorrowableAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get max borrowable for a cross margin asset
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#get-the-max-borrowable-amount-for-a-specific-cross-margin-currency" /></para>
             </summary>
             <param name="asset">Asset, for example `ETH`</param>
@@ -3658,7 +3658,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData.GetCrossMarginAssetAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get supported cross margin asset
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /></para>
             </summary>
             <param name="asset">Asset name, for example `ETH`</param>
@@ -3667,7 +3667,7 @@
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData.GetCrossMarginAssetsAsync(System.Threading.CancellationToken)">
             <summary>
-            Get supported cross margin assets
+            DEPRECATED
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#currencies-supported-by-cross-margin" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -4076,7 +4076,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
@@ -4093,6 +4093,7 @@
             <param name="autoRepay">Auto repay enabled</param>
             <param name="selfTradePreventionMode">Self trade prevention mode</param>
             <param name="text">User defined info</param>
+            <param name="actionMode">Order response mode</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
