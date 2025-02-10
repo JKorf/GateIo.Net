@@ -41,6 +41,7 @@ namespace GateIo.Net.Clients.SpotApi
             bool? autoRepay = null,
             SelfTradePreventionMode? selfTradePreventionMode = null,
             string? text = null,
+            OrderActionMode? actionMode = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -56,6 +57,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("auto_borrow", autoBorrow);
             parameters.AddOptional("auto_repay", autoRepay);
             parameters.AddOptional("text", text);
+            parameters.AddOptionalEnum("action_mode", actionMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
             

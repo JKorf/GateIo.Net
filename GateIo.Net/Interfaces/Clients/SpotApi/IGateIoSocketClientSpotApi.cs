@@ -192,6 +192,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="autoRepay">Auto repay enabled</param>
         /// <param name="selfTradePreventionMode">Self trade prevention mode</param>
         /// <param name="text">User defined info</param>
+        /// <param name="actionMode">Order response mode</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<GateIoOrder>> PlaceOrderAsync(string symbol,
@@ -206,6 +207,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             bool? autoRepay = null,
             SelfTradePreventionMode? selfTradePreventionMode = null,
             string? text = null, 
+            OrderActionMode? actionMode = null,
             CancellationToken ct = default);
 
         /// <summary>

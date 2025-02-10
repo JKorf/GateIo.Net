@@ -231,6 +231,7 @@ namespace GateIo.Net.Clients.SpotApi
             bool? autoRepay = null,
             SelfTradePreventionMode? selfTradePreventionMode = null,
             string? text = null, 
+            OrderActionMode? actionMode = null,
             CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
@@ -247,7 +248,8 @@ namespace GateIo.Net.Clients.SpotApi
                 AutoBorrow = autoBorrow,
                 AutoRepay = autoRepay,
                 StpMode = selfTradePreventionMode,
-                Text = text ?? "t-" + ExchangeHelpers.RandomString(20)
+                Text = text ?? "t-" + ExchangeHelpers.RandomString(20),
+                ActionMode = actionMode
             }, true,
             new Dictionary<string, string>
             {

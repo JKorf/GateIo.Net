@@ -33,5 +33,7 @@ namespace GateIo.Net.Objects.Internal
         public bool? AutoRepay { get; set; }
         [JsonPropertyName("stp_act"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SelfTradePreventionMode? StpMode { get; set; }
+        [JsonPropertyName("action_mode"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public OrderActionMode? ActionMode { get; set; }
     }
 }

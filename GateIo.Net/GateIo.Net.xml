@@ -654,7 +654,7 @@
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.PlaceMultipleOrderAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
@@ -1115,6 +1115,26 @@
         <member name="F:GateIo.Net.Enums.NewOrderType.Market">
             <summary>
             Market order
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.OrderActionMode">
+            <summary>
+            Order action mode
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderActionMode.Acknowledge">
+            <summary>
+            Acknowledge, return only the most basic order info
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderActionMode.Result">
+            <summary>
+            Result, return all but clearing info
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderActionMode.Full">
+            <summary>
+            Full order result
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.OrderFinishType">
@@ -3680,7 +3700,7 @@
             GateIo Spot trading endpoints, placing and managing orders.
             </summary>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#create-an-order" /></para>
@@ -3697,6 +3717,7 @@
             <param name="autoRepay">Auto repay enabled</param>
             <param name="selfTradePreventionMode">Self trade prevention mode</param>
             <param name="text">User defined info</param>
+            <param name="actionMode">Order response mode</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
