@@ -63,7 +63,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = (GateIoSocketMessage<T>)message.Data;
-            _handler.Invoke(message.As(data.Result, data.Channel, null, SocketUpdateType.Update));
+            _handler.Invoke(message.As(data.Result, data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(data.Timestamp));
             return new CallResult(null);
         }
     }

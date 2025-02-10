@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace GateIo.Net.UnitTests
 {
     [NonParallelizable]
-    internal class GateIoRestIntegrationTests : RestIntergrationTest<GateIoRestClient>
+    internal class GateIoRestIntegrationTests : RestIntegrationTest<GateIoRestClient>
     {
         public override bool Run { get; set; }
 

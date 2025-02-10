@@ -89,7 +89,18 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         #region Kline client
-        SubscribeKlineOptions IKlineSocketClient.SubscribeKlineOptions { get; } = new SubscribeKlineOptions(false)
+        SubscribeKlineOptions IKlineSocketClient.SubscribeKlineOptions { get; } = new SubscribeKlineOptions(false,
+            SharedKlineInterval.OneMinute,
+            SharedKlineInterval.ThreeMinutes,
+            SharedKlineInterval.FiveMinutes,
+            SharedKlineInterval.FifteenMinutes,
+            SharedKlineInterval.ThirtyMinutes,
+            SharedKlineInterval.OneHour,
+            SharedKlineInterval.FourHours,
+            SharedKlineInterval.EightHours,
+            SharedKlineInterval.OneDay,
+            SharedKlineInterval.OneWeek,
+            SharedKlineInterval.OneMonth)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -269,7 +280,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToPositionUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedPosition>>(Exchange, update.Data.Select(x => new SharedPosition(x.Contract, Math.Abs(x.Size), update.Timestamp)
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedPosition>>(Exchange, update.Data.Select(x => new SharedPosition(x.Contract, Math.Abs(x.Size), update.DataTime ?? update.ReceiveTime)
                 {
                     AverageOpenPrice = x.EntryPrice,
                     PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
