@@ -377,7 +377,9 @@ namespace GateIo.Net.Clients.SpotApi
             {
                 if (message.GetValue<bool?>(_ackPath) == true
                     && message.GetValue<string>(_statusPath) == "200")
-                    return null;
+                {
+                    return id2 + "ack";
+                }
 
                 return id2;
             }
@@ -396,7 +398,9 @@ namespace GateIo.Net.Clients.SpotApi
             if (string.Equals(channel, "spot.book_ticker")
              || string.Equals(channel, "spot.order_book_update")
              || string.Equals(channel, "spot.order_book"))
-                    return channel + "." + message.GetValue<string>(_symbolPath2);
+            {
+                return channel + "." + message.GetValue<string>(_symbolPath2);
+            }
 
             return channel;
         }

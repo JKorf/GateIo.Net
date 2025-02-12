@@ -31,7 +31,8 @@ namespace GateIo.Net.Objects.Sockets
                 }, 
                 Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)) }, authenticated, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { id.ToString() };
+            ListenerIdentifiers = new HashSet<string> { id.ToString(), id + "ack" };
+            RequiredResponses = 2;
         }
 
         public override CallResult<TResponse> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<TResponse>> message)

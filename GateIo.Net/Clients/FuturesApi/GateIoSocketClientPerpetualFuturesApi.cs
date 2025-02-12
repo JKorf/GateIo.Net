@@ -328,7 +328,9 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 if (message.GetValue<bool?>(_ackPath) == true
                     && message.GetValue<string>(_statusPath) == "200")
-                    return null;
+                {
+                    return id2 + "ack";
+                }
 
                 return id2;
             }
@@ -347,7 +349,9 @@ namespace GateIo.Net.Clients.FuturesApi
             if (string.Equals(channel, "futures.book_ticker")
              || string.Equals(channel, "futures.order_book_update")
              || string.Equals(channel, "futures.order_book"))
+            {
                 return channel + "." + message.GetValue<string>(_contractPath2);
+            }
 
             return channel;
         }
