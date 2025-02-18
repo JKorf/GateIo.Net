@@ -43,7 +43,7 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<GateIoPerpFuturesContract>>> GetContractsAsync(string settlementAsset, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/contracts", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/contracts", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpFuturesContract>>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -54,7 +54,7 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoPerpFuturesContract>> GetContractAsync(string settlementAsset, string contract, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/contracts/" + contract, GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/contracts/" + contract, GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<GateIoPerpFuturesContract>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -70,7 +70,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("interval", mergeDepth);
             parameters.AddOptional("limit", depth);
             parameters.AddOptional("with_id", true.ToString().ToLowerInvariant());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/order_book", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/order_book", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<GateIoPerpOrderBook>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -96,7 +96,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("last_id", lastId);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/trades", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/trades", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -120,7 +120,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/candlesticks", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/candlesticks", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -144,7 +144,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/premium_index", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/premium_index", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpIndexKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -160,7 +160,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract", contract);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/tickers", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/tickers", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpTicker>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -182,7 +182,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/funding_rate", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/funding_rate", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpFundingRate>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -198,7 +198,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/insurance", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/insurance", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpInsurance>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -218,7 +218,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.Add("contract", contract);
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalSeconds("from", startTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/contract_stats", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/contract_stats", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpContractStats>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -233,7 +233,7 @@ namespace GateIo.Net.Clients.FuturesApi
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/index_constituents/{contract}", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/index_constituents/{contract}", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<GateIoPerpConstituent>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -255,7 +255,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/liq_orders", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/liq_orders", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoLiquidation>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -275,7 +275,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.Add("contract", contract);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/risk_limit_tiers", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/risk_limit_tiers", GateIoExchange.RateLimiter.Public, 1);
             return await _baseClient.SendAsync<IEnumerable<GateIoRiskLimitTier>>(request, parameters, ct).ConfigureAwait(false);
         }
 

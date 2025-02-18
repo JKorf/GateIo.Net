@@ -27,7 +27,7 @@ namespace GateIo.Net.Clients.FuturesApi
             string settlementAsset,
             CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/accounts", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/accounts", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<GateIoFuturesAccount> (request, null, ct).ConfigureAwait(false);
         }
 
@@ -45,7 +45,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("type", type);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/account_book", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/account_book", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<IEnumerable<GateIoPerpLedgerEntry>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -58,7 +58,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("dual_mode", dualMode.ToString().ToLowerInvariant());
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset}/dual_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true, parameterPosition: HttpMethodParameterPosition.InUri);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true, parameterPosition: HttpMethodParameterPosition.InUri);
             return await _baseClient.SendAsync<GateIoFuturesAccount>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -71,7 +71,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract", contract);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset}/fee", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/fee", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
             return await _baseClient.SendAsync<Dictionary<string, GateIoPerpFee>>(request, parameters, ct).ConfigureAwait(false);
         }
 

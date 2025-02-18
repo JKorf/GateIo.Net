@@ -82,21 +82,21 @@ namespace GateIo.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<IEnumerable<GateIoPerpTradeUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoSubscription<IEnumerable<GateIoPerpTradeUpdate>>(_logger, "futures.trades", new[] { "futures.trades." + contract }, new[] { contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<IEnumerable<GateIoPerpTickerUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoSubscription<IEnumerable<GateIoPerpTickerUpdate>>(_logger, "futures.tickers", new[] { "futures.tickers." + contract }, new[] { contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, "futures.book_ticker", new[] { "futures.book_ticker." + contract }, new[] { contract }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -106,7 +106,7 @@ namespace GateIo.Net.Clients.FuturesApi
             depth.ValidateIntValues(nameof(depth), 20, 50, 100);
 
             var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, "futures.order_book_update", new[] { "futures.order_book_update." + contract }, new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -114,70 +114,70 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var intervalStr = EnumConverter.GetString(interval);
             var subscription = new GateIoSubscription<IEnumerable<GateIoPerpKlineUpdate>>(_logger, "futures.candlesticks", new[] { "futures.candlesticks." + intervalStr + "_" + contract }, new[] { intervalStr, contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpOrder>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpOrder>>(_logger, "futures.orders", new[] { "futures.orders" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpUserTrade>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpUserTrade>>(_logger, "futures.usertrades", new[] { "futures.usertrades" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserLiquidationUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpLiquidation>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpLiquidation>>(_logger, "futures.liquidates", new[] { "futures.liquidates" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserAutoDeleverageUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpAutoDeleverage>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpAutoDeleverage>>(_logger, "futures.auto_deleverages", new[] { "futures.auto_deleverages" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionCloseUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpPositionCloseUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpPositionCloseUpdate>>(_logger, "futures.position_closes", new[] { "futures.position_closes" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpBalanceUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpBalanceUpdate>>(_logger, "futures.balances", new[] { "futures.balances" }, new[] { userId.ToString() }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToReduceRiskLimitUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpRiskLimitUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpRiskLimitUpdate>>(_logger, "futures.reduce_risk_limits", new[] { "futures.reduce_risk_limits" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPositionUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPositionUpdate>>(_logger, "futures.positions", new[] { "futures.positions" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<IEnumerable<GateIoPerpTriggerOrderUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new GateIoAuthSubscription<IEnumerable<GateIoPerpTriggerOrderUpdate>>(_logger, "futures.autoorders", new[] { "futures.autoorders" }, new[] { userId.ToString(), "!all" }, onMessage);
-            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -214,7 +214,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -241,7 +241,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -253,7 +253,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -269,7 +269,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 Status = open ? "open" : "close"
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -281,7 +281,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -294,7 +294,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 Side = side == null ? null : side == OrderSide.Buy ? "bid" : "ask"
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -313,7 +313,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
