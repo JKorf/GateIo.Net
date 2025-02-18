@@ -103,7 +103,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default)
-            => await SubscribeToBookTickerUpdatesAsync(settlementAsset, contract, onMessage, ct).ConfigureAwait(false);
+            => await SubscribeToBookTickerUpdatesAsync(settlementAsset, [contract], onMessage, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default)
