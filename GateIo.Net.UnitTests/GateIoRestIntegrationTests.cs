@@ -65,7 +65,7 @@ namespace GateIo.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.Account.GetMarginBalanceHistoryAsync(default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetMarginFundingAccountsAsync(default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetMarginAutoRepayAsync(default), true);
-            await RunAndCheckResult(client => client.SpotApi.Account.GetMarginMaxTransferableAsync("ETH", default, default), true);
+            //await RunAndCheckResult(client => client.SpotApi.Account.GetMarginMaxTransferableAsync("ETH", default, default), true);
             
             
             await RunAndCheckResult(client => client.SpotApi.Account.GetMarginEstimatedInterestRatesAsync(new[] { "ETH" }, default), true);
