@@ -32,11 +32,15 @@ namespace GateIo.Net.Objects.Sockets
                 Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)) }, authenticated, 1)
         {
             ListenerIdentifiers = new HashSet<string> { id.ToString(), id + "ack" };
-            RequiredResponses = 2;
+            RequiredResponses = 1;
         }
 
         public override CallResult<TResponse> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<TResponse>> message)
         {
+            // If this is an Acknowledge message we need another message with the actual result
+            if (message.Data.Acknowledge)
+                RequiredResponses = 2;
+
             if (message.Data.Header.Status != 200)
                 return message.ToCallResult<TResponse>(new ServerError(message.Data.Header.Status, message.Data.Data.Error!.Message));
 
