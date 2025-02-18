@@ -287,5 +287,21 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get orders list
+        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#list-orders" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
+        /// <param name="open">True for open orders, false for closed orders</param>
+        /// <param name="accountType">Filter by account type</param>
+        /// <param name="side">Filter by side</param>
+        /// <param name="fromId">Returns orders with id larger than this</param>
+        /// <param name="toId">Returns orders with id smaller than this</param>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<GateIoOrder>>> GetOrdersAsync(string symbol, bool open, SpotAccountType? accountType = null, OrderSide? side = null, long? fromId = null, long? toId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

@@ -366,6 +366,25 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<GateIoOrder>>> GetOrdersAsync(string symbol, bool open, SpotAccountType? accountType = null, OrderSide? side = null, long? fromId = null, long? toId = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var id = ExchangeHelpers.NextId();
+            var query = new GateIoRequestQuery<GateIoSpotListOrdersRequest, IEnumerable<GateIoOrder>>(id, "spot.order_list", "api", new GateIoSpotListOrdersRequest
+            {
+                Symbol = symbol,
+                Limit = pageSize,
+                Status = open ? "open" : "finished",
+                Account = accountType,
+                From = fromId,
+                Page = page,
+                Side = side == null ? null : side == OrderSide.Buy ? "buy" : "sell",
+                To = toId
+            }, true);
+
+            return await QueryAsync(BaseAddress.AppendPath("ws/v4/") + "/", query, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             var id = message.GetValue<long?>(_idPath);

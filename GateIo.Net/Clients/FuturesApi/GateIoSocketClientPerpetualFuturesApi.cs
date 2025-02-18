@@ -206,7 +206,8 @@ namespace GateIo.Net.Clients.FuturesApi
             int? icebergQuantity = null,
             CloseSide? closeSide = null,
             SelfTradePreventionMode? stpMode = null,
-            string? text = null)
+            string? text = null,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoFuturesPlaceOrderRequest, GateIoPerpOrder>(id, "futures.order_place", "api", new GateIoFuturesPlaceOrderRequest
@@ -227,13 +228,14 @@ namespace GateIo.Net.Clients.FuturesApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> PlaceMultipleOrderAsync(
             string settlementAsset,
-            IEnumerable<GateIoPerpBatchPlaceRequest> orders)
+            IEnumerable<GateIoPerpBatchPlaceRequest> orders,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<IEnumerable<GateIoFuturesPlaceOrderRequest>, IEnumerable<GateIoPerpOrder>>(id, "futures.order_batch_place", "api", orders.Select(o => new GateIoFuturesPlaceOrderRequest
@@ -254,11 +256,11 @@ namespace GateIo.Net.Clients.FuturesApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoPerpOrder>> GetOrderAsync(string settlementAsset, long orderId)
+        public async Task<CallResult<GateIoPerpOrder>> GetOrderAsync(string settlementAsset, long orderId, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoFuturesGetOrderRequest, GateIoPerpOrder>(id, "futures.order_status", "api", new GateIoFuturesGetOrderRequest
@@ -266,11 +268,18 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(string settlementAsset, bool open, string? contract = null, int? limit = null, int? offset = null, string? lastId = null)
+        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(
+            string settlementAsset,
+            bool open,
+            string? contract = null, 
+            int? limit = null,
+            int? offset = null,
+            string? lastId = null,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoFuturesListOrdersRequest, IEnumerable<GateIoPerpOrder>>(id, "futures.order_list", "api", new GateIoFuturesListOrdersRequest
@@ -282,11 +291,11 @@ namespace GateIo.Net.Clients.FuturesApi
                 Status = open ? "open" : "close"
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoPerpOrder>> CancelOrderAsync(string settlementAsset, long orderId)
+        public async Task<CallResult<GateIoPerpOrder>> CancelOrderAsync(string settlementAsset, long orderId, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoFuturesGetOrderRequest, GateIoPerpOrder>(id, "futures.order_cancel", "api", new GateIoFuturesGetOrderRequest
@@ -294,11 +303,15 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(string settlementAsset, string contract, OrderSide? side = null)
+        public async Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(
+            string settlementAsset,
+            string contract,
+            OrderSide? side = null,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoFuturesCancelAllOrderRequest, IEnumerable<GateIoPerpOrder>>(id, "futures.order_cancel_cp", "api", new GateIoFuturesCancelAllOrderRequest
@@ -307,7 +320,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 Side = side == null ? null : side == OrderSide.Buy ? "bid" : "ask"
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -315,7 +328,8 @@ namespace GateIo.Net.Clients.FuturesApi
             long orderId,
             decimal? price = null,
             int? quantity = null,
-            string? amendText = null)
+            string? amendText = null,
+            CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoFuturesAmendOrderRequest, GateIoOrder>(id, "futures.order_amend", "api", new GateIoFuturesAmendOrderRequest
@@ -326,7 +340,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query).ConfigureAwait(false);
+            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

@@ -226,6 +226,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="closeSide">Set side to close dual-mode position</param>
         /// <param name="stpMode">Self-Trading Prevention action</param>
         /// <param name="text">User defined text</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<GateIoPerpOrder>> PlaceOrderAsync(
             string settlementAsset,
@@ -239,17 +240,20 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
             int? icebergQuantity = null,
             CloseSide? closeSide = null,
             SelfTradePreventionMode? stpMode = null,
-            string? text = null);
+            string? text = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orders">Orders</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<IEnumerable<GateIoPerpOrder>>> PlaceMultipleOrderAsync(
             string settlementAsset,
-            IEnumerable<GateIoPerpBatchPlaceRequest> orders);
+            IEnumerable<GateIoPerpBatchPlaceRequest> orders,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by id
@@ -257,8 +261,9 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<GateIoPerpOrder>> CancelOrderAsync(string settlementAsset, long orderId);
+        Task<CallResult<GateIoPerpOrder>> CancelOrderAsync(string settlementAsset, long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get order info by id
@@ -266,8 +271,9 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<GateIoPerpOrder>> GetOrderAsync(string settlementAsset, long orderId);
+        Task<CallResult<GateIoPerpOrder>> GetOrderAsync(string settlementAsset, long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get orders
@@ -279,8 +285,16 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">Max number of results</param>
         /// <param name="offset">Offset</param>
         /// <param name="lastId">Last id to retrieve from</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(string settlementAsset, bool open, string? contract = null, int? limit = null, int? offset = null, string? lastId = null);
+        Task<CallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(
+            string settlementAsset,
+            bool open,
+            string? contract = null,
+            int? limit = null,
+            int? offset = null,
+            string? lastId = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Cancel orders
@@ -289,8 +303,13 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="side">Order side</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(string settlementAsset, string contract, OrderSide? side = null);
+        Task<CallResult<IEnumerable<GateIoPerpOrder>>> CancelOrdersAsync(
+            string settlementAsset,
+            string contract,
+            OrderSide? side = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Edit an order
@@ -301,11 +320,13 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="price">New price</param>
         /// <param name="quantity">New quantity</param>
         /// <param name="amendText">Amend text</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<GateIoOrder>> EditOrderAsync(string settlementAsset,
             long orderId,
             decimal? price = null,
             int? quantity = null,
-            string? amendText = null);
+            string? amendText = null,
+            CancellationToken ct = default);
     }
 }

@@ -269,25 +269,25 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToTriggerOrderUpdatesAsync(System.Int64,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpTriggerOrderUpdate}}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest})">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetOrderAsync(System.String,System.Int64)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetOrdersAsync(System.String,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetOrdersAsync(System.String,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CancelOrderAsync(System.String,System.Int64)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CancelOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CancelOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide})">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CancelOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -800,6 +800,9 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetOrderAsync(System.String,System.Int64,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetOrdersAsync(System.String,System.Boolean,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -2821,7 +2824,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-place" /></para>
@@ -2838,35 +2841,39 @@
             <param name="closeSide">Set side to close dual-mode position</param>
             <param name="stpMode">Self-Trading Prevention action</param>
             <param name="text">User defined text</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest})">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceMultipleOrderAsync(System.String,System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoPerpBatchPlaceRequest},System.Threading.CancellationToken)">
             <summary>
             Place multiple orders
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="orders">Orders</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.CancelOrderAsync(System.String,System.Int64)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.CancelOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancel an order by id
             <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-cancel" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.GetOrderAsync(System.String,System.Int64)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.GetOrderAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get order info by id
             <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-status" /></para>
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.GetOrdersAsync(System.String,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.GetOrdersAsync(System.String,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Get orders
             <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-list" /></para>
@@ -2877,9 +2884,10 @@
             <param name="limit">Max number of results</param>
             <param name="offset">Offset</param>
             <param name="lastId">Last id to retrieve from</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.CancelOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide})">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.CancelOrdersAsync(System.String,System.String,System.Nullable{GateIo.Net.Enums.OrderSide},System.Threading.CancellationToken)">
             <summary>
             Cancel orders
             <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#cancel-all-open-orders-matched" /></para>
@@ -2887,9 +2895,10 @@
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="contract">Contract, for example `ETH_USDT`</param>
             <param name="side">Order side</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String)">
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Edit an order
             <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-amend" /></para>
@@ -2899,6 +2908,7 @@
             <param name="price">New price</param>
             <param name="quantity">New quantity</param>
             <param name="amendText">Amend text</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApiShared">
@@ -4203,6 +4213,22 @@
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="orderId">Order id</param>
             <param name="accountType">Account type</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.GetOrdersAsync(System.String,System.Boolean,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get orders list
+            <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#list-orders" /></para>
+            </summary>
+            <param name="symbol">Symbol name, for example `ETH_USDT`</param>
+            <param name="open">True for open orders, false for closed orders</param>
+            <param name="accountType">Filter by account type</param>
+            <param name="side">Filter by side</param>
+            <param name="fromId">Returns orders with id larger than this</param>
+            <param name="toId">Returns orders with id smaller than this</param>
+            <param name="page">Page number</param>
+            <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
