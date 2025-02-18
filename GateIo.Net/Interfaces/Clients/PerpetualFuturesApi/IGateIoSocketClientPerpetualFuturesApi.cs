@@ -32,6 +32,17 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<IEnumerable<GateIoPerpTradeUpdate>>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to public trade updates
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#trades-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<IEnumerable<GateIoPerpTradeUpdate>>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to ticker updates
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#tickers-api" /></para>
         /// </summary>
@@ -43,6 +54,17 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<IEnumerable<GateIoPerpTickerUpdate>>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to ticker updates
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#tickers-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<IEnumerable<GateIoPerpTickerUpdate>>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to best book price updates
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
         /// </summary>
@@ -52,6 +74,17 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to best book price updates for multiple contracts
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order book updates

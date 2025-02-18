@@ -21,6 +21,7 @@ using GateIo.Net.Enums;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
+using System.Diagnostics.Contracts;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -80,22 +81,34 @@ namespace GateIo.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<IEnumerable<GateIoPerpTradeUpdate>>> onMessage, CancellationToken ct = default)
+            => await SubscribeToTradeUpdatesAsync(settlementAsset, [contract], onMessage, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<IEnumerable<GateIoPerpTradeUpdate>>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<IEnumerable<GateIoPerpTradeUpdate>>(_logger, "futures.trades", new[] { "futures.trades." + contract }, new[] { contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var subscription = new GateIoSubscription<IEnumerable<GateIoPerpTradeUpdate>>(_logger, "futures.trades", contracts.Select(x => "futures.trades." + x ).ToArray(), contracts, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<IEnumerable<GateIoPerpTickerUpdate>>> onMessage, CancellationToken ct = default)
+            => await SubscribeToTickerUpdatesAsync(settlementAsset, [contract], onMessage, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<IEnumerable<GateIoPerpTickerUpdate>>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<IEnumerable<GateIoPerpTickerUpdate>>(_logger, "futures.tickers", new[] { "futures.tickers." + contract }, new[] { contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var subscription = new GateIoSubscription<IEnumerable<GateIoPerpTickerUpdate>>(_logger, "futures.tickers", contracts.Select(x => "futures.tickers." + x ).ToArray(), contracts.ToArray(), x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default)
+            => await SubscribeToBookTickerUpdatesAsync(settlementAsset, contract, onMessage, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, "futures.book_ticker", new[] { "futures.book_ticker." + contract }, new[] { contract }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
+            var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, "futures.book_ticker", contracts.Select(x => "futures.book_ticker." + x ).ToArray(), contracts.ToArray(), x => onMessage(x.WithSymbol(x.Data.Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
@@ -105,7 +118,7 @@ namespace GateIo.Net.Clients.FuturesApi
             updateMs.ValidateIntValues(nameof(updateMs), 20, 100);
             depth.ValidateIntValues(nameof(depth), 20, 50, 100);
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, "futures.order_book_update", new[] { "futures.order_book_update." + contract }, new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, "futures.order_book_update", ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
@@ -113,7 +126,7 @@ namespace GateIo.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<IEnumerable<GateIoPerpKlineUpdate>>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new GateIoSubscription<IEnumerable<GateIoPerpKlineUpdate>>(_logger, "futures.candlesticks", new[] { "futures.candlesticks." + intervalStr + "_" + contract }, new[] { intervalStr, contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var subscription = new GateIoSubscription<IEnumerable<GateIoPerpKlineUpdate>>(_logger, "futures.candlesticks", ["futures.candlesticks." + intervalStr + "_" + contract], new[] { intervalStr, contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
