@@ -164,6 +164,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.20.1 - 03 Mar 2025
+    * Fixed incorrect pricing parameters mapping for restClient.PerpetualFuturesApi.Trading.PlaceTriggerOrderAsync
+
 * Version 1.20.0 - 18 Feb 2025
     * Added auto convert to lowercase for settlement asset parameter in futures endpoints and subscriptions
     * Added overloads for multiple contracts to some public futures Subscribe methods
