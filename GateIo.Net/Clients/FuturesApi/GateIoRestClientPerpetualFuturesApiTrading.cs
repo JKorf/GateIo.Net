@@ -164,8 +164,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("contract", contract);
             parameters.Add("size", orderSide == OrderSide.Buy ? quantity: -quantity);
-            if (price.HasValue || ((timeInForce == TimeInForce.ImmediateOrCancel || timeInForce == TimeInForce.FillOrKill) && quantity != 0))
-                parameters.AddOptionalString("price", price ?? 0);
+            parameters.AddString("price", price ?? 0);
             parameters.AddOptional("close", closePosition);
             parameters.AddOptional("reduce_only", reduceOnly);
             parameters.AddOptionalEnum("tif", timeInForce);
@@ -495,7 +494,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             var initial = new ParameterCollection();
             initial.Add("contract", contract);
-            initial.AddString("price", triggerPrice);
+            initial.AddString("price", orderPrice ?? 0);
             initial.Add("size", orderSide == OrderSide.Buy ? quantity : -quantity);
             initial.AddOptional("close", closePosition);
             initial.AddOptional("reduce_only", reduceOnly);
@@ -504,7 +503,7 @@ namespace GateIo.Net.Clients.FuturesApi
             initial.AddOptionalEnum("auto_size", closeSide);
 
             var order = new ParameterCollection();
-            order.AddOptionalString("price", orderPrice);
+            order.AddOptionalString("price", triggerPrice);
             order.AddOptionalEnumAsInt("price_type", priceType);
             order.AddOptional("rule", triggerType == TriggerType.EqualOrHigher ? 1 : 2);
             order.AddOptionalString("expiration", (int?)expiration?.TotalSeconds);
