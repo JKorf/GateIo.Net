@@ -4540,6 +4540,11 @@
             Asset name
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAsset.Name">
+            <summary>
+            Asset full name
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoAsset.Delisted">
             <summary>
             Whether the asset is delisted
@@ -4573,6 +4578,41 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoAsset.Network">
             <summary>
             Network of the asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAsset.Networks">
+            <summary>
+            Network list
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAssetNetwork">
+            <summary>
+            Asset network info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAssetNetwork.Name">
+            <summary>
+            Network name
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAssetNetwork.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAssetNetwork.WithdrawDisabled">
+            <summary>
+            Is withdrawal disabled
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAssetNetwork.WithdrawDelayed">
+            <summary>
+            Is withdrawal delayed
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAssetNetwork.DepositDisabled">
+            <summary>
+            Is deposit disabled
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoBalance">

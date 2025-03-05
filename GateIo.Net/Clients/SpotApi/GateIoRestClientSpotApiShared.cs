@@ -522,10 +522,7 @@ namespace GateIo.Net.Clients.SpotApi
             });
         }
 
-        EndpointOptions<GetAssetsRequest> IAssetsRestClient.GetAssetsOptions { get; } = new EndpointOptions<GetAssetsRequest>(false)
-        {
-            RequestNotes = "Network information is not available from this call, use the GetAssetAsync for specific asset networks"
-        };
+        EndpointOptions<GetAssetsRequest> IAssetsRestClient.GetAssetsOptions { get; } = new EndpointOptions<GetAssetsRequest>(false);
 
         async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetsRestClient.GetAssetsAsync(GetAssetsRequest request, CancellationToken ct)
         {
@@ -537,7 +534,15 @@ namespace GateIo.Net.Clients.SpotApi
             if (!assets)
                 return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, null, default);
 
-            return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, TradingMode.Spot, assets.Data.Select(x => new SharedAsset(x.Asset)).ToArray());
+            return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, TradingMode.Spot, assets.Data.Select(x => new SharedAsset(x.Asset)
+            {
+                FullName = x.Name,
+                Networks = x.Networks.Select(x => new SharedAssetNetwork(x.Name)
+                {
+                    DepositEnabled = !x.DepositDisabled,
+                    WithdrawEnabled = !x.WithdrawDisabled
+                }).ToArray()
+            }).ToArray());
         }
 
         #endregion

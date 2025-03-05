@@ -13,6 +13,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
+        /// Asset full name
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; } = string.Empty;
+        /// <summary>
         /// Whether the asset is delisted
         /// </summary>
         [JsonPropertyName("delisted")]
@@ -47,5 +52,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("chain")]
         public string? Network { get; set; }
+        /// <summary>
+        /// Network list
+        /// </summary>
+        [JsonPropertyName("chains")]
+        public GateIoAssetNetwork[] Networks { get; set; } = [];
     }
 }
