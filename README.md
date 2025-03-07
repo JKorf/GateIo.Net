@@ -165,6 +165,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.21.0 - 07 Mar 2025
+    * Added Networks info to GateIoAsset model
+    * Updated shared rest GetAssetsAsync request with network info
+
 * Version 1.20.1 - 03 Mar 2025
     * Fixed incorrect pricing parameters mapping for restClient.PerpetualFuturesApi.Trading.PlaceTriggerOrderAsync
 
