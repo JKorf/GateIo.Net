@@ -31,7 +31,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var resultUsdt = Account.GetAccountAsync("usdt", ct: ct);
             var resultBtc = Account.GetAccountAsync("btc", ct: ct);
             await Task.WhenAll(resultBtc, resultUsdt, resultUsd).ConfigureAwait(false);
-            if (!resultUsd.Result && !resultUsd.Result.Error!.Message.Contains("USER_NOT_FOUND"))
+            if (!resultUsd.Result && !resultUsd.Result.Error!.Message.Contains("NOT_FOUND"))
                 return resultUsd.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
             if (!resultUsdt.Result && !resultUsdt.Result.Error!.Message.Contains("USER_NOT_FOUND"))
                 return resultUsdt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
