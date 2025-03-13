@@ -1,4 +1,4 @@
-﻿using GateIo.Net.Enums;
+using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Batch order placement item
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpBatchPlaceRequest
     {
         /// <summary>
@@ -35,7 +36,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// Time in force
         /// </summary>
-        [JsonPropertyName("tif"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("tif"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
         /// Text
@@ -55,12 +56,12 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// Close side
         /// </summary>
-        [JsonPropertyName("auto_size"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("auto_size"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public CloseSide? CloseSide { get; set; }
         /// <summary>
         /// Self trade prevention mode
         /// </summary>
-        [JsonPropertyName("stp_act"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("stp_act"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public SelfTradePreventionMode? StpMode { get; set; }
     }
 }

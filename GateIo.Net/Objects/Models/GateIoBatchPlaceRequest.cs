@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 
@@ -7,6 +7,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Batch order placement request
     /// </summary>
+    [SerializationModel]
     public record GateIoBatchPlaceRequest
     {
         /// <summary>
@@ -22,17 +23,17 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// Order type
         /// </summary>
-        [JsonPropertyName("type"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("type")]
         public NewOrderType Type { get; set; }
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonPropertyName("side"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Time in force
         /// </summary>
-        [JsonPropertyName("time_in_force"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("time_in_force")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
         /// Quantity
@@ -52,7 +53,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// The type of account
         /// </summary>
-        [JsonPropertyName("account"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("account")]
         public SpotAccountType AccountType { get; set; }
         /// <summary>
         /// Auto borrow
@@ -67,7 +68,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// STP mode
         /// </summary>
-        [JsonPropertyName("stp_act"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("stp_act"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public SelfTradePreventionMode? SelfTradePreventionMode { get; set; }
     }
 }

@@ -2,8 +2,6 @@
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.JsonNet;
 using System;
 using System.Collections;
 using GateIo.Net.Objects.Internal;

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Text.Json.Serialization;
 using GateIo.Net.Enums;
 
 namespace GateIo.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Position update
     /// </summary>
+    [SerializationModel]
     public record GateIoPositionUpdate
     {
         /// <summary>

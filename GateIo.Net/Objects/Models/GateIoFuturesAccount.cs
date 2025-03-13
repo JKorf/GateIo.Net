@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
 {
     /// <summary>
     /// Futures account
     /// </summary>
+    [SerializationModel]
     public record GateIoFuturesAccount
     {
         /// <summary>
@@ -102,6 +104,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Account history
     /// </summary>
+    [SerializationModel]
     public record GateIoFuturesAccountHistory
     {
         /// <summary>

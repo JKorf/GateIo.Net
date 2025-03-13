@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace GateIo.Net.Objects.Internal
         public long? From { get; set; }
         [JsonPropertyName("to"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public long? To { get; set; }
-        [JsonPropertyName("account"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("account"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SpotAccountType? Account { get; set; }
         [JsonPropertyName("side"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Side { get; set; }

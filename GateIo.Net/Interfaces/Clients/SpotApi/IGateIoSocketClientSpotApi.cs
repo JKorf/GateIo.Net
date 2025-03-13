@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     public interface IGateIoSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         public IGateIoSocketClientSpotApiShared SharedClient { get; }
 
@@ -120,7 +120,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<IEnumerable<GateIoOrderUpdate>>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<GateIoOrderUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to user trade updates
@@ -129,7 +129,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<IEnumerable<GateIoUserTradeUpdate>>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<GateIoUserTradeUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to balance updates
@@ -138,7 +138,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoBalanceUpdate>>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<GateIoBalanceUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to margin balance updates
@@ -147,7 +147,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarginBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoMarginBalanceUpdate>>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToMarginBalanceUpdatesAsync(Action<DataEvent<GateIoMarginBalanceUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to funding balance updates
@@ -156,7 +156,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToFundingBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoFundingBalanceUpdate>>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToFundingBalanceUpdatesAsync(Action<DataEvent<GateIoFundingBalanceUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to cross margin balance updates
@@ -165,7 +165,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<IEnumerable<GateIoCrossMarginBalanceUpdate>>> onMessage, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<GateIoCrossMarginBalanceUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to trigger order updates
@@ -217,7 +217,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<GateIoOrder>>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders, CancellationToken ct = default);
+        Task<CallResult<GateIoOrder[]>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by id
@@ -242,7 +242,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="cancelRequests">Cancel requests</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests, CancellationToken ct = default);
+        Task<CallResult<GateIoCancelResult[]>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders on a symbol
@@ -253,7 +253,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<GateIoOrder>>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null, CancellationToken ct = default);
+        Task<CallResult<GateIoOrder[]>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an order
@@ -302,6 +302,6 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<GateIoOrder>>> GetOrdersAsync(string symbol, bool open, SpotAccountType? accountType = null, OrderSide? side = null, long? fromId = null, long? toId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<CallResult<GateIoOrder[]>> GetOrdersAsync(string symbol, bool open, SpotAccountType? accountType = null, OrderSide? side = null, long? fromId = null, long? toId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

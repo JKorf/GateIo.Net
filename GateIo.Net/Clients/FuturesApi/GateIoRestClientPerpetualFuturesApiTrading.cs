@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using System.Collections.Generic;
 using CryptoExchange.Net.Objects;
@@ -26,14 +26,14 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPosition>>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? page = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition[]>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? page = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("holding", holding);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -93,11 +93,11 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Dual Mode Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPosition>>> GetDualModePositionsAsync(string settlementAsset, string contract, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition[]>> GetDualModePositionsAsync(string settlementAsset, string contract, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -105,13 +105,13 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Update Dual Mode Position Margin
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPosition>>> UpdateDualModePositionMarginAsync(string settlementAsset, string contract, decimal change, PositionMode mode, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionMarginAsync(string settlementAsset, string contract, decimal change, PositionMode mode, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddString("change", change);
             parameters.AddEnum("dual_side", mode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/margin", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -119,13 +119,13 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Update Dual Mode Position Margin
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPosition>>> UpdateDualModePositionLeverageAsync(string settlementAsset, string contract, decimal leverage, decimal? crossLeverageLimit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionLeverageAsync(string settlementAsset, string contract, decimal leverage, decimal? crossLeverageLimit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddString("leverage", leverage);
             parameters.AddOptionalString("cross_leverage_limit", crossLeverageLimit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/leverage", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -133,12 +133,12 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Update Dual Mode Position Margin
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPosition>>> UpdateDualModePositionRiskLimitAsync(string settlementAsset, string contract, int riskLimit, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionRiskLimitAsync(string settlementAsset, string contract, int riskLimit, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddString("risk_limit", riskLimit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/risk_limit", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -181,15 +181,15 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Place Multiple Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> PlaceMultipleOrderAsync(
+        public async Task<WebCallResult<GateIoPerpOrder[]>> PlaceMultipleOrderAsync(
             string settlementAsset, 
             IEnumerable<GateIoPerpBatchPlaceRequest> orders,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.SetBody(orders);
+            parameters.SetBody(orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/batch_orders", GateIoExchange.RateLimiter.RestFuturesOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoPerpOrder[]>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
             return result;
         }
 
@@ -198,7 +198,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(
+        public async Task<WebCallResult<GateIoPerpOrder[]>> GetOrdersAsync(
             string settlementAsset,
             OrderStatus status,
             string? contract = null,
@@ -214,7 +214,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("offset", offset);
             parameters.AddOptional("last_id", lastId);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -222,13 +222,13 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Cancel All Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> CancelAllOrdersAsync(string settlementAsset, string contract, OrderSide? side = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPerpOrder[]>> CancelAllOrdersAsync(string settlementAsset, string contract, OrderSide? side = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract", contract);
             parameters.AddOptionalEnum("side", side);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders", GateIoExchange.RateLimiter.RestFuturesOrderCancelation, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -250,12 +250,12 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Cancel Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoFuturesCancelResult>>> CancelOrdersAsync(string settlementAsset, IEnumerable<long> orderIds, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoFuturesCancelResult[]>> CancelOrdersAsync(string settlementAsset, IEnumerable<long> orderIds, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.SetBody(orderIds.Select(x => x.ToString()));
+            parameters.SetBody(orderIds.Select(x => x.ToString()).ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/batch_cancel_orders", GateIoExchange.RateLimiter.RestFuturesOrderCancelation, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoFuturesCancelResult>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoFuturesCancelResult[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -263,7 +263,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Orders By Timestamp
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersByTimestampAsync(
+        public async Task<WebCallResult<GateIoPerpOrder[]>> GetOrdersByTimestampAsync(
             string settlementAsset,
             string? contract = null,
             OrderStatus? status = null,
@@ -281,7 +281,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders_timerange", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -343,12 +343,12 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Edit Multiple Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> EditMultipleOrdersAsync(string settlementAsset, IEnumerable<GateIoPerpBatchEditRequest> requests, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPerpOrder[]>> EditMultipleOrdersAsync(string settlementAsset, IEnumerable<GateIoPerpBatchEditRequest> requests, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.SetBody(requests);
+            parameters.SetBody(requests.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/batch_amend_orders", GateIoExchange.RateLimiter.RestFuturesOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoPerpOrder>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoPerpOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -357,7 +357,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpUserTrade>>> GetUserTradesAsync(
+        public async Task<WebCallResult<GateIoPerpUserTrade[]>> GetUserTradesAsync(
             string settlementAsset,
             string? contract = null,
             long? orderId = null,
@@ -373,7 +373,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("offset", offset);
             parameters.AddOptional("last_id", lastId);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/my_trades", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -381,7 +381,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get User Trades By Timestamp
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpUserTrade>>> GetUserTradesByTimestampAsync(
+        public async Task<WebCallResult<GateIoPerpUserTrade[]>> GetUserTradesByTimestampAsync(
             string settlementAsset,
             string? contract = null,
             long? orderId = null,
@@ -401,7 +401,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptionalEnum("role", role);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/my_trades_timerange", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -409,7 +409,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Position Close History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpPositionClose>>> GetPositionCloseHistoryAsync(
+        public async Task<WebCallResult<GateIoPerpPositionClose[]>> GetPositionCloseHistoryAsync(
             string settlementAsset,
             string? contract = null,
             DateTime? startTime = null,
@@ -429,7 +429,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalEnum("role", role);
             parameters.AddOptionalEnum("side", side);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/position_close", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpPositionClose>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpPositionClose[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -437,7 +437,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Liquidation History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpLiquidation>>> GetLiquidationHistoryAsync(
+        public async Task<WebCallResult<GateIoPerpLiquidation[]>> GetLiquidationHistoryAsync(
             string settlementAsset,
             string? contract = null,
             int? limit = null,
@@ -447,7 +447,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("contract", contract);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/liquidates", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpLiquidation>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpLiquidation[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -455,7 +455,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Auto Deleveraging History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpAutoDeleverage>>> GetAutoDeleveragingHistoryAsync(
+        public async Task<WebCallResult<GateIoPerpAutoDeleverage[]>> GetAutoDeleveragingHistoryAsync(
             string settlementAsset,
             string? contract = null,
             int? limit = null,
@@ -465,7 +465,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("contract", contract);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/auto_deleverages", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpAutoDeleverage>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpAutoDeleverage[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -521,7 +521,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpTriggerOrder>>> GetTriggerOrdersAsync(
+        public async Task<WebCallResult<GateIoPerpTriggerOrder[]>> GetTriggerOrdersAsync(
             string settlementAsset,
             bool open,
             string? contract = null,
@@ -536,7 +536,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("offset", offset);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpTriggerOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -544,7 +544,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Cancel Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpTriggerOrder>>> CancelTriggerOrdersAsync(
+        public async Task<WebCallResult<GateIoPerpTriggerOrder[]>> CancelTriggerOrdersAsync(
             string settlementAsset,
             string contract,
             CancellationToken ct = default)
@@ -553,7 +553,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.Add("contract", contract);
 
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders", GateIoExchange.RateLimiter.RestFuturesOrderCancelation, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpTriggerOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

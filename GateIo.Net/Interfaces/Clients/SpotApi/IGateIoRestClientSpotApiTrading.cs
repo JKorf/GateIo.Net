@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Enums;
 using System.Threading;
@@ -57,7 +57,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Filter by account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoSymbolOrders>>> GetOpenOrdersAsync(
+        Task<WebCallResult<GateIoSymbolOrders[]>> GetOpenOrdersAsync(
             int? page = null,
             int? limit = null,
             SpotAccountType? accountType = null,
@@ -77,7 +77,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="side">Filter by order side</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoOrder>>> GetOrdersAsync(
+        Task<WebCallResult<GateIoOrder[]>> GetOrdersAsync(
             bool open,
             string? symbol = null,
             int? page = null,
@@ -114,7 +114,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoOrderOperation>>> CancelAllOrdersAsync(
+        Task<WebCallResult<GateIoOrderOperation[]>> CancelAllOrdersAsync(
             string symbol,
             OrderSide? side = null,
             SpotAccountType? accountType = null,
@@ -127,7 +127,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(
+        Task<WebCallResult<GateIoCancelResult[]>> CancelOrdersAsync(
             IEnumerable<GateIoBatchCancelRequest> orders,
             CancellationToken ct = default);
 
@@ -184,7 +184,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Filter by account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoUserTrade>>> GetUserTradesAsync(
+        Task<WebCallResult<GateIoUserTrade[]>> GetUserTradesAsync(
             string? symbol = null,
             long? orderId = null,
             int? limit = null,
@@ -249,7 +249,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="offset">Offset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoTriggerOrder>>> GetTriggerOrdersAsync(
+        Task<WebCallResult<GateIoTriggerOrder[]>> GetTriggerOrdersAsync(
             bool open,
             string? symbol = null,
             TriggerAccountType? accountType = null,
@@ -265,7 +265,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Filter by account type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoTriggerOrder>>> CancelAllTriggerOrdersAsync(string? symbol = null, TriggerAccountType? accountType = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoTriggerOrder[]>> CancelAllTriggerOrdersAsync(string? symbol = null, TriggerAccountType? accountType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a trigger order by id
@@ -292,7 +292,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoOrderOperation>>> PlaceMultipleOrderAsync(
+        Task<WebCallResult<GateIoOrderOperation[]>> PlaceMultipleOrderAsync(
             IEnumerable<GateIoBatchPlaceRequest> orders,
             CancellationToken ct = default);
 
@@ -303,7 +303,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders to edit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoOrderOperation>>> EditMultipleOrderAsync(
+        Task<WebCallResult<GateIoOrderOperation[]>> EditMultipleOrderAsync(
             IEnumerable<GateIoBatchEditRequest> orders,
             CancellationToken ct = default);
     }

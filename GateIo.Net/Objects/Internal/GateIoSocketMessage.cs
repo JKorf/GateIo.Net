@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -13,7 +13,7 @@ namespace GateIo.Net.Objects.Internal
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
         [JsonPropertyName("payload")]
-        public IEnumerable<object>? Payload { get; set; }
+        public object[]? Payload { get; set; }
         [JsonPropertyName("error")]
         public GateIoSocketError? Error { get; set; }
         [JsonPropertyName("result")]

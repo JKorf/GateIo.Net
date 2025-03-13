@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 
@@ -7,6 +7,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Batch order edit request
     /// </summary>
+    [SerializationModel]
     public record GateIoBatchEditRequest
     {
         /// <summary>
@@ -37,7 +38,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// The type of account
         /// </summary>
-        [JsonPropertyName("account"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("account")]
         public SpotAccountType AccountType { get; set; }
 
     }

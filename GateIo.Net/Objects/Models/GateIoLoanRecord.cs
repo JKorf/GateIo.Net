@@ -1,4 +1,5 @@
-﻿using GateIo.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Loan history record
     /// </summary>
+    [SerializationModel]
     public record GateIoLoanRecord
     {
         /// <summary>

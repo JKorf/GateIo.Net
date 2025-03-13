@@ -18,7 +18,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
         private readonly Action<DataEvent<T>> _handler;
         private readonly string _channel;
-        private readonly IEnumerable<string>? _payload;
+        private readonly string[]? _payload;
 
         /// <inheritdoc />
         public override Type? GetMessageType(IMessageAccessor message)
@@ -34,7 +34,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <param name="handler"></param>
         /// <param name="identifiers"></param>
         /// <param name="payload"></param>
-        public GateIoAuthSubscription(ILogger logger, string channel, IEnumerable<string> identifiers, IEnumerable<string>? payload, Action<DataEvent<T>> handler) : base(logger, false)
+        public GateIoAuthSubscription(ILogger logger, string channel, IEnumerable<string> identifiers, string[]? payload, Action<DataEvent<T>> handler) : base(logger, false)
         {
             _handler = handler;
             _channel = channel;
@@ -47,7 +47,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         {
             var provider = (GateIoAuthenticationProvider)connection.ApiClient.AuthenticationProvider!;
             var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_channel, "subscribe", _payload);
-            var request = (GateIoSocketAuthRequest<IEnumerable<string>>)query.Request;
+            var request = (GateIoSocketAuthRequest<string[]>)query.Request;
             var sign = provider.SignSocketRequest($"channel={_channel}&event=subscribe&time={request.Timestamp}");
             request.Auth = new GateIoSocketAuth { Key = provider.ApiKey, Sign = sign, Method = "api_key" };
             return query;
@@ -56,7 +56,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         { 
-            return new GateIoQuery<IEnumerable<string>, GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
+            return new GateIoQuery<string[], GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
         }
 
         /// <inheritdoc />

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,13 +21,13 @@ namespace GateIo.Net.Objects.Internal
         public bool? Close { get; set; }
         [JsonPropertyName("reduce_only"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? ReduceOnly { get; set; }
-        [JsonPropertyName("time_in_force"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("time_in_force"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TimeInForce? TimeInForce { get; set; }
         [JsonPropertyName("text"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Text { get; set; }
-        [JsonPropertyName("auto_size"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("auto_size"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public CloseSide? CloseSide { get; set; }
-        [JsonPropertyName("stp_act"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("stp_act"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SelfTradePreventionMode? StpMode { get; set; }
     }
 }

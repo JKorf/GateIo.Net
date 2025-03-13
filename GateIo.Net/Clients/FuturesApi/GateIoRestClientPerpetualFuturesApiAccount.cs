@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using GateIo.Net.Objects.Models;
 using System.Collections.Generic;
@@ -36,7 +36,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Account Ledger
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpLedgerEntry>>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPerpLedgerEntry[]>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract", contract);
@@ -46,7 +46,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/account_book", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpLedgerEntry>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpLedgerEntry[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
