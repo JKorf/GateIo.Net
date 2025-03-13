@@ -69,9 +69,9 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         /// <inheritdoc />
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange.SerializerContext));
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange.SerializerContext));
 
         public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
 

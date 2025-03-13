@@ -60,14 +60,6 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalEnum("action_mode", actionMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
-            
-            if (result)
-                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = result.Data.Id.ToString(),
-                    SourceObject = result.Data
-                });
-
             return result;
         }
 
@@ -84,16 +76,6 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.SetBody(orders);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/batch_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             var result = await _baseClient.SendAsync<IEnumerable<GateIoOrderOperation>>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
-            foreach(var order in result.Data)
-            {
-                if (order.Succeeded)
-                    _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order.Id.ToString(),
-                        SourceObject = result.Data
-                    });
-            }
-
             return result;
         }
 
@@ -133,7 +115,7 @@ namespace GateIo.Net.Clients.SpotApi
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddEnum("status", open ? "open" : "finished");
+            parameters.Add("status", open ? "open" : "finished");
             parameters.AddOptional("currency_pair", symbol);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
@@ -181,15 +163,6 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
             var result = await _baseClient.SendAsync<IEnumerable<GateIoOrderOperation>>(request, parameters, ct).ConfigureAwait(false);
-            foreach (var order in result.Data)
-            {
-                if (order.Succeeded)
-                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order.Id.ToString(),
-                        SourceObject = result.Data
-                    });
-            }
             return result;
         }
 
@@ -206,15 +179,6 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.SetBody(orders);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/cancel_batch_orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
             var result = await _baseClient.SendAsync<IEnumerable<GateIoCancelResult>>(request, parameters, ct).ConfigureAwait(false);
-            foreach (var order in result.Data)
-            {
-                if (order.Succeeded)
-                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order.OrderId,
-                        SourceObject = result.Data
-                    });
-            }
             return result;
         }
 
@@ -281,12 +245,6 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = result.Data.Id.ToString(),
-                    SourceObject = result.Data
-                });
             return result;
         }
 

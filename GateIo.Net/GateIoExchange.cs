@@ -4,6 +4,8 @@ using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.RateLimiting;
 using System;
 using CryptoExchange.Net.SharedApis;
+using System.Text.Json.Serialization;
+using GateIo.Net.Converters;
 
 namespace GateIo.Net
 {
@@ -43,6 +45,8 @@ namespace GateIo.Net
         /// Type of exchange
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
+
+        internal static JsonSerializerContext SerializerContext = new GateIoSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a Gate.io recognized symbol 

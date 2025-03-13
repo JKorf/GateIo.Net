@@ -331,7 +331,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("id", id);
             parameters.AddOptionalMilliseconds("from", startTime);
             parameters.AddOptionalMilliseconds("to", endTime);
-            parameters.AddOptionalEnum("to", endTime);
+            parameters.AddOptional("limit", limit);
             parameters.AddOptional("transaction_type", transactionType);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/push", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
