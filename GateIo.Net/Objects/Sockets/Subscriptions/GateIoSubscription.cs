@@ -57,7 +57,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         {
             var data = (GateIoSocketMessage<T>)message.Data;
             _handler.Invoke(message.As(data.Result, data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(data.Timestamp));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

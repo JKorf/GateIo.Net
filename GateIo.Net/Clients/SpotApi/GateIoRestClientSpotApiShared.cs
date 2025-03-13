@@ -512,6 +512,56 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Spot Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
+
+            var orders = await Trading.GetOrderAsync(request.Symbol.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
+
+            return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, orders.Data.Symbol),
+                orders.Data.Symbol,
+                orders.Data.Id.ToString(),
+                ParseOrderType(orders.Data.Type, orders.Data.TimeInForce),
+                orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(orders.Data.Status),
+                orders.Data.CreateTime)
+            {
+                ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
+                OrderPrice = orders.Data.Price == 0 ? null : orders.Data.Price,
+                Quantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity,
+                QuantityFilled = orders.Data.QuantityFilled,
+                UpdateTime = orders.Data.UpdateTime,
+                QuoteQuantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? orders.Data.Quantity : null,
+                QuoteQuantityFilled = orders.Data.QuoteQuantityFilled,
+                Fee = orders.Data.Fee,
+                FeeAsset = orders.Data.FeeAsset,
+                TimeInForce = ParseTimeInForce(orders.Data.TimeInForce)
+            });
+        }
+
+        EndpointOptions<CancelOrderRequest> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(order.Data.Id.ToString()));
+        }
+        #endregion
+
         #region Asset client
         EndpointOptions<GetAssetRequest> IAssetsRestClient.GetAssetOptions { get; } = new EndpointOptions<GetAssetRequest>(false);
         async Task<ExchangeWebResult<SharedAsset>> IAssetsRestClient.GetAssetAsync(GetAssetRequest request, CancellationToken ct)

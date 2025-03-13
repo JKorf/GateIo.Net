@@ -296,7 +296,7 @@ namespace GateIo.Net.Clients.SpotApi
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("currency", assets.ToArray());
+            parameters.AddOptional("currency", assets?.ToArray());
             parameters.AddOptional("is_all", all);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/wallet/small_balance", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);

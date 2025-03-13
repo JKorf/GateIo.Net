@@ -9,7 +9,7 @@ using CryptoExchange.Net.Interfaces;
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoLoginQuery : Query<GateIoSocketRequestResponse<GateIoSocketLoginResponse>, GateIoSocketRequestResponse<GateIoSocketLoginResponse>>
+    internal class GateIoLoginQuery : Query<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 

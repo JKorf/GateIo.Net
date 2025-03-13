@@ -86,7 +86,7 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<GateIoPerpTradeUpdate[]>(_logger, "futures.trades", contracts.Select(x => "futures.trades." + x ).ToArray(), contracts, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var subscription = new GateIoSubscription<GateIoPerpTradeUpdate[]>(_logger, "futures.trades", contracts.Select(x => "futures.trades." + x ).ToArray(), contracts.ToArray(), x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 

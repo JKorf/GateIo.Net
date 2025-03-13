@@ -14,9 +14,9 @@ namespace GateIo.Net.Objects.Sockets
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
         public GateIoAuthQuery(string channel, string evnt, string[]? payload) 
-            : base(new GateIoSocketAuthRequest<IEnumerable<string>> { Channel = channel, Event = evnt, Id = ExchangeHelpers.NextId(), Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
+            : base(new GateIoSocketAuthRequest<string[]> { Channel = channel, Event = evnt, Id = ExchangeHelpers.NextId(), Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { ((GateIoSocketAuthRequest<IEnumerable<string>>)Request).Id.ToString() };
+            ListenerIdentifiers = new HashSet<string> { ((GateIoSocketAuthRequest<string[]>)Request).Id.ToString() };
         }
 
         public override CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<T>> message)

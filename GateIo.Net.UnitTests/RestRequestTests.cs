@@ -22,7 +22,7 @@ namespace Gate.io.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/Account", "https://api.gateio.ws", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/Account", "https://api.gateio.ws", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetBalancesAsync(), "GetBalances");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetLedgerAsync(), "GetLedger");
             await tester.ValidateAsync(client => client.SpotApi.Account.WithdrawAsync("ETH", 1, "123", "ETH"), "Withdraw");
@@ -89,7 +89,7 @@ namespace Gate.io.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.gateio.ws", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.gateio.ws", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAssetsAsync(), "GetAssets");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAssetAsync("BTC"), "GetAsset");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolAsync("BTC_USDT"), "GetSymbol");
@@ -116,7 +116,7 @@ namespace Gate.io.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/Trading", "https://api.gateio.ws", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/Trading", "https://api.gateio.ws", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync("ETH_USDT", OrderSide.Buy, NewOrderType.Limit, 40), "PlaceOrder", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price", "" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrdersAsync(true, "ETH_USDT"), "GetOrders", ignoreProperties: new List<string> { "create_time", "update_time", "fill_price" });
@@ -145,7 +145,7 @@ namespace Gate.io.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/Account", "https://api.gateio.ws", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/Account", "https://api.gateio.ws", IsAuthenticated);
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.GetAccountAsync("usdt"), "GetAccount");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.GetLedgerAsync("usdt"), "GetLedger");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.UpdatePositionModeAsync("usdt", true), "UpdatePositionMode");
@@ -160,7 +160,7 @@ namespace Gate.io.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/ExchangeData", "https://api.gateio.ws", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/ExchangeData", "https://api.gateio.ws", IsAuthenticated);
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.ExchangeData.GetContractsAsync("usdt"), "GetContracts", ignoreProperties: new List<string> { "risk_limit_base", "risk_limit_step", "risk_limit_max" });
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.ExchangeData.GetContractAsync("usdt", "ETH_USDT"), "GetContract", ignoreProperties: new List<string> { "risk_limit_base", "risk_limit_step", "risk_limit_max" });
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.ExchangeData.GetOrderBookAsync("usdt", "ETH_USDT"), "GetOrderBook");
@@ -185,7 +185,7 @@ namespace Gate.io.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/Trading", "https://api.gateio.ws", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/Trading", "https://api.gateio.ws", IsAuthenticated);
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetPositionsAsync("usdt"), "GetPositions");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.UpdatePositionMarginAsync("usdt", "ETH_USDT", 1), "UpdatePositionMargin");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.UpdatePositionLeverageAsync("usdt", "ETH_USDT", 1), "UpdatePositionLeverage");

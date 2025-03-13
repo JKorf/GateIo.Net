@@ -608,6 +608,66 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Futures Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
+
+            var order = await Trading.GetOrderAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Contract),
+                order.Data.Contract,
+                order.Data.Id.ToString(),
+                ParseOrderType(order.Data.TimeInForce, order.Data.Price),
+                order.Data.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(order.Data.Status),
+                order.Data.CreateTime)
+            {
+                ClientOrderId = order.Data.Text,
+                AveragePrice = order.Data.FillPrice == 0 ? null : order.Data.FillPrice,
+                OrderPrice = order.Data.Price,
+                Quantity = Math.Abs(order.Data.Quantity),
+                QuantityFilled = Math.Abs(order.Data.Quantity) - order.Data.QuantityRemaining,
+                TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
+                UpdateTime = order.Data.FinishTime ?? order.Data.CreateTime,
+                ReduceOnly = order.Data.IsReduceOnly
+            });
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelOrderAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(order.Data.Id.ToString()));
+        }
+        #endregion
+
         #region Klines client
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationSupport.Descending, true, 2000, false,
