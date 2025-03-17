@@ -78,6 +78,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 return resultTicker.Result.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
 
             var ticker = resultTicker.Result.Data.SingleOrDefault();
+            if (ticker == null)
+                return resultTicker.Result.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError("Not found"));
 
             return resultContract.Result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, resultContract.Result.Data.Name), resultContract.Result.Data.Name, ticker.LastPrice, ticker.HighPrice, ticker.LowPrice, ticker.Volume, ticker.ChangePercentage)
             {
@@ -116,7 +118,9 @@ namespace GateIo.Net.Clients.FuturesApi
                 {
                     if ((request.TradingMode == TradingMode.PerpetualLinear && contract.Type == ContractType.Inverse)
                     || (request.TradingMode == TradingMode.PerpetualInverse && contract.Type == ContractType.Direct))
+                    {
                         return null;
+                    }
                 }    
 
                 return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract), x.Contract, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.ChangePercentage)
