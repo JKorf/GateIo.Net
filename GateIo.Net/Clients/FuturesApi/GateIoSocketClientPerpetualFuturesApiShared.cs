@@ -205,8 +205,8 @@ namespace GateIo.Net.Clients.FuturesApi
                         x.CreateTime)
                     {
                         ClientOrderId = x.Text,
-                        Quantity = Math.Abs(x.Quantity),
-                        QuantityFilled = Math.Abs(x.Quantity) - x.QuantityRemaining,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity) - x.QuantityRemaining),
                         UpdateTime = x.FinishTime ?? x.CreateTime,
                         OrderPrice = x.Price,
                         AveragePrice = x.FillPrice == 0 ? null : x.FillPrice,

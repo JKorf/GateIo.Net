@@ -226,7 +226,7 @@ namespace GateIo.Net.Clients.SpotApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 GetOrderType(request.OrderType),
-                quantity: (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy ? request.QuoteQuantity : request.Quantity) ?? 0,
+                quantity: (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy ? request.Quantity?.QuantityInQuoteAsset : request.Quantity?.QuantityInBaseAsset) ?? 0,
                 price: request.Price,
                 timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
                 text: string.IsNullOrEmpty(request.ClientOrderId) ? null : request.ClientOrderId,
@@ -265,11 +265,9 @@ namespace GateIo.Net.Clients.SpotApi
             {
                 ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
                 OrderPrice = orders.Data.Price == 0 ? null : orders.Data.Price,
-                Quantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity,
-                QuantityFilled = orders.Data.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity, orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? orders.Data.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(orders.Data.QuantityFilled, orders.Data.QuoteQuantityFilled),
                 UpdateTime = orders.Data.UpdateTime,
-                QuoteQuantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? orders.Data.Quantity : null,
-                QuoteQuantityFilled = orders.Data.QuoteQuantityFilled,
                 Fee = orders.Data.Fee,
                 FeeAsset = orders.Data.FeeAsset,
                 TimeInForce = ParseTimeInForce(orders.Data.TimeInForce)
@@ -305,11 +303,9 @@ namespace GateIo.Net.Clients.SpotApi
             {
                 ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-                Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
-                QuantityFilled = x.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 UpdateTime = x.UpdateTime,
-                QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 TimeInForce = ParseTimeInForce(x.TimeInForce)
@@ -360,11 +356,9 @@ namespace GateIo.Net.Clients.SpotApi
             {
                 ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-                Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
-                QuantityFilled = x.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 UpdateTime = x.UpdateTime,
-                QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 TimeInForce = ParseTimeInForce(x.TimeInForce)
@@ -536,11 +530,9 @@ namespace GateIo.Net.Clients.SpotApi
             {
                 ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
                 OrderPrice = orders.Data.Price == 0 ? null : orders.Data.Price,
-                Quantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity,
-                QuantityFilled = orders.Data.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? null : orders.Data.Quantity, orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? orders.Data.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(orders.Data.QuantityFilled, orders.Data.QuoteQuantityFilled),
                 UpdateTime = orders.Data.UpdateTime,
-                QuoteQuantity = orders.Data.Type == OrderType.Market && orders.Data.Side == OrderSide.Buy ? orders.Data.Quantity : null,
-                QuoteQuantityFilled = orders.Data.QuoteQuantityFilled,
                 Fee = orders.Data.Fee,
                 FeeAsset = orders.Data.FeeAsset,
                 TimeInForce = ParseTimeInForce(orders.Data.TimeInForce)

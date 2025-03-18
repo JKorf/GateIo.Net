@@ -149,10 +149,8 @@ namespace GateIo.Net.Clients.SpotApi
                         x.CreateTime)
                     {
                         ClientOrderId = x.Text,
-                        Quantity = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity,
-                        QuantityFilled = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity - x.QuantityRemaining,
-                        QuoteQuantity = x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? x.Quantity : null,
-                        QuoteQuantityFilled = x.QuoteQuantityFilled,
+                        OrderQuantity = new SharedOrderQuantity(x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity, x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? x.Quantity : null),
+                        QuantityFilled = new SharedOrderQuantity(x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity - x.QuantityRemaining, x.QuoteQuantityFilled),
                         UpdateTime = x.UpdateTime,
                         OrderPrice = x.Price == 0 ? null : x.Price,
                         AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
