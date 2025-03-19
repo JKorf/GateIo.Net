@@ -60,7 +60,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("text", text);
             parameters.AddOptionalEnum("action_mode", actionMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }, rateLimitKeySuffix: symbol).ConfigureAwait(false);
             return result;
         }
 
@@ -209,7 +209,7 @@ namespace GateIo.Net.Clients.SpotApi
             bodyParameters.AddOptional("amend_text", amendText);
             bodyParameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(new HttpMethod("Patch"), "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct, rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
 
         #endregion
@@ -330,7 +330,7 @@ namespace GateIo.Net.Clients.SpotApi
             order.AddOptional("text", text);
             parameters.Add("put", order);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/price_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            return await _baseClient.SendAsync<GateIoId>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoId>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }, rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
 
         #endregion
