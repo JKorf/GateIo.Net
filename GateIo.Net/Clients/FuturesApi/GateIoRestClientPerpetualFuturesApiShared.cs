@@ -1138,5 +1138,137 @@ namespace GateIo.Net.Clients.FuturesApi
             return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFee(symbol.Value.MakerFee * 100, symbol.Value.TakerFee * 100));
         }
         #endregion
+
+        #region Futures Trigger Order Client
+        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
+//        {
+//            RequiredExchangeParameters = new List<ParameterDescription>
+//            {
+//                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+//            }
+//};
+async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+        {
+            //var validationError = ((IFuturesTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            //if (validationError != null)
+            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+
+            var orderType = request.OrderPrice == null ? NewOrderType.Market : NewOrderType.Limit;
+            var result = await Trading.PlaceTriggerOrderAsync(
+                ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
+                request.Symbol.GetSymbol(FormatSymbol),
+                GetTriggerOrderSide(request),
+                (int)(request.Quantity.QuantityInContracts ?? 0),
+                request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? TriggerType.EqualOrHigher : TriggerType.EqualOrLower,
+                orderPrice: request.OrderPrice,
+                triggerPrice: request.TriggerPrice,
+                priceType: GetPriceType(request),
+                timeInForce: GetTimeInForce(orderType == NewOrderType.Market ? SharedOrderType.Market : SharedOrderType.Limit, request.TimeInForce) ?? (orderType == NewOrderType.Market ? TimeInForce.ImmediateOrCancel : TimeInForce.GoodTillCancel),
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
+        }
+
+        private PriceType? GetPriceType(PlaceFuturesTriggerOrderRequest request)
+        {
+            if (request.TriggerPriceType == null)
+                return null;
+
+            if (request.TriggerPriceType == SharedTriggerPriceType.LastPrice)
+                return PriceType.LastTradePrice;
+
+            if (request.TriggerPriceType == SharedTriggerPriceType.IndexPrice)
+                return PriceType.IndexPrice;
+
+            return PriceType.MarkPrice;
+        }
+
+        private OrderSide GetTriggerOrderSide(PlaceFuturesTriggerOrderRequest request)
+        {
+            if (request.PositionSide == SharedPositionSide.Long)            
+                return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Buy : OrderSide.Sell;
+            
+            return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Sell : OrderSide.Buy;
+        }
+
+        EndpointOptions<GetOrderRequest> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedFuturesTriggerOrder>> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTriggerOrderRestClient)this).GetFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, validationError);
+
+            if (!long.TryParse(request.OrderId, out var orderId))
+                return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, new ArgumentError("Invalid order id"));
+
+            var settleAsset = ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!;
+            var order = await Trading.GetTriggerOrderAsync(
+                settleAsset, 
+                orderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+            GateIoPerpOrder? orderInfo = null;
+            if (order.Data.TradeId > 0)
+            {
+                var orderInfoResult = await Trading.GetOrderAsync(settleAsset, order.Data.TradeId).ConfigureAwait(false);
+                if (!orderInfoResult)
+                    return orderInfoResult.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                orderInfo = orderInfoResult.Data;
+            }
+
+            var side = order.Data.Order.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell;
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Order.Contract),
+                order.Data.Order.Contract,
+                order.Data.Id.ToString(),
+                order.Data.Order.Price == null ? SharedOrderType.Market : SharedOrderType.Limit,
+                null,
+                orderInfo == null ? SharedOrderStatus.Open : ParseOrderStatus(orderInfo.Status),
+                order.Data.Trigger.Price,
+                null,
+                order.Data.CreateTime)
+            {
+                AveragePrice = orderInfo?.FillPrice == 0 ? null : orderInfo?.FillPrice,
+                OrderPrice = order.Data.Order.Price,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Order.Quantity)),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(orderInfo?.Quantity ?? 0) - orderInfo?.QuantityRemaining),
+                TimeInForce = ParseTimeInForce(order.Data.Order.TimeInForce),
+                UpdateTime = orderInfo?.FinishTime ?? orderInfo?.CreateTime ?? order.Data.FinishTime ?? order.Data.CreateTime,
+            });
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTriggerOrderRestClient)this).CancelFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            if (!long.TryParse(request.OrderId, out var orderId))
+                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+
+            var settleAsset = ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!;
+            var order = await Trading.CancelTriggerOrderAsync(
+                settleAsset,
+                orderId,
+                ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+        }
+
+        #endregion
     }
 }
