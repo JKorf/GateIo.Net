@@ -9145,9 +9145,19 @@
             Base asset
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.BaseAssetName">
+            <summary>
+            Base asset name
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.QuoteAsset">
             <summary>
             Quote asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.QuoteAssetName">
+            <summary>
+            Quote asset name
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.TradeFee">

@@ -20,10 +20,20 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("base")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
+        /// Base asset name
+        /// </summary>
+        [JsonPropertyName("base_name")]
+        public string BaseAssetName { get; set; } = string.Empty;
+        /// <summary>
         /// Quote asset
         /// </summary>
         [JsonPropertyName("quote")]
         public string QuoteAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// Quote asset name
+        /// </summary>
+        [JsonPropertyName("quote_name")]
+        public string QuoteAssetName { get; set; } = string.Empty;
         /// <summary>
         /// Trade fee
         /// </summary>
