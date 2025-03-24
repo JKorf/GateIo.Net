@@ -55,6 +55,7 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync<IEnumerable<GateIoPerpRiskLimitUpdate>>((client, handler) => client.PerpetualFuturesApi.SubscribeToReduceRiskLimitUpdatesAsync(123, "usdt", handler), "SubscribeToReduceRiskLimitUpdates", ignoreProperties: new List<string> { "time", "time_ms", "create_time_ms" });
             await tester.ValidateAsync<IEnumerable<GateIoPositionUpdate>>((client, handler) => client.PerpetualFuturesApi.SubscribeToPositionUpdatesAsync(123, "usdt", handler), "SubscribeToPositionUpdates", ignoreProperties: new List<string> { "time", "time_ms", "create_time_ms" });
             await tester.ValidateAsync<IEnumerable<GateIoPerpTriggerOrderUpdate>>((client, handler) => client.PerpetualFuturesApi.SubscribeToTriggerOrderUpdatesAsync(123, "usdt", handler), "SubscribeToTriggerOrderUpdates", ignoreProperties: new List<string> { "time", "time_ms", "create_time_ms", "strategy_type", "iceberg", "stop_trigger" });
+            await tester.ValidateAsync<GateIoPerpContractStats>((client, handler) => client.PerpetualFuturesApi.SubscribeToContractStatsUpdatesAsync("usdt", "ETH_USDT", GateIo.Net.Enums.KlineInterval.OneMinute, handler), "SubscribeToContractStatsUpdates", ignoreProperties: new List<string> { "time" });
         }
     }
 }

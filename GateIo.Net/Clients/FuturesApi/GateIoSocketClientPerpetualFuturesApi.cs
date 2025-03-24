@@ -35,6 +35,7 @@ namespace GateIo.Net.Clients.FuturesApi
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("channel");
         private static readonly MessagePath _contractPath = MessagePath.Get().Property("result").Index(0).Property("contract");
         private static readonly MessagePath _contractPath2 = MessagePath.Get().Property("result").Property("s");
+        private static readonly MessagePath _contractPath3 = MessagePath.Get().Property("result").Property("contract");
         private static readonly MessagePath _klinePath = MessagePath.Get().Property("result").Index(0).Property("n");
         private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
         private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
@@ -127,6 +128,14 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var intervalStr = EnumConverter.GetString(interval);
             var subscription = new GateIoSubscription<IEnumerable<GateIoPerpKlineUpdate>>(_logger, "futures.candlesticks", ["futures.candlesticks." + intervalStr + "_" + contract], new[] { intervalStr, contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToContractStatsUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<GateIoPerpContractStats>> onMessage, CancellationToken ct = default)
+        {
+            var intervalStr = EnumConverter.GetString(interval);
+            var subscription = new GateIoSubscription<GateIoPerpContractStats>(_logger, "futures.contract_stats", ["futures.contract_stats." + contract], new[] { contract, intervalStr }, onMessage, false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
@@ -372,6 +381,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
             if (string.Equals(channel, "futures.candlesticks"))
                 return channel + "." + message.GetValue<string>(_klinePath);
+
+            if (string.Equals(channel, "futures.contract_stats"))
+                return channel + "." + message.GetValue<string>(_contractPath3);
 
             if (string.Equals(channel, "futures.book_ticker")
              || string.Equals(channel, "futures.order_book_update")

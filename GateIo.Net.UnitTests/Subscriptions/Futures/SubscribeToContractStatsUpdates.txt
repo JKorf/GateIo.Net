@@ -1,0 +1,4 @@
+> {"time":"1","id":-999,"channel":"futures.contract_stats","event":"subscribe","payload":["ETH_USDT", "1m"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.order_book_update","event":"subscribe","payload":["ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+= 
+{"time":1742812872,"time_ms":1742812872995,"channel":"futures.contract_stats","event":"update","result":{"time":1742812860,"contract":"ETH_USDT","mark_price":87746.16,"lsr_taker":0,"lsr_account":1.9713114754098362,"long_liq_size":0,"long_liq_amount":0,"long_liq_usd":0,"short_liq_size":0,"short_liq_amount":0,"short_liq_usd":0,"open_interest":22883730,"open_interest_usd":22883730,"top_lsr_account":1.196078431372549,"top_lsr_size":0.8342584430144387}}

@@ -14,6 +14,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
+        /// Contract 
+        /// </summary>
+        [JsonPropertyName("contract")]
+        public string? Contract { get; set; }
+        /// <summary>
         /// Long/short account number ratio
         /// </summary>
         [JsonPropertyName("lsr_taker")]
