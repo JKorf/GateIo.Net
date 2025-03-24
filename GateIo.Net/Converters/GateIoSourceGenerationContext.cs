@@ -31,6 +31,8 @@ namespace GateIo.Net.Converters
     [JsonSerializable(typeof(Dictionary<string, GateIoPerpFee>))]
     [JsonSerializable(typeof(Dictionary<string, decimal?>))]
 
+    [JsonSerializable(typeof(GateIoSocketMessage<GateIoPerpContractStats[]>))]
+
     // End manual defined attributes
     [JsonSerializable(typeof(GateIoSocketAuthRequest<string[]>))]
     [JsonSerializable(typeof(GateIoSocketResponse<string[]>))]
