@@ -242,6 +242,9 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToKlineUpdatesAsync(System.String,System.String,GateIo.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpKlineUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToContractStatsUpdatesAsync(System.String,System.String,GateIo.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpContractStats}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToOrderUpdatesAsync(System.Int64,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrder[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1189,6 +1192,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoSocketMessageGateIoPerpBookTickerUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoSocketMessageGateIoPerpContractStats">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4829,6 +4837,18 @@
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="contract">Contract, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SubscribeToContractStatsUpdatesAsync(System.String,System.String,GateIo.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpContractStats}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to contract stats updates
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#contract-stats-subscription" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="contract">Contract, for example `ETH_USDT`</param>
+            <param name="interval">Update interval</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -9338,6 +9358,11 @@
             Timestamp
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpContractStats.Contract">
+            <summary>
+            Contract 
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpContractStats.LongShortAccountRatio">
             <summary>
             Long/short account number ratio
@@ -11248,9 +11273,19 @@
             Base asset
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.BaseAssetName">
+            <summary>
+            Base asset name
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.QuoteAsset">
             <summary>
             Quote asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.QuoteAssetName">
+            <summary>
+            Quote asset name
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.TradeFee">
@@ -11561,6 +11596,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoTradeUpdate.Id">
             <summary>
             Trade id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoTradeUpdate.MarketId">
+            <summary>
+            Market unique id
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoTradeUpdate.CreateTime">
@@ -12191,6 +12231,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoUserTradeUpdate.Id">
             <summary>
             Trade id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserTradeUpdate.MarketId">
+            <summary>
+            Market unique id
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoUserTradeUpdate.Text">
