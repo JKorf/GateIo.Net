@@ -165,6 +165,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.22.0 - 24 Mar 2025
+    * Added BaseAssetName and QuoteAssetName to GateIoSymbol model
+    * Added MarketId property to GateIoTradeUpdate and GateIoUserTradeUpdate models
+    * Added socketClient.PerpetualFuturesApi.SubscribeToContractStatsUpdatesAs…ync subscription
+    * Fixed shared PerpetualFuturesApi GetBalances returning error
+
 * Version 1.21.0 - 07 Mar 2025
     * Added Networks info to GateIoAsset model
     * Updated shared rest GetAssetsAsync request with network info
