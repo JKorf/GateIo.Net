@@ -112,6 +112,18 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<GateIoPerpKlineUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to contract stats updates
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#contract-stats-subscription" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
+        /// <param name="interval">Update interval</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToContractStatsUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<GateIoPerpContractStats>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to user order updates
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#orders-api" /></para>
         /// </summary>

@@ -17,6 +17,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
+        /// Market unique id
+        /// </summary>
+        [JsonPropertyName("id_market")]
+        public long MarketId { get; set; }
+        /// <summary>
         /// Create time
         /// </summary>
         [JsonPropertyName("create_time_ms")]
