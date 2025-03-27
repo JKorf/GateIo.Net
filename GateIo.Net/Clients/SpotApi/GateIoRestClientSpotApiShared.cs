@@ -776,26 +776,25 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region Spot Trigger Order Client
-        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
-        //{
-        //};
+        PlaceSpotTriggerOrderOptions ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderOptions { get; } = new PlaceSpotTriggerOrderOptions(false);
         async Task<ExchangeWebResult<SharedId>> ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
         {
-            //var validationError = ((ISpotTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
-            //if (validationError != null)
-            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+            var validationError = ((ISpotTriggerOrderRestClient)this).PlaceSpotTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, ((ISpotOrderRestClient)this).SpotSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var orderType = request.OrderPrice == null ? NewOrderType.Market : NewOrderType.Limit;
             var result = await Trading.PlaceTriggerOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Buy : OrderSide.Sell,
+                request.OrderSide == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 orderType,
                 request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? TriggerType.EqualOrHigher : TriggerType.EqualOrLower,
-                quantity: (orderType == NewOrderType.Market && request.OrderDirection == SharedTriggerOrderDirection.Enter ? request.Quantity?.QuantityInQuoteAsset : request.Quantity?.QuantityInBaseAsset) ?? 0,
+                quantity: (orderType == NewOrderType.Market && request.OrderSide == SharedOrderSide.Buy ? request.Quantity?.QuantityInQuoteAsset : request.Quantity?.QuantityInBaseAsset) ?? 0,
                 orderPrice: request.OrderPrice,
                 triggerPrice: request.TriggerPrice,
                 expiration: TimeSpan.FromDays(30),
                 accountType: TriggerAccountType.Normal,
+                text: request.ClientOrderId,
                 timeInForce: GetTimeInForce(orderType == NewOrderType.Market ? SharedOrderType.Market: SharedOrderType.Limit, request.TimeInForce) ?? (orderType == NewOrderType.Market ? TimeInForce.ImmediateOrCancel : TimeInForce.GoodTillCancel),
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -804,7 +803,6 @@ namespace GateIo.Net.Clients.SpotApi
             // Return
             return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.Id.ToString()));
         }
-
 
         EndpointOptions<GetOrderRequest> ISpotTriggerOrderRestClient.GetSpotTriggerOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
         {
@@ -838,10 +836,11 @@ namespace GateIo.Net.Clients.SpotApi
                 order.Data.Id.ToString(),
                 order.Data.Order.Type == NewOrderType.Market ? SharedOrderType.Market: SharedOrderType.Limit,
                 order.Data.Order.Side == OrderSide.Buy ? SharedTriggerOrderDirection.Enter : SharedTriggerOrderDirection.Exit,
-                orderInfo == null ? SharedOrderStatus.Open : ParseOrderStatus(orderInfo.Status),
+                ParseTriggerOrderStatus(order.Data.Status, orderInfo),
                 order.Data.Trigger.Price,
                 order.Data.CreateTime)
             {
+                PlacedOrderId = order.Data.TriggeredOrderId?.ToString(),
                 AveragePrice = orderInfo?.AveragePrice == 0 ? null : orderInfo?.AveragePrice,
                 OrderPrice = order.Data.Order.Price,
                 OrderQuantity = new SharedOrderQuantity(order.Data.Order.Quantity),
@@ -851,6 +850,24 @@ namespace GateIo.Net.Clients.SpotApi
                 Fee = orderInfo?.Fee,
                 FeeAsset = orderInfo?.FeeAsset
             });
+        }
+
+        private SharedTriggerOrderStatus ParseTriggerOrderStatus(TriggerOrderStatus? status, GateIoOrder? orderInfo)
+        {
+            if (status == TriggerOrderStatus.Expired || status == TriggerOrderStatus.Canceled || status == TriggerOrderStatus.Failed)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            if (orderInfo == null)
+                // Order not placed yet
+                return SharedTriggerOrderStatus.Active;
+
+            if (orderInfo.Status == OrderStatus.Canceled)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            if (orderInfo.Status == OrderStatus.Open)
+                return SharedTriggerOrderStatus.Active;
+
+            return SharedTriggerOrderStatus.Filled;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);

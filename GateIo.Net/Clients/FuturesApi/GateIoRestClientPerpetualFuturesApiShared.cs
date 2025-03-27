@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using GateIo.Net.Objects.Models;
+using System.Drawing;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -1140,28 +1141,30 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         #region Futures Trigger Order Client
-        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
-//        {
-//            RequiredExchangeParameters = new List<ParameterDescription>
-//            {
-//                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-//            }
-//};
-async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+        PlaceFuturesTriggerOrderOptions IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(false)
         {
-            //var validationError = ((IFuturesTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
-            //if (validationError != null)
-            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+        {
+            var side = GetTriggerOrderSide(request);
+            var validationError = ((IFuturesTriggerOrderRestClient)this).PlaceFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var orderType = request.OrderPrice == null ? NewOrderType.Market : NewOrderType.Limit;
             var result = await Trading.PlaceTriggerOrderAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol(FormatSymbol),
-                GetTriggerOrderSide(request),
+                side,
                 (int)(request.Quantity.QuantityInContracts ?? 0),
                 request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? TriggerType.EqualOrHigher : TriggerType.EqualOrLower,
                 orderPrice: request.OrderPrice,
                 triggerPrice: request.TriggerPrice,
+                text: request.ClientOrderId,
                 priceType: GetPriceType(request),
                 timeInForce: GetTimeInForce(orderType == NewOrderType.Market ? SharedOrderType.Market : SharedOrderType.Limit, request.TimeInForce) ?? (orderType == NewOrderType.Market ? TimeInForce.ImmediateOrCancel : TimeInForce.GoodTillCancel),
                 ct: ct).ConfigureAwait(false);
@@ -1234,18 +1237,38 @@ async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFutu
                 order.Data.Id.ToString(),
                 order.Data.Order.Price == null ? SharedOrderType.Market : SharedOrderType.Limit,
                 null,
-                orderInfo == null ? SharedOrderStatus.Open : ParseOrderStatus(orderInfo.Status),
+                ParseTriggerOrderStatus(order.Data.Status, orderInfo),
                 order.Data.Trigger.Price,
                 null,
                 order.Data.CreateTime)
             {
+                PlacedOrderId = order.Data.TradeId?.ToString(),
                 AveragePrice = orderInfo?.FillPrice == 0 ? null : orderInfo?.FillPrice,
                 OrderPrice = order.Data.Order.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Order.Quantity)),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(orderInfo?.Quantity ?? 0) - orderInfo?.QuantityRemaining),
                 TimeInForce = ParseTimeInForce(order.Data.Order.TimeInForce),
                 UpdateTime = orderInfo?.FinishTime ?? orderInfo?.CreateTime ?? order.Data.FinishTime ?? order.Data.CreateTime,
+                ClientOrderId = orderInfo?.Text
             });
+        }
+
+        private SharedTriggerOrderStatus ParseTriggerOrderStatus(FuturesTriggerOrderStatus? status, GateIoPerpOrder? orderInfo)
+        {
+            if (status == FuturesTriggerOrderStatus.Invalid)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            if (orderInfo == null)
+                // Order not placed yet
+                return SharedTriggerOrderStatus.Active;
+
+            if (orderInfo.Status == OrderStatus.Canceled)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            if (orderInfo.Status == OrderStatus.Open)
+                return SharedTriggerOrderStatus.Active;
+
+            return SharedTriggerOrderStatus.Filled;
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
