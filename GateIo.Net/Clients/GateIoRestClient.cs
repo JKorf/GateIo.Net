@@ -11,6 +11,8 @@ using CryptoExchange.Net.Clients;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using Microsoft.Extensions.Options;
 using CryptoExchange.Net.Objects.Options;
+using GateIo.Net.Interfaces.Clients.RebateApi;
+using GateIo.Net.Clients.RebateApi;
 
 namespace GateIo.Net.Clients
 {
@@ -23,6 +25,8 @@ namespace GateIo.Net.Clients
         public IGateIoRestClientSpotApi SpotApi { get; }
         /// <inheritdoc />
         public IGateIoRestClientPerpetualFuturesApi PerpetualFuturesApi { get; }
+        /// <inheritdoc />
+        public IGateIoRestClientRebateApi Rebate { get; }
 
         #endregion
 
@@ -49,6 +53,7 @@ namespace GateIo.Net.Clients
 
             SpotApi = AddApiClient(new GateIoRestClientSpotApi(_logger, httpClient, options.Value));
             PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(_logger, httpClient, options.Value));
+            Rebate = AddApiClient(new GateIoRestClientRebateApi(_logger, httpClient, options.Value));
         }
 
         #endregion
@@ -58,6 +63,7 @@ namespace GateIo.Net.Clients
         {
             SpotApi.SetOptions(options);
             PerpetualFuturesApi.SetOptions(options);
+            Rebate.SetOptions(options);
         }
 
         /// <summary>
@@ -74,6 +80,7 @@ namespace GateIo.Net.Clients
         {
             SpotApi.SetApiCredentials(credentials);
             PerpetualFuturesApi.SetApiCredentials(credentials);
+            Rebate.SetApiCredentials(credentials);
         }
     }
 }
