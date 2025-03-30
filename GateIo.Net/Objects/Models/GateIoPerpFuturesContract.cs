@@ -90,21 +90,6 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("order_price_round")]
         public decimal OrderPriceStep { get; set; }
         /// <summary>
-        /// Risk limit base,deprecated
-        /// </summary>
-        [JsonPropertyName("risk_limit_base")]
-        public decimal RiskLimitBase { get; set; }
-        /// <summary>
-        /// Step of adjusting risk limit,deprecated
-        /// </summary>
-        [JsonPropertyName("risk_limit_step")]
-        public decimal RiskLimitStep { get; set; }
-        /// <summary>
-        /// Maximum risk limit the contract allowed,deprecated,It is recommended to use /futures/{settle}/risk_limit_tiers to query risk limits.
-        /// </summary>
-        [JsonPropertyName("risk_limit_max")]
-        public decimal RiskLimitMax { get; set; }
-        /// <summary>
         /// Minimum order quantity
         /// </summary>
         [JsonPropertyName("order_size_min")]

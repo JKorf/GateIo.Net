@@ -7535,21 +7535,6 @@
             Minimum order price increment
             </summary>
         </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.RiskLimitBase">
-            <summary>
-            Risk limit base,deprecated
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.RiskLimitStep">
-            <summary>
-            Step of adjusting risk limit,deprecated
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.RiskLimitMax">
-            <summary>
-            Maximum risk limit the contract allowed,deprecated,It is recommended to use /futures/{settle}/risk_limit_tiers to query risk limits.
-            </summary>
-        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.MinOrderQuantity">
             <summary>
             Minimum order quantity
@@ -9085,14 +9070,14 @@
             Partner subordinate
             </summary>
         </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.UserID">
+        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.UserId">
             <summary>
-            UserID
+            User Id
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.UserJoinTime">
             <summary>
-            UserJoinTime
+            User join time
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.Type">

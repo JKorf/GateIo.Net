@@ -10,13 +10,13 @@ namespace GateIo.Net.Objects.Models
     public record GateIoRebatePartnerSubordinate
     {
         /// <summary>
-        /// UserID
+        /// User Id
         /// </summary>
         [JsonPropertyName("user_id")]
-        public long UserID { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
-        /// UserJoinTime
+        /// User join time
         /// </summary>
         [JsonPropertyName("user_join_time")]
         public DateTime UserJoinTime { get; set; }
