@@ -150,6 +150,40 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var resultTicker = await ExchangeData.GetOrderBookAsync(
+                symbol,
+                limit: 1,
+                ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
+                symbol,
+                resultTicker.Data.Asks[0].Price,
+                resultTicker.Data.Asks[0].Quantity,
+                resultTicker.Data.Bids[0].Price,
+                resultTicker.Data.Bids[0].Quantity));
+        }
+
+        #endregion
+
         #region Recent Trade client
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(1000, false);
 
@@ -193,7 +227,6 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region Spot Order client
-
 
         SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
         SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
@@ -499,7 +532,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (tif == SharedTimeInForce.ImmediateOrCancel) return TimeInForce.ImmediateOrCancel;
             if (tif == SharedTimeInForce.FillOrKill) return TimeInForce.FillOrKill;
             if (tif == SharedTimeInForce.GoodTillCanceled) return TimeInForce.GoodTillCancel;
-            if (orderType == SharedOrderType.Market) return TimeInForce.FillOrKill;
+            if (orderType == SharedOrderType.Market) return TimeInForce.ImmediateOrCancel;
 
             return null;
         }

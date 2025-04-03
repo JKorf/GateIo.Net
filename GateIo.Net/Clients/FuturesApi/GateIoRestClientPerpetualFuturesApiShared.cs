@@ -136,6 +136,41 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var resultTicker = await ExchangeData.GetOrderBookAsync(
+                ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
+                symbol,
+                depth: 1,
+                ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
+                symbol,
+                resultTicker.Data.Asks[0].Price,
+                resultTicker.Data.Asks[0].Quantity,
+                resultTicker.Data.Bids[0].Price,
+                resultTicker.Data.Bids[0].Quantity));
+        }
+
+        #endregion
+
         #region Futures Symbol client
 
         EndpointOptions<GetSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetSymbolsRequest>(false)
@@ -183,7 +218,6 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         #region Futures Order Client
-
 
         SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.InputAsset;
@@ -1235,18 +1269,18 @@ namespace GateIo.Net.Clients.FuturesApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Order.Contract),
                 order.Data.Order.Contract,
                 order.Data.Id.ToString(),
-                order.Data.Order.Price == null ? SharedOrderType.Market : SharedOrderType.Limit,
+                order.Data.Order.Price > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                 null,
                 ParseTriggerOrderStatus(order.Data.Status, orderInfo),
                 order.Data.Trigger.Price,
                 null,
                 order.Data.CreateTime)
             {
-                PlacedOrderId = order.Data.TradeId?.ToString(),
+                PlacedOrderId = order.Data.TradeId == 0 ? null : order.Data.TradeId?.ToString(),
                 AveragePrice = orderInfo?.FillPrice == 0 ? null : orderInfo?.FillPrice,
-                OrderPrice = order.Data.Order.Price,
+                OrderPrice = order.Data.Order.Price == 0 ? null : order.Data.Order.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Order.Quantity)),
-                QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(orderInfo?.Quantity ?? 0) - orderInfo?.QuantityRemaining),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: (Math.Abs(orderInfo?.Quantity ?? 0) - orderInfo?.QuantityRemaining) ?? 0),
                 TimeInForce = ParseTimeInForce(order.Data.Order.TimeInForce),
                 UpdateTime = orderInfo?.FinishTime ?? orderInfo?.CreateTime ?? order.Data.FinishTime ?? order.Data.CreateTime,
                 ClientOrderId = orderInfo?.Text
