@@ -208,7 +208,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                         QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity) - x.QuantityRemaining),
                         UpdateTime = x.FinishTime ?? x.CreateTime,
-                        OrderPrice = x.Price,
+                        OrderPrice = x.Price == 0 ? null : x.Price,
                         AveragePrice = x.FillPrice == 0 ? null : x.FillPrice,
                         ReduceOnly = x.IsReduceOnly,
                         TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? SharedTimeInForce.GoodTillCanceled : null
@@ -287,10 +287,10 @@ namespace GateIo.Net.Clients.FuturesApi
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
                 update => handler(update.AsExchangeEvent<SharedPosition[]>(Exchange, update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract), x.Contract, Math.Abs(x.Size), update.DataTime ?? update.ReceiveTime)
                 {
-                    AverageOpenPrice = x.EntryPrice,
+                    AverageOpenPrice = x.EntryPrice == 0 ? null : x.EntryPrice,
                     PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    LiquidationPrice = x.LiquidationPrice,
-                    Leverage = x.Leverage
+                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                    Leverage = x.Leverage == 0 ? null : x.Leverage
                 }).ToArray())),
                 ct: ct).ConfigureAwait(false);
 

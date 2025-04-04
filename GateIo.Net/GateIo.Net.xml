@@ -12662,10 +12662,5 @@
             <param name="optionsDelegate">Set options for the GateIo services</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{GateIo.Net.Objects.Options.GateIoRestOptions},System.Action{GateIo.Net.Objects.Options.GateIoSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
-            <summary>
-            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddGateIo(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{GateIo.Net.Objects.Options.GateIoOptions})" /> instead
-            </summary>
-        </member>
     </members>
 </doc>

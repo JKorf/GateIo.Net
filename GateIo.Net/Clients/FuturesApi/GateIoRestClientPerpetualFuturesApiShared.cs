@@ -302,7 +302,7 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 ClientOrderId = order.Data.Text,
                 AveragePrice = order.Data.FillPrice == 0 ? null : order.Data.FillPrice,
-                OrderPrice = order.Data.Price,
+                OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Quantity)),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Quantity) - order.Data.QuantityRemaining),
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
@@ -340,7 +340,7 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 ClientOrderId = x.Text,
                 AveragePrice = x.FillPrice == 0 ? null : x.FillPrice,
-                OrderPrice = x.Price,
+                OrderPrice = x.Price == 0 ? null : x.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity) - x.QuantityRemaining),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
@@ -395,7 +395,7 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 ClientOrderId = x.Text,
                 AveragePrice = x.FillPrice == 0 ? null : x.FillPrice,
-                OrderPrice = x.Price,
+                OrderPrice = x.Price == 0 ? null : x.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity) - x.QuantityRemaining),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
@@ -677,7 +677,7 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 ClientOrderId = order.Data.Text,
                 AveragePrice = order.Data.FillPrice == 0 ? null : order.Data.FillPrice,
-                OrderPrice = order.Data.Price,
+                OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Quantity)),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Quantity) - order.Data.QuantityRemaining),
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
@@ -1350,12 +1350,13 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await Trading.PlaceTriggerOrderAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol(FormatSymbol),
-                request.PositionSide == SharedPositionSide.Long ? OrderSide.Buy : OrderSide.Sell,
+                request.PositionSide == SharedPositionSide.Long ? OrderSide.Sell : OrderSide.Buy,
                 0,
                 GetTriggerType(request),
                 request.TriggerPrice,
-                closePosition: true,
-                closeSide: request.PositionMode != SharedPositionMode.HedgeMode ? null : request.PositionSide == SharedPositionSide.Long ? CloseSide.CloseShort : CloseSide.CloseLong,
+                closePosition: request.PositionMode == SharedPositionMode.HedgeMode ? null: true,
+                timeInForce: TimeInForce.ImmediateOrCancel,
+                closeSide: request.PositionMode != SharedPositionMode.HedgeMode ? null : request.PositionSide == SharedPositionSide.Long ? CloseSide.CloseLong : CloseSide.CloseShort,
                 triggerOrderType: request.PositionSide == SharedPositionSide.Long ? TriggerOrderType.CloseLongPosition : TriggerOrderType.CloseShortPosition,
                 ct: ct).ConfigureAwait(false);
 
