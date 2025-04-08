@@ -11,16 +11,19 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
+        /// <see cref="IGateIoRestClientSpotApiAccount"/>
         public IGateIoRestClientSpotApiAccount Account { get; }
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
+        /// <see cref="IGateIoRestClientSpotApiExchangeData"/>
         public IGateIoRestClientSpotApiExchangeData ExchangeData { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
+        /// <see cref="IGateIoRestClientSpotApiTrading"/>
         public IGateIoRestClientSpotApiTrading Trading { get; }
 
         /// <summary>

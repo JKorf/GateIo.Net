@@ -4078,17 +4078,19 @@
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.IGateIoRestClient.PerpetualFuturesApi">
             <summary>
             Perpetual Futures API endpoints
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi"/>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -4105,17 +4107,19 @@
             <summary>
             Spot streams
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.IGateIoSocketClient.PerpetualFuturesApi">
             <summary>
             Perpetual Futures streams
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi"/>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -5058,16 +5062,19 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi.SharedClient">
             <summary>
