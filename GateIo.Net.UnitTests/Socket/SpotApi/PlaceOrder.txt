@@ -1,0 +1,58 @@
+> {"time":1744621445,"id":3,"channel":"spot.login","event":"api","payload":{"api_key":"123","signature":"|3|","timestamp":"|2|","req_id":"|1|"}}
+< { "request_id": "|1|", "header": { "status": 200 }, "data": { "result": { "api_key": "ea83fad2604399da16bf97e6eea772a6", "uid": "110284739" } } }
+> { "time": "|4|", "channel": "spot.order_place", "event": "api", "payload": { "req_id": "|5|", "req_param": { } } }
+< { "request_id": "|5|",  "ack": true,  "header": { "status": "200" }, "data": { "result": { "req_id": "request-2","req_header": null, "req_param": {}, "api_key": "", "timestamp": "", "signature": ""}}}
+=
+{
+  "request_id": "|5|",
+  "header": {
+    "response_time": "1681986204784",
+    "status": "200",
+    "channel": "spot.order_place",
+    "event": "api",
+    "client_id": "::1-0x140001623c0",
+    "x_in_time": 1681985856667508,
+    "x_out_time": 1681985856667598,
+    "conn_id": "5e74253e9c793974",
+    "conn_trace_id": "1bde5aaa0acf2f5f48edfd4392e1fa68",
+    "trace_id": "e410abb5f74b4afc519e67920548838d",
+    "x_gate_ratelimit_requests_remain": 9,
+    "x_gate_ratelimit_limit": 10,
+    "x_gat_ratelimit_reset_timestamp": 1736408263764
+  },
+  "data": {
+    "result": {
+      "id": "1852454420",
+      "text": "t-abc123",
+      "amend_text": "-",
+      "create_time": "1710488334",
+      "update_time": "1710488334",
+      "create_time_ms": 1710488334073,
+      "update_time_ms": 1710488334074,
+      "status": "closed",
+      "currency_pair": "BTC_USDT",
+      "type": "limit",
+      "account": "unified",
+      "side": "buy",
+      "amount": "0.001",
+      "price": "65000",
+      "time_in_force": "gtc",
+      "iceberg": "0",
+      "left": "0",
+      "filled_amount": "0.001",
+      "fill_price": "63.4693",
+      "filled_total": "63.4693",
+      "avg_deal_price": "63469.3",
+      "fee": "0.00000022",
+      "fee_currency": "BTC",
+      "point_fee": "0",
+      "gt_fee": "0",
+      "gt_maker_fee": "0",
+      "gt_taker_fee": "0",
+      "gt_discount": false,
+      "rebated_fee": "0",
+      "rebated_fee_currency": "USDT",
+      "finish_as": "filled"
+    }
+  }
+}
