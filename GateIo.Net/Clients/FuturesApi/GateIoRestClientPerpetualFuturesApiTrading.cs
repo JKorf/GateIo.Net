@@ -125,7 +125,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddString("leverage", leverage);
             parameters.AddOptionalString("cross_leverage_limit", crossLeverageLimit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/leverage", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, null, ct).ConfigureAwait(false);
         }
 
         #endregion

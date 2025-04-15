@@ -48,6 +48,8 @@ namespace GateIo.Net.Clients.FuturesApi
 
             _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
+
+            RequestBodyEmptyContent = "";
         }
 
         #endregion

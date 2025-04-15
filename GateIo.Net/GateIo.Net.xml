@@ -7790,6 +7790,21 @@
             Cross available
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossMarginBalance">
+            <summary>
+            Cross margin balance
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossMaintenanceMarginRatio">
+            <summary>
+            Cross maintenance margin ratio
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.CrossInitialMarginRate">
+            <summary>
+            Cross initial margin rate
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.Totals">
             <summary>
             Total history
