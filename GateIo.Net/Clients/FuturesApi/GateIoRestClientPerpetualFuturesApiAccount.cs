@@ -20,7 +20,7 @@ namespace GateIo.Net.Clients.FuturesApi
             _baseClient = baseClient;
         }
 
-        #region Get Risk Limit Tiers
+        #region Get Account
 
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoFuturesAccount>> GetAccountAsync(
