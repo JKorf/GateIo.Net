@@ -46,7 +46,7 @@ namespace GateIo.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = new GateIoSourceGenerationContext();
+        internal static JsonSerializerContext _serializerContext = new GateIoSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a Gate.io recognized symbol 
@@ -77,6 +77,11 @@ namespace GateIo.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal GateIoRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -106,14 +111,23 @@ namespace GateIo.Net
                         .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKeyPerEndpoint, Array.Empty<IGuardFilter>(), 150, TimeSpan.FromSeconds(10), RateLimitWindowType.FixedAfterFirst)); // Uid limit of 150 request per 10 seconds
 
             Public.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            Public.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestSpotOrderPlacement.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestSpotOrderPlacement.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestSpotOrderCancelation.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestSpotOrderCancelation.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestFuturesOrderPlacement.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestFuturesOrderPlacement.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestFuturesOrderCancelation.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestFuturesOrderCancelation.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestSpotOther.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestSpotOther.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestFuturesOther.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestFuturesOther.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestPrivate.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestPrivate.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestOther.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestOther.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 

@@ -13,7 +13,7 @@ namespace GateIo.Net
 {
     internal class GateIoAuthenticationProvider : AuthenticationProvider
     {
-        private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange.SerializerContext));
+        private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         public GateIoAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
