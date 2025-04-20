@@ -13,7 +13,7 @@ namespace GateIo.Net.UnitTests
     [NonParallelizable]
     internal class GateIoSocketIntegrationTests : SocketIntegrationTest<GateIoSocketClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public GateIoSocketIntegrationTests()
         {
