@@ -166,6 +166,31 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 2.0.0-beta1 - 22 Apr 2025
+    * Updated CryptoExchange.Net to version 9.0.0-beta1, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for Native AOT compilation
+    * Added RateLimitUpdated event
+    * Added SharedSymbol response property to all Shared interfaces response models returning a symbol name
+    * Added GenerateClientOrderId method to PerpetualFutures and Spot Shared clients
+    * Added IBookTickerRestClient implementation to PerpetualFuturesApi and SpotApi Shared client
+    * Added IFuturesOrderClientIdClient implementation to PerpetualFuturesApi Shared client
+    * Added IFuturesTriggerOrderRestClient implementation to PerpetualFuturesApi Shared client
+    * Added IFuturesTpSlRestClient implementation to PerpetualFuturesApi Shared client
+    * Added ISpotOrderClientIdClient implementation to SpotApi Shared client
+    * Added ISpotTriggerOrderRestClient implementation to SpotApi Shared client
+    * Added MaxLongLeverage, MaxShortLeverage properties to SharedFuturesSymbol model
+    * Added OptionalExchangeParameters and Supported properties to EndpointOptions
+    * Refactored Shared clients quantity parameters and responses to use SharedQuantity
+    * Updated all IEnumerable response and model types to array response types
+    * Updated order rate limiter to consider rate limits per symbol
+    * Updated restClient.PerpetualFuturesApi.Account.GetAccountAsync response model
+    * Removed Newtonsoft.Json dependency
+    * Removed legacy ISpotClient implementation
+    * Removed legacy AddGateIo(restOptions, socketOptions) DI overload
+    * Fixed some typos
+    * Fixed restClient.SpotApi.Account.GetTransferHistoryAsync limit parameter serialization
+    * Fixed restClient.PerpetualFuturesApi.Trading.UpdateDualModePositionLeverageAsync endpoint
+
 * Version 1.22.0 - 24 Mar 2025
     * Added BaseAssetName and QuoteAssetName to GateIoSymbol model
     * Added MarketId property to GateIoTradeUpdate and GateIoUserTradeUpdate models
