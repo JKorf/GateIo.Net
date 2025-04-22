@@ -4141,20 +4141,23 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiAccount"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market data
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiExchangeData"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiTrading"/>
         </member>
         <member name="P:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiAccount">

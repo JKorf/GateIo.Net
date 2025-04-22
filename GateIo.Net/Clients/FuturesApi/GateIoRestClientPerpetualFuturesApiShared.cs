@@ -1170,7 +1170,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var symbol = result.Data.Single();
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFee(symbol.Value.MakerFee * 100, symbol.Value.TakerFee * 100));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFee(symbol.Value.MakerFee * 100, symbol.Value.TakerFee * 100));
         }
         #endregion
 
@@ -1364,7 +1364,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.Id.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
         }
 
         private TriggerType GetTriggerType(SetTpSlRequest request)
