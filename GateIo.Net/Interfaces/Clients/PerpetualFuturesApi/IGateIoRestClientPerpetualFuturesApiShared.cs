@@ -21,7 +21,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         IPositionModeRestClient,
         IPositionHistoryRestClient,
         IFeeRestClient,
-        IFuturesOrderClientIdClient,
+        IFuturesOrderClientIdRestClient,
         IFuturesTriggerOrderRestClient,
         IFuturesTpSlRestClient,
         IBookTickerRestClient

@@ -40,7 +40,10 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToTickerUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, update =>
             {
                 var data = update.Data.First();
-                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume, data.ChangePercentage24h)));
+                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume, data.ChangePercentage24h)
+                {
+                    QuoteVolume = data.QuoteVolume
+                }));
             }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
