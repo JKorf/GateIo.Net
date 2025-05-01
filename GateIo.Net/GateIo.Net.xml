@@ -3974,6 +3974,12 @@
             Get the GateIo environment by name
             </summary>
         </member>
+        <member name="P:GateIo.Net.GateIoEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:GateIo.Net.GateIoEnvironment.Live">
             <summary>
             Live environment
