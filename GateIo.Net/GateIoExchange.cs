@@ -6,6 +6,7 @@ using System;
 using CryptoExchange.Net.SharedApis;
 using System.Text.Json.Serialization;
 using GateIo.Net.Converters;
+using CryptoExchange.Net.Converters;
 
 namespace GateIo.Net
 {
@@ -46,7 +47,7 @@ namespace GateIo.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext _serializerContext = new GateIoSourceGenerationContext();
+        internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<GateIoSourceGenerationContext>();
 
         /// <summary>
         /// Format a base and quote asset to a Gate.io recognized symbol 
