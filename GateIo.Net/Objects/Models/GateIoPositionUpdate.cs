@@ -97,6 +97,6 @@ namespace GateIo.Net.Objects.Models
         /// Cross margin leverage
         /// </summary>
         [JsonPropertyName("cross_leverage_limit")]
-        public int? CrossLeverageLimit { get; set; }
+        public decimal? CrossLeverageLimit { get; set; }
     }
 }
