@@ -18,7 +18,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
         private readonly Action<DataEvent<T>> _handler;
         private readonly string _channel;
-        private readonly IEnumerable<string> _payload;
+        private readonly string[] _payload;
 
         /// <inheritdoc />
         public override Type? GetMessageType(IMessageAccessor message)
@@ -35,7 +35,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <param name="payload"></param>
         /// <param name="handler"></param>
         /// <param name="auth"></param>
-        public GateIoSubscription(ILogger logger, string channel, IEnumerable<string> identifiers, IEnumerable<string> payload, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public GateIoSubscription(ILogger logger, string channel, IEnumerable<string> identifiers, string[] payload, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
         {
             _handler = handler;
             _channel = channel;
@@ -45,11 +45,11 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
         /// <inheritdoc />
         public override Query? GetSubQuery(SocketConnection connection)
-            => new GateIoQuery<IEnumerable<string>, GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "subscribe", _payload);
+            => new GateIoQuery<string[], GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "subscribe", _payload);
 
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
-            => new GateIoQuery<IEnumerable<string>, GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
+            => new GateIoQuery<string[], GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
 
 
         /// <inheritdoc />
@@ -57,7 +57,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         {
             var data = (GateIoSocketMessage<T>)message.Data;
             _handler.Invoke(message.As(data.Result, data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(data.Timestamp));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

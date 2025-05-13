@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Deposit address info
     /// </summary>
+    [SerializationModel]
     public record GateIoDepositAddress
     {
         /// <summary>
@@ -33,12 +35,13 @@ namespace GateIo.Net.Objects.Models
         /// Multichain addresses
         /// </summary>
         [JsonPropertyName("multichain_addresses")]
-        public IEnumerable<GateIoMultiChainDepositAddress> MultichainAddress { get; set; } = Array.Empty<GateIoMultiChainDepositAddress>();
+        public GateIoMultiChainDepositAddress[] MultichainAddress { get; set; } = Array.Empty<GateIoMultiChainDepositAddress>();
     }
 
     /// <summary>
     /// Multichain address info
     /// </summary>
+    [SerializationModel]
     public record GateIoMultiChainDepositAddress
     {
         /// <summary>

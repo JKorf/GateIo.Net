@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace GateIo.Net.Enums
 {
     /// <summary>
     /// Spot account type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<SpotAccountType>))]
     public enum SpotAccountType
     {
         /// <summary>

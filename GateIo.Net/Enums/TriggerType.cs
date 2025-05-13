@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace GateIo.Net.Enums
 {
     /// <summary>
     /// Price trigger type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<TriggerType>))]
     public enum TriggerType
     {
         /// <summary>

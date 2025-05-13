@@ -56,6 +56,12 @@ namespace GateIo.Net
          };
 
         /// <summary>
+        /// Available environment names
+        /// </summary>
+        /// <returns></returns>
+        public static string[] All => [Live.Name];
+
+        /// <summary>
         /// Live environment
         /// </summary>
         public static GateIoEnvironment Live { get; }

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Enums;
@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.RateLimiting.Guards;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
+using System.Linq;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -27,12 +28,12 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoBalance>>> GetBalancesAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoBalance[]>> GetBalancesAsync(string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/accounts", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoBalance>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoBalance[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -40,7 +41,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Account Ledger
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLedgerEntry>>> GetLedgerAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoLedgerEntry[]>> GetLedgerAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
@@ -50,7 +51,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/account_book", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLedgerEntry>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLedgerEntry[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -101,7 +102,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Withdrawals
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoWithdrawal>>> GetWithdrawalsAsync(
+        public async Task<WebCallResult<GateIoWithdrawal[]>> GetWithdrawalsAsync(
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -116,7 +117,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/withdrawals", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoWithdrawal>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoWithdrawal[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -124,7 +125,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Deposits
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoDeposit>>> GetDepositsAsync(
+        public async Task<WebCallResult<GateIoDeposit[]>> GetDepositsAsync(
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -139,7 +140,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/deposits", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoDeposit>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoDeposit[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -208,14 +209,14 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Withdraw Status
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoWithdrawStatus>>> GetWithdrawStatusAsync(
+        public async Task<WebCallResult<GateIoWithdrawStatus[]>> GetWithdrawStatusAsync(
             string? asset = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/withdraw_status", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoWithdrawStatus>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoWithdrawStatus[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -223,7 +224,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Saved Deposit Address
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoSavedAddress>>> GetSavedAddressAsync(
+        public async Task<WebCallResult<GateIoSavedAddress[]>> GetSavedAddressAsync(
             string asset,
             string? network = null,
             int? limit = null,
@@ -236,7 +237,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("page", page);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/saved_address", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoSavedAddress>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoSavedAddress[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -277,11 +278,11 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Small Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoSmallBalance>>> GetSmallBalancesAsync(
+        public async Task<WebCallResult<GateIoSmallBalance[]>> GetSmallBalancesAsync(
             CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/small_balance", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoSmallBalance>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoSmallBalance[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -295,7 +296,7 @@ namespace GateIo.Net.Clients.SpotApi
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("currency", assets);
+            parameters.AddOptional("currency", assets?.ToArray());
             parameters.AddOptional("is_all", all);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/wallet/small_balance", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
@@ -306,7 +307,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Small Balances Conversions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoSmallBalanceConversion>>> GetSmallBalanceConversionsAsync(
+        public async Task<WebCallResult<GateIoSmallBalanceConversion[]>> GetSmallBalanceConversionsAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -317,7 +318,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/small_balance_history", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoSmallBalanceConversion>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoSmallBalanceConversion[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -325,17 +326,17 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoTransferEntry>>> GetTransferHistoryAsync(long? id = null, TransactionType? transactionType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoTransferEntry[]>> GetTransferHistoryAsync(long? id = null, TransactionType? transactionType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("id", id);
             parameters.AddOptionalMilliseconds("from", startTime);
             parameters.AddOptionalMilliseconds("to", endTime);
-            parameters.AddOptionalEnum("to", endTime);
+            parameters.AddOptional("limit", limit);
             parameters.AddOptional("transaction_type", transactionType);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/wallet/push", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoTransferEntry>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoTransferEntry[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -414,7 +415,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Unified Account Loans
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLoan>>> GetUnifiedAccountLoansAsync(
+        public async Task<WebCallResult<GateIoLoan[]>> GetUnifiedAccountLoansAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -427,7 +428,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("type", type);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/loans", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLoan>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLoan[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -435,7 +436,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Unified Account Loan History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLoanRecord>>> GetUnifiedAccountLoanHistoryAsync(
+        public async Task<WebCallResult<GateIoLoanRecord[]>> GetUnifiedAccountLoanHistoryAsync(
             string? asset = null,
             BorrowDirection? direction = null,
             int? page = null,
@@ -448,7 +449,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("type", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/loan_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLoanRecord>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLoanRecord[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -456,7 +457,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Unified Account Interest History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoInterestRecord>>> GetUnifiedAccountInterestHistoryAsync(
+        public async Task<WebCallResult<GateIoInterestRecord[]>> GetUnifiedAccountInterestHistoryAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -473,7 +474,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("from", startTime);
             parameters.AddOptionalMilliseconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoInterestRecord>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoInterestRecord[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -552,19 +553,19 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Unified Leverage
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLeverageSetting>>> GetUnifiedLeverageAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoLeverageSetting[]>> GetUnifiedLeverageAsync(string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/unified/leverage/user_currency_setting", GateIoExchange.RateLimiter.RestPrivate, 1, true);
             if (asset == null)
             {
-                return await _baseClient.SendAsync<IEnumerable<GateIoLeverageSetting>>(request, parameters, ct).ConfigureAwait(false);
+                return await _baseClient.SendAsync<GateIoLeverageSetting[]>(request, parameters, ct).ConfigureAwait(false);
             }
             else
             {
                 var result = await _baseClient.SendAsync<GateIoLeverageSetting>(request, parameters, ct).ConfigureAwait(false);
-                return result.As<IEnumerable<GateIoLeverageSetting>>([result.Data]);
+                return result.As<GateIoLeverageSetting[]>([result.Data]);
             }
         }
 
@@ -599,12 +600,12 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Margin Accounts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoMarginAccount>>> GetMarginAccountsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoMarginAccount[]>> GetMarginAccountsAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency_pair", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/accounts", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoMarginAccount>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoMarginAccount[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -612,7 +613,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Margin Balance History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoMarginBalanceChange>>> GetMarginBalanceHistoryAsync(
+        public async Task<WebCallResult<GateIoMarginBalanceChange[]>> GetMarginBalanceHistoryAsync(
             string? asset = null,
             string? symbol = null,
             string? type = null,
@@ -631,7 +632,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/account_book", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoMarginBalanceChange>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoMarginBalanceChange[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -639,14 +640,14 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Margin Funding Accounts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoMarginFundingAccount>>> GetMarginFundingAccountsAsync(
+        public async Task<WebCallResult<GateIoMarginFundingAccount[]>> GetMarginFundingAccountsAsync(
             string? asset = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/funding_accounts", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoMarginFundingAccount>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoMarginFundingAccount[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -705,7 +706,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Cross Margin Balance History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCrossMarginBalanceChange>>> GetCrossMarginBalanceHistoryAsync(string? asset = null,
+        public async Task<WebCallResult<GateIoCrossMarginBalanceChange[]>> GetCrossMarginBalanceHistoryAsync(string? asset = null,
             string? type = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -721,7 +722,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/cross/account_book", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginBalanceChange>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoCrossMarginBalanceChange[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -748,7 +749,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Cross Margin Loans
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCrossMarginBorrowLoan>>> GetCrossMarginLoansAsync(
+        public async Task<WebCallResult<GateIoCrossMarginBorrowLoan[]>> GetCrossMarginLoansAsync(
             string? asset = null,
             int? limit = null,
             int? offset = null,
@@ -761,7 +762,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("reverse", reverse);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/cross/loans", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginBorrowLoan>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoCrossMarginBorrowLoan[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -781,7 +782,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Cross Margin Repay
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCrossMarginBorrowLoan>>> CrossMarginRepayAsync(
+        public async Task<WebCallResult<GateIoCrossMarginBorrowLoan[]>> CrossMarginRepayAsync(
             string asset,
             decimal quantity,
             CancellationToken ct = default)
@@ -790,7 +791,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.Add("currency", asset);
             parameters.Add("amount", quantity);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/margin/cross/repayments", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginBorrowLoan>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoCrossMarginBorrowLoan[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -798,7 +799,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Cross Margin Repayments
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCrossMarginRepayment>>> GetCrossMarginRepaymentsAsync(
+        public async Task<WebCallResult<GateIoCrossMarginRepayment[]>> GetCrossMarginRepaymentsAsync(
             string? asset = null,
             string? loanId = null,
             int? limit = null,
@@ -813,7 +814,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("reverse", reverse);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/cross/repayments", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginRepayment>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoCrossMarginRepayment[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -821,7 +822,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Cross Margin Interest History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCrossMarginInterest>>> GetCrossMarginInterestHistoryAsync(
+        public async Task<WebCallResult<GateIoCrossMarginInterest[]>> GetCrossMarginInterestHistoryAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -836,7 +837,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/cross/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginInterest>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoCrossMarginInterest[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -919,7 +920,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Margin Loans
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLoan>>> GetMarginLoansAsync(
+        public async Task<WebCallResult<GateIoLoan[]>> GetMarginLoansAsync(
             string? asset = null,
             string? symbol = null,
             int? page = null,
@@ -932,7 +933,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/uni/loans", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLoan>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLoan[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -940,7 +941,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Margin Loan History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoMarginLoanRecord>>> GetMarginLoanHistoryAsync(
+        public async Task<WebCallResult<GateIoMarginLoanRecord[]>> GetMarginLoanHistoryAsync(
             string? asset = null,
             string? symbol = null,
             BorrowDirection? direction = null,
@@ -955,7 +956,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("type", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/uni/loan_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoMarginLoanRecord>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoMarginLoanRecord[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -963,7 +964,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Margin Interest History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoInterestRecord>>> GetMarginInterestHistoryAsync(
+        public async Task<WebCallResult<GateIoInterestRecord[]>> GetMarginInterestHistoryAsync(
             string? asset = null,
             string? symbol = null,
             int? page = null,
@@ -980,7 +981,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/uni/interest_records", GateIoExchange.RateLimiter.RestPrivate, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoInterestRecord>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoInterestRecord[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -1030,11 +1031,11 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Rate Limits
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoUserRateLimit>>> GetRateLimitsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoUserRateLimit[]>> GetRateLimitsAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/account/rate_limit", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoUserRateLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoUserRateLimit[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1043,7 +1044,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Insurance Fund History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoInsuranceFund>>> GetInsuranceFundHistoryAsync(
+        public async Task<WebCallResult<GateIoInsuranceFund[]>> GetInsuranceFundHistoryAsync(
             BusinessType businessType,
             string asset,
             DateTime startTime,
@@ -1061,7 +1062,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", pageSize);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/insurance_history", GateIoExchange.RateLimiter.Public, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoInsuranceFund>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoInsuranceFund[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Objects;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ using GateIo.Net.Objects.Models;
 using System;
 using System.Globalization;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Linq;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -59,15 +60,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("text", text);
             parameters.AddOptionalEnum("action_mode", actionMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
-            
-            if (result)
-                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = result.Data.Id.ToString(),
-                    SourceObject = result.Data
-                });
-
+            var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }, rateLimitKeySuffix: symbol).ConfigureAwait(false);
             return result;
         }
 
@@ -76,24 +69,14 @@ namespace GateIo.Net.Clients.SpotApi
         #region Place Multiple Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoOrderOperation>>> PlaceMultipleOrderAsync(
+        public async Task<WebCallResult<GateIoOrderOperation[]>> PlaceMultipleOrderAsync(
             IEnumerable<GateIoBatchPlaceRequest> orders,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.SetBody(orders);
+            parameters.SetBody(orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/batch_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoOrderOperation>>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
-            foreach(var order in result.Data)
-            {
-                if (order.Succeeded)
-                    _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order.Id.ToString(),
-                        SourceObject = result.Data
-                    });
-            }
-
+            var result = await _baseClient.SendAsync<GateIoOrderOperation[]>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
             return result;
         }
 
@@ -102,7 +85,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoSymbolOrders>>> GetOpenOrdersAsync(
+        public async Task<WebCallResult<GateIoSymbolOrders[]>> GetOpenOrdersAsync(
             int? page = null,
             int? limit = null,
             SpotAccountType? accountType = null,
@@ -113,7 +96,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/open_orders", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoSymbolOrders>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoSymbolOrders[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -121,7 +104,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoOrder>>> GetOrdersAsync(
+        public async Task<WebCallResult<GateIoOrder[]>> GetOrdersAsync(
             bool open,
             string? symbol = null,
             int? page = null,
@@ -133,7 +116,7 @@ namespace GateIo.Net.Clients.SpotApi
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddEnum("status", open ? "open" : "finished");
+            parameters.Add("status", open ? "open" : "finished");
             parameters.AddOptional("currency_pair", symbol);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
@@ -142,7 +125,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -169,7 +152,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Cancel All Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoOrderOperation>>> CancelAllOrdersAsync(
+        public async Task<WebCallResult<GateIoOrderOperation[]>> CancelAllOrdersAsync(
             string symbol,
             OrderSide? side = null,
             SpotAccountType? accountType = null,
@@ -180,16 +163,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalEnum("side", side);
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoOrderOperation>>(request, parameters, ct).ConfigureAwait(false);
-            foreach (var order in result.Data)
-            {
-                if (order.Succeeded)
-                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order.Id.ToString(),
-                        SourceObject = result.Data
-                    });
-            }
+            var result = await _baseClient.SendAsync<GateIoOrderOperation[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -198,23 +172,14 @@ namespace GateIo.Net.Clients.SpotApi
         #region Cancel Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCancelResult>>> CancelOrdersAsync(
+        public async Task<WebCallResult<GateIoCancelResult[]>> CancelOrdersAsync(
             IEnumerable<GateIoBatchCancelRequest> orders,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.SetBody(orders);
+            parameters.SetBody(orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/cancel_batch_orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<GateIoCancelResult>>(request, parameters, ct).ConfigureAwait(false);
-            foreach (var order in result.Data)
-            {
-                if (order.Succeeded)
-                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order.OrderId,
-                        SourceObject = result.Data
-                    });
-            }
+            var result = await _baseClient.SendAsync<GateIoCancelResult[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -244,7 +209,7 @@ namespace GateIo.Net.Clients.SpotApi
             bodyParameters.AddOptional("amend_text", amendText);
             bodyParameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(new HttpMethod("Patch"), "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct, rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
 
         #endregion
@@ -252,14 +217,14 @@ namespace GateIo.Net.Clients.SpotApi
         #region Edit Multiple Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoOrderOperation>>> EditMultipleOrderAsync(
+        public async Task<WebCallResult<GateIoOrderOperation[]>> EditMultipleOrderAsync(
             IEnumerable<GateIoBatchEditRequest> orders,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.SetBody(orders);
+            parameters.SetBody(orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/amend_batch_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoOrderOperation>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoOrderOperation[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -281,12 +246,6 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = result.Data.Id.ToString(),
-                    SourceObject = result.Data
-                });
             return result;
         }
 
@@ -295,7 +254,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoUserTrade>>> GetUserTradesAsync(
+        public async Task<WebCallResult<GateIoUserTrade[]>> GetUserTradesAsync(
             string? symbol = null,
             long? orderId = null,
             int? limit = null,
@@ -314,7 +273,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/my_trades", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -371,7 +330,7 @@ namespace GateIo.Net.Clients.SpotApi
             order.AddOptional("text", text);
             parameters.Add("put", order);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/price_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            return await _baseClient.SendAsync<GateIoId>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoId>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }, rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
 
         #endregion
@@ -379,7 +338,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoTriggerOrder>>> GetTriggerOrdersAsync(
+        public async Task<WebCallResult<GateIoTriggerOrder[]>> GetTriggerOrdersAsync(
             bool open,
             string? symbol = null,
             TriggerAccountType? accountType = null,
@@ -394,7 +353,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/price_orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoTriggerOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -402,13 +361,13 @@ namespace GateIo.Net.Clients.SpotApi
         #region Cancel All Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoTriggerOrder>>> CancelAllTriggerOrdersAsync(string? symbol = null, TriggerAccountType? accountType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoTriggerOrder[]>> CancelAllTriggerOrdersAsync(string? symbol = null, TriggerAccountType? accountType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("market", symbol);
             parameters.AddOptionalEnum("account", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v4/spot/price_orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<GateIoTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoTriggerOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

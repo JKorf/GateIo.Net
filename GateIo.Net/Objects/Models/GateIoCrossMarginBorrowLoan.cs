@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
@@ -8,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Cross margin borrow loan
     /// </summary>
+    [SerializationModel]
     public record GateIoCrossMarginBorrowLoan
     {
         /// <summary>
@@ -43,7 +44,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// Status
         /// </summary>
-        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public BorrowStatus Status { get; set; }
         /// <summary>
         /// Repaid

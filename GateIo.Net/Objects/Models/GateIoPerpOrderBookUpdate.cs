@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Order book update
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpOrderBookUpdate
     {
         /// <summary>
@@ -38,11 +40,11 @@ namespace GateIo.Net.Objects.Models
         /// Updated bids
         /// </summary>
         [JsonPropertyName("b")]
-        public IEnumerable<GateIoPerpOrderBookEntry> Bids { get; set; } = Array.Empty<GateIoPerpOrderBookEntry>();
+        public GateIoPerpOrderBookEntry[] Bids { get; set; } = Array.Empty<GateIoPerpOrderBookEntry>();
         /// <summary>
         /// Updated asks
         /// </summary>
         [JsonPropertyName("a")]
-        public IEnumerable<GateIoPerpOrderBookEntry> Asks { get; set; } = Array.Empty<GateIoPerpOrderBookEntry>();
+        public GateIoPerpOrderBookEntry[] Asks { get; set; } = Array.Empty<GateIoPerpOrderBookEntry>();
     }
 }

@@ -1,0 +1,56 @@
+> {"time":1744621445,"id":3,"channel":"spot.login","event":"api","payload":{"api_key":"123","signature":"|3|","timestamp":"|2|","req_id":"|1|"}}
+< { "request_id": "|1|", "header": { "status": 200 }, "data": { "result": { "api_key": "ea83fad2604399da16bf97e6eea772a6", "uid": "110284739" } } }
+> { "time": "|4|", "channel": "spot.order_cancel_cp", "event": "api", "payload": { "req_id": "|5|", "req_param": { } } }
+=
+{
+  "request_id": "|5|",
+  "header": {
+    "response_time": "1681986207412",
+    "status": "200",
+    "channel": "spot.order_cancel_cp",
+    "event": "api",
+    "client_id": "::1-0x140001623c0",
+    "x_in_time": 1681985856667508,
+    "x_out_time": 1681985856667598,
+    "conn_id": "5e74253e9c793974",
+    "conn_trace_id": "1bde5aaa0acf2f5f48edfd4392e1fa68",
+    "trace_id": "e410abb5f74b4afc519e67920548838d"
+  },
+  "data": {
+    "result": [
+      {
+        "id": "1700664337",
+        "text": "t-my-custom-id",
+        "amend_text": "-",
+        "create_time": "1681986206",
+        "update_time": "1681986207",
+        "create_time_ms": 1681986206384,
+        "update_time_ms": 1681986207444,
+        "status": "cancelled",
+        "currency_pair": "GT_USDT",
+        "type": "limit",
+        "account": "spot",
+        "side": "buy",
+        "amount": "1",
+        "price": "1",
+        "time_in_force": "gtc",
+        "iceberg": "0",
+        "left": "1",
+        "fill_price": "0",
+        "filled_total": "0",
+        "fee": "0",
+        "fee_currency": "GT",
+        "point_fee": "0",
+        "gt_fee": "0",
+        "gt_maker_fee": "0.0015",
+        "gt_taker_fee": "0.0015",
+        "gt_discount": true,
+        "rebated_fee": "0",
+        "rebated_fee_currency": "USDT",
+        "stp_id": 1,
+        "stp_act": "cn",
+        "finish_as": "cancelled"
+      }
+    ]
+  }
+}

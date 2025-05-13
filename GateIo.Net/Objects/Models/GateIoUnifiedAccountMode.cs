@@ -1,4 +1,5 @@
-﻿using GateIo.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Unified account mode
     /// </summary>
+    [SerializationModel]
     public record GateIoUnifiedAccountMode
     {
         /// <summary>
@@ -23,6 +25,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Unified account settings
     /// </summary>
+    [SerializationModel]
     public record GateIoUnifiedAccountSettings
     {
         /// <summary>

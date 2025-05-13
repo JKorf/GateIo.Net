@@ -2,8 +2,6 @@
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.JsonNet;
 using System;
 using System.Collections;
 using GateIo.Net.Objects.Internal;
@@ -11,7 +9,7 @@ using CryptoExchange.Net.Interfaces;
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoLoginQuery : Query<GateIoSocketRequestResponse<GateIoSocketLoginResponse>, GateIoSocketRequestResponse<GateIoSocketLoginResponse>>
+    internal class GateIoLoginQuery : Query<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 

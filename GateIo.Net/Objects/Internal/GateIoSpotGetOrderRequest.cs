@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace GateIo.Net.Objects.Internal
         public string OrderId { get; set; } = string.Empty;
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
-        [JsonPropertyName("account_Type"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("account_Type"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SpotAccountType? AccountType { get; set; }
     }
 }

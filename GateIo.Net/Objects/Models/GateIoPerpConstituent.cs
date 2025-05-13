@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Index constituents
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpConstituent
     {
         /// <summary>
@@ -18,12 +20,13 @@ namespace GateIo.Net.Objects.Models
         /// Constituents
         /// </summary>
         [JsonPropertyName("constituents")]
-        public IEnumerable<GateIoPerpConstituentReference> Constituents { get; set; } = Array.Empty<GateIoPerpConstituentReference>();
+        public GateIoPerpConstituentReference[] Constituents { get; set; } = Array.Empty<GateIoPerpConstituentReference>();
     }
     
     /// <summary>
     /// Reference
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpConstituentReference
     {
         /// <summary>
@@ -35,6 +38,6 @@ namespace GateIo.Net.Objects.Models
         /// Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<string> Symbols { get; set; } = Array.Empty<string>();
+        public string[] Symbols { get; set; } = Array.Empty<string>();
     }
 }

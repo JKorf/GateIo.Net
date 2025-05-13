@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
 {
     /// <summary>
     /// Futures account
     /// </summary>
+    [SerializationModel]
     public record GateIoFuturesAccount
     {
         /// <summary>
@@ -93,6 +95,21 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("cross_available")]
         public decimal? CrossAvailable { get; set; }
         /// <summary>
+        /// Cross margin balance
+        /// </summary>
+        [JsonPropertyName("cross_margin_balance")]
+        public decimal? CrossMarginBalance { get; set; }
+        /// <summary>
+        /// Cross maintenance margin ratio
+        /// </summary>
+        [JsonPropertyName("cross_mmr")]
+        public decimal? CrossMaintenanceMarginRatio { get; set; }
+        /// <summary>
+        /// Cross initial margin rate
+        /// </summary>
+        [JsonPropertyName("cross_imr")]
+        public decimal? CrossInitialMarginRate { get; set; }
+        /// <summary>
         /// Total history
         /// </summary>
         [JsonPropertyName("history")]
@@ -102,6 +119,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Account history
     /// </summary>
+    [SerializationModel]
     public record GateIoFuturesAccountHistory
     {
         /// <summary>

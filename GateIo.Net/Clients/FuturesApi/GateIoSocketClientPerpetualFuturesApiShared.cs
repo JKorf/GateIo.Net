@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
@@ -13,6 +14,8 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesApi: IGateIoSocketClientPerpetualFuturesApiShared
     {
+        private const string _topicId = "GateIoFutures";
+
         public string Exchange => "GateIo";
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.PerpetualInverse };
 
@@ -37,7 +40,10 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToTickerUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, update =>
             {
                 var data = update.Data.First();
-                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume, data.ChangePercentage24h)));
+                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume, data.ChangePercentage24h)
+                {
+                    QuoteVolume = data.QuoteVolume
+                }));
             }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -53,14 +59,14 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
             }
         };
-        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
             var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTradeUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, update => handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, update.Data.Select(x => new SharedTrade(Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray())), ct).ConfigureAwait(false);
+            var result = await SubscribeToTradeUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, update.Data.Select(x => new SharedTrade(Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray())), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -82,7 +88,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Contract), update.Data.Contract,update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -157,7 +163,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
-        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = ((IBalanceSocketClient)this).SubscribeBalanceOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -166,7 +172,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToBalanceUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Select(x => new SharedBalance(x.Asset, x.Balance, x.Balance)).ToArray())),
+                update => handler(update.AsExchangeEvent<SharedBalance[]>(Exchange, update.Data.Select(x => new SharedBalance(x.Asset, x.Balance, x.Balance)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -183,7 +189,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
-        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<IEnumerable<SharedFuturesOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderSocketClient)this).SubscribeFuturesOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -191,8 +197,9 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToOrderUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedFuturesOrder>>(Exchange, update.Data.Select(x =>
+                update => handler(update.AsExchangeEvent<SharedFuturesOrder[]>(Exchange, update.Data.Select(x =>
                     new SharedFuturesOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract),
                         x.Contract,
                         x.Id.ToString(),
                         ParseOrderType(x),
@@ -201,10 +208,10 @@ namespace GateIo.Net.Clients.FuturesApi
                         x.CreateTime)
                     {
                         ClientOrderId = x.Text,
-                        Quantity = Math.Abs(x.Quantity),
-                        QuantityFilled = Math.Abs(x.Quantity) - x.QuantityRemaining,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity) - x.QuantityRemaining),
                         UpdateTime = x.FinishTime ?? x.CreateTime,
-                        OrderPrice = x.Price,
+                        OrderPrice = x.Price == 0 ? null : x.Price,
                         AveragePrice = x.FillPrice == 0 ? null : x.FillPrice,
                         ReduceOnly = x.IsReduceOnly,
                         TimeInForce = x.TimeInForce == Enums.TimeInForce.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : x.TimeInForce == Enums.TimeInForce.FillOrKill ? SharedTimeInForce.FillOrKill : x.TimeInForce == Enums.TimeInForce.GoodTillCancel ? SharedTimeInForce.GoodTillCanceled : null
@@ -233,7 +240,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
-        async Task<ExchangeResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<ExchangeEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<ExchangeEvent<SharedUserTrade[]>> handler, CancellationToken ct)
         {
             var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -242,8 +249,9 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToUserTradeUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, update.Data.Select(x =>
+                update => handler(update.AsExchangeEvent<SharedUserTrade[]>(Exchange, update.Data.Select(x =>
                     new SharedUserTrade(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract),
                         x.Contract,
                         x.OrderId.ToString(),
                         x.Id.ToString(),
@@ -271,7 +279,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
-        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<IEnumerable<SharedPosition>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
             var validationError = ((IPositionSocketClient)this).SubscribePositionOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -280,12 +288,12 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToPositionUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedPosition>>(Exchange, update.Data.Select(x => new SharedPosition(x.Contract, Math.Abs(x.Size), update.DataTime ?? update.ReceiveTime)
+                update => handler(update.AsExchangeEvent<SharedPosition[]>(Exchange, update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract), x.Contract, Math.Abs(x.Size), update.DataTime ?? update.ReceiveTime)
                 {
-                    AverageOpenPrice = x.EntryPrice,
+                    AverageOpenPrice = x.EntryPrice == 0 ? null : x.EntryPrice,
                     PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    LiquidationPrice = x.LiquidationPrice,
-                    Leverage = x.Leverage
+                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                    Leverage = x.Leverage == 0 ? null : x.Leverage
                 }).ToArray())),
                 ct: ct).ConfigureAwait(false);
 

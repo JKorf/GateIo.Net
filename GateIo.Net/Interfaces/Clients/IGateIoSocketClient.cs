@@ -14,16 +14,18 @@ namespace GateIo.Net.Interfaces.Clients
         /// <summary>
         /// Spot streams
         /// </summary>
+        /// <see cref="IGateIoSocketClientSpotApi"/>
         IGateIoSocketClientSpotApi SpotApi { get; }
         /// <summary>
         /// Perpetual Futures streams
         /// </summary>
+        /// <see cref="IGateIoSocketClientPerpetualFuturesApi"/>
         IGateIoSocketClientPerpetualFuturesApi PerpetualFuturesApi { get; }
 
         /// <summary>
         /// Update specific options
         /// </summary>
-        /// <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        /// <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         void SetOptions(UpdateOptions options);
 
         /// <summary>

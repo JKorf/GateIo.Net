@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Risk units
     /// </summary>
+    [SerializationModel]
     public record GateIoRiskUnits
     {
         /// <summary>
@@ -23,12 +25,13 @@ namespace GateIo.Net.Objects.Models
         /// Risk units
         /// </summary>
         [JsonPropertyName("risk_units")]
-        public IEnumerable<GateIoRiskUnitsDetails> RiskUnits { get; set; } = Array.Empty<GateIoRiskUnitsDetails>();
+        public GateIoRiskUnitsDetails[] RiskUnits { get; set; } = Array.Empty<GateIoRiskUnitsDetails>();
     }
 
     /// <summary>
     /// Risk unit details
     /// </summary>
+    [SerializationModel]
     public record GateIoRiskUnitsDetails
     {
         /// <summary>
