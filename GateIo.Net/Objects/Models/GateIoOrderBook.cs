@@ -48,7 +48,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<GateIoOrderBookEntry, GateIoSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<GateIoOrderBookEntry>))]
     [SerializationModel]
     public record GateIoOrderBookEntry : ISymbolOrderBookEntry
     {

@@ -9,7 +9,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Kline/candlestick info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<GateIoKline, GateIoSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<GateIoKline>))]
     [SerializationModel]
     public record GateIoKline
     {
