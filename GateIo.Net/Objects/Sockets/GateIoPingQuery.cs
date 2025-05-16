@@ -3,14 +3,14 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.JsonNet;
 using System;
 using System.Collections;
 using GateIo.Net.Objects.Internal;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoPingQuery : Query<GateIoSocketResponse<object>>
+    internal class GateIoPingQuery : Query<GateIoSocketResponse<string>>
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
@@ -20,7 +20,7 @@ namespace GateIo.Net.Objects.Sockets
             ListenerIdentifiers = new HashSet<string> { ((GateIoSocketRequest<object>)Request).Id.ToString() };
         }
 
-        public override CallResult<GateIoSocketResponse<object>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<object>> message)
+        public override CallResult<GateIoSocketResponse<string>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<string>> message)
         {
             return message.ToCallResult(message.Data);
         }

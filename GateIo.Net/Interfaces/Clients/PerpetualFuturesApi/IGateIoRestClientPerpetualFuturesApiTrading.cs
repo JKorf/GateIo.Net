@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using GateIo.Net.Objects.Models;
 using System.Collections.Generic;
 using System.Threading;
@@ -23,7 +23,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">Max amount of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPosition>>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPosition[]>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get single position
@@ -77,7 +77,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPosition>>> GetDualModePositionsAsync(string settlementAsset, string contract, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPosition[]>> GetDualModePositionsAsync(string settlementAsset, string contract, CancellationToken ct = default);
 
         /// <summary>
         /// Update position margin for dual position mode
@@ -89,7 +89,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="mode">Side</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPosition>>> UpdateDualModePositionMarginAsync(string settlementAsset, string contract, decimal change, PositionMode mode, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionMarginAsync(string settlementAsset, string contract, decimal change, PositionMode mode, CancellationToken ct = default);
 
         /// <summary>
         /// Update position leverage in dual position mode
@@ -101,7 +101,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="crossLeverageLimit">Cross margin leverage</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPosition>>> UpdateDualModePositionLeverageAsync(string settlementAsset, string contract, decimal leverage, decimal? crossLeverageLimit = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionLeverageAsync(string settlementAsset, string contract, decimal leverage, decimal? crossLeverageLimit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Update position risk limit in dual position mode
@@ -112,7 +112,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="riskLimit">Risk limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPosition>>> UpdateDualModePositionRiskLimitAsync(string settlementAsset, string contract, int riskLimit, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionRiskLimitAsync(string settlementAsset, string contract, int riskLimit, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order
@@ -155,7 +155,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="orders">Order info</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> PlaceMultipleOrderAsync(
+        Task<WebCallResult<GateIoPerpOrder[]>> PlaceMultipleOrderAsync(
             string settlementAsset,
             IEnumerable<GateIoPerpBatchPlaceRequest> orders,
             CancellationToken ct = default);
@@ -172,7 +172,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="lastId">Filter by last order id of previous result</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersAsync(
+        Task<WebCallResult<GateIoPerpOrder[]>> GetOrdersAsync(
             string settlementAsset,
             OrderStatus status,
             string? contract = null,
@@ -200,7 +200,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="orderIds">Ids of orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoFuturesCancelResult>>> CancelOrdersAsync(string settlementAsset, IEnumerable<long> orderIds, CancellationToken ct = default);
+        Task<WebCallResult<GateIoFuturesCancelResult[]>> CancelOrdersAsync(string settlementAsset, IEnumerable<long> orderIds, CancellationToken ct = default);
 
         /// <summary>
         /// Get orders with timestamp filtering
@@ -215,7 +215,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> GetOrdersByTimestampAsync(
+        Task<WebCallResult<GateIoPerpOrder[]>> GetOrdersByTimestampAsync(
             string settlementAsset,
             string? contract = null,
             OrderStatus? status = null,
@@ -234,7 +234,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="side">Filter by order side</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> CancelAllOrdersAsync(string settlementAsset, string contract, OrderSide? side = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPerpOrder[]>> CancelAllOrdersAsync(string settlementAsset, string contract, OrderSide? side = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order by id
@@ -294,7 +294,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="settlementAsset">Settlement asset</param>
         /// <param name="requests">Edit requests</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<GateIoPerpOrder>>> EditMultipleOrdersAsync(string settlementAsset, IEnumerable<GateIoPerpBatchEditRequest> requests, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPerpOrder[]>> EditMultipleOrdersAsync(string settlementAsset, IEnumerable<GateIoPerpBatchEditRequest> requests, CancellationToken ct = default);
 
         /// <summary>
         /// Get user trades
@@ -308,7 +308,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="lastId">Last id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpUserTrade>>> GetUserTradesAsync(
+        Task<WebCallResult<GateIoPerpUserTrade[]>> GetUserTradesAsync(
             string settlementAsset,
             string? contract = null,
             long? orderId = null,
@@ -331,7 +331,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="role">Filter by role</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpUserTrade>>> GetUserTradesByTimestampAsync(
+        Task<WebCallResult<GateIoPerpUserTrade[]>> GetUserTradesByTimestampAsync(
             string settlementAsset,
             string? contract = null,
             long? orderId = null,
@@ -356,7 +356,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="side">Filter by side</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpPositionClose>>> GetPositionCloseHistoryAsync(
+        Task<WebCallResult<GateIoPerpPositionClose[]>> GetPositionCloseHistoryAsync(
             string settlementAsset,
             string? contract = null,
             DateTime? startTime = null,
@@ -376,7 +376,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpLiquidation>>> GetLiquidationHistoryAsync(
+        Task<WebCallResult<GateIoPerpLiquidation[]>> GetLiquidationHistoryAsync(
             string settlementAsset,
             string? contract = null,
             int? limit = null,
@@ -391,7 +391,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpAutoDeleverage>>> GetAutoDeleveragingHistoryAsync(
+        Task<WebCallResult<GateIoPerpAutoDeleverage[]>> GetAutoDeleveragingHistoryAsync(
             string settlementAsset,
             string? contract = null,
             int? limit = null,
@@ -447,7 +447,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="offset">Offset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpTriggerOrder>>> GetTriggerOrdersAsync(
+        Task<WebCallResult<GateIoPerpTriggerOrder[]>> GetTriggerOrdersAsync(
             string settlementAsset,
             bool open,
             string? contract = null,
@@ -463,7 +463,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoPerpTriggerOrder>>> CancelTriggerOrdersAsync(
+        Task<WebCallResult<GateIoPerpTriggerOrder[]>> CancelTriggerOrdersAsync(
             string settlementAsset,
             string contract,
             CancellationToken ct = default);

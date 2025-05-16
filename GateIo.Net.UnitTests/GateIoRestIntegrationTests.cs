@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using GateIo.Net.SymbolOrderBooks;
 
 namespace GateIo.Net.UnitTests
 {
@@ -163,5 +164,13 @@ namespace GateIo.Net.UnitTests
             await RunAndCheckResult(client => client.PerpetualFuturesApi.Trading.GetAutoDeleveragingHistoryAsync("usdt", default, default, default), true);
             await RunAndCheckResult(client => client.PerpetualFuturesApi.Trading.GetTriggerOrdersAsync("usdt", false, default, default, default, default), true);
         }
+
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            await TestOrderBook(new GateIoSpotSymbolOrderBook("ETH_USDT"));
+            await TestOrderBook(new GateIoPerpetualFuturesSymbolOrderBook("usdt", "ETH_USDT"));
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace GateIo.Net.Objects.Internal
         public decimal? Quantity { get; set; }
         [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? Price { get; set; }
-        [JsonPropertyName("account"), JsonConverter(typeof(EnumConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("account"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SpotAccountType? AccountType { get; set; }
     }
 }

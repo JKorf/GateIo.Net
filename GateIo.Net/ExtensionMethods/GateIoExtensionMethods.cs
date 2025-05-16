@@ -14,7 +14,7 @@ namespace GateIo.Net.ExtensionMethods
         /// </summary>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static int? GateIoWeightLeft(this IEnumerable<KeyValuePair<string, IEnumerable<string>>>? headers)
+        public static int? GateIoWeightLeft(this KeyValuePair<string, string[]>[]? headers)
         {
             if (headers == null)
                 return null;
@@ -30,7 +30,7 @@ namespace GateIo.Net.ExtensionMethods
         /// </summary>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static int? GateIoWeightLimit(this IEnumerable<KeyValuePair<string, IEnumerable<string>>>? headers)
+        public static int? GateIoWeightLimit(this KeyValuePair<string, string[]>[]? headers)
         {
             if (headers == null)
                 return null;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,10 +41,10 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Contracts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpFuturesContract>>> GetContractsAsync(string settlementAsset, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPerpFuturesContract[]>> GetContractsAsync(string settlementAsset, CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/contracts", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpFuturesContract>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpFuturesContract[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -79,7 +79,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpTrade>>> GetTradesAsync(
+        public async Task<WebCallResult<GateIoPerpTrade[]>> GetTradesAsync(
             string settlementAsset, 
             string contract, 
             int? limit = null, 
@@ -97,7 +97,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/trades", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -105,7 +105,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpKline>>> GetKlinesAsync(
+        public async Task<WebCallResult<GateIoPerpKline[]>> GetKlinesAsync(
             string settlementAsset,
             string contract,
             KlineInterval interval,
@@ -121,7 +121,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/candlesticks", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpKline>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpKline[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -129,7 +129,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Index Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpIndexKline>>> GetIndexKlinesAsync(
+        public async Task<WebCallResult<GateIoPerpIndexKline[]>> GetIndexKlinesAsync(
             string settlementAsset,
             string contract,
             KlineInterval interval,
@@ -145,7 +145,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/premium_index", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpIndexKline>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpIndexKline[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -153,7 +153,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Tickers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpTicker>>> GetTickersAsync(
+        public async Task<WebCallResult<GateIoPerpTicker[]>> GetTickersAsync(
             string settlementAsset,
             string? contract = null,
             CancellationToken ct = default)
@@ -161,7 +161,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract", contract);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/tickers", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpTicker>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpTicker[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -169,7 +169,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Funding Rate History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpFundingRate>>> GetFundingRateHistoryAsync(
+        public async Task<WebCallResult<GateIoPerpFundingRate[]>> GetFundingRateHistoryAsync(
             string settlementAsset,
             string contract,
             DateTime? startTime = null,
@@ -183,7 +183,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/funding_rate", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpFundingRate>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -191,7 +191,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Insurance Balance History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpInsurance>>> GetInsuranceBalanceHistoryAsync(
+        public async Task<WebCallResult<GateIoPerpInsurance[]>> GetInsuranceBalanceHistoryAsync(
             string settlementAsset,
             int? limit = null,
             CancellationToken ct = default)
@@ -199,7 +199,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/insurance", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpInsurance>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpInsurance[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -207,7 +207,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Stats
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoPerpContractStats>>> GetContractStatsAsync(
+        public async Task<WebCallResult<GateIoPerpContractStats[]>> GetContractStatsAsync(
             string settlementAsset,
             string contract,
             int? limit = null,
@@ -219,7 +219,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptionalSeconds("from", startTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/contract_stats", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoPerpContractStats>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPerpContractStats[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -242,7 +242,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Liquidations
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLiquidation>>> GetLiquidationsAsync(
+        public async Task<WebCallResult<GateIoLiquidation[]>> GetLiquidationsAsync(
             string settlementAsset,
             string? contract = null,
             DateTime? startTime = null,
@@ -256,7 +256,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/liq_orders", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLiquidation>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLiquidation[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -264,7 +264,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Risk Limit Tiers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoRiskLimitTier>>> GetRiskLimitTiersAsync(
+        public async Task<WebCallResult<GateIoRiskLimitTier[]>> GetRiskLimitTiersAsync(
             string settlementAsset,
             string contract,
             int? offset = null,
@@ -276,7 +276,7 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/risk_limit_tiers", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoRiskLimitTier>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoRiskLimitTier[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

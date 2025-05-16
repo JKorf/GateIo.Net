@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Cross margin interest
     /// </summary>
+    [SerializationModel]
     public record GateIoCrossMarginInterest
     {
         /// <summary>

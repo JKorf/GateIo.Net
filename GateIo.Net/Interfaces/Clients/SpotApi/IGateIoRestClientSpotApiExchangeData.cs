@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,7 +27,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoAsset>>> GetAssetsAsync(CancellationToken ct = default);
+        Task<WebCallResult<GateIoAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific asset
@@ -53,7 +53,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoSymbol>>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<WebCallResult<GateIoSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get tickers for all or a single symbol
@@ -63,7 +63,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="timezone">Timezone, utc0, utc8 or all</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoTicker>>> GetTickersAsync(string? symbol = null, string? timezone = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoTicker[]>> GetTickersAsync(string? symbol = null, string? timezone = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the orderbook for a symbol
@@ -89,7 +89,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="page">Page number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoTrade>>> GetTradesAsync(string symbol, int? limit = null, string? lastId = null, bool? reverse = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoTrade[]>> GetTradesAsync(string symbol, int? limit = null, string? lastId = null, bool? reverse = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlesticks for a symbol
@@ -102,7 +102,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">Number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of networks for an asset
@@ -111,7 +111,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoNetwork>>> GetNetworksAsync(string asset, CancellationToken ct = default);
+        Task<WebCallResult<GateIoNetwork[]>> GetNetworksAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get discount tiers
@@ -119,7 +119,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoDiscountTier>>> GetDiscountTiersAsync(CancellationToken ct = default);
+        Task<WebCallResult<GateIoDiscountTier[]>> GetDiscountTiersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get loan margin tiers
@@ -127,7 +127,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoLoanMarginTier>>> GetLoanMarginTiersAsync(CancellationToken ct = default);
+        Task<WebCallResult<GateIoLoanMarginTier[]>> GetLoanMarginTiersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// DEPRECATED
@@ -144,7 +144,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoCrossMarginAsset>>> GetCrossMarginAssetsAsync(CancellationToken ct = default);
+        Task<WebCallResult<GateIoCrossMarginAsset[]>> GetCrossMarginAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get lending symbols
@@ -152,7 +152,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<GateIoLendingSymbol>>> GetLendingSymbolsAsync(CancellationToken ct = default);
+        Task<WebCallResult<GateIoLendingSymbol[]>> GetLendingSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get lending symbol

@@ -1,4 +1,5 @@
-﻿using GateIo.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// User rate limits
     /// </summary>
+    [SerializationModel]
     public record GateIoUserRateLimit
     {
         /// <summary>

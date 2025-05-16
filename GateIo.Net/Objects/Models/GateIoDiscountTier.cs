@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Discount tier
     /// </summary>
+    [SerializationModel]
     public record GateIoDiscountTier
     {
         /// <summary>
@@ -19,12 +21,13 @@ namespace GateIo.Net.Objects.Models
         /// Tiers
         /// </summary>
         [JsonPropertyName("discount_tiers")]
-        public IEnumerable<GateIoDiscountTierEntry> Tiers { get; set; } = Array.Empty<GateIoDiscountTierEntry>();
+        public GateIoDiscountTierEntry[] Tiers { get; set; } = Array.Empty<GateIoDiscountTierEntry>();
     }
 
     /// <summary>
     /// Discount tier item
     /// </summary>
+    [SerializationModel]
     public record GateIoDiscountTierEntry
     {
         /// <summary>

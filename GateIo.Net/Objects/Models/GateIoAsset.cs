@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
 {
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record GateIoAsset
     {
         /// <summary>

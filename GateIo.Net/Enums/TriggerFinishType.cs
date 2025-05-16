@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace GateIo.Net.Enums
 {
     /// <summary>
     /// How a trigger order was finished
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<TriggerFinishType>))]
     public enum TriggerFinishType
     {
         /// <summary>

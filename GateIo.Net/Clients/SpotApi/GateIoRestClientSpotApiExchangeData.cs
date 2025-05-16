@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -37,10 +37,10 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Assets
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoAsset>>> GetAssetsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoAsset[]>> GetAssetsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/currencies", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoAsset>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoAsset[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -70,10 +70,10 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoSymbol>>> GetSymbolsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoSymbol[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/currency_pairs", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoSymbol>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoSymbol[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -81,13 +81,13 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Tickers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoTicker>>> GetTickersAsync(string? symbol = null, string? timezone = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoTicker[]>> GetTickersAsync(string? symbol = null, string? timezone = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency_pair", symbol);
             parameters.AddOptional("timezone", timezone);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/tickers", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoTicker>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoTicker[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -111,7 +111,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoTrade>>> GetTradesAsync(string symbol, int? limit = null, string? lastId = null, bool? reverse = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoTrade[]>> GetTradesAsync(string symbol, int? limit = null, string? lastId = null, bool? reverse = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency_pair", symbol);
@@ -122,7 +122,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("to", endTime);
             parameters.AddOptional("page", page);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/trades", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -130,7 +130,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency_pair", symbol);
@@ -139,7 +139,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/spot/candlesticks", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoKline>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoKline[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -147,12 +147,12 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Networks
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoNetwork>>> GetNetworksAsync(string asset, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoNetwork[]>> GetNetworksAsync(string asset, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/wallet/currency_chains", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoNetwork>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoNetwork[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -160,10 +160,10 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Discount Tiers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoDiscountTier>>> GetDiscountTiersAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoDiscountTier[]>> GetDiscountTiersAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/unified/currency_discount_tiers", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoDiscountTier>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoDiscountTier[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -171,10 +171,10 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Loan Margin Tiers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLoanMarginTier>>> GetLoanMarginTiersAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoLoanMarginTier[]>> GetLoanMarginTiersAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/unified/loan_margin_tiers", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLoanMarginTier>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLoanMarginTier[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -193,10 +193,10 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Cross Margin Assets
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoCrossMarginAsset>>> GetCrossMarginAssetsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoCrossMarginAsset[]>> GetCrossMarginAssetsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/margin/cross/currencies", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoCrossMarginAsset>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoCrossMarginAsset[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -204,10 +204,10 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Lending Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<GateIoLendingSymbol>>> GetLendingSymbolsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoLendingSymbol[]>> GetLendingSymbolsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/margin/uni/currency_pairs", GateIoExchange.RateLimiter.Public, 1);
-            return await _baseClient.SendAsync<IEnumerable<GateIoLendingSymbol>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoLendingSymbol[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion

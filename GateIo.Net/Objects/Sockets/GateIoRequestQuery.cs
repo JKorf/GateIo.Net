@@ -2,21 +2,20 @@
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.JsonNet;
 using System;
 using System.Collections;
 using GateIo.Net.Objects.Internal;
 using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoRequestQuery<TRequest, TResponse> : Query<GateIoSocketRequestResponse<TResponse>, TResponse>
+    internal class GateIoRequestQuery<TRequest, T> : Query<GateIoSocketRequestResponse<T>, T>
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
         /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(GateIoSocketRequestResponse<TResponse>);
+        public override Type? GetMessageType(IMessageAccessor message) => typeof(GateIoSocketRequestResponse<T>);
 
         public GateIoRequestQuery(long id, string channel, string evnt, TRequest? payload, bool authenticated = false, Dictionary<string, string>? headers = null) 
             : base(new GateIoSocketRequest<GateIoSocketRequestWrapper<TRequest>> { 
@@ -35,14 +34,14 @@ namespace GateIo.Net.Objects.Sockets
             RequiredResponses = 1;
         }
 
-        public override CallResult<TResponse> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<TResponse>> message)
+        public override CallResult<T> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<T>> message)
         {
             // If this is an Acknowledge message we need another message with the actual result
             if (message.Data.Acknowledge)
                 RequiredResponses = 2;
 
             if (message.Data.Header.Status != 200)
-                return message.ToCallResult<TResponse>(new ServerError(message.Data.Header.Status, message.Data.Data.Error!.Message));
+                return message.ToCallResult<T>(new ServerError(message.Data.Header.Status, message.Data.Data.Error!.Message));
 
             return message.ToCallResult(message.Data.Data.Result!);
         }

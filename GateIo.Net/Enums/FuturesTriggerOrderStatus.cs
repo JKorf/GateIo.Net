@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace GateIo.Net.Enums
 {
     /// <summary>
     /// Trigger order status
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<FuturesTriggerOrderStatus>))]
     public enum FuturesTriggerOrderStatus
     {
         /// <summary>

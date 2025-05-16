@@ -33,7 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
             IConfiguration configuration)
         {
             var options = new GateIoOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             configuration.Bind(options);
@@ -66,7 +66,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<GateIoOptions>? optionsDelegate = null)
         {
             var options = new GateIoOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             optionsDelegate?.Invoke(options);
@@ -82,21 +82,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(x => Options.Options.Create(options.Socket));
 
             return AddGateIoCore(services, options.SocketClientLifeTime);
-        }
-
-        /// <summary>
-        /// DEPRECATED; use <see cref="AddGateIo(IServiceCollection, Action{GateIoOptions}?)" /> instead
-        /// </summary>
-        public static IServiceCollection AddGateIo(
-            this IServiceCollection services,
-            Action<GateIoRestOptions> restDelegate,
-            Action<GateIoSocketOptions>? socketDelegate = null,
-            ServiceLifetime? socketClientLifeTime = null)
-        {
-            services.Configure<GateIoRestOptions>((x) => { restDelegate?.Invoke(x); });
-            services.Configure<GateIoSocketOptions>((x) => { socketDelegate?.Invoke(x); });
-
-            return AddGateIoCore(services, socketClientLifeTime);
         }
 
         private static IServiceCollection AddGateIoCore(
@@ -135,7 +120,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IGateIoOrderBookFactory, GateIoOrderBookFactory>();
             services.AddTransient<IGateIoTrackerFactory, GateIoTrackerFactory>();
-            services.AddTransient(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.CommonSpotClient);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient);

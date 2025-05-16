@@ -1,4 +1,5 @@
-﻿using GateIo.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Trigger order
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpTriggerOrder
     {
         /// <summary>
@@ -69,6 +71,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Trigger info
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpTriggerOrderTrigger
     {
         /// <summary>
@@ -96,6 +99,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Order info
     /// </summary>
+    [SerializationModel]
     public record GateIoPerpTriggerOrderInitial
     {
         /// <summary>

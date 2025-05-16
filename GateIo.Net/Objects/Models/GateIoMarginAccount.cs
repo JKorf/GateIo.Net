@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
 {
     /// <summary>
     /// Margin account
     /// </summary>
+    [SerializationModel]
     public record GateIoMarginAccount
     {
         /// <summary>
@@ -37,6 +39,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Margin account asset
     /// </summary>
+    [SerializationModel]
     public record GateIoMarginAccountAsset
     {
         /// <summary>

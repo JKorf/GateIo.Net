@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Margin tier
     /// </summary>
+    [SerializationModel]
     public record GateIoLoanMarginTier
     {
         /// <summary>
@@ -18,12 +20,13 @@ namespace GateIo.Net.Objects.Models
         /// Tiers
         /// </summary>
         [JsonPropertyName("margin_tiers")]
-        public IEnumerable<GateIoLoanMarginTierEntry> MarginTiers { get; set; } = Array.Empty<GateIoLoanMarginTierEntry>();
+        public GateIoLoanMarginTierEntry[] MarginTiers { get; set; } = Array.Empty<GateIoLoanMarginTierEntry>();
     }
     
     /// <summary>
     /// Margin tier entry
     /// </summary>
+    [SerializationModel]
     public record GateIoLoanMarginTierEntry
     {
         /// <summary>

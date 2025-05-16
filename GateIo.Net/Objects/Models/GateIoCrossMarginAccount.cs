@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Cross margin account
     /// </summary>
+    [SerializationModel]
     public record GateIoCrossMarginAccount
     {
         /// <summary>
@@ -93,6 +95,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Unified account balance
     /// </summary>
+    [SerializationModel]
     public record GateIoCrossMarginAccountBalance
     {
         /// <summary>

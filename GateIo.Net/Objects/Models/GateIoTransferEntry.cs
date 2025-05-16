@@ -1,4 +1,5 @@
-﻿using GateIo.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Transfer info
     /// </summary>
+    [SerializationModel]
     public record GateIoTransferEntry
     {
         /// <summary>

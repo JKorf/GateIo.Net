@@ -1,5 +1,6 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Converters;
 using System;
 using System.Text.Json.Serialization;
 
@@ -8,7 +9,8 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Kline/candlestick info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<GateIoKline>))]
+    [SerializationModel]
     public record GateIoKline
     {
         /// <summary>
