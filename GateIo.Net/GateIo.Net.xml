@@ -395,10 +395,10 @@
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetServerTimestampAsync">
@@ -911,6 +911,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.ContractType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.CopyTradingRole">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
