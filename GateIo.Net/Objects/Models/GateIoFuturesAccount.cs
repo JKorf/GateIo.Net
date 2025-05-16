@@ -114,6 +114,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("history")]
         public GateIoFuturesAccountHistory Totals { get; set; } = null!;
+        /// <summary>
+        /// Margin Ratio
+        /// </summary>
+        [JsonIgnore]
+        public decimal MarginRatio => (Total - (OrderMargin - (CrossOrderMargin ?? 0)) - (IsolatedPositionMargin ?? 0) + (CrossUnrealizedPnl ?? 0)) / (CrossMaintenanceMargin ?? 1);
     }
 
     /// <summary>
