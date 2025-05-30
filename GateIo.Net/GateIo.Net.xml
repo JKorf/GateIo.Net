@@ -371,6 +371,29 @@
         <member name="M:GateIo.Net.Clients.GateIoSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="T:GateIo.Net.Clients.GateIoUserClientProvider">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoOptions})">
+            <summary>
+            ctor
+            </summary>
+            <param name="optionsDelegate">Options to use for created clients</param>
+        </member>
+        <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{GateIo.Net.Objects.Options.GateIoRestOptions},Microsoft.Extensions.Options.IOptions{GateIo.Net.Objects.Options.GateIoSocketOptions})">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+            <inheritdoc />
+        </member>
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi">
             <inheritdoc cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi" />
         </member>
@@ -4137,6 +4160,35 @@
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
             </summary>
             <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider">
+            <summary>
+            Provider for clients with credentials for specific users
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+            <summary>
+            Initialize a client for the specified user identifier. This can be used so to initialize a client for a user so ApiCredentials do not need to be passed later.
+            </summary>
+            <param name="userIdentifier">The identifier for the user</param>
+            <param name="credentials">The credentials for the user</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+            <summary>
+            Get the Rest client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+            <summary>
+            Get the Socket client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi">
             <summary>

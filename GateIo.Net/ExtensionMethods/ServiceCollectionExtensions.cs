@@ -120,6 +120,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IGateIoOrderBookFactory, GateIoOrderBookFactory>();
             services.AddTransient<IGateIoTrackerFactory, GateIoTrackerFactory>();
+            services.AddSingleton<IGateIoUserClientProvider, GateIoUserClientProvider>(x =>
+            new GateIoUserClientProvider(
+                x.GetRequiredService<HttpClient>(),
+                x.GetRequiredService<ILoggerFactory>(),
+                x.GetRequiredService<IOptions<GateIoRestOptions>>(),
+                x.GetRequiredService<IOptions<GateIoSocketOptions>>()));
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient);
