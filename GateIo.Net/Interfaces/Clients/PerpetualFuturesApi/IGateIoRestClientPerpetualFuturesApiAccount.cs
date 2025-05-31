@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Objects;
+using GateIo.Net.Enums;
 using GateIo.Net.Objects.Models;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,16 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoFuturesAccount>> UpdatePositionModeAsync(string settlementAsset, bool dualMode, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set margin mode for a position
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
+        /// <param name="marginMode">Margin mode</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<GateIoPosition[]>> SetMarginModeAsync(string settlementAsset, string contract, MarginMode marginMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get user trading fees

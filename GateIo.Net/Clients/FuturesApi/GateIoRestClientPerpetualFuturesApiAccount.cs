@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using GateIo.Net.Enums;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -60,6 +61,20 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.Add("dual_mode", dualMode.ToString().ToLowerInvariant());
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true, parameterPosition: HttpMethodParameterPosition.InUri);
             return await _baseClient.SendAsync<GateIoFuturesAccount>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Set Margin Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoPosition[]>> SetMarginModeAsync(string settlementAsset, string contract, MarginMode marginMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("contract", contract);
+            parameters.AddEnum("mode", marginMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/cross_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

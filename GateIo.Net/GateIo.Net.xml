@@ -58,6 +58,9 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiAccount.UpdatePositionModeAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiAccount.SetMarginModeAsync(System.String,System.String,GateIo.Net.Enums.MarginMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApiAccount.GetTradingFeeAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3238,6 +3241,21 @@
             Margin
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.MarginMode.Cross">
+            <summary>
+            Cross margin
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.MarginMode.Isolated">
+            <summary>
+            Isolated margin
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.MarkType">
             <summary>
             Mark type
@@ -4254,6 +4272,16 @@
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="dualMode">Dual mode enabled</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApiAccount.SetMarginModeAsync(System.String,System.String,GateIo.Net.Enums.MarginMode,System.Threading.CancellationToken)">
+            <summary>
+            Set margin mode for a position
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="contract">Contract, for example `ETH_USDT`</param>
+            <param name="marginMode">Margin mode</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
