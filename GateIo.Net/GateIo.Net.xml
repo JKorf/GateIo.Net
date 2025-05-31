@@ -3171,6 +3171,11 @@
             Kline interval
             </summary>
         </member>
+        <member name="F:GateIo.Net.Enums.KlineInterval.OneSecond">
+            <summary>
+            1 second
+            </summary>
+        </member>
         <member name="F:GateIo.Net.Enums.KlineInterval.TenSeconds">
             <summary>
             10 seconds

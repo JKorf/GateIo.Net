@@ -11,6 +11,11 @@ namespace GateIo.Net.Enums
     public enum KlineInterval
     {
         /// <summary>
+        /// 1 second
+        /// </summary>
+        [Map("1s")]
+        OneSecond = 1,
+        /// <summary>
         /// 10 seconds
         /// </summary>
         [Map("10s")]
