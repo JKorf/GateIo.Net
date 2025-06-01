@@ -114,12 +114,21 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string settlementAsset, string contract, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default)
+        {
+            depth.ValidateIntValues(nameof(depth), 50, 400);
+
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, "futures.obu", [$"ob.{contract}.{depth}"], new[] { $"ob.{contract}.{depth}" }, x => onMessage(x.WithUpdateType(x.Data.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string settlementAsset, string contract, int updateMs, int depth, Action<DataEvent<GateIoPerpOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             updateMs.ValidateIntValues(nameof(updateMs), 20, 100);
             depth.ValidateIntValues(nameof(depth), 20, 50, 100);
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, "futures.order_book_update", ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, "futures.order_book_update", ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract).WithUpdateType(x.Data.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);
         }
 
@@ -372,6 +381,9 @@ namespace GateIo.Net.Clients.FuturesApi
             }
 
             var channel = message.GetValue<string>(_channelPath);
+
+            if (string.Equals(channel, "futures.obu"))
+                return message.GetValue<string>(_contractPath2);
 
             if (string.Equals(channel, "futures.trades")
                 || string.Equals(channel, "futures.tickers"))

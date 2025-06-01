@@ -101,7 +101,10 @@ namespace GateIo.Net.SymbolOrderBooks
 
         private void HandleUpdate(DataEvent<GateIoPerpOrderBookUpdate> data)
         {
-            UpdateOrderBook(data.Data.FirstUpdateId, data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks);
+            if (data.UpdateType == SocketUpdateType.Snapshot)
+                SetInitialOrderBook(data.Data.FirstUpdateId, data.Data.Bids, data.Data.Asks);
+            else
+                UpdateOrderBook(data.Data.FirstUpdateId, data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks);
         }
 
         /// <inheritdoc />

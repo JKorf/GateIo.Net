@@ -88,6 +88,18 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates
+        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-v2-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contract">Contract, for example `ETH_USDT`</param>
+        /// <param name="depth">Book depth. 50 or 400. Depth 400 has an update frequency of 100ms while 50 has an update frequency of 20ms</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string settlementAsset, string contract, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to order book updates
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>

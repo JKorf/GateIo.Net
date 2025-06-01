@@ -67,6 +67,7 @@ namespace GateIo.Net.Converters
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoKlineUpdate>))]
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoBookTickerUpdate>))]
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoOrderBookUpdate>))]
+    [JsonSerializable(typeof(GateIoSocketMessage<GateIoPerpOrderBookV2Update>))]
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoPartialOrderBookUpdate>))]
     [JsonSerializable(typeof(IDictionary<string, object>))]
     [JsonSerializable(typeof(GateIoAccountInfo[]))]

@@ -239,6 +239,9 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpBookTickerUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToOrderBookV2UpdatesAsync(System.String,System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.String,System.Int32,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1243,6 +1246,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoSocketMessageGateIoPerpOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoSocketMessageGateIoPerpOrderBookV2Update">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -2388,6 +2396,21 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoPerpOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoPerpOrderBookV2Entry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoPerpOrderBookV2EntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoPerpOrderBookV2Update">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4915,6 +4938,18 @@
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SubscribeToOrderBookV2UpdatesAsync(System.String,System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-v2-api" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="contract">Contract, for example `ETH_USDT`</param>
+            <param name="depth">Book depth. 50 or 400. Depth 400 has an update frequency of 100ms while 50 has an update frequency of 20ms</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -10219,6 +10254,11 @@
             Timestamp
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookUpdate.Full">
+            <summary>
+            Whether this is a full snapshot
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookUpdate.LastUpdateId">
             <summary>
             Update id
@@ -10247,6 +10287,61 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookUpdate.Asks">
             <summary>
             Updated asks
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update">
+            <summary>
+            Order book update
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Full">
+            <summary>
+            Whether this is a full snapshot
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.LastUpdateId">
+            <summary>
+            Update id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.FirstUpdateId">
+            <summary>
+            Update id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Topic">
+            <summary>
+            Topic
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Bids">
+            <summary>
+            Updated bids
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Asks">
+            <summary>
+            Updated asks
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Entry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Entry.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Entry.Quantity">
+            <summary>
+            Quantity
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpPositionClose">
