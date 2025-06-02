@@ -400,6 +400,57 @@
         <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
             <inheritdoc />
         </member>
+        <member name="T:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi">
+            <inheritdoc cref="T:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi" />
+        </member>
+        <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.Partner">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApiPartner">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApiPartner.GetSubordinatesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientRebateApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientRebateApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi">
             <inheritdoc cref="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApi" />
         </member>
@@ -6501,6 +6552,42 @@
             Shared interface for Spot socket API usage
             </summary>
         </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi">
+            <summary>
+            GateIo eebate API endpoints
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi.Partner">
+            <summary>
+            Partner subordinate
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiExchangeData">
+            <summary>
+            GateIo Rebate exchange data endpoints.
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the current server time
+            <para><a href="https://www.gate.io/docs/developers/apiv4/#get-server-current-time" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner">
+            <summary>
+            GateIo partner subordinate
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner.GetSubordinatesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get partner list
+            <para><a href="https://www.gate.io/docs/developers/apiv4/en/#partner-subordinate-list" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:GateIo.Net.Interfaces.IGateIoOrderBookFactory">
             <summary>
             Gate.io local order book factory
@@ -11289,6 +11376,41 @@
             Cross margin leverage
             </summary>
         </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate">
+            <summary>
+            Partner subordinate
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.UserId">
+            <summary>
+            User Id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.UserJoinTime">
+            <summary>
+            User join time
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinate.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinateList">
+            <summary>
+            Partner subordinate list
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinateList.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRebatePartnerSubordinateList.List">
+            <summary>
+            List
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoRiskLimitTier">
             <summary>
             Risk limit tier
@@ -12702,6 +12824,11 @@
         <member name="P:GateIo.Net.Objects.Options.GateIoRestOptions.PerpetualFuturesOptions">
             <summary>
             Futures API options
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Options.GateIoRestOptions.RebateOptions">
+            <summary>
+            Rebate API options
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Options.GateIoSocketOptions">
