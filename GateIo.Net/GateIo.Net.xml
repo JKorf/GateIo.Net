@@ -317,6 +317,9 @@
         <member name="P:GateIo.Net.Clients.GateIoRestClient.PerpetualFuturesApi">
             <inheritdoc />
         </member>
+        <member name="P:GateIo.Net.Clients.GateIoRestClient.Rebate">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.GateIoRestClient.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoRestOptions})">
             <summary>
             Create a new instance of the GateIoRestClient using provided options
@@ -937,6 +940,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.ContractType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.CopyTradingRole">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4217,6 +4225,12 @@
             </summary>
             <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi"/>
         </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.IGateIoRestClient.Rebate">
+            <summary>
+            Rebate API endpoints
+            </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi"/>
+        </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
@@ -6774,6 +6788,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoAccountInfo.VipLevel">
             <summary>
             VIP tier
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAccountInfo.CopyTradingRole">
+            <summary>
+            Copy trading role
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoAccountInfo.KeyInfo">
