@@ -135,7 +135,7 @@ namespace GateIo.Net.Objects.Models
         /// Trigger event
         /// </summary>
         [JsonPropertyName("event")]
-        public string Event { get; set; } = string.Empty;
+        public OrderUpdateEvent Event { get; set; }
         /// <summary>
         /// Order finish type
         /// </summary>

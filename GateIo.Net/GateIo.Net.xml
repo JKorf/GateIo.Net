@@ -945,6 +945,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.OrderUpdateEvent">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.PositionMode">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -3364,6 +3369,16 @@
             IOC order was immediately canceled
             </summary>
         </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.PendingOrCancelCancel">
+            <summary>
+            Pending order policy is not met
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.FillOrKillCancel">
+            <summary>
+            Not fully filled immediately 
+            </summary>
+        </member>
         <member name="F:GateIo.Net.Enums.OrderFinishType.SelfTradePrevention">
             <summary>
             Canceled because of STP
@@ -3387,6 +3402,26 @@
         <member name="F:GateIo.Net.Enums.OrderFinishType.PositionClosed">
             <summary>
             Canceled because of position close
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.NotEnoughTraders">
+            <summary>
+            Insufficient counterparties lead to order cancellation
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.NotEnoughCounterParties">
+            <summary>
+            Insufficient depth leads to order cancellation
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.TooSmall">
+            <summary>
+            Order amount too small
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.Unknown">
+            <summary>
+            Unknown
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.OrderSide">
@@ -3462,6 +3497,26 @@
         <member name="F:GateIo.Net.Enums.OrderType.LimitBorrowRepay">
             <summary>
             Limit borrow/repay
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.OrderUpdateEvent">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderUpdateEvent.Create">
+            <summary>
+            Order creation
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderUpdateEvent.Update">
+            <summary>
+            Order update
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderUpdateEvent.Finish">
+            <summary>
+            Order finished
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.PositionMode">
