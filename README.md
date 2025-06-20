@@ -168,6 +168,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 2.2.0 - 20 Jun 2025
+    * Added DelistTime and TradeUrl properties to GateIoSymbol model
+    * Added UpdateTime property to GateIoBalance model
+    * Added QuantityFilled property to GateIoOrderUpdate
+    * Added Spot websocket Order update Event property mapping to enum values
+    * Updated OrderFinishType enum values
+
 * Version 2.1.0 - 02 Jun 2025
     * Updated CryptoExchange.Net to version 9.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added (I)GateIoUserClientProvider allowing for easy client management when handling multiple users
