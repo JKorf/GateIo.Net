@@ -77,6 +77,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("filled_total")]
         public decimal QuoteQuantityFilled { get; set; }
         /// <summary>
+        /// Quantity filled
+        /// </summary>
+        [JsonPropertyName("filled_amount")]
+        public decimal QuantityFilled { get; set; }
+        /// <summary>
         /// Average fill price
         /// </summary>
         [JsonPropertyName("avg_deal_price")]

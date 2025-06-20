@@ -9204,6 +9204,11 @@
             Quote asset quantity filled
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoOrderUpdate.QuantityFilled">
+            <summary>
+            Quantity filled
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoOrderUpdate.AveragePrice">
             <summary>
             Average fill price
