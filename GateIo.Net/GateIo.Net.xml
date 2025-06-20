@@ -11559,6 +11559,16 @@
             Status of the market
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.DelistTime">
+            <summary>
+            Time of delisting
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.TradeUrl">
+            <summary>
+            Trade link
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoSymbolOrders">
             <summary>
             Orders for a symbol
