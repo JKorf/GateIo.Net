@@ -1,5 +1,6 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Text.Json.Serialization;
+using System;
 
 namespace GateIo.Net.Objects.Models
 {
@@ -29,5 +30,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("update_id")]
         public long UpdateId { get; set; }
+        /// <summary>
+        /// Update time
+        /// </summary>
+        [JsonPropertyName("refresh_time")]
+        public DateTime? UpdateTime { get; set; }
     }
 }
