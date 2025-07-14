@@ -88,7 +88,7 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerError(null, "Unknown request error", exception: exception);
 
             var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));
@@ -102,7 +102,7 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerRateLimitError(accessor.GetOriginalString());
 
             var error = GetRateLimitError(accessor);
@@ -120,7 +120,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         private ServerRateLimitError GetRateLimitError(IMessageAccessor accessor)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerRateLimitError(accessor.GetOriginalString());
 
             var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));

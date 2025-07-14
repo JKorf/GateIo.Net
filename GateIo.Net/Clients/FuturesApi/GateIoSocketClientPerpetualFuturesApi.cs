@@ -22,6 +22,7 @@ using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using System.Diagnostics.Contracts;
+using System.Net.WebSockets;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -72,7 +73,7 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
 
