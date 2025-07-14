@@ -102,6 +102,17 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to order book updates
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-book-v2-update-notification" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
+        /// <param name="depth">Book depth. 50 or 400. Depth 400 has an update frequency of 100ms while 50 has an update frequency of 20ms</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string symbol, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to partial full order book updates, Full order book will be pushed for a limited depth
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#limited-level-full-order-book-snapshot" /></para>
         /// </summary>

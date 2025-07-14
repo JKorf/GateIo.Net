@@ -139,6 +139,15 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string symbol, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default)
+        {
+            depth.ValidateIntValues(nameof(depth), 50, 400);
+
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, "spot.obu", [$"ob.{symbol}.{depth}"], new[] { $"ob.{symbol}.{depth}" }, x => onMessage(x.WithUpdateType(x.Data.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v4") + "/", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, int? updateMs, Action<DataEvent<GateIoPartialOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             updateMs ??= 1000;
@@ -405,6 +414,9 @@ namespace GateIo.Net.Clients.SpotApi
             }
 
             var channel = message.GetValue<string>(_channelPath);
+
+            if (string.Equals(channel, "spot.obu"))
+                return message.GetValue<string>(_symbolPath2);
 
             if (string.Equals(channel, "spot.trades")
                 || string.Equals(channel, "spot.tickers"))

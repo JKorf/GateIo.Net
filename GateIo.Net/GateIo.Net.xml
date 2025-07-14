@@ -773,6 +773,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoOrderBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToOrderBookV2UpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPartialOrderBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -6368,6 +6371,17 @@
             <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#changed-order-book-levels" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToOrderBookV2UpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-book-v2-update-notification" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETH_USDT`</param>
+            <param name="depth">Book depth. 50 or 400. Depth 400 has an update frequency of 100ms while 50 has an update frequency of 20ms</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
