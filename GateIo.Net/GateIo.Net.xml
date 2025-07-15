@@ -317,7 +317,7 @@
         <member name="P:GateIo.Net.Clients.GateIoRestClient.PerpetualFuturesApi">
             <inheritdoc />
         </member>
-        <member name="P:GateIo.Net.Clients.GateIoRestClient.Rebate">
+        <member name="P:GateIo.Net.Clients.GateIoRestClient.RebateApi">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.GateIoRestClient.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoRestOptions})">
@@ -409,9 +409,6 @@
         <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.Partner">
             <inheritdoc />
         </member>
-        <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ExchangeData">
-            <inheritdoc />
-        </member>
         <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ExchangeName">
             <inheritdoc />
         </member>
@@ -422,15 +419,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetTimeSyncInfo">
@@ -446,12 +434,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApiPartner.GetSubordinatesAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientRebateApiExchangeData">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientRebateApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi">
@@ -3223,6 +3205,31 @@
             Direct
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.CopyTradingRole">
+            <summary>
+            Copy trading role
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.CopyTradingRole.OrdinaryUser">
+            <summary>
+            Ordinary user
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.CopyTradingRole.OrderLeader">
+            <summary>
+            Order leader (lead trader)
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.CopyTradingRole.Follower">
+            <summary>
+            Follower
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.CopyTradingRole.OrderLeaderAndFollower">
+            <summary>
+             Order leader and follower
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.FuturesTriggerOrderStatus">
             <summary>
             Trigger order status
@@ -4225,7 +4232,7 @@
             </summary>
             <see cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi"/>
         </member>
-        <member name="P:GateIo.Net.Interfaces.Clients.IGateIoRestClient.Rebate">
+        <member name="P:GateIo.Net.Interfaces.Clients.IGateIoRestClient.RebateApi">
             <summary>
             Rebate API endpoints
             </summary>
@@ -6575,19 +6582,6 @@
             <summary>
             Partner subordinate
             </summary>
-        </member>
-        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiExchangeData">
-            <summary>
-            GateIo Rebate exchange data endpoints.
-            </summary>
-        </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get the current server time
-            <para><a href="https://www.gate.io/docs/developers/apiv4/#get-server-current-time" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner">
             <summary>

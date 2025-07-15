@@ -26,7 +26,7 @@ namespace GateIo.Net.Clients
         /// <inheritdoc />
         public IGateIoRestClientPerpetualFuturesApi PerpetualFuturesApi { get; }
         /// <inheritdoc />
-        public IGateIoRestClientRebateApi Rebate { get; }
+        public IGateIoRestClientRebateApi RebateApi { get; }
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace GateIo.Net.Clients
 
             SpotApi = AddApiClient(new GateIoRestClientSpotApi(_logger, httpClient, options.Value));
             PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(_logger, httpClient, options.Value));
-            Rebate = AddApiClient(new GateIoRestClientRebateApi(_logger, httpClient, options.Value));
+            RebateApi = AddApiClient(new GateIoRestClientRebateApi(_logger, httpClient, options.Value));
         }
 
         #endregion
@@ -63,7 +63,7 @@ namespace GateIo.Net.Clients
         {
             SpotApi.SetOptions(options);
             PerpetualFuturesApi.SetOptions(options);
-            Rebate.SetOptions(options);
+            RebateApi.SetOptions(options);
         }
 
         /// <summary>
