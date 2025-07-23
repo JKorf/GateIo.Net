@@ -34,5 +34,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("risk_limit")]
         public decimal RiskLimit { get; set; }
+        /// <summary>
+        /// Maintenance margin quick calculation deduction
+        /// </summary>
+        [JsonPropertyName("deduction")]
+        public decimal? Deduction { get; set; }
     }
 }
