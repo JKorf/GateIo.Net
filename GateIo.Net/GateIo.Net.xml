@@ -6670,30 +6670,13 @@
             The default addresses to connect to the Gate.io API
             </summary>
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.GateIoLoginQuery.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.GateIoRequestQuery`2.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="channel"></param>
-            <param name="handler"></param>
-            <param name="identifiers"></param>
-            <param name="payload"></param>
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -6701,28 +6684,11 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1">
             <inheritdoc />
-        </member>
-        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
-            <summary>
-            ctor
-            </summary>
-            <param name="logger"></param>
-            <param name="channel"></param>
-            <param name="identifiers"></param>
-            <param name="payload"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -6730,7 +6696,7 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAccountInfo">
