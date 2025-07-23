@@ -7984,6 +7984,11 @@
             Total history
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.EnableTieredMaintenanceMargin">
+            <summary>
+            Whether to enable tiered maintenance margin calculation
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoFuturesAccountHistory">
             <summary>
             Account history
@@ -11214,6 +11219,11 @@
             Update id
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.AverageMaintenanceRate">
+            <summary>
+            Average maintenance margin rate
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.CloseOrder">
             <summary>
             Close order
@@ -11362,6 +11372,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoRiskLimitTier.RiskLimit">
             <summary>
             Risk limit
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRiskLimitTier.Deduction">
+            <summary>
+            Maintenance margin quick calculation deduction
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoRiskUnits">
