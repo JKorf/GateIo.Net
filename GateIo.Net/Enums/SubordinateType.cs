@@ -14,16 +14,16 @@ namespace GateIo.Net.Enums
         /// Sub-agent
         /// </summary>
         [Map("1")]
-        SubAgent = 1,
+        SubAgent,
         /// <summary>
         /// Indirect direct customer
         /// </summary>
         [Map("2")]
-        IndirectCustomer = 2,
+        IndirectCustomer,
         /// <summary>
         /// Direct direct customer
         /// </summary>
         [Map("3")]
-        DirectCustomer = 3,
+        DirectCustomer,
     }
 }
