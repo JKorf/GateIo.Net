@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
 
 namespace GateIo.Net.Objects.Models
@@ -7,6 +8,7 @@ namespace GateIo.Net.Objects.Models
     /// <summary>
     /// Partner subordinate
     /// </summary>
+    [SerializationModel]
     public record GateIoRebatePartnerSubordinate
     {
         /// <summary>

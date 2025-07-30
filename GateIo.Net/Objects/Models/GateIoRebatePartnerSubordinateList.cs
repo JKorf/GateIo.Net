@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace GateIo.Net.Objects.Models
 {
     /// <summary>
     /// Partner subordinate list
     /// </summary>
+    [SerializationModel]
     public record GateIoRebatePartnerSubordinateList
     {
         /// <summary>
@@ -18,6 +20,6 @@ namespace GateIo.Net.Objects.Models
         /// List
         /// </summary>
         [JsonPropertyName("list")]
-        public List<GateIoRebatePartnerSubordinate>? List { get; set; }
+        public GateIoRebatePartnerSubordinate[] List { get; set; } = [];
     }
 }

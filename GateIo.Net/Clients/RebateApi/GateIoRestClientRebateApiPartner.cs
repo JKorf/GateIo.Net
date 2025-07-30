@@ -22,7 +22,7 @@ namespace GateIo.Net.Clients.RebateApi
         public async Task<WebCallResult<GateIoRebatePartnerSubordinateList>> GetSubordinatesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/rebate/partner/sub_list", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/rebate/partner/sub_list", GateIoExchange.RateLimiter.RestOther, 1, true);
             return await _baseClient.SendAsync<GateIoRebatePartnerSubordinateList>(request, parameters, ct).ConfigureAwait(false);
         }
     }

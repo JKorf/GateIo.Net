@@ -421,6 +421,9 @@
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetTimeSyncInfo">
             <inheritdoc />
         </member>
@@ -1047,6 +1050,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.NullableSpotAccountType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.SubordinateType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -2606,6 +2614,26 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoRebatePartnerSubordinate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoRebatePartnerSubordinateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoRebatePartnerSubordinateList">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoRebatePartnerSubordinateListArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoRiskLimitTier">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -3703,6 +3731,26 @@
         <member name="F:GateIo.Net.Enums.SpotAccountType.CrossMargin">
             <summary>
             Cross margin
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.SubordinateType">
+            <summary>
+            Subordinate type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.SubordinateType.SubAgent">
+            <summary>
+            Sub-agent
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.SubordinateType.IndirectCustomer">
+            <summary>
+            Indirect direct customer
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.SubordinateType.DirectCustomer">
+            <summary>
+            Direct direct customer
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.SymbolStatus">

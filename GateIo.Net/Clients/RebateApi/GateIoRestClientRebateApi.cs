@@ -21,6 +21,7 @@ namespace GateIo.Net.Clients.RebateApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Rebate Api");
         internal string _brokerId;
+        private readonly GateIoRestClient _baseClient;
         #endregion
 
         #region Api clients
@@ -31,9 +32,11 @@ namespace GateIo.Net.Clients.RebateApi
 
         #endregion
 
-        internal GateIoRestClientRebateApi(ILogger logger, HttpClient? httpClient, GateIoRestOptions options)
+        internal GateIoRestClientRebateApi(ILogger logger, HttpClient? httpClient, GateIoRestClient baseClient, GateIoRestOptions options)
             : base(logger, httpClient, options.Environment.RestClientAddress!, options, options.RebateOptions)
         {
+            _baseClient = baseClient;
+
             Partner = new GateIoRestClientRebateApiPartner(this);
 
             _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
@@ -75,6 +78,10 @@ namespace GateIo.Net.Clients.RebateApi
 
             return result;
         }
+
+        /// <inheritdoc />
+        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+            => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()
