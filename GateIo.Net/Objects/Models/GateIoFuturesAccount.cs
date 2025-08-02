@@ -114,6 +114,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("history")]
         public GateIoFuturesAccountHistory Totals { get; set; } = null!;
+        /// <summary>
+        /// Whether to enable tiered maintenance margin calculation
+        /// </summary>
+        [JsonPropertyName("enable_tiered_mm")]
+        public bool EnableTieredMaintenanceMargin { get; set; }
     }
 
     /// <summary>

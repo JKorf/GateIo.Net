@@ -10,13 +10,8 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace GateIo.Net.Objects.Sockets
 {
-    internal class GateIoRequestQuery<TRequest, T> : Query<GateIoSocketRequestResponse<T>, T>
+    internal class GateIoRequestQuery<TRequest, T> : Query<T>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
-        /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(GateIoSocketRequestResponse<T>);
-
         public GateIoRequestQuery(long id, string channel, string evnt, TRequest? payload, bool authenticated = false, Dictionary<string, string>? headers = null) 
             : base(new GateIoSocketRequest<GateIoSocketRequestWrapper<TRequest>> { 
                 Channel = channel,
@@ -30,11 +25,11 @@ namespace GateIo.Net.Objects.Sockets
                 }, 
                 Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)) }, authenticated, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { id.ToString(), id + "ack" };
+            MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<T>>([id.ToString(), id + "ack"], HandleMessage);
             RequiredResponses = 1;
         }
 
-        public override CallResult<T> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<T>> message)
+        public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<T>> message)
         {
             // If this is an Acknowledge message we need another message with the actual result
             if (message.Data.Acknowledge)

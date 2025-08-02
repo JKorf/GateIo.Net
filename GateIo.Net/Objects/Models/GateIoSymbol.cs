@@ -91,5 +91,15 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("type")]
         public PreMarketStatus PreMarketStatus { get; set; }
+        /// <summary>
+        /// Time of delisting
+        /// </summary>
+        [JsonPropertyName("delisting_time")]
+        public DateTime? DelistTime { get; set; }
+        /// <summary>
+        /// Trade link
+        /// </summary>
+        [JsonPropertyName("trade_url")]
+        public string TradeUrl { get; set; } = string.Empty;
     }
 }

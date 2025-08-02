@@ -21,6 +21,7 @@ using GateIo.Net.Enums;
 using GateIo.Net.Objects.Sockets;
 using GateIo.Net.Objects.Internal;
 using CryptoExchange.Net.SharedApis;
+using System.Net.WebSockets;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -72,7 +73,7 @@ namespace GateIo.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -135,6 +136,15 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var subscription = new GateIoSubscription<GateIoOrderBookUpdate>(_logger, "spot.order_book_update", new[] { "spot.order_book_update." + symbol }, new[] { symbol, "100ms" }, x => onMessage(x.WithSymbol(x.Data.Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v4/") + "/", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string symbol, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default)
+        {
+            depth.ValidateIntValues(nameof(depth), 50, 400);
+
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, "spot.obu", [$"ob.{symbol}.{depth}"], new[] { $"ob.{symbol}.{depth}" }, x => onMessage(x.WithUpdateType(x.Data.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v4") + "/", subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -404,6 +414,9 @@ namespace GateIo.Net.Clients.SpotApi
             }
 
             var channel = message.GetValue<string>(_channelPath);
+
+            if (string.Equals(channel, "spot.obu"))
+                return message.GetValue<string>(_symbolPath2);
 
             if (string.Equals(channel, "spot.trades")
                 || string.Equals(channel, "spot.tickers"))

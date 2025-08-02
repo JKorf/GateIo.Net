@@ -11,11 +11,6 @@ namespace GateIo.Net.Objects.Sockets
 {
     internal class GateIoLoginQuery : Query<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
-        /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(GateIoSocketRequestResponse<GateIoSocketLoginResponse>);
-
         public GateIoLoginQuery(long id, string channel, string evnt, string key, string sign, long timestamp) 
             : base(new GateIoSocketRequest<GateIoSocketLoginRequest> { 
                 Channel = channel,
@@ -31,15 +26,15 @@ namespace GateIo.Net.Objects.Sockets
                 }
             }, false, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { id.ToString() };
+            MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(id.ToString(), HandleMessage);
         }
 
-        public override CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> message)
+        public CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> message)
         {
             if (message.Data.Header.Status != 200)
                 return message.ToCallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(new ServerError(message.Data.Header.Status, message.Data.Data.Error!.Message));
 
-            return message.ToCallResult(message.Data!);
+            return message.ToCallResult();
         }
     }
 }

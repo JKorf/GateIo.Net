@@ -36,6 +36,16 @@ namespace GateIo.Net.Enums
         [Map("ioc")]
         ImmediatelyCanceled,
         /// <summary>
+        /// Pending order policy is not met
+        /// </summary>
+        [Map("poc")]
+        PendingOrCancelCancel,
+        /// <summary>
+        /// Not fully filled immediately 
+        /// </summary>
+        [Map("fok")]
+        FillOrKillCancel,
+        /// <summary>
         /// Canceled because of STP
         /// </summary>
         [Map("stp")]
@@ -43,7 +53,7 @@ namespace GateIo.Net.Enums
         /// <summary>
         /// Canceled because of liquidation
         /// </summary>
-        [Map("liquidated")]
+        [Map("liquidated", "liquidate_cancelled")]
         Liquidated,
         /// <summary>
         /// Finished by ADL
@@ -59,6 +69,26 @@ namespace GateIo.Net.Enums
         /// Canceled because of position close
         /// </summary>
         [Map("position_closed")]
-        PositionClosed
+        PositionClosed,
+        /// <summary>
+        /// Insufficient counterparties lead to order cancellation
+        /// </summary>
+        [Map("trader_not_enough")]
+        NotEnoughTraders,
+        /// <summary>
+        /// Insufficient depth leads to order cancellation
+        /// </summary>
+        [Map("depth_not_enough")]
+        NotEnoughCounterParties,
+        /// <summary>
+        /// Order amount too small
+        /// </summary>
+        [Map("small")]
+        TooSmall,
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        [Map("-")]
+        Unknown
     }
 }

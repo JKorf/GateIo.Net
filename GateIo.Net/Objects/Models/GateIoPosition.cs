@@ -157,6 +157,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("update_id")]
         public long? UpdateId { get; set; }
         /// <summary>
+        /// Average maintenance margin rate
+        /// </summary>
+        [JsonPropertyName("average_maintenance_rate")]
+        public decimal? AverageMaintenanceRate { get; set; }
+        /// <summary>
         /// Close order
         /// </summary>
         [JsonPropertyName("close_order")]

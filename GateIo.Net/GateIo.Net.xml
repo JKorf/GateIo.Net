@@ -215,7 +215,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateSerializer">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateAccessor">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -782,7 +782,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateSerializer">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateAccessor">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -810,6 +810,9 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToOrderBookV2UpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPartialOrderBookUpdate}},System.Threading.CancellationToken)">
@@ -985,6 +988,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.OrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.OrderUpdateEvent">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -3458,6 +3466,16 @@
             IOC order was immediately canceled
             </summary>
         </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.PendingOrCancelCancel">
+            <summary>
+            Pending order policy is not met
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.FillOrKillCancel">
+            <summary>
+            Not fully filled immediately 
+            </summary>
+        </member>
         <member name="F:GateIo.Net.Enums.OrderFinishType.SelfTradePrevention">
             <summary>
             Canceled because of STP
@@ -3481,6 +3499,26 @@
         <member name="F:GateIo.Net.Enums.OrderFinishType.PositionClosed">
             <summary>
             Canceled because of position close
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.NotEnoughTraders">
+            <summary>
+            Insufficient counterparties lead to order cancellation
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.NotEnoughCounterParties">
+            <summary>
+            Insufficient depth leads to order cancellation
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.TooSmall">
+            <summary>
+            Order amount too small
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderFinishType.Unknown">
+            <summary>
+            Unknown
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.OrderSide">
@@ -3556,6 +3594,26 @@
         <member name="F:GateIo.Net.Enums.OrderType.LimitBorrowRepay">
             <summary>
             Limit borrow/repay
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.OrderUpdateEvent">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderUpdateEvent.Create">
+            <summary>
+            Order creation
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderUpdateEvent.Update">
+            <summary>
+            Order update
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.OrderUpdateEvent.Finish">
+            <summary>
+            Order finished
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.PositionMode">
@@ -6437,6 +6495,17 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToOrderBookV2UpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-book-v2-update-notification" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETH_USDT`</param>
+            <param name="depth">Book depth. 50 or 400. Depth 400 has an update frequency of 100ms while 50 has an update frequency of 20ms</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
         <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPartialOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to partial full order book updates, Full order book will be pushed for a limited depth
@@ -6744,30 +6813,13 @@
             The default addresses to connect to the Gate.io API
             </summary>
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.GateIoLoginQuery.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.GateIoRequestQuery`2.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="channel"></param>
-            <param name="handler"></param>
-            <param name="identifiers"></param>
-            <param name="payload"></param>
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -6775,28 +6827,11 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1">
             <inheritdoc />
-        </member>
-        <member name="P:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
-            <summary>
-            ctor
-            </summary>
-            <param name="logger"></param>
-            <param name="channel"></param>
-            <param name="identifiers"></param>
-            <param name="payload"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -6804,7 +6839,7 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAccountInfo">
@@ -7050,6 +7085,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoBalance.UpdateId">
             <summary>
             Update id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoBalance.UpdateTime">
+            <summary>
+            Update time
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoBalanceUpdate">
@@ -8090,6 +8130,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.Totals">
             <summary>
             Total history
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoFuturesAccount.EnableTieredMaintenanceMargin">
+            <summary>
+            Whether to enable tiered maintenance margin calculation
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoFuturesAccountHistory">
@@ -9290,6 +9335,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoOrderUpdate.QuoteQuantityFilled">
             <summary>
             Quote asset quantity filled
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoOrderUpdate.QuantityFilled">
+            <summary>
+            Quantity filled
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoOrderUpdate.AveragePrice">
@@ -11317,6 +11367,11 @@
             Update id
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.AverageMaintenanceRate">
+            <summary>
+            Average maintenance margin rate
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.CloseOrder">
             <summary>
             Close order
@@ -11500,6 +11555,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoRiskLimitTier.RiskLimit">
             <summary>
             Risk limit
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoRiskLimitTier.Deduction">
+            <summary>
+            Maintenance margin quick calculation deduction
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoRiskUnits">
@@ -11740,6 +11800,16 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.PreMarketStatus">
             <summary>
             Status of the market
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.DelistTime">
+            <summary>
+            Time of delisting
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.TradeUrl">
+            <summary>
+            Trade link
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoSymbolOrders">

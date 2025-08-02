@@ -204,7 +204,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (update.QuantityRemaining == 0)
                 return SharedOrderStatus.Filled;
 
-            if (update.Event != "finish")
+            if (update.Event != OrderUpdateEvent.Finish)
             {
                 return SharedOrderStatus.Open;
             }

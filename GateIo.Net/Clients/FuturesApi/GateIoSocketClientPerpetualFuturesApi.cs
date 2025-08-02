@@ -22,6 +22,7 @@ using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using System.Diagnostics.Contracts;
+using System.Net.WebSockets;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -72,7 +73,7 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
 
@@ -246,7 +247,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoPerpOrder>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -274,7 +275,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 { "X-Gate-Channel-Id", _brokerId }
             });
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoPerpOrder[]>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -286,7 +287,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoPerpOrder>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -309,7 +310,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 Status = open ? "open" : "close"
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoPerpOrder[]>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -321,7 +322,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoPerpOrder>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -338,7 +339,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 Side = side == null ? null : side == OrderSide.Buy ? "bid" : "ask"
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoPerpOrder[]>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -358,7 +359,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 OrderId = orderId.ToString()
             }, true);
 
-            return await QueryAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
+            return await QueryAsync<GateIoOrder>(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), query, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
