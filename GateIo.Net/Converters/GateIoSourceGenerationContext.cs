@@ -182,6 +182,8 @@ namespace GateIo.Net.Converters
     [JsonSerializable(typeof(GateIoUserRateLimit[]))]
     [JsonSerializable(typeof(GateIoWithdrawal[]))]
     [JsonSerializable(typeof(GateIoWithdrawStatus[]))]
+    [JsonSerializable(typeof(GateIoRebatePartnerSubordinate[]))]
+    [JsonSerializable(typeof(GateIoRebatePartnerSubordinateList[]))]
     [JsonSerializable(typeof(int?))]
     [JsonSerializable(typeof(int))]
     [JsonSerializable(typeof(long?))]

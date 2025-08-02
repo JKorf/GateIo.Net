@@ -41,12 +41,18 @@ namespace GateIo.Net.Objects.Options
         /// </summary>
         public RestApiOptions PerpetualFuturesOptions { get; private set; } = new RestApiOptions();
 
+        /// <summary>
+        /// Rebate API options
+        /// </summary>
+        public RestApiOptions RebateOptions { get; private set; } = new RestApiOptions();
+
         internal GateIoRestOptions Set(GateIoRestOptions targetOptions)
         {
             targetOptions = base.Set<GateIoRestOptions>(targetOptions);
             targetOptions.BrokerId = BrokerId;
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.PerpetualFuturesOptions = PerpetualFuturesOptions.Set(targetOptions.PerpetualFuturesOptions);
+            targetOptions.RebateOptions = RebateOptions.Set(targetOptions.RebateOptions);
             return targetOptions;
         }
     }

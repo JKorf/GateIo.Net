@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -31,7 +32,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("tier")]
         public int VipLevel { get; set; }
-
+        /// <summary>
+        /// Copy trading role
+        /// </summary>
+        [JsonPropertyName("copy_trading_role")]
+        public CopyTradingRole CopyTradingRole { get; set; }
         /// <summary>
         /// Key info
         /// </summary>
