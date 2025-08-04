@@ -41,6 +41,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;
         /// <summary>
+        /// Type code
+        /// </summary>
+        [JsonPropertyName("code")]
+        public string Code { get; set; } = string.Empty;
+        /// <summary>
         /// Additional info
         /// </summary>
         [JsonPropertyName("text")]

@@ -41,13 +41,22 @@ namespace GateIo.Net.Clients.SpotApi
         #region Get Account Ledger
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoLedgerEntry[]>> GetLedgerAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoLedgerEntry[]>> GetLedgerAsync(
+            string? asset = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? page = null,
+            int? limit = null,
+            string? type = null,
+            string? code = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("type", type);
+            parameters.AddOptional("code", type);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/account_book", GateIoExchange.RateLimiter.RestSpotOther, 1, true);

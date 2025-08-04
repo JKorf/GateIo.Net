@@ -33,9 +33,18 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="page">Page number</param>
         /// <param name="limit">Max amount of results</param>
         /// <param name="type">Filter by type</param>
+        /// <param name="code">Filter by code</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoLedgerEntry[]>> GetLedgerAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoLedgerEntry[]>> GetLedgerAsync(
+            string? asset = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? page = null,
+            int? limit = null,
+            string? type = null,
+            string? code = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw

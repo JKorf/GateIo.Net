@@ -448,7 +448,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetBalancesAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
@@ -5287,7 +5287,7 @@
             <param name="ct">Cancelation token</param>
             <returns></returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get a list of balance changes for the user
             <para><a href="https://www.gate.io/docs/developers/apiv4/#query-account-book" /></para>
@@ -5298,6 +5298,7 @@
             <param name="page">Page number</param>
             <param name="limit">Max amount of results</param>
             <param name="type">Filter by type</param>
+            <param name="code">Filter by code</param>
             <param name="ct">Cancelation token</param>
             <returns></returns>
         </member>
@@ -8287,6 +8288,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoLedgerEntry.Type">
             <summary>
             Change type
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLedgerEntry.Code">
+            <summary>
+            Type code
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoLedgerEntry.Text">
