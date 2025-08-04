@@ -52,7 +52,7 @@ namespace GateIo.Net.UnitTests
         public async Task TestSpotAccount()
         {
             await RunAndCheckResult(client => client.SpotApi.Account.GetBalancesAsync(default, default), true);
-            await RunAndCheckResult(client => client.SpotApi.Account.GetLedgerAsync(default, default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetLedgerAsync(default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawalsAsync(default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetDepositsAsync(default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawStatusAsync(default, default), true);
