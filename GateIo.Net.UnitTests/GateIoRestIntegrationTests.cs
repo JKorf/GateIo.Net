@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using GateIo.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace GateIo.Net.UnitTests
 {
@@ -45,7 +46,8 @@ namespace GateIo.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetTickersAsync("TSTTST", default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Message, Contains.Substring("INVALID_CURRENCY_PAIR"));
+            Assert.That(result.Error.ErrorCode, Contains.Substring("INVALID_CURRENCY_PAIR"));
+            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]

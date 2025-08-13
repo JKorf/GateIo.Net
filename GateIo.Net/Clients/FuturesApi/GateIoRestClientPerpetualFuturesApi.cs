@@ -16,6 +16,7 @@ using System.Linq;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Converters;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -25,6 +26,9 @@ namespace GateIo.Net.Clients.FuturesApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Perpetual Futures Api");
         internal string _brokerId;
+
+        protected override ErrorCollection ErrorMapping { get; } = GateIoErrorMapping.ErrorMapping;
+
         #endregion
 
         #region Api clients
@@ -96,14 +100,14 @@ namespace GateIo.Net.Clients.FuturesApi
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));
             if (lbl == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
-            return new ServerError(null, lbl + ": " + msg, exception);
+            return new ServerError(lbl, GetErrorInfo(lbl, msg), exception);
         }
 
         /// <inheritdoc />

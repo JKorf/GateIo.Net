@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -13,6 +14,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class GateIoAuthSubscription<T> : Subscription<GateIoSocketResponse<GateIoSubscriptionResponse>, GateIoSocketResponse<GateIoSubscriptionResponse>>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<T>> _handler;
         private readonly string _channel;
         private readonly string[]? _payload;
@@ -20,8 +22,9 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public GateIoAuthSubscription(ILogger logger, string channel, IEnumerable<string> identifiers, string[]? payload, Action<DataEvent<T>> handler) : base(logger, false)
+        public GateIoAuthSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[]? payload, Action<DataEvent<T>> handler) : base(logger, false)
         {
+            _client = client;
             _handler = handler;
             _channel = channel;
             _payload = payload;
@@ -32,7 +35,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         public override Query? GetSubQuery(SocketConnection connection)
         {
             var provider = (GateIoAuthenticationProvider)connection.ApiClient.AuthenticationProvider!;
-            var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_channel, "subscribe", _payload);
+            var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_client, _channel, "subscribe", _payload);
             var request = (GateIoSocketAuthRequest<string[]>)query.Request;
             var sign = provider.SignSocketRequest($"channel={_channel}&event=subscribe&time={request.Timestamp}");
             request.Auth = new GateIoSocketAuth { Key = provider.ApiKey, Sign = sign, Method = "api_key" };
@@ -42,7 +45,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         { 
-            return new GateIoQuery<string[], GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
+            return new GateIoQuery<string[], GateIoSubscriptionResponse>(_client, ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
         }
 
         /// <inheritdoc />

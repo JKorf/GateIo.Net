@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using GateIo.Net.Objects.Models;
 using System.Drawing;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -35,11 +36,11 @@ namespace GateIo.Net.Clients.FuturesApi
             var resultUsdt = Account.GetAccountAsync("usdt", ct: ct);
             var resultBtc = Account.GetAccountAsync("btc", ct: ct);
             await Task.WhenAll(resultBtc, resultUsdt, resultUsd).ConfigureAwait(false);
-            if (!resultUsd.Result && !resultUsd.Result.Error!.Message.Contains("NOT_FOUND"))
+            if (!resultUsd.Result && !resultUsd.Result.Error!.ErrorCode!.Contains("NOT_FOUND"))
                 return resultUsd.Result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
-            if (!resultUsdt.Result && !resultUsdt.Result.Error!.Message.Contains("USER_NOT_FOUND"))
+            if (!resultUsdt.Result && !resultUsdt.Result.Error!.ErrorCode!.Contains("USER_NOT_FOUND"))
                 return resultUsdt.Result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
-            if (!resultBtc.Result && !resultBtc.Result.Error!.Message.Contains("USER_NOT_FOUND"))
+            if (!resultBtc.Result && !resultBtc.Result.Error!.ErrorCode!.Contains("USER_NOT_FOUND"))
                 return resultBtc.Result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
             var result = new List<SharedBalance>();
@@ -80,7 +81,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var ticker = resultTicker.Result.Data.SingleOrDefault();
             if (ticker == null)
-                return resultTicker.Result.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError("Not found"));
+                return resultTicker.Result.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return resultContract.Result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, resultContract.Result.Data.Name), resultContract.Result.Data.Name, ticker.LastPrice, ticker.HighPrice, ticker.LowPrice, ticker.Volume, ticker.ChangePercentage)
             {
@@ -285,7 +286,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
             var order = await Trading.GetOrderAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, orderId, ct: ct).ConfigureAwait(false);
             if (!order)
@@ -418,7 +419,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, ArgumentError.Invalid(nameof(GetOrderTradesRequest.OrderId), "Invalid order id"));
 
             var orders = await Trading.GetUserTradesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, request.Symbol!.GetSymbol(FormatSymbol), orderId: orderId, ct: ct).ConfigureAwait(false);
             if (!orders)
@@ -506,7 +507,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid(nameof(CancelOrderRequest.OrderId), "Invalid order id"));
 
             var order = await Trading.CancelOrderAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, orderId).ConfigureAwait(false);
             if (!order)
@@ -731,7 +732,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -790,7 +791,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IIndexPriceKlineRestClient)this).GetIndexPriceKlinesOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -1245,7 +1246,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
             var settleAsset = ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!;
             var order = await Trading.GetTriggerOrderAsync(
@@ -1313,7 +1314,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
             var settleAsset = ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!;
             var order = await Trading.CancelTriggerOrderAsync(
@@ -1390,7 +1391,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeWebResult<bool>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<bool>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<bool>(Exchange, ArgumentError.Invalid(nameof(CancelTpSlRequest.OrderId), "Invalid order id"));
 
             var result = await Trading.CancelTriggerOrderAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
