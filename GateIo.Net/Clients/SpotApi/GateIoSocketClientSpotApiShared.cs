@@ -60,7 +60,7 @@ namespace GateIo.Net.Clients.SpotApi
             // USDT_USD returns error..
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Where(x => x.SymbolName != "USDT_USD").Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
             if (!symbols.Any())
-                return new ExchangeResult<UpdateSubscription>(Exchange, new ArgumentError("Invalid symbol(s)"));
+                return new ExchangeResult<UpdateSubscription>(Exchange, ArgumentError.Invalid(nameof(SubscribeTradeRequest.Symbol), "Invalid symbol(s)"));
             
             var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.CreateTime){
                 Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
@@ -85,7 +85,7 @@ namespace GateIo.Net.Clients.SpotApi
             // USDT_USD returns error..
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Where(x => x.SymbolName != "USDT_USD").Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
             if (!symbols.Any())
-                return new ExchangeResult<UpdateSubscription>(Exchange, new ArgumentError("Invalid symbol(s)"));
+                return new ExchangeResult<UpdateSubscription>(Exchange, ArgumentError.Invalid(nameof(SubscribeTradeRequest.Symbol), "Invalid symbol(s)"));
 
             var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
 
@@ -110,7 +110,7 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeResult<UpdateSubscription>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeResult<UpdateSubscription>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineSocketClient)this).SubscribeKlineOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)

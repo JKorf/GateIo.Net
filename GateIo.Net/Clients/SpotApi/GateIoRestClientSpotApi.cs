@@ -14,6 +14,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
 using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -23,6 +24,8 @@ namespace GateIo.Net.Clients.SpotApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
         internal string _brokerId;
+
+        protected override ErrorMapping ErrorMapping => GateIoErrors.Errors;
         #endregion
 
         #region Api clients
@@ -89,14 +92,14 @@ namespace GateIo.Net.Clients.SpotApi
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));
             if (lbl == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
-            return new ServerError(null, lbl + ": " + msg, exception);
+            return new ServerError(lbl, GetErrorInfo(lbl, msg), exception);
         }
 
         /// <inheritdoc />
