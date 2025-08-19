@@ -6674,7 +6674,7 @@
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
             <summary>
             ctor
             </summary>

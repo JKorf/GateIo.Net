@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -13,12 +14,14 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class GateIoSubscription<T> : Subscription<GateIoSocketResponse<GateIoSubscriptionResponse>, GateIoSocketResponse<GateIoSubscriptionResponse>>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<T>> _handler;
         private readonly string _channel;
         private readonly string[] _payload;
 
-        public GateIoSubscription(ILogger logger, string channel, IEnumerable<string> identifiers, string[] payload, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[] payload, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
         {
+            _client = client;
             _handler = handler;
             _channel = channel;
             _payload = payload;
@@ -28,11 +31,11 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
         /// <inheritdoc />
         public override Query? GetSubQuery(SocketConnection connection)
-            => new GateIoQuery<string[], GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "subscribe", _payload);
+            => new GateIoQuery<string[], GateIoSubscriptionResponse>(_client, ExchangeHelpers.NextId(), _channel, "subscribe", _payload);
 
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
-            => new GateIoQuery<string[], GateIoSubscriptionResponse>(ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
+            => new GateIoQuery<string[], GateIoSubscriptionResponse>(_client, ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
 
 
         /// <inheritdoc />

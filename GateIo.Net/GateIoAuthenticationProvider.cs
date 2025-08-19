@@ -19,33 +19,25 @@ namespace GateIo.Net
         {
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
-            if (uriParameters != null)
-                uri = uri.SetParameters(uriParameters, arraySerialization);
+            var timestamp = GetMillisecondTimestampLong(apiClient) / 1000;
+            var requestBody = request.BodyParameters.Any() ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var queryString = request.QueryParameters.Any() ? request.GetQueryString(true) : string.Empty;
+            var bodyPayload = SignSHA512(requestBody).ToLowerInvariant();
 
-            var timestamp = long.Parse(GetMillisecondTimestamp(apiClient)) / 1000;
-            var payload = SignSHA512(bodyParameters?.Any() == true ? GetSerializedBody(_serializer, bodyParameters) : "").ToLowerInvariant();
-            var signStr = $"{method.ToString().ToUpper()}\n{uri.AbsolutePath}\n{uri.Query.Replace("?", "")}\n{payload}\n{timestamp}";
-            var signed = SignHMACSHA512(signStr).ToLowerInvariant();
+            var signStr = $"{request.Method}\n{request.Path}\n{queryString}\n{bodyPayload}\n{timestamp}";
+            var signature = SignHMACSHA512(signStr).ToLowerInvariant();
 
-            headers ??= new Dictionary<string, string>();
-            headers["KEY"] = ApiKey;
-            headers["Timestamp"] = timestamp.ToString();
-            headers["SIGN"] = signed;
+            request.Headers["KEY"] = ApiKey;
+            request.Headers["Timestamp"] = timestamp.ToString();
+            request.Headers["SIGN"] = signature;
+
+            request.SetBodyContent(requestBody);
+            request.SetQueryString(queryString);
         }
 
         public string SignSocketRequest(string signStr) => SignHMACSHA512(signStr).ToLowerInvariant();
