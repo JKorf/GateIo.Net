@@ -27,7 +27,7 @@ namespace GateIo.Net.Clients.FuturesApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Perpetual Futures Api");
         internal string _brokerId;
 
-        protected override ErrorCollection ErrorMapping => GateIoErrors.Errors;
+        protected override ErrorMapping ErrorMapping => GateIoErrors.Errors;
 
         #endregion
 

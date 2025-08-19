@@ -4,7 +4,7 @@ namespace GateIo.Net
 {
     internal static class GateIoErrors
     {
-        internal static ErrorCollection Errors { get; } = new ErrorCollection(
+        internal static ErrorMapping Errors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "Invalid API credentials", "INVALID_CREDENTIALS"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Invalid API key", "INVALID_KEY"),
