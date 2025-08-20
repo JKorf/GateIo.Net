@@ -116,7 +116,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
-        #region Update Dual Mode Position Margin
+        #region Update Dual Mode Position Leverage
 
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionLeverageAsync(string settlementAsset, string contract, decimal leverage, decimal? crossLeverageLimit = null, CancellationToken ct = default)
@@ -130,7 +130,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
-        #region Update Dual Mode Position Margin
+        #region Update Dual Mode Position Risk Limit
 
         /// <inheritdoc />
         public async Task<WebCallResult<GateIoPosition[]>> UpdateDualModePositionRiskLimitAsync(string settlementAsset, string contract, int riskLimit, CancellationToken ct = default)
