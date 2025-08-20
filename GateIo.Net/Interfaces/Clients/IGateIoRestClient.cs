@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Options;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
+using GateIo.Net.Interfaces.Clients.RebateApi;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 
 namespace GateIo.Net.Interfaces.Clients
@@ -21,6 +22,11 @@ namespace GateIo.Net.Interfaces.Clients
         /// </summary>
         /// <see cref="IGateIoRestClientPerpetualFuturesApi"/>
         IGateIoRestClientPerpetualFuturesApi PerpetualFuturesApi { get; }
+        /// <summary>
+        /// Rebate API endpoints
+        /// </summary>
+        /// <see cref="IGateIoRestClientRebateApi"/>
+        IGateIoRestClientRebateApi RebateApi { get; }
 
         /// <summary>
         /// Update specific options
