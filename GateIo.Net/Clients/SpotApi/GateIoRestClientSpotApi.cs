@@ -25,7 +25,7 @@ namespace GateIo.Net.Clients.SpotApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
         internal string _brokerId;
 
-        protected override ErrorMapping ErrorMapping => GateIoErrors.Errors;
+        protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
         #endregion
 
         #region Api clients

@@ -4,7 +4,7 @@ namespace GateIo.Net
 {
     internal static class GateIoErrors
     {
-        internal static ErrorMapping Errors { get; } = new ErrorMapping(
+        internal static ErrorMapping RestErrors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "Invalid API credentials", "INVALID_CREDENTIALS"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Invalid API key", "INVALID_KEY"),
@@ -60,6 +60,13 @@ namespace GateIo.Net
                 new ErrorInfo(ErrorType.RiskError, false, "Operation may cause liquidation", "LIQUIDATE_IMMEDIATELY"),
                 new ErrorInfo(ErrorType.RiskError, false, "Risk limit too high", "RISK_LIMIT_TOO_HIGH"),
                 new ErrorInfo(ErrorType.RiskError, false, "Risk limit too low", "RISK_LIMIT_TOO_lOW"),
+            ]
+        );
+
+        internal static ErrorMapping SocketErrors { get; } = new ErrorMapping(
+            [
+                new ErrorInfo(ErrorType.UnknownSymbol, false, "Unknown symbol", "2"),
+                new ErrorInfo(ErrorType.Unauthorized, false, "Invalid API key", "4"),
             ]
         );
     }

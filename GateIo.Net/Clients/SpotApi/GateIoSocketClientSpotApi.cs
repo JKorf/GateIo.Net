@@ -41,6 +41,8 @@ namespace GateIo.Net.Clients.SpotApi
         private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
         private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
         internal string _brokerId;
+
+        protected override ErrorMapping ErrorMapping => GateIoErrors.SocketErrors;
         #endregion
 
         #region constructor/destructor
