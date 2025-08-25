@@ -397,6 +397,9 @@
         <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.ClearUserClients(System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
             <inheritdoc />
         </member>
@@ -4398,6 +4401,11 @@
             <param name="credentials">The credentials for the user</param>
             <param name="environment">The environment to use</param>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
+        </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
             <summary>
             Get the Rest client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:GateIo.Net.Interfaces.Clients.IGateIoUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)" /> has been called prior for this user.
@@ -6825,7 +6833,7 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
@@ -6837,7 +6845,7 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">

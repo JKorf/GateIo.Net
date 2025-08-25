@@ -32,7 +32,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             var provider = (GateIoAuthenticationProvider)connection.ApiClient.AuthenticationProvider!;
             var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_client, _channel, "subscribe", _payload);
@@ -43,7 +43,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         { 
             return new GateIoQuery<string[], GateIoSubscriptionResponse>(_client, ExchangeHelpers.NextId(), _channel, "unsubscribe", _payload);
         }
