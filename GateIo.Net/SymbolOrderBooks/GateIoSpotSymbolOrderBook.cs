@@ -87,25 +87,18 @@ namespace GateIo.Net.SymbolOrderBooks
 
             Status = OrderBookStatus.Syncing;
             if (Levels == null)
-            {
                 // Small delay to make sure the snapshot is from after our first stream update
                 await Task.Delay(200).ConfigureAwait(false);
-                var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, null, 100).ConfigureAwait(false);
-                if (!bookResult)
-                {
-                    _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
-                    await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(bookResult.Error!);
-                }
 
-                SetInitialOrderBook(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
-            }
-            else
+            var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, null, Levels ?? 100).ConfigureAwait(false);
+            if (!bookResult)
             {
-                var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+                _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
+                await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
+                return new CallResult<UpdateSubscription>(bookResult.Error!);
             }
 
+            SetInitialOrderBook(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
