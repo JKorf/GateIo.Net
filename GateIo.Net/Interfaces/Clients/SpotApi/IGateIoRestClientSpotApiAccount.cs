@@ -83,6 +83,9 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/#retrieve-withdrawal-records" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="withdrawalId">Filter by withdrawal id</param>
+        /// <param name="assetClass">Filter by asset class</param>
+        /// <param name="withdrawClientOrderId">Filter by client order id</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
@@ -91,6 +94,9 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <returns></returns>
         Task<WebCallResult<GateIoWithdrawal[]>> GetWithdrawalsAsync(
             string? asset = null,
+            string? withdrawalId = null,
+            string? assetClass = null,
+            string? withdrawClientOrderId = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
             int? limit = null,
