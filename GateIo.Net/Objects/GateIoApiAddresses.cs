@@ -27,5 +27,15 @@
             SpotSocketClientAddress = "wss://api.gateio.ws",
             FuturesSocketClientAddress = "wss://fx-ws.gateio.ws"
         };
+
+        /// <summary>
+        /// Demo addresses
+        /// </summary>
+        public static GateIoApiAddresses Demo = new GateIoApiAddresses
+        {
+            RestClientAddress = "https://api-testnet.gateapi.io",
+            SpotSocketClientAddress = "wss://ws-testnet.gate.com",
+            FuturesSocketClientAddress = "wss://ws-testnet.gate.com"
+        };
     }
 }
