@@ -71,9 +71,14 @@ namespace GateIo.Net.Enums
         [Map("DMOVE")]
         RequiresManualApproval,
         /// <summary>
-        /// The order is automatically split due to large quantity
+        /// Under review
         /// </summary>
-        [Map("SPLITPEND")]
-        SplitPending
+        [Map("REVIEW")]
+        Review,
+        /// <summary>
+        /// Waiting for confirmations
+        /// </summary>
+        [Map("TRACK")]
+        Track
     }
 }

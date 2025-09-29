@@ -57,7 +57,7 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("txid")]
         public string TransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// Withdrawal status
+        /// Deposit status
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }
