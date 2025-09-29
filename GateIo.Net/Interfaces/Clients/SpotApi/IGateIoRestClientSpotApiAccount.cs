@@ -432,6 +432,15 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<GateIoMarginAccount[]>> GetMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get isolated margin account list
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-user-s-isolated-margin-account-list" /></para>
+        /// </summary>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<GateIoMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get margin accounts balance change history
         /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#list-margin-account-balance-change-history" /></para>
         /// </summary>

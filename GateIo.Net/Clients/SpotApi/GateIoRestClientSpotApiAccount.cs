@@ -625,6 +625,19 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Margin Accounts
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<GateIoMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("currency_pair", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/margin/user/account", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            return await _baseClient.SendAsync<GateIoMarginAccount[]>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Get Margin Balance History
 
         /// <inheritdoc />

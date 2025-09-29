@@ -114,6 +114,7 @@ namespace GateIo.Net.Converters
     [JsonSerializable(typeof(GateIoLoanMarginTier[]))]
     [JsonSerializable(typeof(GateIoLoanMarginTierEntry[]))]
     [JsonSerializable(typeof(GateIoLoanRecord[]))]
+    [JsonSerializable(typeof(GateIoIsolatedMarginAccount[]))]
     [JsonSerializable(typeof(GateIoMarginAccount[]))]
     [JsonSerializable(typeof(GateIoMarginAccountAsset[]))]
     [JsonSerializable(typeof(GateIoMarginAutoRepayStatus[]))]
