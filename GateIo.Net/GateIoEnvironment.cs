@@ -50,6 +50,7 @@ namespace GateIo.Net
          => name switch
          {
              TradeEnvironmentNames.Live => Live,
+             TradeEnvironmentNames.Testnet => Demo,
              "" => Live,
              null => Live,
              _ => default
@@ -59,7 +60,7 @@ namespace GateIo.Net
         /// Available environment names
         /// </summary>
         /// <returns></returns>
-        public static string[] All => [Live.Name];
+        public static string[] All => [Live.Name, Demo.Name];
 
         /// <summary>
         /// Live environment
@@ -69,6 +70,15 @@ namespace GateIo.Net
                                      GateIoApiAddresses.Default.RestClientAddress,
                                      GateIoApiAddresses.Default.SpotSocketClientAddress,
                                      GateIoApiAddresses.Default.FuturesSocketClientAddress);
+
+        /// <summary>
+        /// Demo environment
+        /// </summary>
+        public static GateIoEnvironment Demo { get; }
+            = new GateIoEnvironment(TradeEnvironmentNames.Testnet,
+                GateIoApiAddresses.Demo.RestClientAddress,
+                GateIoApiAddresses.Demo.SpotSocketClientAddress,
+                GateIoApiAddresses.Demo.FuturesSocketClientAddress);
 
         /// <summary>
         /// Create a custom environment

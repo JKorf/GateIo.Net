@@ -50,6 +50,7 @@ namespace Gate.io.Net.UnitTests
 
         [Test]
         [TestCase(TradeEnvironmentNames.Live, "https://api.gateio.ws")]
+        [TestCase(TradeEnvironmentNames.Testnet, "https://api-testnet.gateapi.io")]
         [TestCase("", "https://api.gateio.ws")]
         public void TestConstructorEnvironments(string environmentName, string expected)
         {
