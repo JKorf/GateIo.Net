@@ -4229,6 +4229,11 @@
             Live environment
             </summary>
         </member>
+        <member name="P:GateIo.Net.GateIoEnvironment.Demo">
+            <summary>
+            Demo environment
+            </summary>
+        </member>
         <member name="M:GateIo.Net.GateIoEnvironment.CreateCustom(System.String,System.String,System.String,System.String)">
             <summary>
             Create a custom environment
@@ -6823,6 +6828,11 @@
         <member name="F:GateIo.Net.Objects.GateIoApiAddresses.Default">
             <summary>
             The default addresses to connect to the Gate.io API
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Objects.GateIoApiAddresses.Demo">
+            <summary>
+            Demo addresses
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
