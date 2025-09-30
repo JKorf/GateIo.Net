@@ -170,6 +170,16 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 2.9.0 - 30 Sep 2025
+    * Updated CryptoExchange.Net version to 9.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added ITrackerFactory to TrackerFactory implementation
+    * Added ContractAddress mapping in Shared IAssetClient implementation
+    * Add support for Demo environment
+    * Added socketClient.PerpetualFuturesApi.SubscribeToAdlUpdatesAsync subscription
+    * Added Leverage property to GateIoLoanMarginTier response model
+    * Added restClient.SpotApi.Account.GetIsolatedMarginAccountsAsync endpoint
+    * Updated WithdrawalStatus enum values
+
 * Version 2.8.1 - 10 Sep 2025
     * Added withdrawalId, assetClass and withdrawClientOrderId parameters to restClient.SpotApi.Account.GetWithdrawalsAsync endpoint
 
