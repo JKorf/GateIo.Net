@@ -217,6 +217,13 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAdlUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoAdlUpdate[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new GateIoAuthSubscription<GateIoAdlUpdate[]>(_logger, this, "futures.position_adl_rank", new[] { "futures.position_adl_rank" }, new[] { "!all" }, onMessage);
+            return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<GateIoPerpOrder>> PlaceOrderAsync(
             string settlementAsset,
             string contract,

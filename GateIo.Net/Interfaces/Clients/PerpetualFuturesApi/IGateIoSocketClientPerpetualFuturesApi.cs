@@ -235,6 +235,16 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpTriggerOrderUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to user ADL updates
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#positions-adl-subscription" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToAdlUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoAdlUpdate[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Place a new order
         /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-place" /></para>
         /// </summary>

@@ -36,6 +36,7 @@ namespace GateIo.Net.Converters
     // End manual defined attributes
     [JsonSerializable(typeof(GateIoSocketAuthRequest<string[]>))]
     [JsonSerializable(typeof(GateIoSocketResponse<string[]>))]
+    [JsonSerializable(typeof(GateIoSocketMessage<GateIoAdlUpdate[]>))]
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoPerpOrder[]>))]
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoPerpUserTrade[]>))]
     [JsonSerializable(typeof(GateIoSocketMessage<GateIoPerpLiquidation[]>))]

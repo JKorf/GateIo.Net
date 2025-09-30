@@ -278,6 +278,9 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToTriggerOrderUpdatesAsync(System.Int64,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoPerpTriggerOrderUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.SubscribeToAdlUpdatesAsync(System.String,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoAdlUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -587,6 +590,9 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetMarginBalanceHistoryAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -950,6 +956,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.MarginAccountType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.MarkType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1221,6 +1232,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoSocketLoginResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoSocketMessageGateIoAdlUpdateArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1640,6 +1656,16 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAdlUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAdlUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAsset">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1946,6 +1972,16 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoInterestRecordArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoIsolatedMarginAccount">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoIsolatedMarginAccountArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -3374,6 +3410,26 @@
             Margin
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.MarginAccountType">
+            <summary>
+            Margin account type
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.MarginAccountType.MaintenanceMarginRate">
+            <summary>
+            Maintenance margin rate account
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.MarginAccountType.RiskRate">
+            <summary>
+            Risk rate account
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.MarginAccountType.Inactive">
+            <summary>
+            Inactive
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.MarginMode">
             <summary>
             Margin mode
@@ -4164,9 +4220,14 @@
             Requires manual approval
             </summary>
         </member>
-        <member name="F:GateIo.Net.Enums.WithdrawalStatus.SplitPending">
+        <member name="F:GateIo.Net.Enums.WithdrawalStatus.Review">
             <summary>
-            The order is automatically split due to large quantity
+            Under review
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.WithdrawalStatus.Track">
+            <summary>
+            Waiting for confirmations
             </summary>
         </member>
         <member name="T:GateIo.Net.ExtensionMethods.GateIoExtensionMethods">
@@ -4322,6 +4383,12 @@
             ctor
             </summary>
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CanCreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CanCreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol)">
+            <inheritdoc />
         </member>
         <member name="M:GateIo.Net.GateIoTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
@@ -5281,6 +5348,17 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.SubscribeToAdlUpdatesAsync(System.String,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoAdlUpdate[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user ADL updates
+            <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#positions-adl-subscription" /></para>
+            </summary>
+            <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+            <param name="contract">Contract filter, null for all contracts</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
         <member name="M:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoSocketClientPerpetualFuturesApi.PlaceOrderAsync(System.String,System.String,GateIo.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Int32},System.Nullable{GateIo.Net.Enums.CloseSide},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
@@ -5741,6 +5819,15 @@
             <summary>
             Get margin account list
             <para><a href="https://www.gate.io/docs/developers/apiv4/en/#margin-account-list" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin account list
+            <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-user-s-isolated-margin-account-list" /></para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -6786,25 +6873,6 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <summary>
-            Create a new kline tracker
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="interval">Kline interval</param>
-            <param name="limit">The max amount of klines to retain</param>
-            <param name="period">The max period the data should be retained</param>
-            <returns></returns>
-        </member>
-        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <summary>
-            Create a new trade tracker for a symbol
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="limit">The max amount of klines to retain</param>
-            <param name="period">The max period the data should be retained</param>
-            <returns></returns>
-        </member>
         <member name="T:GateIo.Net.Objects.GateIoApiAddresses">
             <summary>
             Api addresses
@@ -6997,6 +7065,36 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoAccountValue.Borrowed">
             <summary>
             Borrowed
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAdlUpdate">
+            <summary>
+            ADL update
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAdlUpdate.Contract">
+            <summary>
+            Contract name
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAdlUpdate.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAdlUpdate.Rank">
+            <summary>
+            Rank
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAdlUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAdlUpdate.UserId">
+            <summary>
+            User id
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAsset">
@@ -7831,7 +7929,7 @@
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoDeposit.Status">
             <summary>
-            Withdrawal status
+            Deposit status
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoDepositAddress">
@@ -8319,6 +8417,51 @@
             Create time
             </summary>
         </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.Locked">
+            <summary>
+            Account is locked
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.RiskRate">
+            <summary>
+            Current risk rate
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.MaintenanceMarginRate">
+            <summary>
+            Maintenance margin rate
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.Base">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoIsolatedMarginAccount.Quote">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoKline">
             <summary>
             Kline/candlestick info
@@ -8662,6 +8805,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoLoanMarginTierEntry.UpperLimit">
             <summary>
             Upper volume limit
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoLoanMarginTierEntry.Leverage">
+            <summary>
+            Leverage
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoLoanRecord">
