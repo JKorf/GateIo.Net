@@ -103,6 +103,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IGateIoOrderBookFactory, GateIoOrderBookFactory>();
             services.AddTransient<IGateIoTrackerFactory, GateIoTrackerFactory>();
+            services.AddTransient<ITrackerFactory, GateIoTrackerFactory>();
             services.AddSingleton<IGateIoUserClientProvider, GateIoUserClientProvider>(x =>
             new GateIoUserClientProvider(
                 x.GetRequiredService<HttpClient>(),

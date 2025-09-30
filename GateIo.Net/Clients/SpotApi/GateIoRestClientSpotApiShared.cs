@@ -603,6 +603,7 @@ namespace GateIo.Net.Clients.SpotApi
                     FullName = x.NetworkEn,
                     DepositEnabled = !x.IsDepositDisabled,
                     WithdrawEnabled = !x.IsWithdrawalDisabled,
+                    ContractAddress = x.ContractAddress
                 }).ToArray()
             });
         }
@@ -625,7 +626,8 @@ namespace GateIo.Net.Clients.SpotApi
                 Networks = x.Networks.Select(x => new SharedAssetNetwork(x.Name)
                 {
                     DepositEnabled = !x.DepositDisabled,
-                    WithdrawEnabled = !x.WithdrawDisabled
+                    WithdrawEnabled = !x.WithdrawDisabled,
+                    ContractAddress = x.Address
                 }).ToArray()
             }).ToArray());
         }

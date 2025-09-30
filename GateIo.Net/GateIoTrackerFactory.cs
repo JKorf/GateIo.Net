@@ -33,6 +33,17 @@ namespace GateIo.Net
         }
 
         /// <inheritdoc />
+        public bool CanCreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval)
+        {
+            var client = (_serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient());
+            SubscribeKlineOptions klineOptions = symbol.TradingMode == TradingMode.Spot ? client.SpotApi.SharedClient.SubscribeKlineOptions : client.PerpetualFuturesApi.SharedClient.SubscribeKlineOptions;
+            return klineOptions.IsSupported(interval);
+        }
+
+        /// <inheritdoc />
+        public bool CanCreateTradeTracker(SharedSymbol symbol) => true;
+
+        /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
