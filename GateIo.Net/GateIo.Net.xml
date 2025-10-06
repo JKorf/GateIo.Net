@@ -11411,6 +11411,11 @@
             Position size
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.MaxTradeSize">
+            <summary>
+            Maximum position
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.Leverage">
             <summary>
             Leverage
@@ -11468,12 +11473,12 @@
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.UnrealisedPnl">
             <summary>
-            Unrealized profit and less
+            Unrealized profit and loss
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.RealisedPnl">
             <summary>
-            Realized profit and less
+            Realized profit and loss
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.RealisedPnlPosition">
@@ -11501,12 +11506,12 @@
             Last close pnl
             </summary>
         </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.RealsedPoinPnl">
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.RealisedPointPnl">
             <summary>
             Realized POINT PNL
             </summary>
         </member>
-        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.HistoryPoinPnl">
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.HistoryPointPnl">
             <summary>
             History realized POINT PNL
             </summary>
@@ -11524,6 +11529,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.PositionMode">
             <summary>
             Position mode
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPosition.OpenTime">
+            <summary>
+            First open time
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPosition.UpdateTime">
