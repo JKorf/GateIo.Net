@@ -68,13 +68,12 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Set Margin Mode
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoPosition[]>> SetMarginModeAsync(string settlementAsset, string contract, MarginMode marginMode, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition>> SetMarginModeAsync(string settlementAsset, string contract, MarginMode marginMode, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.Add("contract", contract);
+            var parameters = new ParameterCollection { { "contract", contract } };
             parameters.AddEnum("mode", marginMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/cross_mode", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
