@@ -27,6 +27,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("size")]
         public long Size { get; set; }
         /// <summary>
+        /// Maximum position
+        /// </summary>
+        [JsonPropertyName("trade_max_size")]
+        public long MaxTradeSize { get; set; }
+        /// <summary>
         /// Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
@@ -82,12 +87,12 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("mark_price")]
         public decimal? MarkPrice { get; set; }
         /// <summary>
-        /// Unrealized profit and less
+        /// Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealised_pnl")]
         public decimal? UnrealisedPnl { get; set; }
         /// <summary>
-        /// Realized profit and less
+        /// Realized profit and loss
         /// </summary>
         [JsonPropertyName("realised_pnl")]
         public decimal? RealisedPnl { get; set; }
@@ -120,12 +125,12 @@ namespace GateIo.Net.Objects.Models
         /// Realized POINT PNL
         /// </summary>
         [JsonPropertyName("realised_point")]
-        public decimal? RealsedPoinPnl { get; set; }
+        public decimal? RealisedPointPnl { get; set; }
         /// <summary>
         /// History realized POINT PNL
         /// </summary>
         [JsonPropertyName("history_point")]
-        public decimal? HistoryPoinPnl { get; set; }
+        public decimal? HistoryPointPnl { get; set; }
         /// <summary>
         /// Auto deleverage ranking
         /// </summary>
@@ -141,6 +146,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("mode")]
         public PositionMode? PositionMode { get; set; }
+        /// <summary>
+        /// First open time
+        /// </summary>
+        [JsonPropertyName("open_time")]
+        public DateTime? OpenTime { get; set; }
         /// <summary>
         /// Update time
         /// </summary>

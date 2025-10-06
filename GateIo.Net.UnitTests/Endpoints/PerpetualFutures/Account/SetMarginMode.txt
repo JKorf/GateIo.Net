@@ -1,6 +1,7 @@
 POST
-/api/v4/futures/usdt/positions/ETH_USDT/leverage
+/api/v4/futures/usdt/positions/cross_mode
 true
+
 {
   "user": 10000,
   "contract": "BTC_USDT",
@@ -36,3 +37,4 @@ true
   "update_time": 1684994406,
   "cross_leverage_limit": "0"
 }
+

@@ -5,6 +5,7 @@ true
   "user": 10000,
   "contract": "BTC_USDT",
   "size": -9440,
+  "trade_max_size": "0",
   "leverage": "0",
   "risk_limit": "100",
   "leverage_max": "100",
@@ -31,6 +32,7 @@ true
     "is_liq": false
   },
   "mode": "single",
+  "open_time": 1684913253,
   "update_time": 1684994406,
   "cross_leverage_limit": "0"
 }

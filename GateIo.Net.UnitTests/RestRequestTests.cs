@@ -150,6 +150,7 @@ namespace Gate.io.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.GetLedgerAsync("usdt"), "GetLedger");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.UpdatePositionModeAsync("usdt", true), "UpdatePositionMode");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.GetTradingFeeAsync("usdt"), "GetTradingFee");
+            await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.SetMarginModeAsync("usdt", "BTC_USDT", MarginMode.Isolated), "SetMarginMode");
         }
 
         [Test]
