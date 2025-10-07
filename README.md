@@ -1,13 +1,13 @@
-# ![GateIo.Net](https://github.com/JKorf/GateIo.Net/blob/07cc75279de9dc4b9c7dbcf4df6bf6a8cc3cf9ef/GateIo.Net/Icon/icon.png) GateIo.Net  
+# ![GateIo.Net](https://github.com/JKorf/GateIo.Net/blob/07cc75279de9dc4b9c7dbcf4df6bf6a8cc3cf9ef/GateIo.Net/Icon/icon.png) GateIo.Net
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/GateIo.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/GateIo.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/GateIo.Net?style=for-the-badge)
 
-GateIo.Net is a client library for accessing the [Gate.io REST and Websocket API](https://www.gate.io/docs/developers/apiv4).
+GateIo.Net is a client library for accessing the [Gate REST and Websocket API](https://www.gate.com/docs/developers/apiv4).
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
-* Automatic websocket (re)connection management 
-* Client side rate limiting 
+* Automatic websocket (re)connection management
+* Client side rate limiting
 * Client side order book implementation
 * Support for managing different accounts
 * Extensive logging
@@ -30,11 +30,11 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 
 ## Install the library
 
-### NuGet 
+### NuGet
 [![NuGet version](https://img.shields.io/nuget/v/GateIo.net.svg?style=for-the-badge)](https://www.nuget.org/packages/GateIo.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/GateIo.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/GateIo.Net)
 
 	dotnet add package GateIo.Net
-	
+
 ### GitHub packages
 GateIo.Net is available on [GitHub packages](https://github.com/JKorf/GateIo.Net/pkgs/nuget/GateIo.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
 
@@ -43,7 +43,7 @@ GateIo.Net is available on [GitHub packages](https://github.com/JKorf/GateIo.Net
 
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/GateIo.Net/releases).
 
-	
+
 ## How to use
 * REST Endpoints
 	```csharp
@@ -99,7 +99,7 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 When using multiple of these API's the [CryptoClients.Net](https://github.com/JKorf/CryptoClients.Net) package can be used which combines this and the other packages and allows easy access to all exchange API's.
 
 ## Discord
-[![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)  
+[![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discussion and/or questions around the CryptoExchange.Net and implementation libraries, feel free to join.
 
 ## Supported functionality
@@ -163,12 +163,12 @@ Any support is greatly appreciated.
 ### Donate
 Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
 
-**Btc**:  bc1q277a5n54s2l2mzlu778ef7lpkwhjhyvghuv8qf  
-**Eth**:  0xcb1b63aCF9fef2755eBf4a0506250074496Ad5b7   
+**Btc**:  bc1q277a5n54s2l2mzlu778ef7lpkwhjhyvghuv8qf
+**Eth**:  0xcb1b63aCF9fef2755eBf4a0506250074496Ad5b7
 **USDT (TRX)**  TKigKeJPXZYyMVDgMyXxMf17MWYia92Rjd
 
 ### Sponsor
-Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
+Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
 * Version 2.9.1 - 02 Oct 2025

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace GateIo.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
-    /// Gate.io spot streams
+    /// Gate spot streams
     /// </summary>
     public interface IGateIoSocketClientSpotApi : ISocketApiClient, IDisposable
     {
@@ -22,7 +22,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to public trade updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -32,7 +32,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to public trade updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#public-trades-channel" /></para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -42,7 +42,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#tickers-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#tickers-channel" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -52,7 +52,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#tickers-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#tickers-channel" /></para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -62,7 +62,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#candlesticks-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#candlesticks-channel" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -73,7 +73,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to book ticker updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#best-bid-or-ask-price" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#best-bid-or-ask-price" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -83,7 +83,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to book ticker updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#best-bid-or-ask-price" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#best-bid-or-ask-price" /></para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -93,7 +93,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order book change events. Only the changed entries will be pushed
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#changed-order-book-levels" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#changed-order-book-levels" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -114,7 +114,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to partial full order book updates, Full order book will be pushed for a limited depth
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#limited-level-full-order-book-snapshot" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#limited-level-full-order-book-snapshot" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="depth">Depth of the book. 5, 10, 20, 50 or 100</param>
@@ -126,7 +126,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#orders-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#orders-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -135,7 +135,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to user trade updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#user-trades-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#user-trades-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -144,7 +144,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to balance updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#spot-balance-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#spot-balance-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -153,7 +153,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to margin balance updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#margin-balance-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#margin-balance-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -162,7 +162,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to funding balance updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#funding-balance-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#funding-balance-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -171,7 +171,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to cross margin balance updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#cross-margin-balance-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#cross-margin-balance-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -180,7 +180,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trigger order updates
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#priceorders-channel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#priceorders-channel" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -189,7 +189,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-place" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="type">Order type</param>
@@ -217,13 +217,13 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             bool? autoBorrow = null,
             bool? autoRepay = null,
             SelfTradePreventionMode? selfTradePreventionMode = null,
-            string? text = null, 
+            string? text = null,
             OrderActionMode? actionMode = null,
             CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-place" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-place" /></para>
         /// </summary>
         /// <param name="orders">Orders</param>
         /// <param name="ct">Cancellation token</param>
@@ -232,7 +232,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an order by id
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-cancel" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
@@ -248,7 +248,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel multiple orders
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
         /// </summary>
         /// <param name="cancelRequests">Cancel requests</param>
         /// <param name="ct">Cancellation token</param>
@@ -257,7 +257,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all orders on a symbol
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="side">Filter by side</param>
@@ -268,7 +268,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Edit an order
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-amend" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-amend" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id, either `orderId` or `clientOrderId` required</param>
@@ -290,7 +290,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get an order by id
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#order-status" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-status" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -301,7 +301,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get orders list
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/ws/en/#list-orders" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#list-orders" /></para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="open">True for open orders, false for closed orders</param>

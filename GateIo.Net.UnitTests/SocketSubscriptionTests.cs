@@ -5,7 +5,7 @@ using GateIo.Net.Clients;
 using GateIo.Net.Objects.Models;
 using System.Collections.Generic;
 
-namespace Gate.io.Net.UnitTests
+namespace GateIo.Net.UnitTests
 {
     [TestFixture]
     public class SocketSubscriptionTests

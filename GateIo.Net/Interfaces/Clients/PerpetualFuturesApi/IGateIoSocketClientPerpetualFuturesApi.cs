@@ -22,7 +22,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to public trade updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#trades-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#trades-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -33,7 +33,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to public trade updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#trades-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#trades-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
@@ -44,7 +44,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#tickers-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#tickers-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -55,7 +55,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#tickers-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#tickers-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
@@ -66,7 +66,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to best book price updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -77,7 +77,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to best book price updates for multiple contracts
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#best-ask-bid-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contracts">Contracts to subscribe, for example `ETH_USDT`</param>
@@ -88,7 +88,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-v2-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-book-v2-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -100,7 +100,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -113,7 +113,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to kline updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-book-update-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -125,7 +125,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to contract stats updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#contract-stats-subscription" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#contract-stats-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -137,7 +137,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to user order updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#orders-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#orders-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -148,7 +148,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to user trade updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#user-trades-notification" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#user-trades-notification" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -159,7 +159,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to user liquidation updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#user-trades-notification" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#user-trades-notification" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -170,7 +170,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to user auto deleverage updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#user-trades-notification" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#user-trades-notification" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -181,7 +181,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to user position close updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#position-closes-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#position-closes-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -192,7 +192,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to balance updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#balances-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#balances-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -203,7 +203,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to user reduce risk limit updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#reduce-risk-limits-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#reduce-risk-limits-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -214,7 +214,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to position updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#positions-subscription" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#positions-subscription" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -225,7 +225,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Subscribe to trigger order updates
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#auto-orders-api" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#auto-orders-api" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="userId">User id. Can be obtained via <see cref="IGateIoRestClientPerpetualFuturesApiAccount.GetAccountAsync(string, CancellationToken)">restClient.PerpetualFuturesApi.Account.GetAccountAsync</see>.</param>
@@ -246,7 +246,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-place" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-place" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -291,7 +291,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Cancel an order by id
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-cancel" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-cancel" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orderId">Order id</param>
@@ -301,7 +301,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Get order info by id
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-status" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-status" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orderId">Order id</param>
@@ -311,7 +311,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Get orders
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-list" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-list" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="open">True for open orders, false for closed orders</param>
@@ -332,7 +332,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Cancel orders
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#cancel-all-open-orders-matched" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#cancel-all-open-orders-matched" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -347,7 +347,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Edit an order
-        /// <para><a href="https://www.gate.io/docs/developers/futures/ws/en/#order-amend" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#order-amend" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orderId">Order id</param>

@@ -15,7 +15,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
     {
         /// <summary>
         /// Get futures account info
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-futures-account" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-account" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="ct">Cancellation token</param>
@@ -26,7 +26,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Get futures account ledger
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-account-book-2" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-account-book-2" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>
@@ -41,7 +41,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Set dual position mode
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="dualMode">Dual mode enabled</param>
@@ -61,7 +61,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Get user trading fees
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>

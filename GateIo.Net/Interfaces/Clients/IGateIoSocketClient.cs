@@ -7,7 +7,7 @@ using GateIo.Net.Interfaces.Clients.SpotApi;
 namespace GateIo.Net.Interfaces.Clients
 {
     /// <summary>
-    /// Client for accessing the Gate.io websocket API
+    /// Client for accessing the Gate websocket API
     /// </summary>
     public interface IGateIoSocketClient : ISocketClient
     {
