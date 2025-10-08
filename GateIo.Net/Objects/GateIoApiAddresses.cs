@@ -19,7 +19,7 @@
         public string FuturesSocketClientAddress { get; set; } = "";
 
         /// <summary>
-        /// The default addresses to connect to the Gate.io API
+        /// The default addresses to connect to the Gate API
         /// </summary>
         public static GateIoApiAddresses Default = new GateIoApiAddresses
         {

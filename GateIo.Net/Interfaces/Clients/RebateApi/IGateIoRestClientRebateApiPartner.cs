@@ -12,7 +12,7 @@ namespace GateIo.Net.Interfaces.Clients.RebateApi
     {
         /// <summary>
         /// Get partner list
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#partner-subordinate-list" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#partner-subordinate-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

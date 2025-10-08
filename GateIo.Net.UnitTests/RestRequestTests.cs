@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gate.io.Net.UnitTests
+namespace GateIo.Net.UnitTests
 {
     [TestFixture]
     public class RestRequestTests

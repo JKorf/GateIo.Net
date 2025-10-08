@@ -9,14 +9,14 @@ namespace CryptoExchange.Net.Interfaces
     public static class CryptoClientExtensions
     {
         /// <summary>
-        /// Get the Gate.io REST Api client
+        /// Get the Gate REST Api client
         /// </summary>
         /// <param name="baseClient"></param>
         /// <returns></returns>
         public static IGateIoRestClient GateIo(this ICryptoRestClient baseClient) => baseClient.TryGet<IGateIoRestClient>(() => new GateIoRestClient());
 
         /// <summary>
-        /// Get the Gate.io Websocket Api client
+        /// Get the Gate Websocket Api client
         /// </summary>
         /// <param name="baseClient"></param>
         /// <returns></returns>
