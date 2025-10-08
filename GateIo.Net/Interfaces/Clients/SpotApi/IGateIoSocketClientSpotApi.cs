@@ -103,7 +103,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-book-v2-update-notification" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-book-v2-subscription" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="depth">Book depth. 50 or 400. Depth 400 has an update frequency of 100ms while 50 has an update frequency of 20ms</param>
@@ -257,7 +257,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all orders on a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-cancel-all-with-id-list" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-cancel-all-with-specified-currency-pair" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="side">Filter by side</param>

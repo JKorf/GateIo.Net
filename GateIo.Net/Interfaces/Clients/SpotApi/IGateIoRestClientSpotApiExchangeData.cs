@@ -15,7 +15,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get the current server time
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/#get-server-current-time" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-server-current-time" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -23,7 +23,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of supported assets
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#list-all-currencies-details" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-currency-information" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -31,7 +31,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific asset
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-details-of-a-specific-currency" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-information" /></para>
         /// </summary>
         /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -40,7 +40,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-details-of-a-specifc-currency-pair" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-pair-details" /></para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -49,7 +49,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of supported symbols
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#list-all-currency-pairs-supported" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-supported-currency-pairs" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -57,7 +57,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get tickers for all or a single symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-ticker-information" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-currency-pair-ticker-information" /></para>
         /// </summary>
         /// <param name="symbol">Filter for a single symbol, for example `ETH_USDT`</param>
         /// <param name="timezone">Timezone, utc0, utc8 or all</param>
@@ -67,7 +67,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the orderbook for a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-order-book" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-market-depth-information" /></para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="mergeDepth">Merge depth, defaults to 0</param>
@@ -78,7 +78,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get market trades for a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-market-trades" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-market-transaction-records" /></para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="limit">Max amount of results</param>
@@ -93,7 +93,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline/candlesticks for a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#market-candlesticks" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#market-k-line-chart" /></para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="interval">The kline interval</param>
@@ -106,7 +106,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of networks for an asset
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/#list-chains-supported-for-specified-currency" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-chains-supported-for-specified-currency" /></para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -115,7 +115,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get discount tiers
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/#list-currency-discount-tiers" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -123,7 +123,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get loan margin tiers
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/#list-loan-margin-tiers" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered-loan-margin" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -156,7 +156,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get lending symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-detail-of-lending-market" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-lending-market-details" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
