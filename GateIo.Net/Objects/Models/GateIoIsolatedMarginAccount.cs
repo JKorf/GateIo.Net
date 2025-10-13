@@ -24,7 +24,7 @@ namespace GateIo.Net.Objects.Models
         /// Current risk rate
         /// </summary>
         [JsonPropertyName("risk")]
-        public decimal RiskRate { get; set; }
+        public decimal? RiskRate { get; set; }
         /// <summary>
         /// Leverage
         /// </summary>
