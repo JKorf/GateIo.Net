@@ -5,7 +5,7 @@ using System;
 namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 {
     /// <summary>
-    /// GateIo futures API endpoints
+    /// Gate futures API endpoints
     /// </summary>
     public interface IGateIoRestClientPerpetualFuturesApi : IRestApiClient, IDisposable
     {

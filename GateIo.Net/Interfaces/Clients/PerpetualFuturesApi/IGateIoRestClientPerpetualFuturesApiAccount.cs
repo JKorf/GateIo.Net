@@ -9,24 +9,22 @@ using System.Threading.Tasks;
 namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 {
     /// <summary>
-    /// GateIo futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+    /// Gate futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
     /// </summary>
     public interface IGateIoRestClientPerpetualFuturesApiAccount
     {
         /// <summary>
         /// Get futures account info
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-futures-account" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-futures-account" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoFuturesAccount>> GetAccountAsync(
-            string settlementAsset,
-            CancellationToken ct = default);
+        Task<WebCallResult<GateIoFuturesAccount>> GetAccountAsync(string settlementAsset, CancellationToken ct = default);
 
         /// <summary>
         /// Get futures account ledger
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#query-account-book-2" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-account-change-history" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>
@@ -40,8 +38,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         Task<WebCallResult<GateIoPerpLedgerEntry[]>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Set dual position mode
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
+        /// Set position mode
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#set-position-mode" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="dualMode">Dual mode enabled</param>
@@ -51,6 +49,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Set margin mode for a position
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#switch-position-margin-mode" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
@@ -61,7 +60,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 
         /// <summary>
         /// Get user trading fees
-        /// <para><a href="https://www.gate.io/docs/developers/apiv4/en/#enable-or-disable-dual-mode" /></para>
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-market-trading-fee-rates" /></para>
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Filter by contract, for example `ETH_USDT`</param>

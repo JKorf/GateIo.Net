@@ -8,7 +8,7 @@ using GateIo.Net.Interfaces.Clients.SpotApi;
 namespace GateIo.Net.Interfaces.Clients
 {
     /// <summary>
-    /// Client for accessing the Gate.io Rest API. 
+    /// Client for accessing the Gate Rest API.
     /// </summary>
     public interface IGateIoRestClient : IRestClient
     {

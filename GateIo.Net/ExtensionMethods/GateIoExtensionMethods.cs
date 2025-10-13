@@ -5,7 +5,7 @@ using System.Linq;
 namespace GateIo.Net.ExtensionMethods
 {
     /// <summary>
-    /// Extension methods specific to using the Gate.io API
+    /// Extension methods specific to using the Gate API
     /// </summary>
     public static class GateIoExtensionMethods
     {

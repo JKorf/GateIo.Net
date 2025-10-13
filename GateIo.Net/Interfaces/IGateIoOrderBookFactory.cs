@@ -6,7 +6,7 @@ using CryptoExchange.Net.SharedApis;
 namespace GateIo.Net.Interfaces
 {
     /// <summary>
-    /// Gate.io local order book factory
+    /// Gate local order book factory
     /// </summary>
     public interface IGateIoOrderBookFactory
     {
