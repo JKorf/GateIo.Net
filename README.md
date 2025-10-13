@@ -171,6 +171,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 2.10.0 - 13 Oct 2025
+    * Added Alpha API implementation
+    * Updated various gate.io references to gate
+    * Fixed deserialization issue in restClient.SpotApi.Account.GetIsolatedMarginAccountsAsync
+
 * Version 2.9.2 - 06 Oct 2025
     * Updated CryptoExchange.Net version to 9.9.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added MaxTradeSize, OpenTime  properties to GateIoPosition response model
