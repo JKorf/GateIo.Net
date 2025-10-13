@@ -1,0 +1,12 @@
+GET
+/api/v4/alpha/accounts
+true
+[
+  {
+    "currency": "memeboxELON",
+    "available": "1",
+    "locked": "0",
+    "token_address": "0x6952c5408b",
+    "chain": "SOL"
+  }
+]

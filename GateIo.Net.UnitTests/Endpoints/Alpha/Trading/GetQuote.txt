@@ -1,0 +1,15 @@
+POST
+/api/v4/alpha/quote
+true
+{
+  "quote_id": "12345678",
+  "min_amount": "0.1",
+  "max_amount": "1000:0.0",
+  "price": "11.666",
+  "slippage": "11.666",
+  "estimate_gas_fee_amount_usdt": "$0.04",
+  "order_fee": "$0",
+  "target_token_min_amount": "500.6",
+  "target_token_max_amount": "666.6",
+  "error_type": 0
+}

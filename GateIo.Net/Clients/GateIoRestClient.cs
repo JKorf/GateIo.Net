@@ -3,6 +3,7 @@ using System.Net.Http;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects.Options;
+using GateIo.Net.Clients.AlphaApi;
 using GateIo.Net.Clients.FuturesApi;
 using GateIo.Net.Clients.RebateApi;
 using GateIo.Net.Clients.SpotApi;
@@ -27,6 +28,8 @@ namespace GateIo.Net.Clients
         public IGateIoRestClientPerpetualFuturesApi PerpetualFuturesApi { get; }
         /// <inheritdoc />
         public IGateIoRestClientRebateApi RebateApi { get; }
+        /// <inheritdoc />
+        public IGateIoRestClientAlphaApi AlphaApi { get; }
 
         #endregion
 
@@ -54,6 +57,7 @@ namespace GateIo.Net.Clients
             SpotApi = AddApiClient(new GateIoRestClientSpotApi(_logger, httpClient, options.Value));
             PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(_logger, httpClient, options.Value));
             RebateApi = AddApiClient(new GateIoRestClientRebateApi(_logger, httpClient, this, options.Value));
+            AlphaApi = AddApiClient(new GateIoRestClientAlphaApi(_logger, httpClient, this, options.Value));
         }
 
         #endregion
@@ -64,6 +68,7 @@ namespace GateIo.Net.Clients
             SpotApi.SetOptions(options);
             PerpetualFuturesApi.SetOptions(options);
             RebateApi.SetOptions(options);
+            AlphaApi.SetOptions(options);
         }
 
         /// <summary>
@@ -81,6 +86,7 @@ namespace GateIo.Net.Clients
             SpotApi.SetApiCredentials(credentials);
             PerpetualFuturesApi.SetApiCredentials(credentials);
             RebateApi.SetApiCredentials(credentials);
+            AlphaApi.SetApiCredentials(credentials);
         }
     }
 }

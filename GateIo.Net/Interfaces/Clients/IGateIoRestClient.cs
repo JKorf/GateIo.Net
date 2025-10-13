@@ -27,6 +27,11 @@ namespace GateIo.Net.Interfaces.Clients
         /// </summary>
         /// <see cref="IGateIoRestClientRebateApi"/>
         IGateIoRestClientRebateApi RebateApi { get; }
+        /// <summary>
+        /// Alpha API endpoints
+        /// </summary>
+        /// <see cref="IGateIoRestClientAlphaApi"/>
+        IGateIoRestClientAlphaApi AlphaApi { get; }
 
         /// <summary>
         /// Update specific options

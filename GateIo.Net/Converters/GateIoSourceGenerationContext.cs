@@ -7,6 +7,15 @@ using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Converters
 {
+    [JsonSerializable(typeof(GateIoAlphaAccount[]))]
+    [JsonSerializable(typeof(GateIoAlphaLedgerEntry[]))]
+    [JsonSerializable(typeof(GateIoAlphaAsset[]))]
+    [JsonSerializable(typeof(GateIoAlphaTicker[]))]
+    [JsonSerializable(typeof(GateIoAlphaQuote))]
+    [JsonSerializable(typeof(GateIoAlphaOrderResult))]
+    [JsonSerializable(typeof(GateIoAlphaOrder))]
+    [JsonSerializable(typeof(GateIoAlphaOrder[]))]
+
     [JsonSerializable(typeof(GateIoSocketRequest<string[]>))]
     [JsonSerializable(typeof(GateIoSocketRequest<GateIoSocketRequestWrapper<GateIoFuturesPlaceOrderRequest>>))]
     [JsonSerializable(typeof(GateIoSocketRequest<GateIoSocketRequestWrapper<GateIoFuturesPlaceOrderRequest[]>>))]

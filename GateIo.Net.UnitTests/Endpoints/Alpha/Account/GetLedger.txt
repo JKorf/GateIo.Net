@@ -1,0 +1,12 @@
+GET
+/api/v4/alpha/account_book
+true
+[
+  {
+    "id": "123456",
+    "time": 1747827868,
+    "currency": "memeboxELON",
+    "change": "1.03",
+    "balance": "4.59316525194"
+  }
+]

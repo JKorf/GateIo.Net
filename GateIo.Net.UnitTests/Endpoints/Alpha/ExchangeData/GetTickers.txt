@@ -1,0 +1,12 @@
+GET
+/api/v4/alpha/tickers
+false
+[
+  {
+    "currency": "memeboxtrump",
+    "last": "11.38",
+    "change": "-7.45",
+    "volume": "3423412.221",
+    "market_cap": "34234129.94"
+  }
+]

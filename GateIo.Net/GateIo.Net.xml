@@ -4,6 +4,78 @@
         <name>GateIo.Net</name>
     </assembly>
     <members>
+        <member name="T:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi">
+            <inheritdoc cref="T:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi" />
+        </member>
+        <member name="P:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiAccount.GetLedgerAsync(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiExchangeData.GetAssetsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiExchangeData.GetTickersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiTrading.GetQuoteAsync(System.String,GateIo.Net.Enums.OrderSide,System.Decimal,GateIo.Net.Enums.GasMode,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,System.Decimal,GateIo.Net.Enums.GasMode,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiTrading.GetOrdersAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.AlphaOrderStatus,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApiTrading.GetOrderAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi">
             <inheritdoc cref="T:GateIo.Net.Interfaces.Clients.PerpetualFuturesApi.IGateIoRestClientPerpetualFuturesApi" />
         </member>
@@ -321,6 +393,9 @@
             <inheritdoc />
         </member>
         <member name="P:GateIo.Net.Clients.GateIoRestClient.RebateApi">
+            <inheritdoc />
+        </member>
+        <member name="P:GateIo.Net.Clients.GateIoRestClient.AlphaApi">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.GateIoRestClient.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoRestOptions})">
@@ -901,6 +976,16 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.AlphaAssetStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.AlphaOrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.BalanceChangeType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -947,6 +1032,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.FuturesTriggerOrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GasMode">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1032,6 +1122,11 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.PriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.QuoteStatus">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1662,6 +1757,66 @@
             </summary>
         </member>
         <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAdlUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaAccount">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaAccountArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaLedgerEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaLedgerEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaOrderResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaQuote">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Converters.GateIoSourceGenerationContext.GateIoAlphaTickerArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -3130,6 +3285,61 @@
             Options
             </summary>
         </member>
+        <member name="T:GateIo.Net.Enums.AlphaAssetStatus">
+            <summary>
+            Asset status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaAssetStatus.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaAssetStatus.Suspended">
+            <summary>
+            Suspended
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaAssetStatus.Delisted">
+            <summary>
+            Delisted
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.AlphaOrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaOrderStatus.Processing">
+            <summary>
+            Processing
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaOrderStatus.Successful">
+            <summary>
+            Successful
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaOrderStatus.Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaOrderStatus.Cancelled">
+            <summary>
+            Cancelled
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaOrderStatus.BuyPlacedNotTransferred">
+            <summary>
+            Buy order placed but transfer not completed
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.AlphaOrderStatus.CanceledNotTransferred">
+            <summary>
+            Canceled but not transferred yet
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Enums.BalanceChangeType">
             <summary>
             Reason for balance change
@@ -3328,6 +3538,21 @@
         <member name="F:GateIo.Net.Enums.FuturesTriggerOrderStatus.Invalid">
             <summary>
             Order is invalid, only for close-long-order or close-short-order
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.GasMode">
+            <summary>
+            Gas mode
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.GasMode.SmartMode">
+            <summary>
+            Smart mode
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.GasMode.Custom">
+            <summary>
+            Custom
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.KlineInterval">
@@ -3743,6 +3968,26 @@
         <member name="F:GateIo.Net.Enums.PriceType.IndexPrice">
             <summary>
             Index price
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Enums.QuoteStatus">
+            <summary>
+            Quote status
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.QuoteStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.QuoteStatus.ExceedsMaxValue">
+            <summary>
+            Exceeds max value
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.QuoteStatus.BelowMinValue">
+            <summary>
+            Below min value
             </summary>
         </member>
         <member name="T:GateIo.Net.Enums.RateLimitType">
@@ -4396,6 +4641,153 @@
         <member name="M:GateIo.Net.GateIoTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientAlphaApi">
+            <summary>
+            GateIo Alpha API endpoints
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientAlphaApi.Account">
+            <summary>
+            Alpha account endpoints
+            </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiAccount"/>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientAlphaApi.ExchangeData">
+            <summary>
+            Alpha exchange data endpoints
+            </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiExchangeData"/>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientAlphaApi.Trading">
+            <summary>
+            Alpha trading endpoints
+            </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading"/>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi">
+            <summary>
+            GateIo rebate API endpoints
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi.Partner">
+            <summary>
+            Partner subordinate
+            </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner"/>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner">
+            <summary>
+            GateIo partner subordinate
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner.GetSubordinatesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get partner list
+            <para><a href="https://www.gate.com/docs/developers/apiv4/en/#partner-subordinate-list" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiAccount">
+            <summary>
+            GateIo alpha account endpoints
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get account info
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-account-api" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiAccount.GetLedgerAsync(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get account ledger
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-account-transaction-history-api" /></para>
+            </summary>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="page">Page number</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiExchangeData">
+            <summary>
+            GateIo alpha market data endpoints
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiExchangeData.GetAssetsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get asset information
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-information" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">Page number</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiExchangeData.GetTickersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get asset tickers
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-ticker" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">Page number</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="T:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading">
+            <summary>
+            GateIo alpha trading endpoints
+            </summary>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading.GetQuoteAsync(System.String,GateIo.Net.Enums.OrderSide,System.Decimal,GateIo.Net.Enums.GasMode,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Get an order quote
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-quote-api" /></para>
+            </summary>
+            <param name="asset">Asset</param>
+            <param name="side">Order side</param>
+            <param name="quantity">Quantity, for buys this is in USDT, for sells in the asset</param>
+            <param name="gasMode">Gas mode</param>
+            <param name="slippage">Max slippage, 10 equals 10%. Only required when using GasMode.Custom</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,System.Decimal,GateIo.Net.Enums.GasMode,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Place order using a quote
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-api" /></para>
+            </summary>
+            <param name="asset">Asset</param>
+            <param name="side">Order side</param>
+            <param name="quantity">Quantity, for buys this is in USDT, for sells in the asset</param>
+            <param name="gasMode">Gas mode</param>
+            <param name="quoteId">Quote id received from <see cref="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading.GetQuoteAsync(System.String,GateIo.Net.Enums.OrderSide,System.Decimal,GateIo.Net.Enums.GasMode,System.Nullable{System.Decimal},System.Threading.CancellationToken)"/></param>
+            <param name="slippage">Max slippage, 10 equals 10%. Only required when using GasMode.Custom</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading.GetOrdersAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.AlphaOrderStatus,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get order history
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-list-api" /></para>
+            </summary>
+            <param name="asset">Asset name</param>
+            <param name="side">Order side</param>
+            <param name="status">Order status</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="page">Page number</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.AlphaApi.IGateIoRestClientAlphaApiTrading.GetOrderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get order info by id
+            <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-single-order-query-api" /></para>
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:GateIo.Net.Interfaces.Clients.IGateIoRestClient">
             <summary>
             Client for accessing the Gate Rest API.
@@ -4418,6 +4810,12 @@
             Rebate API endpoints
             </summary>
             <see cref="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi"/>
+        </member>
+        <member name="P:GateIo.Net.Interfaces.Clients.IGateIoRestClient.AlphaApi">
+            <summary>
+            Alpha API endpoints
+            </summary>
+            <see cref="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientAlphaApi"/>
         </member>
         <member name="M:GateIo.Net.Interfaces.Clients.IGateIoRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
@@ -6795,29 +7193,6 @@
             Shared interface for Spot socket API usage
             </summary>
         </member>
-        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi">
-            <summary>
-            GateIo eebate API endpoints
-            </summary>
-        </member>
-        <member name="P:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApi.Partner">
-            <summary>
-            Partner subordinate
-            </summary>
-        </member>
-        <member name="T:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner">
-            <summary>
-            GateIo partner subordinate
-            </summary>
-        </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.RebateApi.IGateIoRestClientRebateApiPartner.GetSubordinatesAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get partner list
-            <para><a href="https://www.gate.com/docs/developers/apiv4/en/#partner-subordinate-list" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="T:GateIo.Net.Interfaces.IGateIoOrderBookFactory">
             <summary>
             Gate local order book factory
@@ -7096,6 +7471,306 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoAdlUpdate.UserId">
             <summary>
             User id
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaAccount">
+            <summary>
+            Alpha account info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAccount.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAccount.Available">
+            <summary>
+            Available quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAccount.Locked">
+            <summary>
+            Locked quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAccount.TokenAddress">
+            <summary>
+            Token address
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAccount.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaAsset">
+            <summary>
+            Asset info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.Name">
+            <summary>
+            Asset full name
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.Network">
+            <summary>
+            Network of the asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.Address">
+            <summary>
+            Token address
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.PricePrecision">
+            <summary>
+            Price precision
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.QuantityPrecision">
+            <summary>
+            Quantity precision
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaAsset.Status">
+            <summary>
+            Asset status
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaLedgerEntry">
+            <summary>
+            Account ledger entry
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaLedgerEntry.Id">
+            <summary>
+            Entry id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaLedgerEntry.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaLedgerEntry.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaLedgerEntry.Change">
+            <summary>
+            Change quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaLedgerEntry.Balance">
+            <summary>
+            Balance after change
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaOrder">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.GasMode">
+            <summary>
+            Gas mode
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.QuantityUsdt">
+            <summary>
+            Quantity in USDT
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.QuantityAsset">
+            <summary>
+            Quantity in the asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.TransactionHash">
+            <summary>
+            Transaction hash
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.GasFee">
+            <summary>
+            Gas fee
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.TransactionFee">
+            <summary>
+            Transaction fee
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrder.FailedReason">
+            <summary>
+            Failed reason
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaOrderResult">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.GasMode">
+            <summary>
+            Gas mode
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.TokenAddress">
+            <summary>
+            Token address
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaOrderResult.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaQuote">
+            <summary>
+            Quote
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.QuoteId">
+            <summary>
+            Quote id
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.MinQuantity">
+            <summary>
+            Min order quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.MaxQuantity">
+            <summary>
+            Max order quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.Slippage">
+            <summary>
+            Slippage
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.EstimatedGasFeeUsdt">
+            <summary>
+            Estimated gas USDT fee
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.OrderFee">
+            <summary>
+            Order fee
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.MinReceiveQuantity">
+            <summary>
+            Minimum received quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.MaxReceiveQuantity">
+            <summary>
+            Maximum received quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaQuote.Status">
+            <summary>
+            Quote status
+            </summary>
+        </member>
+        <member name="T:GateIo.Net.Objects.Models.GateIoAlphaTicker">
+            <summary>
+            Price ticker
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaTicker.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaTicker.LastPrice">
+            <summary>
+            Last trade price
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaTicker.ChangePercentage">
+            <summary>
+            Change percentage
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaTicker.Volume">
+            <summary>
+            Trade volume in last 24h
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoAlphaTicker.MarketCap">
+            <summary>
+            Market cap
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAsset">

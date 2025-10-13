@@ -1,0 +1,20 @@
+GET
+/api/v4/alpha/orders
+true
+[
+  {
+    "order_id": "12345678",
+    "tx_hash": "aaaaaaa",
+    "side": "buy",
+    "usdt_amount": "0.0000",
+    "currency": "MEME",
+    "currency_amount": "565455643.6400",
+    "status": 1,
+    "gas_mode": "1",
+    "chain": "ETH",
+    "gas_fee": "0.3",
+    "transaction_fee": "0",
+    "create_time": 1742972931,
+    "failed_reason": ""
+  }
+]

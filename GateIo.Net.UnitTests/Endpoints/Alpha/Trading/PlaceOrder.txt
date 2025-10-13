@@ -1,0 +1,13 @@
+POST
+/api/v4/alpha/orders
+true
+{
+  "order_id": "12345678",
+  "status": 1,
+  "side": "buy",
+  "gas_mode": "custom",
+  "create_time": 1749468580,
+  "amount": "324",
+  "token_address": "string",
+  "chain": "ETH"
+}

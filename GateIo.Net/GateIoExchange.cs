@@ -108,6 +108,8 @@ namespace GateIo.Net
                         .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKeyPerEndpoint, Array.Empty<IGuardFilter>(), 150, TimeSpan.FromSeconds(10), RateLimitWindowType.FixedAfterFirst)); // Uid limit of 150 request per 10 seconds
             RestOther = new RateLimitGate("Other")
                         .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKeyPerEndpoint, Array.Empty<IGuardFilter>(), 150, TimeSpan.FromSeconds(10), RateLimitWindowType.FixedAfterFirst)); // Uid limit of 150 request per 10 seconds
+            RestAlpha = new RateLimitGate("Alpha")
+                        .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKey, Array.Empty<IGuardFilter>(), 200, TimeSpan.FromSeconds(10), RateLimitWindowType.FixedAfterFirst)); // 200 requests per 10 seconds
 
             Public.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             Public.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
@@ -127,6 +129,8 @@ namespace GateIo.Net
             RestPrivate.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             RestOther.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             RestOther.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            RestAlpha.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            RestAlpha.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 
@@ -139,5 +143,6 @@ namespace GateIo.Net
         internal IRateLimitGate RestFuturesOther { get; private set; }
         internal IRateLimitGate RestPrivate { get; private set; }
         internal IRateLimitGate RestOther { get; private set; }
+        internal IRateLimitGate RestAlpha { get; private set; }
     }
 }
