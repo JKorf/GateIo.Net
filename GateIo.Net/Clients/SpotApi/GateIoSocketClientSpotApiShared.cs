@@ -206,6 +206,7 @@ namespace GateIo.Net.Clients.SpotApi
                         x.Price!.Value,
                         x.CreateTime)
                     {
+                        ClientOrderId = x.Text,
                         Role = x.Role == Enums.Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                         Fee = x.Fee,
                         FeeAsset = x.FeeAsset

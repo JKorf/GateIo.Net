@@ -24,11 +24,11 @@ namespace GateIo.Net.Clients.FuturesApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
         #region Balance Client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(AccountTypeFilter.Futures);
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
@@ -435,8 +435,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 x.Price,
                 x.CreateTime)
             {
-                Price = x.Price,
-                Quantity = x.Quantity,
+                ClientOrderId = x.Text,
                 Fee = x.Fee,
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker
             }).ToArray());
@@ -486,8 +485,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 x.Price,
                 x.CreateTime)
             {
-                Price = x.Price,
-                Quantity = x.Quantity,
+                ClientOrderId = x.Text,
                 Fee = x.Fee,
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker
             }).ToArray(), nextToken);

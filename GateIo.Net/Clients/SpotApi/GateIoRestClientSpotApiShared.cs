@@ -206,11 +206,11 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region Balance client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(AccountTypeFilter.Spot);
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
@@ -419,6 +419,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.Price,
                 x.CreateTime)
             {
+                ClientOrderId = x.Text,
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
@@ -467,6 +468,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.Price,
                 x.CreateTime)
             {
+                ClientOrderId = x.Text,
                 Role = x.Role == Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
@@ -923,5 +925,60 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
+        #region Transfer client
+
+        TransferOptions ITransferRestClient.TransferOptions { get; } = new TransferOptions([
+            SharedAccountType.Spot,
+            SharedAccountType.CrossMargin,
+            SharedAccountType.IsolatedMargin,
+            SharedAccountType.PerpetualLinearFutures,
+            SharedAccountType.DeliveryLinearFutures,
+            SharedAccountType.PerpetualInverseFutures,
+            SharedAccountType.DeliveryInverseFutures,
+            SharedAccountType.Option,
+            ])
+        {
+            OptionalExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "The settle asset for futures transfer", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> ITransferRestClient.TransferAsync(TransferRequest request, CancellationToken ct)
+        {
+            var validationError = ((ITransferRestClient)this).TransferOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var fromType = GetTransferType(request.FromAccountType);
+            var toType = GetTransferType(request.ToAccountType);
+            if (fromType == null || toType == null)
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid("To/From AccountType", "invalid to/from account combination"));
+
+            // Get data
+            var transfer = await Account.TransferAsync(
+                request.Asset,
+                fromType.Value,
+                toType.Value,
+                request.Quantity,
+                fromType == AccountType.Margin ? request.FromSymbol : request.ToSymbol,
+                ExchangeParameters.GetValue<string?>(request.ExchangeParameters, Exchange, "SettleAsset"),
+                ct: ct).ConfigureAwait(false);
+            if (!transfer)
+                return transfer.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return transfer.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(transfer.Data.TransactionId.ToString()));
+        }
+
+        private AccountType? GetTransferType(SharedAccountType type)
+        {
+            if (type == SharedAccountType.Spot) return AccountType.Spot;
+            if (type.IsMarginAccount()) return AccountType.Margin;
+            if (type == SharedAccountType.PerpetualLinearFutures || type == SharedAccountType.PerpetualInverseFutures) return AccountType.PerpertualFutures;
+            if (type == SharedAccountType.DeliveryLinearFutures || type == SharedAccountType.DeliveryInverseFutures) return AccountType.DeliveryFutures;
+            if (type == SharedAccountType.Option) return AccountType.Options;
+            return null;
+        }
+
+        #endregion
     }
 }
