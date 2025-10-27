@@ -19,11 +19,11 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="holding">True to return only active positions, false to return all</param>
-        /// <param name="page">Page number</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max amount of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPosition[]>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<GateIoPosition[]>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? offset = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get single position

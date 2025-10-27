@@ -5159,7 +5159,7 @@
             </summary>
             <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
             <param name="holding">True to return only active positions, false to return all</param>
-            <param name="page">Page number</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max amount of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

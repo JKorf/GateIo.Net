@@ -26,10 +26,10 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoPosition[]>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? page = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoPosition[]>> GetPositionsAsync(string settlementAsset, bool? holding = null, int? offset = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("page", page);
+            parameters.AddOptional("offset", offset);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("holding", holding);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
