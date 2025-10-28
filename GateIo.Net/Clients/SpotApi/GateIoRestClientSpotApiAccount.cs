@@ -56,7 +56,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("type", type);
-            parameters.AddOptional("code", type);
+            parameters.AddOptional("code", code);
             parameters.AddOptionalSeconds("from", startTime);
             parameters.AddOptionalSeconds("to", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/spot/account_book", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
@@ -93,8 +93,8 @@ namespace GateIo.Net.Clients.SpotApi
             return await _baseClient.SendAsync<GateIoWithdrawal>(request, null, ct).ConfigureAwait(false);
         }
 
-        #endregion    
-        
+        #endregion
+
         #region Generate Deposit Address
 
         /// <inheritdoc />
@@ -550,7 +550,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
-        
+
         #region Get Unified Leverage Configs
 
         /// <inheritdoc />
