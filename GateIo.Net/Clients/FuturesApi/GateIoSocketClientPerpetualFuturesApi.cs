@@ -42,8 +42,10 @@ namespace GateIo.Net.Clients.FuturesApi
         private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
         private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
         private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
-        internal string _brokerId;
+
         private readonly bool _demoTrading;
+
+        private new GateIoSocketOptions ClientOptions => (GateIoSocketOptions)base.ClientOptions;
         #endregion
 
         #region constructor/destructor
@@ -54,8 +56,6 @@ namespace GateIo.Net.Clients.FuturesApi
         internal GateIoSocketClientPerpetualFuturesApi(ILogger logger, GateIoSocketOptions options) :
             base(logger, options.Environment.FuturesSocketClientAddress!, options, options.PerpetualFuturesOptions)
         {
-            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
-
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
 
             RegisterPeriodicQuery(
@@ -255,7 +255,7 @@ namespace GateIo.Net.Clients.FuturesApi
             }, true,
             new Dictionary<string, string>
             {
-                { "X-Gate-Channel-Id", _brokerId }
+                { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => ClientOptions.BrokerId, Exchange)  }
             });
 
             return await QueryAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), query, ct).ConfigureAwait(false);
@@ -283,7 +283,7 @@ namespace GateIo.Net.Clients.FuturesApi
             }).ToArray(), true,
             new Dictionary<string, string>
             {
-                { "X-Gate-Channel-Id", _brokerId }
+                { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => ClientOptions.BrokerId, Exchange) }
             });
 
             return await QueryAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), query, ct).ConfigureAwait(false);

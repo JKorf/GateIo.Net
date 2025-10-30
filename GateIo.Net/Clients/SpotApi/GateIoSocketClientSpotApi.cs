@@ -40,8 +40,10 @@ namespace GateIo.Net.Clients.SpotApi
         private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
         private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
         private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
-        internal string _brokerId;
+
         private readonly bool _demoTrading;
+
+        private new GateIoSocketOptions ClientOptions => (GateIoSocketOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => GateIoErrors.SocketErrors;
         #endregion
@@ -54,8 +56,6 @@ namespace GateIo.Net.Clients.SpotApi
         internal GateIoSocketClientSpotApi(ILogger logger, GateIoSocketOptions options) :
             base(logger, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
         {
-            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
-
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
 
             SetDedicatedConnection($"{BaseAddress.AppendPath(GetSocketPath())}/", true);
@@ -269,7 +269,7 @@ namespace GateIo.Net.Clients.SpotApi
             }, true,
             new Dictionary<string, string>
             {
-                { "X-Gate-Channel-Id", _brokerId }
+                { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => ClientOptions.BrokerId, Exchange) }
             });
 
             return await QueryAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", query, ct).ConfigureAwait(false);
@@ -296,7 +296,7 @@ namespace GateIo.Net.Clients.SpotApi
             }).ToArray(), true,
             new Dictionary<string, string>
             {
-                { "X-Gate-Channel-Id", _brokerId }
+                { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => ClientOptions.BrokerId, Exchange) }
             });
 
             return await QueryAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", query, ct).ConfigureAwait(false);
