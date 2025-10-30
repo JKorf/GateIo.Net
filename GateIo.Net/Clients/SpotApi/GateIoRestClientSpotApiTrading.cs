@@ -11,6 +11,7 @@ using System;
 using System.Globalization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
+using CryptoExchange.Net;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -60,7 +61,16 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("text", text);
             parameters.AddOptionalEnum("action_mode", actionMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<GateIoOrder>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }, rateLimitKeySuffix: symbol).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoOrder>(
+                request,
+                parameters, 
+                ct, 
+                1, 
+                new Dictionary<string, string> 
+                {
+                    { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
+                }, 
+                rateLimitKeySuffix: symbol).ConfigureAwait(false);
             return result;
         }
 
@@ -76,7 +86,15 @@ namespace GateIo.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.SetBody(orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/batch_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            var result = await _baseClient.SendAsync<GateIoOrderOperation[]>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<GateIoOrderOperation[]>(
+                request, 
+                parameters, 
+                ct, 
+                1,
+                new Dictionary<string, string> 
+                { 
+                    { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
+                }).ConfigureAwait(false);
             return result;
         }
 
@@ -330,7 +348,15 @@ namespace GateIo.Net.Clients.SpotApi
             order.AddOptional("text", text);
             parameters.Add("put", order);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/price_orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
-            return await _baseClient.SendAsync<GateIoId>(request, parameters, ct, 1, new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }, rateLimitKeySuffix: symbol).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoId>(
+                request, 
+                parameters,
+                ct, 
+                1, 
+                new Dictionary<string, string> {
+                    { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
+                },
+                rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
 
         #endregion

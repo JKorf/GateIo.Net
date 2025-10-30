@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using System.Linq;
 using GateIo.Net.Interfaces.Clients.AlphaApi;
+using CryptoExchange.Net;
 
 namespace GateIo.Net.Clients.AlphaApi
 {
@@ -69,7 +70,14 @@ namespace GateIo.Net.Clients.AlphaApi
             parameters.AddEnum("gas_mode", gasMode);
             parameters.AddOptionalString("slippage", slippage);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/alpha/orders", GateIoExchange.RateLimiter.RestAlpha, 1, true);
-            return await _baseClient.SendAsync<GateIoAlphaOrderResult>(request, parameters, ct, requestHeaders: new Dictionary<string, string> { { "X-Gate-Channel-Id", _baseClient._brokerId } }).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoAlphaOrderResult>(
+                request,
+                parameters,
+                ct,
+                requestHeaders: new Dictionary<string, string> 
+                { 
+                    { "X-Gate-Channel-Id", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.ExchangeName) }
+                }).ConfigureAwait(false);
         }
 
         #endregion

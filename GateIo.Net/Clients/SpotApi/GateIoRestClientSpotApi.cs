@@ -23,8 +23,9 @@ namespace GateIo.Net.Clients.SpotApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
-        internal string _brokerId;
 
+
+        internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
         #endregion
 
@@ -47,7 +48,6 @@ namespace GateIo.Net.Clients.SpotApi
             ExchangeData = new GateIoRestClientSpotApiExchangeData(logger, this);
             Trading = new GateIoRestClientSpotApiTrading(logger, this);
 
-            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
         #endregion

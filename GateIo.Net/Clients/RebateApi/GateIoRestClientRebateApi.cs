@@ -20,7 +20,6 @@ namespace GateIo.Net.Clients.RebateApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Rebate Api");
-        internal string _brokerId;
         private readonly GateIoRestClient _baseClient;
         #endregion
 
@@ -39,7 +38,6 @@ namespace GateIo.Net.Clients.RebateApi
 
             Partner = new GateIoRestClientRebateApiPartner(this);
 
-            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 

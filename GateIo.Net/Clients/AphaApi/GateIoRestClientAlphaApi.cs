@@ -24,9 +24,9 @@ namespace GateIo.Net.Clients.AlphaApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Alpha Api");
-        internal string _brokerId;
         private readonly GateIoRestClient _baseClient;
 
+        internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
         #endregion
 
@@ -51,7 +51,6 @@ namespace GateIo.Net.Clients.AlphaApi
             ExchangeData = new GateIoRestClientAlphaApiExchangeData(this);
             Trading = new GateIoRestClientAlphaApiTrading(this);
 
-            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 

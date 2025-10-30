@@ -25,8 +25,8 @@ namespace GateIo.Net.Clients.FuturesApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Perpetual Futures Api");
-        internal string _brokerId;
 
+        internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
 
         #endregion
@@ -50,7 +50,6 @@ namespace GateIo.Net.Clients.FuturesApi
             ExchangeData = new GateIoRestClientPerpetualFuturesApiExchangeData(logger, this);
             Trading = new GateIoRestClientPerpetualFuturesApiTrading(logger, this);
 
-            _brokerId = string.IsNullOrEmpty(options.BrokerId) ? "copytraderpw" : options.BrokerId!;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 
             RequestBodyEmptyContent = "";
