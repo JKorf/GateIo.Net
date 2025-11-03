@@ -79,6 +79,21 @@ namespace GateIo.Net.Enums
         /// Waiting for confirmations
         /// </summary>
         [Map("TRACK")]
-        Track
+        Track,
+        /// <summary>
+        /// Rejected
+        /// </summary>
+        [Map("BLOCKED")]
+        Blocked,
+        /// <summary>
+        /// Deposit credited
+        /// </summary>
+        [Map("DEP_CREDITED")]
+        Credited,
+        /// <summary>
+        /// Funds added to spot account
+        /// </summary>
+        [Map("FINAL")]
+        Final
     }
 }

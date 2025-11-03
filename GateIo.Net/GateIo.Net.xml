@@ -4475,6 +4475,21 @@
             Waiting for confirmations
             </summary>
         </member>
+        <member name="F:GateIo.Net.Enums.WithdrawalStatus.Blocked">
+            <summary>
+            Rejected
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.WithdrawalStatus.Credited">
+            <summary>
+            Deposit credited
+            </summary>
+        </member>
+        <member name="F:GateIo.Net.Enums.WithdrawalStatus.Final">
+            <summary>
+            Funds added to spot account
+            </summary>
+        </member>
         <member name="T:GateIo.Net.ExtensionMethods.GateIoExtensionMethods">
             <summary>
             Extension methods specific to using the Gate API
