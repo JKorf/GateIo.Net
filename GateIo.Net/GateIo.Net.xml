@@ -4585,6 +4585,11 @@
             Type of exchange
             </summary>
         </member>
+        <member name="P:GateIo.Net.GateIoExchange.AssetAliases">
+            <summary>
+            Aliases for Gate assets
+            </summary>
+        </member>
         <member name="M:GateIo.Net.GateIoExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to a Gate recognized symbol

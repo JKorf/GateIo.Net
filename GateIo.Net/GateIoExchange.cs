@@ -48,6 +48,16 @@ namespace GateIo.Net
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<GateIoSourceGenerationContext>();
 
         /// <summary>
+        /// Aliases for Gate assets
+        /// </summary>
+        public static AssetAliasConfiguration AssetAliases { get; } = new AssetAliasConfiguration
+        {
+            Aliases = [
+                new AssetAlias("USDT", SharedSymbol.UsdOrStable.ToUpperInvariant(), AliasType.OnlyToExchange)
+            ]
+        };
+
+        /// <summary>
         /// Format a base and quote asset to a Gate recognized symbol
         /// </summary>
         /// <param name="baseAsset">Base asset</param>
@@ -57,7 +67,10 @@ namespace GateIo.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
-            return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+            baseAsset = AssetAliases.CommonToExchangeName(baseAsset.ToUpperInvariant());
+            quoteAsset = AssetAliases.CommonToExchangeName(quoteAsset.ToUpperInvariant());
+
+            return baseAsset + "_" + quoteAsset;
         }
 
         /// <summary>
