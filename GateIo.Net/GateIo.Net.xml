@@ -461,6 +461,9 @@
         <member name="T:GateIo.Net.Clients.GateIoUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:GateIo.Net.Clients.GateIoUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:GateIo.Net.Clients.GateIoUserClientProvider.#ctor(System.Action{GateIo.Net.Objects.Options.GateIoOptions})">
             <summary>
             ctor
@@ -13877,6 +13880,9 @@
             <summary>
             GateIo order book factory
             </summary>
+        </member>
+        <member name="P:GateIo.Net.SymbolOrderBooks.GateIoOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="M:GateIo.Net.SymbolOrderBooks.GateIoOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>

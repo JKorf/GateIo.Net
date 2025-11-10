@@ -23,7 +23,7 @@ namespace GateIo.Net.Clients.FuturesApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
         #region Ticker client
-        EndpointOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new EndpointOptions<SubscribeTickerRequest>(false)
+        SubscribeTickerOptions ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscribeTickerOptions()
         {
             SupportsMultipleSymbols = true,
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -70,7 +70,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTradeUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbols, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, update.Data.Select(x => new SharedTrade(Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray())), ct).ConfigureAwait(false);
+            var result = await SubscribeToTradeUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbols, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, update.Data.Select(x =>
+                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract), x.Contract, Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray())), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -131,7 +132,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, interval, update => {
                 foreach (var item in update.Data)
-                    handler(update.AsExchangeEvent(Exchange, new SharedKline(item.OpenTime, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.QuoteVolume)));
+                    handler(update.AsExchangeEvent(Exchange, new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, item.Contract), item.Contract, item.OpenTime, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.QuoteVolume)));
                 }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);

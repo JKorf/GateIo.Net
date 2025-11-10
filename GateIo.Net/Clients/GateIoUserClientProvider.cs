@@ -22,6 +22,9 @@ namespace GateIo.Net.Clients
         private readonly HttpClient _httpClient;
         private readonly ILoggerFactory? _loggerFactory;
 
+        /// <inheritdoc />
+        public string ExchangeName => GateIoExchange.ExchangeName;
+
         /// <summary>
         /// ctor
         /// </summary>

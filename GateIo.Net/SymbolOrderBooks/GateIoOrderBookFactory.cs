@@ -17,6 +17,9 @@ namespace GateIo.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public string ExchangeName => GateIoExchange.ExchangeName;
+
         /// <summary>
         /// ctor
         /// </summary>

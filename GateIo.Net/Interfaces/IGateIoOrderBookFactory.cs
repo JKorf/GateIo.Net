@@ -8,7 +8,7 @@ namespace GateIo.Net.Interfaces
     /// <summary>
     /// Gate local order book factory
     /// </summary>
-    public interface IGateIoOrderBookFactory
+    public interface IGateIoOrderBookFactory : IExchangeService
     {
         /// <summary>
         /// Spot order book factory methods

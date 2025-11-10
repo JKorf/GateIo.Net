@@ -57,7 +57,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #region Ticker client
 
-        EndpointOptions<GetTickerRequest> IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false)
+        GetTickerOptions IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new GetTickerOptions()
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -92,7 +92,7 @@ namespace GateIo.Net.Clients.FuturesApi
             });
         }
 
-        EndpointOptions<GetTickersRequest> IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false)
+        GetTickersOptions IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new GetTickersOptions()
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -750,9 +750,10 @@ namespace GateIo.Net.Clients.FuturesApi
             if (startTime < request.StartTime)
                 startTime = request.StartTime;
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetKlinesAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 interval,
                 startTime: startTime,
                 endTime: endTime,
@@ -770,7 +771,8 @@ namespace GateIo.Net.Clients.FuturesApi
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)interval));
             }
 
-            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => 
+                new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -809,9 +811,10 @@ namespace GateIo.Net.Clients.FuturesApi
             if (startTime < request.StartTime)
                 startTime = request.StartTime;
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetIndexKlinesAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 interval,
                 startTime: startTime,
                 endTime: endTime,
@@ -829,7 +832,8 @@ namespace GateIo.Net.Clients.FuturesApi
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)interval));
             }
 
-            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => 
+                new SharedFuturesKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice)).ToArray(), nextToken);
         }
 
         #endregion
@@ -849,15 +853,17 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTradesAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x => new SharedTrade(Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray());
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x => 
+                new SharedTrade(request.Symbol, symbol, Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray());
         }
 
         #endregion
@@ -883,9 +889,10 @@ namespace GateIo.Net.Clients.FuturesApi
 
             // Get data
             var limit = request.Limit ?? 1000;
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTradesAsync(
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 limit: limit,
@@ -899,7 +906,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 nextToken = new OffsetToken(offset + limit);
 
             // Return
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x => new SharedTrade(Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x =>
+                new SharedTrade(request.Symbol, symbol, Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray(), nextToken);
         }
         #endregion
 
