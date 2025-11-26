@@ -15,11 +15,11 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
     internal class GateIoSubscription<T> : Subscription<GateIoSocketResponse<GateIoSubscriptionResponse>, GateIoSocketResponse<GateIoSubscriptionResponse>>
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, GateIoSocketMessage<T>> _handler;
         private readonly string _channel;
         private readonly string[] _payload;
 
-        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[] payload, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[] payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
@@ -39,9 +39,10 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<GateIoSocketMessage<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketMessage<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Result, message.Data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _handler.Invoke(receiveTime, originalData, message);
+            //_handler.Invoke(message.As(message.Data.Result, message.Data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
     }

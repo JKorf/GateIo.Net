@@ -10,11 +10,13 @@ namespace GateIo.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [Test]
-        public async Task ValidateSpotSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
         {
             var client = new GateIoSocketClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
@@ -33,11 +35,13 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync<GateIoTriggerOrderUpdate>((client, handler) => client.SpotApi.SubscribeToTriggerOrderUpdatesAsync(handler), "SubscribeToTriggerOrderUpdates", ignoreProperties: new List<string> { "time", "timestamp" });
         }
 
-        [Test]
-        public async Task ValidatePerpFuturesSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidatePerpFuturesSubscriptions(bool useUpdatedDeserialization)
         {
             var client = new GateIoSocketClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws", "result");

@@ -28,7 +28,7 @@
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetServerTimestampAsync">
@@ -100,10 +100,10 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ParseRateLimitResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.GetServerTimestampAsync">
@@ -547,10 +547,10 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.GetServerTimestampAsync">
@@ -7305,7 +7305,7 @@
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{System.DateTime,System.String,GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
             <summary>
             ctor
             </summary>
@@ -7316,7 +7316,7 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,System.DateTime,System.String,GateIo.Net.Objects.Internal.GateIoSocketMessage{`0})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1">
@@ -7328,7 +7328,7 @@
         <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,System.DateTime,System.String,GateIo.Net.Objects.Internal.GateIoSocketMessage{`0})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAccountInfo">
@@ -14025,6 +14025,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_GateIoOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>

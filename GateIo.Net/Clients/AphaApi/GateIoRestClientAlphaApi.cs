@@ -1,11 +1,13 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
+using GateIo.Net.Clients.MessageHandlers;
 using GateIo.Net.Clients.RebateApi;
 using GateIo.Net.Interfaces.Clients.AlphaApi;
 using GateIo.Net.Interfaces.Clients.RebateApi;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,6 +28,7 @@ namespace GateIo.Net.Clients.AlphaApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Alpha Api");
         private readonly GateIoRestClient _baseClient;
+        protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
 
         internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
@@ -91,7 +95,7 @@ namespace GateIo.Net.Clients.AlphaApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);

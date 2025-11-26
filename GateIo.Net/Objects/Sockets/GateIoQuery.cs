@@ -20,12 +20,12 @@ namespace GateIo.Net.Objects.Sockets
             MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
         }
 
-        public CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketResponse<T>> message)
+        public CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketResponse<T> message)
         {
-            if (message.Data.Error != null)
-                return message.ToCallResult<GateIoSocketResponse<T>>(new ServerError(message.Data.Error.Code, _client.GetErrorInfo(message.Data.Error.Code, message.Data.Error.Message)));
+            if (message.Error != null)
+                return new CallResult<GateIoSocketResponse<T>>(new ServerError(message.Error.Code, _client.GetErrorInfo(message.Error.Code, message.Error.Message)));
 
-            return message.ToCallResult();
+            return new CallResult<GateIoSocketResponse<T>>(message, originalData, null);
         }
     }
 }

@@ -14,12 +14,14 @@ namespace GateIo.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [Test]
-        public async Task ValidateSpotAccountCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/Account", "https://api.gateio.ws", IsAuthenticated);
@@ -81,12 +83,14 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.SetUnifiedLeverageAsync("123", 0.1m), "SetUnifiedLeverage");
         }
 
-        [Test]
-        public async Task ValidateSpotExchangeDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.gateio.ws", IsAuthenticated);
@@ -108,12 +112,14 @@ namespace GateIo.Net.UnitTests
 
         }
 
-        [Test]
-        public async Task ValidateSpotTradingCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotTradingCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Spot/Trading", "https://api.gateio.ws", IsAuthenticated);
@@ -137,12 +143,14 @@ namespace GateIo.Net.UnitTests
 
         }
 
-        [Test]
-        public async Task ValidatePerpFuturesAccountDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidatePerpFuturesAccountDataCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/Account", "https://api.gateio.ws", IsAuthenticated);
@@ -153,12 +161,14 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Account.SetMarginModeAsync("usdt", "BTC_USDT", MarginMode.Isolated), "SetMarginMode");
         }
 
-        [Test]
-        public async Task ValidatePerpFuturesExchangeDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidatePerpFuturesExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/ExchangeData", "https://api.gateio.ws", IsAuthenticated);
@@ -178,12 +188,14 @@ namespace GateIo.Net.UnitTests
 
         }
 
-        [Test]
-        public async Task ValidatePerpFuturesTradingDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidatePerpFuturesTradingDataCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/Trading", "https://api.gateio.ws", IsAuthenticated);
@@ -218,12 +230,14 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.EditMultipleOrdersAsync("usdt", new[] { new GateIoPerpBatchEditRequest() }), "EditMultipleOrders");
         }
 
-        [Test]
-        public async Task ValidateAlphaAccountCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateAlphaAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Alpha/Account", "https://api.gateio.ws", IsAuthenticated);
@@ -231,12 +245,14 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.AlphaApi.Account.GetLedgerAsync(), "GetLedger");
         }
 
-        [Test]
-        public async Task ValidateAlphaExchangeDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateAlphaExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Alpha/ExchangeData", "https://api.gateio.ws", IsAuthenticated);
@@ -244,13 +260,14 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.AlphaApi.ExchangeData.GetTickersAsync(), "GetTickers");
         }
 
-
-        [Test]
-        public async Task ValidateAlphaTradeCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateAlphaTradeCalls(bool useUpdatedDeserialization)
         {
             var client = new GateIoRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<GateIoRestClient>(client, "Endpoints/Alpha/Trading", "https://api.gateio.ws", IsAuthenticated);

@@ -15,6 +15,9 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Errors;
+using System.Net.Http.Headers;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using GateIo.Net.Clients.MessageHandlers;
 
 namespace GateIo.Net.Clients.SpotApi
 {
@@ -24,7 +27,7 @@ namespace GateIo.Net.Clients.SpotApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
-
+        protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
         internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
         #endregion
@@ -89,7 +92,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
@@ -103,7 +106,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
                 return new ServerRateLimitError(accessor.GetOriginalString());
@@ -115,7 +118,7 @@ namespace GateIo.Net.Clients.SpotApi
                 return error;
 
             var value = resetTime.Value.First();
-            var timestamp = DateTimeConverter.ParseFromString(value);
+            var timestamp = DateTimeConverter.ParseFromString(value, null);
             
             error.RetryAfter = timestamp.AddSeconds(1);
             return error;

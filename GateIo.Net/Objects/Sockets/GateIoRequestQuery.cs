@@ -33,16 +33,16 @@ namespace GateIo.Net.Objects.Sockets
             RequiredResponses = 1;
         }
 
-        public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<T>> message)
+        public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketRequestResponse<T> message)
         {
             // If this is an Acknowledge message we need another message with the actual result
-            if (message.Data.Acknowledge)
+            if (message.Acknowledge)
                 RequiredResponses = 2;
 
-            if (message.Data.Header.Status != 200)
-                return message.ToCallResult<T>(new ServerError(message.Data.Header.Status, _client.GetErrorInfo(message.Data.Header.Status, message.Data.Data.Error!.Message)));
+            if (message.Header.Status != 200)
+                return new CallResult<T>(new ServerError(message.Header.Status, _client.GetErrorInfo(message.Header.Status, message.Data.Error!.Message)));
 
-            return message.ToCallResult(message.Data.Data.Result!);
+            return new CallResult<T>(message.Data.Result!, originalData, null);
         }
     }
 }

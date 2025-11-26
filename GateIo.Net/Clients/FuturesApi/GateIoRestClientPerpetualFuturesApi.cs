@@ -1,22 +1,25 @@
 ﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.SharedApis;
+using GateIo.Net.Clients.MessageHandlers;
+using GateIo.Net.Converters;
+using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
+using GateIo.Net.Interfaces.Clients.SpotApi;
+using GateIo.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using GateIo.Net.Objects.Options;
-using CryptoExchange.Net.Clients;
-using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using CryptoExchange.Net.Converters.MessageParsing;
-using System.Linq;
-using GateIo.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.SharedApis;
-using GateIo.Net.Converters;
-using CryptoExchange.Net.Objects.Errors;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -28,6 +31,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
+        protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
 
         #endregion
 
@@ -96,7 +100,7 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
@@ -110,7 +114,7 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
                 return new ServerRateLimitError(accessor.GetOriginalString());
@@ -122,7 +126,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return error;
 
             var value = resetTime.Value.First();
-            var timestamp = DateTimeConverter.ParseFromString(value);
+            var timestamp = DateTimeConverter.ParseFromString(value, null);
 
             error.RetryAfter = timestamp.AddSeconds(1);
             return error;
