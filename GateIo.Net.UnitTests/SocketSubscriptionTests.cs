@@ -1,9 +1,13 @@
-﻿using CryptoExchange.Net.Testing;
-using NUnit.Framework;
-using System.Threading.Tasks;
+﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Testing;
 using GateIo.Net.Clients;
 using GateIo.Net.Objects.Models;
+using GateIo.Net.Objects.Options;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NUnit.Framework;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GateIo.Net.UnitTests
 {
@@ -14,11 +18,14 @@ namespace GateIo.Net.UnitTests
         [TestCase(true)]
         public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
         {
-            var client = new GateIoSocketClient(opts =>
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+            var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
-            });
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = useUpdatedDeserialization,
+                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+            }), logger);
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
             await tester.ValidateAsync<GateIoTickerUpdate>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", handler), "SubscribeToTickerUpdates", ignoreProperties: new List<string> { "time" });
             await tester.ValidateAsync<GateIoTradeUpdate>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("ETH_USDT", handler), "SubscribeToTradeUpdates", ignoreProperties: new List<string> { "time", "create_time" });

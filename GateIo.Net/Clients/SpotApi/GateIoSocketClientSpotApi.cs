@@ -105,7 +105,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoTradeUpdate>(_logger, this, "spot.trades", new[] { "spot.trades." + symbol }, new[] { symbol }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoTradeUpdate>(_logger, this, "spot.trades", [symbol], new[] { "spot.trades." + symbol }, new[] { symbol }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -123,7 +123,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoTradeUpdate>(_logger, this, "spot.trades", symbols.Select(x => "spot.trades." + x), symbols.ToArray(), internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoTradeUpdate>(_logger, this, "spot.trades", symbols.ToArray(), symbols.Select(x => "spot.trades." + x), symbols.ToArray(), internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -141,7 +141,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoTickerUpdate>(_logger, this, "spot.tickers", new[] { "spot.tickers." + symbol }, new[] { symbol }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoTickerUpdate>(_logger, this, "spot.tickers", [symbol], new[] { "spot.tickers." + symbol }, new[] { symbol }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -159,7 +159,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoTickerUpdate>(_logger, this, "spot.tickers", symbols.Select(x => "spot.tickers." + x), symbols.ToArray(), internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoTickerUpdate>(_logger, this, "spot.tickers", symbols.ToArray(), symbols.Select(x => "spot.tickers." + x), symbols.ToArray(), internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -178,7 +178,7 @@ namespace GateIo.Net.Clients.SpotApi
             });
 
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new GateIoSubscription<GateIoKlineUpdate>(_logger, this, "spot.candlesticks", new[] { "spot.candlesticks." + intervalStr + "_" + symbol }, new[] { intervalStr, symbol }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoKlineUpdate>(_logger, this, "spot.candlesticks", [symbol + intervalStr], new[] { "spot.candlesticks." + intervalStr + "_" + symbol }, new[] { intervalStr, symbol }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -196,7 +196,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoBookTickerUpdate>(_logger, this, "spot.book_ticker", new[] { "spot.book_ticker." + symbol }, new[] { symbol }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoBookTickerUpdate>(_logger, this, "spot.book_ticker", [symbol], new[] { "spot.book_ticker." + symbol }, new[] { symbol }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -214,7 +214,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoBookTickerUpdate>(_logger, this, "spot.book_ticker", symbols.Select(x => "spot.book_ticker." + x), symbols.ToArray(), internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoBookTickerUpdate>(_logger, this, "spot.book_ticker", symbols.ToArray(), symbols.Select(x => "spot.book_ticker." + x), symbols.ToArray(), internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -232,7 +232,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoOrderBookUpdate>(_logger, this, "spot.order_book_update", new[] { "spot.order_book_update." + symbol }, new[] { symbol, "100ms" }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoOrderBookUpdate>(_logger, this, "spot.order_book_update", [symbol], new[] { "spot.order_book_update." + symbol }, new[] { symbol, "100ms" }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -252,7 +252,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, this, "spot.obu", [$"ob.{symbol}.{depth}"], new[] { $"ob.{symbol}.{depth}" }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, this, "spot.obu", [symbol+depth], [$"ob.{symbol}.{depth}"], new[] { $"ob.{symbol}.{depth}" }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 
@@ -274,7 +274,7 @@ namespace GateIo.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPartialOrderBookUpdate>(_logger, this, "spot.order_book", new[] { "spot.order_book." + symbol }, new[] { symbol, depth.ToString(), updateMs + "ms" }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPartialOrderBookUpdate>(_logger, this, "spot.order_book", [symbol], new[] { "spot.order_book." + symbol }, new[] { symbol, depth.ToString(), updateMs + "ms" }, internalHandler, false);
             return await SubscribeAsync($"{BaseAddress.AppendPath(GetSocketPath())}/", subscription, ct).ConfigureAwait(false);
         }
 

@@ -18,16 +18,18 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         private readonly Action<DateTime, string?, GateIoSocketMessage<T>> _handler;
         private readonly string _channel;
         private readonly string[] _payload;
+        private readonly string[]? _symbols;
 
-        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[] payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler, bool auth) : base(logger, auth)
+        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, string[]? symbols, IEnumerable<string> identifiers, string[] payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
             _channel = channel;
             _payload = payload;
+            _symbols = symbols;
 
             MessageMatcher = MessageMatcher.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
-            MessageRouter = MessageRouter.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
+            MessageRouter = MessageRouter.Create<GateIoSocketMessage<T>>(channel, _symbols, DoHandleMessage);
         }
 
         /// <inheritdoc />

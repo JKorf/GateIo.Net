@@ -107,7 +107,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpTradeUpdate[]>(_logger, this, "futures.trades", contracts.Select(x => "futures.trades." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpTradeUpdate[]>(_logger, this, "futures.trades", contracts.ToArray(), contracts.Select(x => "futures.trades." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -129,7 +129,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpTickerUpdate[]>(_logger, this, "futures.tickers", contracts.Select(x => "futures.tickers." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpTickerUpdate[]>(_logger, this, "futures.tickers", contracts.ToArray(), contracts.Select(x => "futures.tickers." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -151,7 +151,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, this, "futures.book_ticker", contracts.Select(x => "futures.book_ticker." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, this, "futures.book_ticker", contracts.ToArray(), contracts.Select(x => "futures.book_ticker." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -171,7 +171,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, this, "futures.obu", [$"ob.{contract}.{depth}"], new[] { $"ob.{contract}.{depth}" }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, this, "futures.obu", [contract + depth], [$"ob.{contract}.{depth}"], new[] { $"ob.{contract}.{depth}" }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -192,7 +192,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, this, "futures.order_book_update", ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, this, "futures.order_book_update", [contract], ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -211,7 +211,7 @@ namespace GateIo.Net.Clients.FuturesApi
             });
 
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new GateIoSubscription<GateIoPerpKlineUpdate[]>(_logger, this, "futures.candlesticks", ["futures.candlesticks." + intervalStr + "_" + contract], new[] { intervalStr, contract }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpKlineUpdate[]>(_logger, this, "futures.candlesticks", [contract + intervalStr], ["futures.candlesticks." + intervalStr + "_" + contract], new[] { intervalStr, contract }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -230,7 +230,7 @@ namespace GateIo.Net.Clients.FuturesApi
             });
 
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new GateIoSubscription<GateIoPerpContractStats>(_logger, this, "futures.contract_stats", ["futures.contract_stats." + contract], new[] { contract, intervalStr }, internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpContractStats>(_logger, this, "futures.contract_stats", [contract], ["futures.contract_stats." + contract], new[] { contract, intervalStr }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 

@@ -11391,6 +11391,16 @@
             Topic
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Contract">
+            <summary>
+            The contract
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Depth">
+            <summary>
+            The depth
+            </summary>
+        </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Bids">
             <summary>
             Updated bids
