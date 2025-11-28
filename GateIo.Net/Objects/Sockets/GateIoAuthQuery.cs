@@ -19,6 +19,7 @@ namespace GateIo.Net.Objects.Sockets
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<T>>(((GateIoSocketAuthRequest<string[]>)Request).Id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.Create<GateIoSocketResponse<T>>(((GateIoSocketAuthRequest<string[]>)Request).Id.ToString(), HandleMessage);
         }
 
         public CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketResponse<T> message)

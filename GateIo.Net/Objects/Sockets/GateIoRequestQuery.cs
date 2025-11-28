@@ -29,8 +29,10 @@ namespace GateIo.Net.Objects.Sockets
                 Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)) }, authenticated, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<T>>([id.ToString(), id + "ack"], HandleMessage);
             RequiredResponses = 1;
+
+            MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<T>>([id.ToString(), id + "ack"], HandleMessage);
+            MessageRouter = MessageRouter.Create<GateIoSocketRequestResponse<T>>(id.ToString(), id.ToString(), HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketRequestResponse<T> message)

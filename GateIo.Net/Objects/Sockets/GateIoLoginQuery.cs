@@ -32,6 +32,7 @@ namespace GateIo.Net.Objects.Sockets
             _client = client;
 
             MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.Create<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(id.ToString(), HandleMessage);
         }
 
         public CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> HandleMessage(

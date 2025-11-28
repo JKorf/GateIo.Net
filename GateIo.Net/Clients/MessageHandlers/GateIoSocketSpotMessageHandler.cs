@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net;
+using GateIo.Net.Objects.Internal;
 using System;
 using System.Linq;
 using System.Text.Json;
@@ -10,6 +11,11 @@ namespace GateIo.Net.Clients.MessageHandlers
     internal class GateIoSocketSpotMessageHandler : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(GateIoExchange._serializerContext);
+
+        public GateIoSocketSpotMessageHandler()
+        {
+            AddTopicMapping<GateIoSocketRequestResponse>(x => x.RequestId);
+        }
 
         protected override MessageEvaluator[] TypeEvaluators { get; } = [
 
@@ -22,15 +28,15 @@ namespace GateIo.Net.Clients.MessageHandlers
                 IdentifyMessageCallback = x => x.FieldValue("id")!
             },
 
-             new MessageEvaluator {
-                Priority = 2,
-                Fields = [
-                    new PropertyFieldReference("request_id"),
-                    new PropertyFieldReference("ack") { Constraint = x => x!.Equals("True", System.StringComparison.Ordinal) },
-                    new PropertyFieldReference("status") { Depth = 2, Constraint = x => x!.Equals("200", System.StringComparison.Ordinal) },
-                ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("request_id")}ack"
-            },
+            // new MessageEvaluator {
+            //    Priority = 2,
+            //    Fields = [
+            //        new PropertyFieldReference("request_id"),
+            //        new PropertyFieldReference("ack") { Constraint = x => x!.Equals("True", System.StringComparison.Ordinal) },
+            //        new PropertyFieldReference("status") { Depth = 2, Constraint = x => x!.Equals("200", System.StringComparison.Ordinal) },
+            //    ],
+            //    IdentifyMessageCallback = x => $"{x.FieldValue("request_id")}ack"
+            //},
 
              new MessageEvaluator {
                 Priority = 3,

@@ -29,6 +29,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
             _channel = channel;
             _payload = payload;
             MessageMatcher = MessageMatcher.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
+            MessageRouter = MessageRouter.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
         }
 
         /// <inheritdoc />

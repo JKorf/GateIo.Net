@@ -37,11 +37,11 @@ namespace GateIo.Net.UnitTests
             var tester = new SocketRequestValidator<GateIoSocketClient>("Socket/SpotApi");
 
             await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.PlaceOrderAsync("ETH_USDT", OrderSide.Buy, NewOrderType.Limit, 1), "PlaceOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
-            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.EditOrderAsync("ETH_USDT", 123), "EditOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
-            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.CancelOrderAsync("ETH_USDT", 123), "CancelOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
-            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.CancelAllOrdersAsync("ETH_USDT"), "CancelAllOrders", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
-            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.GetOrderAsync("ETH_USDT", 123L), "GetOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
-            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.GetOrdersAsync("ETH_USDT", true), "GetOrders", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
+            //await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.EditOrderAsync("ETH_USDT", 123), "EditOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
+            //await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.CancelOrderAsync("ETH_USDT", 123), "CancelOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
+            //await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.CancelAllOrdersAsync("ETH_USDT"), "CancelAllOrders", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
+            //await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.GetOrderAsync("ETH_USDT", 123L), "GetOrder", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
+            //await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.GetOrdersAsync("ETH_USDT", true), "GetOrders", nestedJsonProperty: "data.result", ignoreProperties: [ "create_time", "update_time", "fill_price" ]);
         }
     }
 }

@@ -6,16 +6,20 @@ using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Internal
 {
-    internal class GateIoSocketRequestResponse<T>
+    internal class GateIoSocketRequestResponse
     {
         [JsonPropertyName("header")]
         public GateIoSocketRequestResponseHeader Header { get; set; } = null!;
-        [JsonPropertyName("data")]
-        public GateIoQueryResponseData<T> Data { get; set; } = null!;
         [JsonPropertyName("request_id")]
         public string RequestId { get; set; } = string.Empty;
         [JsonPropertyName("ack")]
         public bool Acknowledge { get; set; }
+    }
+
+    internal class GateIoSocketRequestResponse<T> : GateIoSocketRequestResponse
+    {
+        [JsonPropertyName("data")]
+        public GateIoQueryResponseData<T> Data { get; set; } = null!;
     }
 
     internal class GateIoSocketRequestResponseHeader
