@@ -18,7 +18,7 @@ namespace GateIo.Net.Objects.Sockets
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
-            MessageRouter = MessageRouter.Create<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
         }
 
         public CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketResponse<T> message)

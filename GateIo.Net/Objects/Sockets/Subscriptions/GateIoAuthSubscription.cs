@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace GateIo.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class GateIoAuthSubscription<T> : Subscription<GateIoSocketResponse<GateIoSubscriptionResponse>, GateIoSocketResponse<GateIoSubscriptionResponse>>
+    internal class GateIoAuthSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DateTime, string?, GateIoSocketMessage<T>> _handler;
@@ -29,7 +29,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
             _channel = channel;
             _payload = payload;
             MessageMatcher = MessageMatcher.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
-            MessageRouter = MessageRouter.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -53,7 +53,6 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketMessage<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            //_handler.Invoke(message.As(message.Data.Result, message.Data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
     }

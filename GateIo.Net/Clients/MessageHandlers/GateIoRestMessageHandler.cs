@@ -24,9 +24,9 @@ namespace GateIo.Net.Clients.MessageHandlers
             _errorMapping = errorMapping;
         }
 
-        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
         {
-            var (parseError, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
+            var (parseError, document) = await GetJsonDocument(responseStream).ConfigureAwait(false);
             if (parseError != null)
                 return parseError;
 
@@ -38,9 +38,9 @@ namespace GateIo.Net.Clients.MessageHandlers
             return new ServerError(label!, _errorMapping.GetErrorInfo(label!, msg));
         }
 
-        public override async ValueTask<ServerRateLimitError> ParseErrorRateLimitResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        public override async ValueTask<ServerRateLimitError> ParseErrorRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
         {
-            var (parseError, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
+            var (parseError, document) = await GetJsonDocument(responseStream).ConfigureAwait(false);
             if (parseError != null)
                 return new ServerRateLimitError();
 

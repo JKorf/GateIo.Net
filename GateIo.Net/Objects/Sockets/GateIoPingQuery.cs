@@ -16,12 +16,7 @@ namespace GateIo.Net.Objects.Sockets
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
-            MessageRouter = MessageRouter.Create<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
-        }
-
-        public CallResult<GateIoSocketResponse<string>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketResponse<string> message)
-        {
-            return new CallResult<GateIoSocketResponse<string>>(message, originalData, null);
+            MessageRouter = MessageRouter.CreateWithoutHandler<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
         }
     }
 }
