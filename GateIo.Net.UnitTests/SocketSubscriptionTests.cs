@@ -16,6 +16,26 @@ namespace GateIo.Net.UnitTests
     {
         [TestCase(false)]
         [TestCase(true)]
+        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
+            await tester.ValidateConcurrentAsync<GateIoKlineUpdate>(
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
         public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
         {
             var logger = new LoggerFactory();
@@ -40,6 +60,26 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync<GateIoFundingBalanceUpdate[]>((client, handler) => client.SpotApi.SubscribeToFundingBalanceUpdatesAsync(handler), "SubscribeToFundingBalanceUpdates", ignoreProperties: new List<string> { "time", "timestamp" });
             await tester.ValidateAsync<GateIoCrossMarginBalanceUpdate[]>((client, handler) => client.SpotApi.SubscribeToCrossMarginBalanceUpdatesAsync(handler), "SubscribeToCrossMarginBalanceUpdates", ignoreProperties: new List<string> { "time", "timestamp" });
             await tester.ValidateAsync<GateIoTriggerOrderUpdate>((client, handler) => client.SpotApi.SubscribeToTriggerOrderUpdatesAsync(handler), "SubscribeToTriggerOrderUpdates", ignoreProperties: new List<string> { "time", "timestamp" });
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentPerpFuturesSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws", "result");
+            await tester.ValidateConcurrentAsync<GateIoPerpKlineUpdate[]>(
+                (client, handler) => client.PerpetualFuturesApi.SubscribeToKlineUpdatesAsync("usdt", "ETH_USDT", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.PerpetualFuturesApi.SubscribeToKlineUpdatesAsync("usdt", "ETH_USDT", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
         }
 
         [TestCase(false)]
