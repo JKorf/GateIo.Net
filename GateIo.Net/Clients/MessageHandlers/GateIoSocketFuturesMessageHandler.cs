@@ -27,101 +27,28 @@ namespace GateIo.Net.Clients.MessageHandlers
             AddTopicMapping<GateIoSocketMessage<GateIoPerpContractStats>>(x => x.Result.Contract);
         }
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-             new MessageEvaluator {
-                Priority = 1,
+             new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("id"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("id")!
+                TypeIdentifierCallback = x => x.FieldValue("id")!
             },
 
-            // new MessageEvaluator {
-            //    Priority = 2,
-            //    Fields = [
-            //        new PropertyFieldReference("request_id"),
-            //        new PropertyFieldReference("ack") { Constraint = x => x!.Equals("True", System.StringComparison.Ordinal) },
-            //        new PropertyFieldReference("status") { Depth = 2, Constraint = x => x!.Equals("200", System.StringComparison.Ordinal) },
-            //    ],
-            //    IdentifyMessageCallback = x => $"{x.FieldValue("request_id")}ack"
-            //},
-
-             new MessageEvaluator {
-                Priority = 3,
+             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("request_id"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("request_id")!
+                TypeIdentifierCallback = x => x.FieldValue("request_id")!
             },
 
-//             new MessageEvaluator {
-//                Priority = 4,
-//                Fields = [
-//                    new PropertyFieldReference("channel") { Constraint = x => x!.Equals("futures.obu", StringComparison.Ordinal) },
-//                    new PropertyFieldReference("s") { Depth = 2 },
-//                ],
-//#warning ?
-//                 IdentifyMessageCallback = x => x.FieldValue("s")!
-//            },
-
-//            new MessageEvaluator {
-//                Priority = 5,
-//                Fields = [
-//                    new PropertyFieldReference("channel") 
-//                    {
-//                        Constraint = x => x!.Equals("futures.trades", StringComparison.Ordinal) || x!.Equals("futures.tickers", StringComparison.Ordinal) 
-//                    },
-//                    new PropertyFieldReference("contract") { Depth = 3 },
-//                ],
-//                IdentifyMessageCallback = x => $"{x.FieldValue("channel")}.{x.FieldValue("contract")}"
-//            },
-
-//            new MessageEvaluator {
-//                Priority = 6,
-//                Fields = [
-//                    new PropertyFieldReference("channel")
-//                    {
-//                        Constraint = x => x!.Equals("futures.candlesticks", StringComparison.Ordinal)
-//                    },
-//                    new PropertyFieldReference("n") { Depth = 3 },
-//                ],
-//                IdentifyMessageCallback = x => $"{x.FieldValue("channel")}.{x.FieldValue("n")}"
-//            },
-
-//            new MessageEvaluator {
-//                Priority = 6,
-//                Fields = [
-//                    new PropertyFieldReference("channel")
-//                    {
-//                        Constraint = x => x!.Equals("futures.contract_stats", StringComparison.Ordinal)
-//                    },
-//                    new PropertyFieldReference("contract") { Depth = 2 },
-//                ],
-//                IdentifyMessageCallback = x => $"{x.FieldValue("channel")}.{x.FieldValue("contract")}"
-//            },
-
-//            new MessageEvaluator {
-//                Priority = 6,
-//                Fields = [
-//                    new PropertyFieldReference("channel")
-//                    {
-//                        Constraint = x => x!.Equals("futures.book_ticker", StringComparison.Ordinal)
-//                                        || x!.Equals("futures.order_book_update", StringComparison.Ordinal)
-//                                        || x!.Equals("futures.order_book", StringComparison.Ordinal)
-//                    },
-//                    new PropertyFieldReference("s") { Depth = 2 },
-//                ],
-//                IdentifyMessageCallback = x => $"{x.FieldValue("channel")}.{x.FieldValue("s")}"
-//            },
-
-             new MessageEvaluator {
-                Priority = 7,
+             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("channel"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("channel")!
+                TypeIdentifierCallback = x => x.FieldValue("channel")!
             }
         ];
     }
