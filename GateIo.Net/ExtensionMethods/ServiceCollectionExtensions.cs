@@ -1,7 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using System;
-using System.Net;
 using System.Net.Http;
 using GateIo.Net.Clients;
 using GateIo.Net.Interfaces;
@@ -13,6 +12,7 @@ using GateIo.Net;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -8,7 +8,6 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Clients.MessageHandlers;
-using GateIo.Net.Converters;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Options;

@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using GateIo.Net.Clients.AlphaApi;
+﻿using CryptoExchange.Net.Interfaces.Clients;
 using GateIo.Net.Interfaces.Clients.AlphaApi;
 using System;
 

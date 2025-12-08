@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.SharedApis;
+﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
 using GateIo.Net.Clients;

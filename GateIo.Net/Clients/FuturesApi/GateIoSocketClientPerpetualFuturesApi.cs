@@ -21,11 +21,11 @@ using GateIo.Net.Enums;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
-using System.Diagnostics.Contracts;
 using System.Net.WebSockets;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using GateIo.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace GateIo.Net.Clients.FuturesApi
 {

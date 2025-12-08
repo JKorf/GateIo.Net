@@ -2,8 +2,6 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models

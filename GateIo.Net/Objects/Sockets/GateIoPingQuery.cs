@@ -1,10 +1,6 @@
-﻿using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
+﻿using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net;
 using System;
-using System.Collections;
 using GateIo.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
 

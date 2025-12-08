@@ -6,7 +6,6 @@ using CryptoExchange.Net.Objects;
 using GateIo.Net.Objects.Models;
 using Microsoft.Extensions.Logging;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
-using System.Collections.Generic;
 using GateIo.Net.Enums;
 
 namespace GateIo.Net.Clients.FuturesApi

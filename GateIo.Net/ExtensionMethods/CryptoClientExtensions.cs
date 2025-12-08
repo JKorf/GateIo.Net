@@ -1,4 +1,5 @@
-﻿using GateIo.Net.Clients;
+﻿using CryptoExchange.Net.Interfaces.Clients;
+using GateIo.Net.Clients;
 using GateIo.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces

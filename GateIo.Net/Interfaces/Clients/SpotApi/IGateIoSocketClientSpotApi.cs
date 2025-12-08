@@ -2,11 +2,11 @@ using CryptoExchange.Net.Objects;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Sockets;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Enums;
 using System.Collections.Generic;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace GateIo.Net.Interfaces.Clients.SpotApi
 {

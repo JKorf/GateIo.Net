@@ -25,6 +25,7 @@ using System.Net.WebSockets;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using GateIo.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace GateIo.Net.Clients.SpotApi
 {

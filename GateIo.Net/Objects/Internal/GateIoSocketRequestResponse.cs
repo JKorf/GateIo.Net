@@ -1,7 +1,5 @@
 ﻿using GateIo.Net.Objects.Sockets;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Internal

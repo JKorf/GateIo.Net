@@ -1,5 +1,4 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
-using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models

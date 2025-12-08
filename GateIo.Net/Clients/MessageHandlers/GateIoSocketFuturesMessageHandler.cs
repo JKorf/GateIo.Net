@@ -1,9 +1,8 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
-using GateIo.Net;
+using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Models;
-using System;
 using System.Linq;
 using System.Text.Json;
 

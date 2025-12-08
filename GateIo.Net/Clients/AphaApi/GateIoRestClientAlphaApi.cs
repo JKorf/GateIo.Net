@@ -8,7 +8,6 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Clients.MessageHandlers;
-using GateIo.Net.Clients.RebateApi;
 using GateIo.Net.Interfaces.Clients.AlphaApi;
 using GateIo.Net.Interfaces.Clients.RebateApi;
 using GateIo.Net.Objects.Options;

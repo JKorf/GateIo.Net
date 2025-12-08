@@ -8,8 +8,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.RateLimiting.Guards;
-using Microsoft.Extensions.Options;
-using System.Security.Cryptography;
 using System.Linq;
 
 namespace GateIo.Net.Clients.SpotApi
