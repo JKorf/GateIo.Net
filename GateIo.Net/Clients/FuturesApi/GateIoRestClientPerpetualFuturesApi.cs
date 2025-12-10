@@ -99,52 +99,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));
-            if (lbl == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
-            return new ServerError(lbl, GetErrorInfo(lbl, msg), exception);
-        }
-
-        /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerRateLimitError(accessor.GetOriginalString());
-
-            var error = GetRateLimitError(accessor);
-
-            var resetTime = responseHeaders.SingleOrDefault(x => x.Key.Equals("X-Gate-RateLimit-Reset-Timestamp"));
-            if (resetTime.Value?.Any() != true)
-                return error;
-
-            var value = resetTime.Value.First();
-            var timestamp = DateTimeConverter.ParseFromString(value, null);
-
-            error.RetryAfter = timestamp.AddSeconds(1);
-            return error;
-        }
-
-        private ServerRateLimitError GetRateLimitError(IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerRateLimitError(accessor.GetOriginalString());
-
-            var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));
-            if (lbl == null)
-                return new ServerRateLimitError(accessor.GetOriginalString());
-
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
-            return new ServerRateLimitError(lbl + ": " + msg);
-        }
-
-        /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 

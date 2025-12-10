@@ -94,20 +94,6 @@ namespace GateIo.Net.Clients.AlphaApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var lbl = accessor.GetValue<string>(MessagePath.Get().Property("label"));
-            if (lbl == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
-            return new ServerError(lbl, GetErrorInfo(lbl, msg), exception);
-        }
-
-        /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
 
