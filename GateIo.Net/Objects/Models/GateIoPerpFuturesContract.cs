@@ -211,5 +211,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("voucher_leverage")]
         public decimal VoucherLeverage { get; set; }
+        /// <summary>
+        /// Upper and lower limits of funding rate
+        /// </summary>
+        [JsonPropertyName("funding_rate_limit")]
+        public decimal FundingRateLimit { get; set; }
     }
 }

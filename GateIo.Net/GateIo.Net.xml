@@ -10876,6 +10876,11 @@
             Voucher leverage
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.FundingRateLimit">
+            <summary>
+            Upper and lower limits of funding rate
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpIndexKline">
             <summary>
             Kline info
