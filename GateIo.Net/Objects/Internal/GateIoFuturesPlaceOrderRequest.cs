@@ -18,7 +18,7 @@ namespace GateIo.Net.Objects.Internal
         public bool? Close { get; set; }
         [JsonPropertyName("reduce_only"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? ReduceOnly { get; set; }
-        [JsonPropertyName("time_in_force"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("tif"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TimeInForce? TimeInForce { get; set; }
         [JsonPropertyName("text"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Text { get; set; }
