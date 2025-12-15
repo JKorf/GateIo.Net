@@ -12936,6 +12936,11 @@
             User defined information
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserTrade.Value">
+            <summary>
+            Total executed value
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoTradeUpdate">
             <summary>
             Trade update
