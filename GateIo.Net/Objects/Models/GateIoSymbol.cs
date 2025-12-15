@@ -101,5 +101,16 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("trade_url")]
         public string TradeUrl { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The max percentage price up limit
+        /// </summary>
+        [JsonPropertyName("up_rate")]
+        public decimal PriceUpRateLimit { get; set; }
+        /// <summary>
+        /// The max percentage price down limit
+        /// </summary>
+        [JsonPropertyName("down_rate")]
+        public decimal PriceDownRateLimit { get; set; }
     }
 }
