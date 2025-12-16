@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Internal
 {
-    internal class GateIoSocketMessage<T>
+    internal class GateIoSocketMessage
     {
         [JsonPropertyName("time_ms")]
         public DateTime Timestamp { get; set; }
@@ -16,13 +15,16 @@ namespace GateIo.Net.Objects.Internal
         public object[]? Payload { get; set; }
         [JsonPropertyName("error")]
         public GateIoSocketError? Error { get; set; }
+    }
+
+    internal class GateIoSocketMessage<T> : GateIoSocketMessage
+    {
         [JsonPropertyName("result")]
         public T Result { get; set; } = default!;
     }
 
     internal class GateIoSocketResponse<T> : GateIoSocketMessage<T>
     {
-
         [JsonPropertyName("id")]
         public long Id { get; set; }
     }

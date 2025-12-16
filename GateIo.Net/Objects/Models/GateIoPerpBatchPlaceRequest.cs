@@ -1,9 +1,6 @@
 using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
-using System.Collections.Generic;
-using GateIo.Net.Objects.Internal;
-using System;
 
 namespace GateIo.Net.Objects.Models
 {

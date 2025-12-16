@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using GateIo.Net.Objects.Models;
-using System.Drawing;
 using CryptoExchange.Net.Objects.Errors;
 
 namespace GateIo.Net.Clients.FuturesApi
@@ -771,7 +770,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)interval));
             }
 
-            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => 
+            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.AsEnumerable().Reverse().Select(x => 
                 new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
@@ -832,7 +831,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)interval));
             }
 
-            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => 
+            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.AsEnumerable().Reverse().Select(x => 
                 new SharedFuturesKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice)).ToArray(), nextToken);
         }
 

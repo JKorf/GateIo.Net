@@ -5,10 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
+using GateIo.Net.Clients.MessageHandlers;
 using GateIo.Net.Interfaces.Clients.RebateApi;
 using GateIo.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
@@ -21,6 +23,7 @@ namespace GateIo.Net.Clients.RebateApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Rebate Api");
         private readonly GateIoRestClient _baseClient;
+        protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
         #endregion
 
         #region Api clients

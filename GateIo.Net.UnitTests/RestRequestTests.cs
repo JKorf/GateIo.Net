@@ -244,7 +244,6 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.AlphaApi.ExchangeData.GetTickersAsync(), "GetTickers");
         }
 
-
         [Test]
         public async Task ValidateAlphaTradeCalls()
         {

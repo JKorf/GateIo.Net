@@ -1,5 +1,5 @@
 ﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using GateIo.Net.Interfaces.Clients.SpotApi;

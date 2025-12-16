@@ -94,5 +94,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
+        /// <summary>
+        /// Total executed value
+        /// </summary>
+        [JsonPropertyName("deal")]
+        public decimal Value { get; set; }
     }
 }

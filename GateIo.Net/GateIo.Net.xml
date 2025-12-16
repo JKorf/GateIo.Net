@@ -28,9 +28,6 @@
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
@@ -98,12 +95,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.GetServerTimestampAsync">
@@ -377,7 +368,7 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -545,12 +536,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.GetServerTimestampAsync">
@@ -953,7 +938,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -7305,30 +7290,30 @@
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.Collections.Generic.IEnumerable{System.String},System.String[],System.Action{System.DateTime,System.String,GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
             <summary>
             ctor
             </summary>
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoAuthSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,GateIo.Net.Objects.Internal.GateIoSocketMessage{`0})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Internal.GateIoSocketMessage{`0}})">
+        <member name="M:GateIo.Net.Objects.Sockets.Subscriptions.GateIoSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,GateIo.Net.Objects.Internal.GateIoSocketMessage{`0})">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoAccountInfo">
@@ -10891,6 +10876,11 @@
             Voucher leverage
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.FundingRateLimit">
+            <summary>
+            Upper and lower limits of funding rate
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpIndexKline">
             <summary>
             Kline info
@@ -11389,6 +11379,16 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Topic">
             <summary>
             Topic
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Contract">
+            <summary>
+            The contract
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Depth">
+            <summary>
+            The depth
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoPerpOrderBookV2Update.Bids">
@@ -12696,6 +12696,16 @@
             Trade link
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.PriceUpRateLimit">
+            <summary>
+            The max percentage price up limit
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoSymbol.PriceDownRateLimit">
+            <summary>
+            The max percentage price down limit
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoSymbolOrders">
             <summary>
             Orders for a symbol
@@ -12939,6 +12949,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoUserTrade.Text">
             <summary>
             User defined information
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoUserTrade.Value">
+            <summary>
+            Total executed value
             </summary>
         </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoTradeUpdate">
@@ -13988,14 +14003,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.GateIo(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.GateIo(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the Gate REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.GateIo(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.GateIo(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the Gate Websocket Api client
             </summary>
@@ -14025,6 +14040,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_GateIoOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>

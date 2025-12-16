@@ -21,9 +21,11 @@ using GateIo.Net.Enums;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
-using System.Diagnostics.Contracts;
 using System.Net.WebSockets;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using GateIo.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -79,6 +81,8 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new GateIoSocketFuturesMessageHandler();
+
         public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
@@ -92,7 +96,18 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<GateIoPerpTradeUpdate[]>(_logger, this, "futures.trades", contracts.Select(x => "futures.trades." + x ).ToArray(), contracts.ToArray(), x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpTradeUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpTradeUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(data.Result.First().Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpTradeUpdate[]>(_logger, this, "futures.trades", contracts.ToArray(), contracts.Select(x => "futures.trades." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -103,7 +118,18 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpTickerUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<GateIoPerpTickerUpdate[]>(_logger, this, "futures.tickers", contracts.Select(x => "futures.tickers." + x ).ToArray(), contracts.ToArray(), x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpTickerUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpTickerUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(data.Result.First().Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpTickerUpdate[]>(_logger, this, "futures.tickers", contracts.ToArray(), contracts.Select(x => "futures.tickers." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -114,7 +140,18 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpBookTickerUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, this, "futures.book_ticker", contracts.Select(x => "futures.book_ticker." + x ).ToArray(), contracts.ToArray(), x => onMessage(x.WithSymbol(x.Data.Contract)), false);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpBookTickerUpdate>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpBookTickerUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpBookTickerUpdate>(_logger, this, "futures.book_ticker", contracts.ToArray(), contracts.Select(x => "futures.book_ticker." + x ).ToArray(), contracts.ToArray(), internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -123,7 +160,18 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             depth.ValidateIntValues(nameof(depth), 50, 400);
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, this, "futures.obu", [$"ob.{contract}.{depth}"], new[] { $"ob.{contract}.{depth}" }, x => onMessage(x.WithUpdateType(x.Data.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)), false);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrderBookV2Update>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpOrderBookV2Update>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(data.Result.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookV2Update>(_logger, this, "futures.obu", [contract + depth], [$"ob.{contract}.{depth}"], new[] { $"ob.{contract}.{depth}" }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -133,93 +181,226 @@ namespace GateIo.Net.Clients.FuturesApi
             updateMs.ValidateIntValues(nameof(updateMs), 20, 100);
             depth.ValidateIntValues(nameof(depth), 20, 50, 100);
 
-            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, this, "futures.order_book_update", ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract).WithUpdateType(x.Data.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)), false);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrderBookUpdate>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpOrderBookUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(data.Result.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, this, "futures.order_book_update", [contract], ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<GateIoPerpKlineUpdate[]>> onMessage, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpKlineUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpKlineUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(data.Result.First().Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new GateIoSubscription<GateIoPerpKlineUpdate[]>(_logger, this, "futures.candlesticks", ["futures.candlesticks." + intervalStr + "_" + contract], new[] { intervalStr, contract }, x => onMessage(x.WithSymbol(x.Data.First().Contract)), false);
+            var subscription = new GateIoSubscription<GateIoPerpKlineUpdate[]>(_logger, this, "futures.candlesticks", [contract + intervalStr], ["futures.candlesticks." + intervalStr + "_" + contract], new[] { intervalStr, contract }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToContractStatsUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<GateIoPerpContractStats>> onMessage, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpContractStats>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpContractStats>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new GateIoSubscription<GateIoPerpContractStats>(_logger, this, "futures.contract_stats", ["futures.contract_stats." + contract], new[] { contract, intervalStr }, onMessage, false);
+            var subscription = new GateIoSubscription<GateIoPerpContractStats>(_logger, this, "futures.contract_stats", [contract], ["futures.contract_stats." + contract], new[] { contract, intervalStr }, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpOrder[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpOrder[]>(_logger, this, "futures.orders", new[] { "futures.orders" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrder[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpOrder[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpOrder[]>(_logger, this, "futures.orders", new[] { "futures.orders" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpUserTrade[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpUserTrade[]>(_logger, this, "futures.usertrades", new[] { "futures.usertrades" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpUserTrade[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpUserTrade[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpUserTrade[]>(_logger, this, "futures.usertrades", new[] { "futures.usertrades" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserLiquidationUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpLiquidation[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpLiquidation[]>(_logger, this, "futures.liquidates", new[] { "futures.liquidates" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpLiquidation[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpLiquidation[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpLiquidation[]>(_logger, this, "futures.liquidates", new[] { "futures.liquidates" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserAutoDeleverageUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpAutoDeleverage[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpAutoDeleverage[]>(_logger, this, "futures.auto_deleverages", new[] { "futures.auto_deleverages" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpAutoDeleverage[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpAutoDeleverage[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpAutoDeleverage[]>(_logger, this, "futures.auto_deleverages", new[] { "futures.auto_deleverages" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionCloseUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpPositionCloseUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpPositionCloseUpdate[]>(_logger, this, "futures.position_closes", new[] { "futures.position_closes" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpPositionCloseUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpPositionCloseUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpPositionCloseUpdate[]>(_logger, this, "futures.position_closes", new[] { "futures.position_closes" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpBalanceUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpBalanceUpdate[]>(_logger, this, "futures.balances", new[] { "futures.balances" }, new[] { userId.ToString() }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpBalanceUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpBalanceUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpBalanceUpdate[]>(_logger, this, "futures.balances", new[] { "futures.balances" }, new[] { userId.ToString() }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToReduceRiskLimitUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpRiskLimitUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpRiskLimitUpdate[]>(_logger, this, "futures.reduce_risk_limits", new[] { "futures.reduce_risk_limits" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpRiskLimitUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpRiskLimitUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpRiskLimitUpdate[]>(_logger, this, "futures.reduce_risk_limits", new[] { "futures.reduce_risk_limits" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPositionUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPositionUpdate[]>(_logger, this, "futures.positions", new[] { "futures.positions" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPositionUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPositionUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPositionUpdate[]>(_logger, this, "futures.positions", new[] { "futures.positions" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpTriggerOrderUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoPerpTriggerOrderUpdate[]>(_logger, this, "futures.autoorders", new[] { "futures.autoorders" }, new[] { userId.ToString(), "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpTriggerOrderUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoPerpTriggerOrderUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoPerpTriggerOrderUpdate[]>(_logger, this, "futures.autoorders", new[] { "futures.autoorders" }, new[] { userId.ToString(), "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAdlUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoAdlUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new GateIoAuthSubscription<GateIoAdlUpdate[]>(_logger, this, "futures.position_adl_rank", new[] { "futures.position_adl_rank" }, new[] { "!all" }, onMessage);
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoAdlUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<GateIoAdlUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoAuthSubscription<GateIoAdlUpdate[]>(_logger, this, "futures.position_adl_rank", new[] { "futures.position_adl_rank" }, new[] { "!all" }, internalHandler);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 

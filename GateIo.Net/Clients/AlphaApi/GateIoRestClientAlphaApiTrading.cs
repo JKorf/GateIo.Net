@@ -1,5 +1,4 @@
 using CryptoExchange.Net.Objects;
-using GateIo.Net.Interfaces.Clients.SpotApi;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Enums;
 using System;
@@ -7,10 +6,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.RateLimiting.Guards;
-using Microsoft.Extensions.Options;
-using System.Security.Cryptography;
-using System.Linq;
 using GateIo.Net.Interfaces.Clients.AlphaApi;
 using CryptoExchange.Net;
 

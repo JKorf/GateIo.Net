@@ -2,7 +2,6 @@ using CryptoExchange.Net.Objects;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Enums;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

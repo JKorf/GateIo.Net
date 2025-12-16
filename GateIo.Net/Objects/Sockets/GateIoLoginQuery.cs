@@ -1,12 +1,9 @@
 ﻿using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
 using System;
-using System.Collections;
 using GateIo.Net.Objects.Internal;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace GateIo.Net.Objects.Sockets
 {
@@ -32,14 +29,19 @@ namespace GateIo.Net.Objects.Sockets
             _client = client;
 
             MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(id.ToString(), HandleMessage);
         }
 
-        public CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> HandleMessage(SocketConnection connection, DataEvent<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> message)
+        public CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>> HandleMessage(
+            SocketConnection connection,
+            DateTime receiveTime,
+            string? originalData,
+            GateIoSocketRequestResponse<GateIoSocketLoginResponse> message)
         {
-            if (message.Data.Header.Status != 200)
-                return message.ToCallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(new ServerError(message.Data.Header.Status, _client.GetErrorInfo(message.Data.Header.Status, message.Data.Data.Error!.Message)));
+            if (message.Header.Status != 200)
+                return new CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(new ServerError(message.Header.Status, _client.GetErrorInfo(message.Header.Status, message.Data.Error!.Message)));
 
-            return message.ToCallResult();
+            return new CallResult<GateIoSocketRequestResponse<GateIoSocketLoginResponse>>(message, originalData, null);
         }
     }
 }

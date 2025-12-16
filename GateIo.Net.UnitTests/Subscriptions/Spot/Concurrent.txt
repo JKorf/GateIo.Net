@@ -1,0 +1,6 @@
+>1 {"time":"1","id":|1|,"channel":"spot.candlesticks","event":"subscribe","payload":["1h", "ETH_USDT"]}
+>2 {"time":"1","id":|1|,"channel":"spot.candlesticks","event":"subscribe","payload":["1d", "ETH_USDT"]}
+<1 {"time":"1","time_ms":1717595231793,"id":|id|,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.candlesticks","event":"subscribe","payload":["1d", "ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+<2 {"time":"1","time_ms":1717595231793,"id":|id|,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"spot.candlesticks","event":"subscribe","payload":["1h", "ETH_USDT"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+=1 { "time": 1606292600, "time_ms": 1606292600376, "channel": "spot.candlesticks", "event": "update", "result": { "n": "1h_ETH_USDT" }}
+=2 { "time": 1606292600, "time_ms": 1606292600376, "channel": "spot.candlesticks", "event": "update", "result": { "n": "1d_ETH_USDT" }}

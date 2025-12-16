@@ -1,9 +1,8 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using GateIo.Net.Objects.Internal;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,21 +11,26 @@ using System.Collections.Generic;
 namespace GateIo.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class GateIoSubscription<T> : Subscription<GateIoSocketResponse<GateIoSubscriptionResponse>, GateIoSocketResponse<GateIoSubscriptionResponse>>
+    internal class GateIoSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, GateIoSocketMessage<T>> _handler;
         private readonly string _channel;
         private readonly string[] _payload;
+        private readonly string[]? _symbols;
 
-        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[] payload, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, string[]? symbols, IEnumerable<string> identifiers, string[] payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
             _channel = channel;
             _payload = payload;
+            _symbols = symbols;
+
+            IndividualSubscriptionCount = symbols?.Length ?? 1;
 
             MessageMatcher = MessageMatcher.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<GateIoSocketMessage<T>>(channel, _symbols, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -39,9 +43,9 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<GateIoSocketMessage<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketMessage<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Result, message.Data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
     }

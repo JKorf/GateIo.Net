@@ -18,7 +18,7 @@ namespace GateIo.Net.UnitTests
     [NonParallelizable]
     internal class GateIoRestIntegrationTests : RestIntegrationTest<GateIoRestClient>
     {
-        public override bool Run { get; set; }
+        public override bool Run { get; set; } = false;
 
         public GateIoRestIntegrationTests()
         {

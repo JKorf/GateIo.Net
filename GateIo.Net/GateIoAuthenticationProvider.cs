@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using CryptoExchange.Net;
+﻿using System.Collections.Generic;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
@@ -15,6 +11,8 @@ namespace GateIo.Net
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+
         public GateIoAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
@@ -25,13 +23,14 @@ namespace GateIo.Net
                 return;
 
             var timestamp = GetMillisecondTimestampLong(apiClient) / 1000;
-            var requestBody = request.BodyParameters.Any() ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
-            var queryString = request.QueryParameters.Any() ? request.GetQueryString(true) : string.Empty;
+            var requestBody = request.BodyParameters?.Count > 0 ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var queryString = request.QueryParameters?.Count > 0 ? request.GetQueryString(true) : string.Empty;
             var bodyPayload = SignSHA512(requestBody).ToLowerInvariant();
 
             var signStr = $"{request.Method}\n{request.Path}\n{queryString}\n{bodyPayload}\n{timestamp}";
             var signature = SignHMACSHA512(signStr).ToLowerInvariant();
 
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers["KEY"] = ApiKey;
             request.Headers["Timestamp"] = timestamp.ToString();
             request.Headers["SIGN"] = signature;

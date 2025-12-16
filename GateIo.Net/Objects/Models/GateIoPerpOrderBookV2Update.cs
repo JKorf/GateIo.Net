@@ -2,7 +2,6 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -38,6 +37,15 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("s")]
         public string Topic { get; set; } = string.Empty;
+        /// <summary>
+        /// The contract
+        /// </summary>
+        public string Contract => Topic.Split('.')[1];
+
+        /// <summary>
+        /// The depth
+        /// </summary>
+        public string Depth => Topic.Split('.')[2];
         /// <summary>
         /// Updated bids
         /// </summary>
