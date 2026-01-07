@@ -1,9 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
+using GateIo.Net.Clients.SpotApi;
+using GateIo.Net.Objects.Internal;
+using GateIo.Net.Objects.Sockets;
+using System.Collections.Generic;
+using System.Threading.Channels;
 
 namespace GateIo.Net
 {
@@ -39,6 +46,27 @@ namespace GateIo.Net
             request.SetQueryString(queryString);
         }
 
-        public string SignSocketRequest(string signStr) => SignHMACSHA512(signStr).ToLowerInvariant();
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
+        {
+            if (context?.ContainsKey("channel") == true)
+            {
+                var channel = (string)context["channel"];
+                var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(apiClient, channel, "subscribe", (string[]?)context["payload"]);
+                var request = (GateIoSocketAuthRequest<string[]>)query.Request;
+                var sign = SignHMACSHA512($"channel={channel}&event=subscribe&time={request.Timestamp}").ToLowerInvariant();
+                request.Auth = new GateIoSocketAuth { Key = ApiKey, Sign = sign, Method = "api_key" };
+                return query;
+            }
+            else
+            {
+                var timestamp = GetMillisecondTimestampLong(apiClient) / 1000;
+                var channel = apiClient is GateIoSocketClientSpotApi ? "spot.login" : "futures.login";
+                var signStr = $"api\n{channel}\n\n{timestamp}";
+                var id = ExchangeHelpers.NextId();
+
+                return new GateIoLoginQuery(apiClient, id, channel, "api", ApiKey, SignHMACSHA512(signStr).ToLowerInvariant(), timestamp);
+            }
+        }
+
     }
 }

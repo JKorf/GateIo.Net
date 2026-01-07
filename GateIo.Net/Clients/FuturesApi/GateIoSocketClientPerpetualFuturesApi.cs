@@ -98,10 +98,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpTradeUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.First().Contract)
                         .WithStreamId(data.Channel)
                     );
@@ -120,10 +122,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpTickerUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.First().Contract)
                         .WithStreamId(data.Channel)
                     );
@@ -142,10 +146,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpBookTickerUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpBookTickerUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Contract)
                         .WithStreamId(data.Channel)
                     );
@@ -162,10 +168,12 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrderBookV2Update>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpOrderBookV2Update>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(data.Result.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(contract)
                         .WithStreamId(data.Channel)
                     );
@@ -183,10 +191,12 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpOrderBookUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(data.Result.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Contract)
                         .WithStreamId(data.Channel)
                     );
@@ -201,10 +211,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpKlineUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpKlineUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.First().Contract)
                         .WithStreamId(data.Channel)
                     );
@@ -220,10 +232,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpContractStats>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpContractStats>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Contract)
                         .WithStreamId(data.Channel)
                     );
@@ -239,10 +253,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrder[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpOrder[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -256,10 +272,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpUserTrade[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpUserTrade[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -273,10 +291,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpLiquidation[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpLiquidation[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -290,10 +310,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpAutoDeleverage[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpAutoDeleverage[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -307,10 +329,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpPositionCloseUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpPositionCloseUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -324,10 +348,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpBalanceUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -341,10 +367,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpRiskLimitUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpRiskLimitUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -358,10 +386,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPositionUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPositionUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -375,10 +405,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpTriggerOrderUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpTriggerOrderUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -392,10 +424,12 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoAdlUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoAdlUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -600,16 +634,6 @@ namespace GateIo.Net.Clients.FuturesApi
             }
 
             return channel;
-        }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-            var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
-            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
-            var signStr = $"api\nfutures.login\n\n{timestamp}";
-            var id = ExchangeHelpers.NextId();
-            return Task.FromResult<Query?>(new GateIoLoginQuery(this, id, "futures.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp));
         }
 
         /// <inheritdoc />

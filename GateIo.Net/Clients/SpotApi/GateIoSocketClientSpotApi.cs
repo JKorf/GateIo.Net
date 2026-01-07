@@ -97,10 +97,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTradeUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoTradeUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -115,10 +117,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTradeUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoTradeUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -133,10 +137,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTickerUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoTickerUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -151,10 +157,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTickerUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoTickerUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -169,10 +177,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoKlineUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoKlineUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel + "." + data.Result.Interval)
                     );
@@ -188,10 +198,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoBookTickerUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoBookTickerUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -206,10 +218,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoBookTickerUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoBookTickerUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -224,10 +238,12 @@ namespace GateIo.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoOrderBookUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -244,10 +260,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrderBookV2Update>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPerpOrderBookV2Update>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(data.Result.Full ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -266,10 +284,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPartialOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoPartialOrderBookUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Result.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -287,10 +307,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoOrderUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoOrderUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -307,10 +329,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoUserTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoUserTradeUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -326,10 +350,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoBalanceUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -345,10 +371,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoMarginBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoMarginBalanceUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -364,10 +392,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoFundingBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoFundingBalanceUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -383,10 +413,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoCrossMarginBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoCrossMarginBalanceUpdate[]>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -402,10 +434,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTriggerOrderUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onMessage(
                     new DataEvent<GateIoTriggerOrderUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -622,17 +656,6 @@ namespace GateIo.Net.Clients.SpotApi
             }
 
             return channel;
-        }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-
-            var provider = (GateIoAuthenticationProvider)AuthenticationProvider!;
-            var timestamp = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(-1)).Value;
-            var signStr = $"api\nspot.login\n\n{timestamp}";
-            var id = ExchangeHelpers.NextId();
-            return Task.FromResult<Query?>(new GateIoLoginQuery(this, id, "spot.login", "api", provider.ApiKey, provider.SignSocketRequest(signStr), timestamp));
         }
 
         /// <inheritdoc />

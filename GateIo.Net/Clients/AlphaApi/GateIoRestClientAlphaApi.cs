@@ -25,7 +25,6 @@ namespace GateIo.Net.Clients.AlphaApi
     internal partial class GateIoRestClientAlphaApi : RestApiClient, IGateIoRestClientAlphaApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Alpha Api");
         private readonly GateIoRestClient _baseClient;
         protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
 
@@ -96,14 +95,6 @@ namespace GateIo.Net.Clients.AlphaApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

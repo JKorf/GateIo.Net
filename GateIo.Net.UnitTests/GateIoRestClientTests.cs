@@ -35,7 +35,7 @@ namespace GateIo.Net.UnitTests
                 {
                     { "symbol", "LTCBTC" },
                 },
-                DateTimeConverter.ParseFromDouble(1499827319559),
+                DateTimeConverter.ParseFromDouble(1499827320559),
                 true,
                 false);
         }

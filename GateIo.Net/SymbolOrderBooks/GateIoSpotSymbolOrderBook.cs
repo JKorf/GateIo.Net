@@ -104,12 +104,12 @@ namespace GateIo.Net.SymbolOrderBooks
 
         private void HandleUpdate(DataEvent<GateIoOrderBookUpdate> data)
         {
-            UpdateOrderBook(data.Data.FirstUpdateId, data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks);
+            UpdateOrderBook(data.Data.FirstUpdateId, data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         private void HandleUpdate(DataEvent<GateIoPartialOrderBookUpdate> data)
         {
-            SetInitialOrderBook(data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks);
+            SetInitialOrderBook(data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />

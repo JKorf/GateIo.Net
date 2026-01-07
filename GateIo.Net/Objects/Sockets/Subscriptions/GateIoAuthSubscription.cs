@@ -35,12 +35,11 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         protected override Query? GetSubQuery(SocketConnection connection)
         {
-            var provider = (GateIoAuthenticationProvider)connection.ApiClient.AuthenticationProvider!;
-            var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(_client, _channel, "subscribe", _payload);
-            var request = (GateIoSocketAuthRequest<string[]>)query.Request;
-            var sign = provider.SignSocketRequest($"channel={_channel}&event=subscribe&time={request.Timestamp}");
-            request.Auth = new GateIoSocketAuth { Key = provider.ApiKey, Sign = sign, Method = "api_key" };
-            return query;
+            return connection.ApiClient.AuthenticationProvider!.GetAuthenticationQuery(_client, connection, new Dictionary<string, object?>
+            {
+                { "channel", _channel },
+                { "payload", _payload }
+            });
         }
 
         /// <inheritdoc />

@@ -21,7 +21,6 @@ namespace GateIo.Net.Clients.RebateApi
     internal partial class GateIoRestClientRebateApi : RestApiClient, IGateIoRestClientRebateApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Rebate Api");
         private readonly GateIoRestClient _baseClient;
         protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
         #endregion
@@ -83,14 +82,6 @@ namespace GateIo.Net.Clients.RebateApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

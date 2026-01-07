@@ -31,12 +31,6 @@
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
@@ -98,12 +92,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -368,9 +356,6 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
@@ -499,12 +484,6 @@
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
@@ -539,12 +518,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.GetTimeOffset">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -936,9 +909,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
