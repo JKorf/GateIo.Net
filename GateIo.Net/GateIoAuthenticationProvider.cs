@@ -50,7 +50,7 @@ namespace GateIo.Net
         {
             if (context?.ContainsKey("channel") == true)
             {
-                var channel = (string)context["channel"];
+                var channel = (string)context["channel"]!;
                 var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(apiClient, channel, "subscribe", (string[]?)context["payload"]);
                 var request = (GateIoSocketAuthRequest<string[]>)query.Request;
                 var sign = SignHMACSHA512($"channel={channel}&event=subscribe&time={request.Timestamp}").ToLowerInvariant();
