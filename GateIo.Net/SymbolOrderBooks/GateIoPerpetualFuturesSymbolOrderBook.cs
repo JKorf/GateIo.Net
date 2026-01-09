@@ -23,6 +23,7 @@ namespace GateIo.Net.SymbolOrderBooks
         private readonly IGateIoSocketClient _socketClient;
         private readonly bool _clientOwner;
         private readonly string _settleAsset;
+        private readonly TimeSpan _initialDataTimeout;
 
         /// <summary>
         /// Create a new order book instance
@@ -61,9 +62,10 @@ namespace GateIo.Net.SymbolOrderBooks
 
             _strictLevels = false;
             _settleAsset = settlementAsset;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = true;
+            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
 
-            Levels = options?.Limit ?? 20;
+            Levels = options?.Limit ?? 50;
             _clientOwner = socketClient == null;
             _socketClient = socketClient ?? new GateIoSocketClient();
             _restClient = restClient ?? new GateIoRestClient();
@@ -72,7 +74,7 @@ namespace GateIo.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            var subResult = await _socketClient.PerpetualFuturesApi.SubscribeToOrderBookUpdatesAsync(_settleAsset, Symbol, 20, Levels!.Value, HandleUpdate).ConfigureAwait(false);
+            var subResult = await _socketClient.PerpetualFuturesApi.SubscribeToOrderBookV2UpdatesAsync(_settleAsset, Symbol, Levels!.Value, HandleUpdate).ConfigureAwait(false);
 
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
@@ -85,24 +87,14 @@ namespace GateIo.Net.SymbolOrderBooks
 
             Status = OrderBookStatus.Syncing;
 
-            // Small delay to make sure the snapshot is from after our first stream update
-            await Task.Delay(200).ConfigureAwait(false);
-            var bookResult = await _restClient.PerpetualFuturesApi.ExchangeData.GetOrderBookAsync(_settleAsset, Symbol, null, Levels!.Value).ConfigureAwait(false);
-            if (!bookResult)
-            {
-                _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
-                await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                return new CallResult<UpdateSubscription>(bookResult.Error!);
-            }
-
-            SetInitialOrderBook(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<UpdateSubscription>(subResult.Data);
+            var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
         }
 
-        private void HandleUpdate(DataEvent<GateIoPerpOrderBookUpdate> data)
+        private void HandleUpdate(DataEvent<GateIoPerpOrderBookV2Update> data)
         {
             if (data.UpdateType == SocketUpdateType.Snapshot)
-                SetInitialOrderBook(data.Data.FirstUpdateId, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+                SetSnapshot(data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
                 UpdateOrderBook(data.Data.FirstUpdateId, data.Data.LastUpdateId, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
@@ -115,11 +107,12 @@ namespace GateIo.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
+            await Task.Delay(200).ConfigureAwait(false);
             var bookResult = await _restClient.PerpetualFuturesApi.ExchangeData.GetOrderBookAsync(_settleAsset, Symbol, null, Levels ?? 100).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetInitialOrderBook(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetSnapshot(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 
