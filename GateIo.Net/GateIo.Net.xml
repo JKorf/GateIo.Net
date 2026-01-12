@@ -10851,6 +10851,16 @@
             Upper and lower limits of funding rate
             </summary>
         </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.MarketOrderMaxSlippageRatio">
+            <summary>
+            Max slippage ratio for market orders
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoPerpFuturesContract.MarketOrderMaxQuantity">
+            <summary>
+            Max quantity for market orders
+            </summary>
+        </member>
         <member name="T:GateIo.Net.Objects.Models.GateIoPerpIndexKline">
             <summary>
             Kline info
