@@ -216,5 +216,15 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("funding_rate_limit")]
         public decimal FundingRateLimit { get; set; }
+        /// <summary>
+        /// Max slippage ratio for market orders
+        /// </summary>
+        [JsonPropertyName("market_order_slip_ratio")]
+        public decimal MarketOrderMaxSlippageRatio { get; set; }
+        /// <summary>
+        /// Max quantity for market orders
+        /// </summary>
+        [JsonPropertyName("market_order_size_max")]
+        public decimal MarketOrderMaxQuantity { get; set; }
     }
 }

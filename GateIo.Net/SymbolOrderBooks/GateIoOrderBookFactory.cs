@@ -58,7 +58,7 @@ namespace GateIo.Net.SymbolOrderBooks
             if (symbol.TradingMode == TradingMode.Spot)
                 return CreateSpot(symbolName, options);
 
-            return CreatePerpetualFutures(symbolName, settlementAsset ?? "usd", options);
+            return CreatePerpetualFutures(settlementAsset ?? "usdt", symbolName, options);
         }
 
         /// <inheritdoc />

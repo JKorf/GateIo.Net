@@ -30,6 +30,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="selfTradePreventionMode">Self trade prevention mode</param>
         /// <param name="text">User defined info</param>
         /// <param name="actionMode">Order response mode</param>
+        /// <param name="slippage">Max slippage for market orders, 0.03 means 3%</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoOrder>> PlaceOrderAsync(
@@ -46,6 +47,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             SelfTradePreventionMode? selfTradePreventionMode = null,
             string? text = null,
             OrderActionMode? actionMode = null,
+            decimal? slippage = null,
             CancellationToken ct = default);
 
         /// <summary>
