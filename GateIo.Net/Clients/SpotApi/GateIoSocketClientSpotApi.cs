@@ -461,6 +461,7 @@ namespace GateIo.Net.Clients.SpotApi
             SelfTradePreventionMode? selfTradePreventionMode = null,
             string? text = null,
             OrderActionMode? actionMode = null,
+            decimal? slippage = null,
             CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
@@ -478,7 +479,8 @@ namespace GateIo.Net.Clients.SpotApi
                 AutoRepay = autoRepay,
                 StpMode = selfTradePreventionMode,
                 Text = text ?? "t-" + ExchangeHelpers.RandomString(20),
-                ActionMode = actionMode
+                ActionMode = actionMode,
+                Slippage = slippage
             }, true,
             new Dictionary<string, string>
             {
@@ -505,7 +507,8 @@ namespace GateIo.Net.Clients.SpotApi
                 Quantity = o.Quantity,
                 Side = o.Side,
                 StpMode = o.SelfTradePreventionMode,
-                Symbol = o.Symbol
+                Symbol = o.Symbol,
+                Slippage = o.Slippage
             }).ToArray(), true,
             new Dictionary<string, string>
             {

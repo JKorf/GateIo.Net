@@ -763,7 +763,7 @@
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiTrading.PlaceMultipleOrderAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
@@ -884,7 +884,7 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.SubscribeToTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{GateIo.Net.Objects.Models.GateIoTriggerOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{GateIo.Net.Objects.Models.GateIoBatchPlaceRequest},System.Threading.CancellationToken)">
@@ -6675,7 +6675,7 @@
             GateIo Spot trading endpoints, placing and managing orders.
             </summary>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiTrading.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.gate.com/docs/developers/apiv4/en/#create-an-order" /></para>
@@ -6693,6 +6693,7 @@
             <param name="selfTradePreventionMode">Self trade prevention mode</param>
             <param name="text">User defined info</param>
             <param name="actionMode">Order response mode</param>
+            <param name="slippage">Max slippage for market orders, 0.03 means 3%</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -7062,7 +7063,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Threading.CancellationToken)">
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoSocketClientSpotApi.PlaceOrderAsync(System.String,GateIo.Net.Enums.OrderSide,GateIo.Net.Enums.NewOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.TimeInForce},System.Nullable{System.Decimal},System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{GateIo.Net.Enums.SelfTradePreventionMode},System.String,System.Nullable{GateIo.Net.Enums.OrderActionMode},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.gate.com/docs/developers/apiv4/ws/en/#order-place" /></para>
@@ -7080,6 +7081,7 @@
             <param name="selfTradePreventionMode">Self trade prevention mode</param>
             <param name="text">User defined info</param>
             <param name="actionMode">Order response mode</param>
+            <param name="slippage">Max slippage for market orders, 0.03 means 3%</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -8004,6 +8006,11 @@
         <member name="P:GateIo.Net.Objects.Models.GateIoBatchPlaceRequest.Quantity">
             <summary>
             Quantity
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.Objects.Models.GateIoBatchPlaceRequest.Slippage">
+            <summary>
+            Max slippage for market orders, 0.03 means 3%
             </summary>
         </member>
         <member name="P:GateIo.Net.Objects.Models.GateIoBatchPlaceRequest.Price">

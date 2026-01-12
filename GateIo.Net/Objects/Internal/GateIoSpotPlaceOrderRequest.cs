@@ -16,6 +16,8 @@ namespace GateIo.Net.Objects.Internal
         public OrderSide Side { get; set; }
         [JsonPropertyName("amount"), JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal Quantity { get; set; }
+        [JsonPropertyName("slippage"), JsonConverter(typeof(DecimalStringWriterConverter))]
+        public decimal? Slippage { get; set; }
         [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? Price { get; set; }
         [JsonPropertyName("time_in_force"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
@@ -32,5 +34,6 @@ namespace GateIo.Net.Objects.Internal
         public SelfTradePreventionMode? StpMode { get; set; }
         [JsonPropertyName("action_mode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public OrderActionMode? ActionMode { get; set; }
+
     }
 }

@@ -44,6 +44,7 @@ namespace GateIo.Net.Clients.SpotApi
             SelfTradePreventionMode? selfTradePreventionMode = null,
             string? text = null,
             OrderActionMode? actionMode = null,
+            decimal? slippage = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -60,6 +61,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("auto_repay", autoRepay);
             parameters.AddOptional("text", text);
             parameters.AddOptionalEnum("action_mode", actionMode);
+            parameters.AddOptionalString("slippage", slippage);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(
                 request,

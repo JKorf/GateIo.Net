@@ -41,6 +41,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("amount"), JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal Quantity { get; set; }
         /// <summary>
+        /// Max slippage for market orders, 0.03 means 3%
+        /// </summary>
+        [JsonPropertyName("slippage"), JsonConverter(typeof(DecimalStringWriterConverter))]
+        public decimal? Slippage { get; set; }
+        /// <summary>
         /// Order price
         /// </summary>
         [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
