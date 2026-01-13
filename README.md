@@ -173,6 +173,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 3.2.0 - 13 Jan 2026
+    * Updated CryptoExchange.Net to version 10.2.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Added MarketOrderMaxSlippageRatio and MarketOrderMaxQuantity properties to GateIoPerpFuturesContract model
+    * Added slippage parameter for spot order endpoints
+    * Updated default settlement asset in GateIoOrderBookFactory to usdt
+    * Updated PerpetualFutures SymbolOrderBook implementation to use V2 of order book subscription
+    * Removed unnecessary order book request when subscribing to limited updates in Spot SymbolOrderBook implementation
+    * Fixed REST invalid request signature with special characters
+
 * Version 3.1.0 - 07 Jan 2026
     * Updated CryptoExchange.Net version to 10.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Added DataTimeLocal and DataAge properties to DataEvent object
