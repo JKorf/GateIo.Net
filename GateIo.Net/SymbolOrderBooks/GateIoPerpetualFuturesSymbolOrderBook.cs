@@ -107,13 +107,15 @@ namespace GateIo.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
-            await Task.Delay(200).ConfigureAwait(false);
-            var bookResult = await _restClient.PerpetualFuturesApi.ExchangeData.GetOrderBookAsync(_settleAsset, Symbol, null, Levels ?? 100).ConfigureAwait(false);
-            if (!bookResult)
-                return new CallResult<bool>(bookResult.Error!);
+            return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
 
-            SetSnapshot(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<bool>(true);
+            //await Task.Delay(200).ConfigureAwait(false);
+            //var bookResult = await _restClient.PerpetualFuturesApi.ExchangeData.GetOrderBookAsync(_settleAsset, Symbol, null, Levels ?? 100).ConfigureAwait(false);
+            //if (!bookResult)
+            //    return new CallResult<bool>(bookResult.Error!);
+
+            //SetSnapshot(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
+            //return new CallResult<bool>(true);
         }
 
         /// <inheritdoc />
