@@ -19,9 +19,6 @@
         <member name="P:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.ExchangeName">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateAccessor">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.AlphaApi.GateIoRestClientAlphaApi.CreateSerializer">
             <inheritdoc />
         </member>
@@ -80,9 +77,6 @@
             <inheritdoc />
         </member>
         <member name="P:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.ExchangeName">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.CreateAccessor">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoRestClientPerpetualFuturesApi.CreateSerializer">
@@ -266,9 +260,6 @@
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateSerializer">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -351,9 +342,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.EditOrderAsync(System.String,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.FuturesApi.GateIoSocketClientPerpetualFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -472,9 +460,6 @@
         <member name="P:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.ExchangeName">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateAccessor">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.RebateApi.GateIoRestClientRebateApi.CreateSerializer">
             <inheritdoc />
         </member>
@@ -506,9 +491,6 @@
             <inheritdoc />
         </member>
         <member name="P:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.ExchangeName">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.CreateAccessor">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApi.CreateSerializer">
@@ -827,9 +809,6 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateSerializer">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
-            <inheritdoc />
-        </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -906,9 +885,6 @@
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetOrdersAsync(System.String,System.Boolean,System.Nullable{GateIo.Net.Enums.SpotAccountType},System.Nullable{GateIo.Net.Enums.OrderSide},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -4526,6 +4502,11 @@
         <member name="T:GateIo.Net.GateIoExchange">
             <summary>
             Gate exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:GateIo.Net.GateIoExchange.Metadata">
+            <summary>
+            Platform metadata
             </summary>
         </member>
         <member name="P:GateIo.Net.GateIoExchange.ExchangeName">

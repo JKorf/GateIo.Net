@@ -11,7 +11,7 @@ namespace GateIo.Net.Objects.Sockets
         public GateIoPingQuery(string channel) : base(new GateIoSocketRequest<object> { Channel = channel, Id = ExchangeHelpers.NextId(), Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
+
             MessageRouter = MessageRouter.CreateWithoutHandler<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
         }
     }

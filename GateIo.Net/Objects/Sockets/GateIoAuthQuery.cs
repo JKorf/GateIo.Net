@@ -17,7 +17,7 @@ namespace GateIo.Net.Objects.Sockets
             : base(new GateIoSocketAuthRequest<string[]> { Channel = channel, Event = evnt, Id = ExchangeHelpers.NextId(), Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, false, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<T>>(((GateIoSocketAuthRequest<string[]>)Request).Id.ToString(), HandleMessage);
+
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketResponse<T>>(((GateIoSocketAuthRequest<string[]>)Request).Id.ToString(), HandleMessage);
         }
 

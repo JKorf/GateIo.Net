@@ -15,7 +15,7 @@ namespace GateIo.Net.Objects.Sockets
         public GateIoQuery(SocketApiClient client, long id, string channel, string evnt, TRequest? payload, bool authenticated = false) : base(new GateIoSocketRequest<TRequest> { Channel = channel, Event = evnt, Id = id, Payload = payload, Timestamp = (long)DateTimeConverter.ConvertToSeconds(DateTime.UtcNow) }, authenticated, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
+
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
         }
 

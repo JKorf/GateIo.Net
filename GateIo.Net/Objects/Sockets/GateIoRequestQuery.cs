@@ -29,7 +29,6 @@ namespace GateIo.Net.Objects.Sockets
             _client = client;
             RequiredResponses = 1;
 
-            MessageMatcher = MessageMatcher.Create<GateIoSocketRequestResponse<T>>([id.ToString(), id + "ack"], HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketRequestResponse<T>>(id.ToString(), HandleMessage);
         }
 

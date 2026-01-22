@@ -16,6 +16,19 @@ namespace GateIo.Net
     public static class GateIoExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "GateIo",
+                "Gate",
+                "https://raw.githubusercontent.com/JKorf/GateIo.Net/master/GateIo.Net/Icon/icon.png",
+                "https://www.gate.com",
+                ["https://www.gate.com/docs/developers/apiv4/en/"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "GateIo";

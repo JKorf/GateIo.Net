@@ -19,7 +19,7 @@ namespace GateIo.Net.UnitTests
         {
         }
 
-        public override GateIoSocketClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
+        public override GateIoSocketClient GetClient(ILoggerFactory loggerFactory)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -28,19 +28,17 @@ namespace GateIo.Net.UnitTests
             return new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
             }), loggerFactory);
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task TestSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestSubscriptions()
         {
-            await RunAndCheckUpdate<GateIoTicker>(useUpdatedDeserialization , (client, updateHandler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(default , default), false, true);
-            await RunAndCheckUpdate<GateIoTickerUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC_USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<GateIoTicker>((client, updateHandler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(default , default), false, true);
+            await RunAndCheckUpdate<GateIoTickerUpdate>((client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC_USDT", updateHandler, default), true, false);
 
-            await RunAndCheckUpdate<GateIoPerpTickerUpdate[]>(useUpdatedDeserialization, (client, updateHandler) => client.PerpetualFuturesApi.SubscribeToTickerUpdatesAsync("usdt", "ETH_USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<GateIoPerpTickerUpdate[]>((client, updateHandler) => client.PerpetualFuturesApi.SubscribeToTickerUpdatesAsync("usdt", "ETH_USDT", updateHandler, default), true, false);
         } 
     }
 }

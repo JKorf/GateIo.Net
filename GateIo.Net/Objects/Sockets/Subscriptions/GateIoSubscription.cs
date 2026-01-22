@@ -29,7 +29,6 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
             IndividualSubscriptionCount = symbols?.Length ?? 1;
 
-            MessageMatcher = MessageMatcher.Create<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<GateIoSocketMessage<T>>(channel, _symbols, DoHandleMessage);
         }
 

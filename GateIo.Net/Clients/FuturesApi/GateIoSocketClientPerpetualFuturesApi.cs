@@ -35,15 +35,6 @@ namespace GateIo.Net.Clients.FuturesApi
     internal partial class GateIoSocketClientPerpetualFuturesApi : SocketApiClient, IGateIoSocketClientPerpetualFuturesApi
     {
         #region fields
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("channel");
-        private static readonly MessagePath _contractPath = MessagePath.Get().Property("result").Index(0).Property("contract");
-        private static readonly MessagePath _contractPath2 = MessagePath.Get().Property("result").Property("s");
-        private static readonly MessagePath _contractPath3 = MessagePath.Get().Property("result").Property("contract");
-        private static readonly MessagePath _klinePath = MessagePath.Get().Property("result").Index(0).Property("n");
-        private static readonly MessagePath _idPath2 = MessagePath.Get().Property("request_id");
-        private static readonly MessagePath _ackPath = MessagePath.Get().Property("ack");
-        private static readonly MessagePath _statusPath = MessagePath.Get().Property("header").Property("status");
 
         private readonly bool _demoTrading;
 
@@ -78,8 +69,6 @@ namespace GateIo.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
-        /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new GateIoSocketFuturesMessageHandler();
 
@@ -589,52 +578,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         private string GetSocketPath(string settlementAsset) => $"{(!_demoTrading ? "v4/ws" : "v4/ws/futures")}/{settlementAsset.ToLowerInvariant()}";
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            var id = message.GetValue<long?>(_idPath);
-            if (id != null)
-                return id.ToString();
-
-            var id2 = message.GetValue<string?>(_idPath2);
-            if (id2 != null)
-            {
-                if (message.GetValue<bool?>(_ackPath) == true
-                    && message.GetValue<string>(_statusPath) == "200")
-                {
-                    return id2 + "ack";
-                }
-
-                return id2;
-            }
-
-            var channel = message.GetValue<string>(_channelPath);
-
-            if (string.Equals(channel, "futures.obu"))
-                return message.GetValue<string>(_contractPath2);
-
-            if (string.Equals(channel, "futures.trades")
-                || string.Equals(channel, "futures.tickers"))
-            {
-                return channel + "." + message.GetValue<string>(_contractPath);
-            }
-
-            if (string.Equals(channel, "futures.candlesticks"))
-                return channel + "." + message.GetValue<string>(_klinePath);
-
-            if (string.Equals(channel, "futures.contract_stats"))
-                return channel + "." + message.GetValue<string>(_contractPath3);
-
-            if (string.Equals(channel, "futures.book_ticker")
-             || string.Equals(channel, "futures.order_book_update")
-             || string.Equals(channel, "futures.order_book"))
-            {
-                return channel + "." + message.GetValue<string>(_contractPath2);
-            }
-
-            return channel;
-        }
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

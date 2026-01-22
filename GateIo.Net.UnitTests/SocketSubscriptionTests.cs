@@ -14,17 +14,15 @@ namespace GateIo.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentSpotSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
 
             var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
-                OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
+                OutputOriginalData = true
             }), logger);
 
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
@@ -34,16 +32,14 @@ namespace GateIo.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
             var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), logger);
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
@@ -62,17 +58,15 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync<GateIoTriggerOrderUpdate>((client, handler) => client.SpotApi.SubscribeToTriggerOrderUpdatesAsync(handler), "SubscribeToTriggerOrderUpdates", ignoreProperties: new List<string> { "time", "timestamp" });
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentPerpFuturesSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentPerpFuturesSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
 
             var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
-                OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
+                OutputOriginalData = true
             }), logger);
 
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws", "result");
@@ -82,13 +76,11 @@ namespace GateIo.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidatePerpFuturesSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidatePerpFuturesSubscriptions()
         {
             var client = new GateIoSocketClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws", "result");
