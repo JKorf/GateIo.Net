@@ -169,7 +169,7 @@ namespace GateIo.Net.Clients.SpotApi
                         GetOrderStatus(x),
                         x.CreateTime)
                     {
-                        ClientOrderId = x.Text,
+                        ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
                         OrderQuantity = new SharedOrderQuantity(x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity, x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? x.Quantity : null),
                         QuantityFilled = new SharedOrderQuantity(x.OrderType == Enums.OrderType.Market && x.Side == Enums.OrderSide.Buy ? null : x.Quantity - x.QuantityRemaining, x.QuoteQuantityFilled),
                         UpdateTime = x.UpdateTime,
@@ -206,7 +206,7 @@ namespace GateIo.Net.Clients.SpotApi
                         x.Price!.Value,
                         x.CreateTime)
                     {
-                        ClientOrderId = x.Text,
+                        ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
                         Role = x.Role == Enums.Role.Maker ? SharedRole.Maker : SharedRole.Taker,
                         Fee = x.Fee,
                         FeeAsset = x.FeeAsset
