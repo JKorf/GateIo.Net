@@ -298,6 +298,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 update => handler(update.ToType<SharedPosition[]>(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Contract), x.Contract, Math.Abs(x.Size), update.DataTime ?? update.ReceiveTime)
                 {
                     AverageOpenPrice = x.EntryPrice == 0 ? null : x.EntryPrice,
+                    PositionMode = x.PositionMode == Enums.PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
                     Leverage = x.Leverage == 0 ? null : x.Leverage

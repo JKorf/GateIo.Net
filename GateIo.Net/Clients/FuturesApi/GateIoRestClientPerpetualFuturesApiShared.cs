@@ -575,6 +575,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     LiquidationPrice = x.LiquidationPrice,
                     AverageOpenPrice = x.EntryPrice,
                     Leverage = x.Leverage,
+                    PositionMode = x.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToArray());
             }
@@ -590,6 +591,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     LiquidationPrice = result.Data.LiquidationPrice,
                     AverageOpenPrice = result.Data.EntryPrice,
                     Leverage = result.Data.Leverage,
+                    PositionMode = result.Data.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = result.Data.PositionMode == PositionMode.Single ? (result.Data.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : result.Data.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
                 } });
             }
