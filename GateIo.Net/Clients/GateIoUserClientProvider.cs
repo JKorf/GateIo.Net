@@ -64,7 +64,7 @@ namespace GateIo.Net.Clients
         /// <inheritdoc />
         public IGateIoRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, GateIoEnvironment? environment = null)
         {
-            if (!_restClients.TryGetValue(userIdentifier, out var client))
+            if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
 
             return client;
@@ -73,7 +73,7 @@ namespace GateIo.Net.Clients
         /// <inheritdoc />
         public IGateIoSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, GateIoEnvironment? environment = null)
         {
-            if (!_socketClients.TryGetValue(userIdentifier, out var client))
+            if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
 
             return client;
