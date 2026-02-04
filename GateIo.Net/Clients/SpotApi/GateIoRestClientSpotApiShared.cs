@@ -729,7 +729,15 @@ namespace GateIo.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new OffsetToken((offset ?? 0) + deposits.Data.Count());
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => 
+            new SharedDeposit(
+                x.Asset,
+                x.Quantity,
+                x.Status == WithdrawalStatus.Done,
+                x.Timestamp,
+                x.Status == WithdrawalStatus.Done || x.Status == WithdrawalStatus.Final || x.Status == WithdrawalStatus.Credited ? SharedTransferStatus.Completed
+                : x.Status == WithdrawalStatus.Blocked || x.Status == WithdrawalStatus.Invalid || x.Status == WithdrawalStatus.FailedConfirmation || x.Status == WithdrawalStatus.Canceled ? SharedTransferStatus.Failed
+                : SharedTransferStatus.InProgress)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
