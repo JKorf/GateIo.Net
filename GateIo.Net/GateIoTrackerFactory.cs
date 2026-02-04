@@ -1,11 +1,15 @@
-﻿using CryptoExchange.Net.SharedApis;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using GateIo.Net.Clients;
 using GateIo.Net.Interfaces;
 using GateIo.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 
 namespace GateIo.Net
@@ -98,6 +102,64 @@ namespace GateIo.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
+            return new GateIoUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<GateIoUserSpotDataTracker>>() ?? new NullLogger<GateIoUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, GateIoEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IGateIoUserClientProvider>() ?? new GateIoUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new GateIoUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<GateIoUserSpotDataTracker>>() ?? new NullLogger<GateIoUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
+            return new GateIoUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<GateIoUserFuturesDataTracker>>() ?? new NullLogger<GateIoUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, GateIoEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IGateIoUserClientProvider>() ?? new GateIoUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new GateIoUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<GateIoUserFuturesDataTracker>>() ?? new NullLogger<GateIoUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }
