@@ -17,7 +17,7 @@ namespace GateIo.Net
             IGateIoRestClient restClient,
             IGateIoSocketClient socketClient,
             string? userIdentifier,
-            SpotUserDataTrackerConfig config) : base(
+            SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
                 null,
@@ -27,13 +27,13 @@ namespace GateIo.Net
                 socketClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new SpotUserDataTrackerConfig())
         {
         }
     }
 
     /// <inheritdoc/>
-    public class GateIoUserFuturesDataTracker : UserFuturesDataTracker
+    public class GateIoUserPerpetualFuturesDataTracker : UserFuturesDataTracker
     {
         /// <inheritdoc/>
         protected override bool WebsocketPositionUpdatesAreFullSnapshots => false;
@@ -41,12 +41,13 @@ namespace GateIo.Net
         /// <summary>
         /// ctor
         /// </summary>
-        public GateIoUserFuturesDataTracker(
-            ILogger<GateIoUserFuturesDataTracker> logger,
+        public GateIoUserPerpetualFuturesDataTracker(
+            ILogger<GateIoUserPerpetualFuturesDataTracker> logger,
             IGateIoRestClient restClient,
             IGateIoSocketClient socketClient,
             string? userIdentifier,
-            FuturesUserDataTrackerConfig config) : base(logger,
+            FuturesUserDataTrackerConfig? config,
+            ExchangeParameters? exchangeParameters) : base(logger,
                 restClient.PerpetualFuturesApi.SharedClient,
                 null,
                 restClient.PerpetualFuturesApi.SharedClient,
@@ -56,7 +57,8 @@ namespace GateIo.Net
                 socketClient.PerpetualFuturesApi.SharedClient,
                 socketClient.PerpetualFuturesApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new FuturesUserDataTrackerConfig(),
+                exchangeParameters: exchangeParameters)
         {
         }
     }

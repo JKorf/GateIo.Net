@@ -4603,13 +4603,13 @@
         <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,GateIo.Net.GateIoEnvironment)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserPerpetualFuturesDataTracker(System.String,System.Int64,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+        <member name="M:GateIo.Net.GateIoTrackerFactory.CreateUserPerpetualFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,System.String,System.Int64,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,GateIo.Net.GateIoEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:GateIo.Net.GateIoUserSpotDataTracker">
@@ -4620,13 +4620,13 @@
             ctor
             </summary>
         </member>
-        <member name="T:GateIo.Net.GateIoUserFuturesDataTracker">
+        <member name="T:GateIo.Net.GateIoUserPerpetualFuturesDataTracker">
             <inheritdoc/>
         </member>
-        <member name="P:GateIo.Net.GateIoUserFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
+        <member name="P:GateIo.Net.GateIoUserPerpetualFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
             <inheritdoc/>
         </member>
-        <member name="M:GateIo.Net.GateIoUserFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{GateIo.Net.GateIoUserFuturesDataTracker},GateIo.Net.Interfaces.Clients.IGateIoRestClient,GateIo.Net.Interfaces.Clients.IGateIoSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+        <member name="M:GateIo.Net.GateIoUserPerpetualFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{GateIo.Net.GateIoUserPerpetualFuturesDataTracker},GateIo.Net.Interfaces.Clients.IGateIoRestClient,GateIo.Net.Interfaces.Clients.IGateIoSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.SharedApis.ExchangeParameters)">
             <summary>
             ctor
             </summary>
@@ -7241,7 +7241,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,GateIo.Net.GateIoEnvironment)">
             <summary>
             Create a new Spot user data tracker
             </summary>
@@ -7256,19 +7256,23 @@
             </summary>
             <param name="config">Configuration</param>
         </member>
-        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,GateIo.Net.GateIoEnvironment)">
+        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateUserPerpetualFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,System.String,System.Int64,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,GateIo.Net.GateIoEnvironment)">
             <summary>
             Create a new futures user data tracker
             </summary>
             <param name="userIdentifier">User identifier</param>
+            <param name="settleAsset">Settlement asset, for example `usdt`</param>
+            <param name="userId">The user id</param>
             <param name="config">Configuration</param>
             <param name="credentials">Credentials</param>
             <param name="environment">Environment</param>
         </member>
-        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+        <member name="M:GateIo.Net.Interfaces.IGateIoTrackerFactory.CreateUserPerpetualFuturesDataTracker(System.String,System.Int64,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <summary>
             Create a new futures user data tracker
             </summary>
+            <param name="settleAsset">Settlement asset, for example `usdt`</param>
+            <param name="userId">The user id</param>
             <param name="config">Configuration</param>
         </member>
         <member name="T:GateIo.Net.Objects.GateIoApiAddresses">

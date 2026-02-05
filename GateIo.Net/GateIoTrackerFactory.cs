@@ -106,7 +106,7 @@ namespace GateIo.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
@@ -120,7 +120,7 @@ namespace GateIo.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, GateIoEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IGateIoUserClientProvider>() ?? new GateIoUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -135,31 +135,41 @@ namespace GateIo.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        public IUserFuturesDataTracker CreateUserPerpetualFuturesDataTracker(string settleAsset, long userId, FuturesUserDataTrackerConfig? config = null)
         {
+            var exchangeParams = new ExchangeParameters(
+                new ExchangeParameter("GateIo", "SettleAsset", settleAsset),
+                new ExchangeParameter("GateIo", "UserId", userId));
+
             var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
-            return new GateIoUserFuturesDataTracker(
-                _serviceProvider?.GetRequiredService<ILogger<GateIoUserFuturesDataTracker>>() ?? new NullLogger<GateIoUserFuturesDataTracker>(),
+            return new GateIoUserPerpetualFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<GateIoUserPerpetualFuturesDataTracker>>() ?? new NullLogger<GateIoUserPerpetualFuturesDataTracker>(),
                 restClient,
                 socketClient,
                 null,
-                config
+                config,
+                exchangeParams
                 );
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, GateIoEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserPerpetualFuturesDataTracker(string userIdentifier, ApiCredentials credentials, string settleAsset, long userId, FuturesUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null)
         {
+            var exchangeParams = new ExchangeParameters(
+                new ExchangeParameter("GateIo", "SettleAsset", settleAsset),
+                new ExchangeParameter("GateIo", "UserId", userId));
+
             var clientProvider = _serviceProvider?.GetRequiredService<IGateIoUserClientProvider>() ?? new GateIoUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
             var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
-            return new GateIoUserFuturesDataTracker(
-                _serviceProvider?.GetRequiredService<ILogger<GateIoUserFuturesDataTracker>>() ?? new NullLogger<GateIoUserFuturesDataTracker>(),
+            return new GateIoUserPerpetualFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<GateIoUserPerpetualFuturesDataTracker>>() ?? new NullLogger<GateIoUserPerpetualFuturesDataTracker>(),
                 restClient,
                 socketClient,
                 userIdentifier,
-                config
+                config,
+                exchangeParams
                 );
         }
     }
