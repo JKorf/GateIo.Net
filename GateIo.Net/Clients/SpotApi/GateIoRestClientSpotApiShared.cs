@@ -117,6 +117,44 @@ namespace GateIo.Net.Clients.SpotApi
             return response;
         }
 
+        async Task<ExchangeResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
+        {
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<SharedSymbol[]>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<SharedSymbol[]>(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicId, baseAsset));
+        }
+
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
+        {
+            if (symbol.TradingMode != TradingMode.Spot)
+                throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
+
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<bool>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbol));
+        }
+
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
+        {
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<bool>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbolName));
+        }
         #endregion
 
         #region Ticker client
@@ -691,7 +729,15 @@ namespace GateIo.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new OffsetToken((offset ?? 0) + deposits.Data.Count());
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => 
+            new SharedDeposit(
+                x.Asset,
+                x.Quantity,
+                x.Status == WithdrawalStatus.Done,
+                x.Timestamp,
+                x.Status == WithdrawalStatus.Done || x.Status == WithdrawalStatus.Final || x.Status == WithdrawalStatus.Credited ? SharedTransferStatus.Completed
+                : x.Status == WithdrawalStatus.Blocked || x.Status == WithdrawalStatus.Invalid || x.Status == WithdrawalStatus.FailedConfirmation || x.Status == WithdrawalStatus.Canceled ? SharedTransferStatus.Failed
+                : SharedTransferStatus.InProgress)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
