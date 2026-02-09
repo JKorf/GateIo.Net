@@ -20,6 +20,7 @@ namespace GateIo.Net.Clients.MessageHandlers
             AddTopicMapping<GateIoSocketMessage<GateIoBookTickerUpdate>>(x => x.Result.Symbol);
             AddTopicMapping<GateIoSocketMessage<GateIoOrderBookUpdate>>(x => x.Result.Symbol);
             AddTopicMapping<GateIoSocketMessage<GateIoPartialOrderBookUpdate>>(x => x.Result.Symbol);
+            AddTopicMapping<GateIoSocketMessage<GateIoPerpOrderBookV2Update>>(x => x.Result.Contract + x.Result.Depth);
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
