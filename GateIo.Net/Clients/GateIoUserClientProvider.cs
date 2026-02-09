@@ -12,8 +12,8 @@ namespace GateIo.Net.Clients
     /// <inheritdoc />
     public class GateIoUserClientProvider : IGateIoUserClientProvider
     {
-        private static ConcurrentDictionary<string, IGateIoRestClient> _restClients = new ConcurrentDictionary<string, IGateIoRestClient>();
-        private static ConcurrentDictionary<string, IGateIoSocketClient> _socketClients = new ConcurrentDictionary<string, IGateIoSocketClient>();
+        private ConcurrentDictionary<string, IGateIoRestClient> _restClients = new ConcurrentDictionary<string, IGateIoRestClient>();
+        private ConcurrentDictionary<string, IGateIoSocketClient> _socketClients = new ConcurrentDictionary<string, IGateIoSocketClient>();
 
         private readonly IOptions<GateIoRestOptions> _restOptions;
         private readonly IOptions<GateIoSocketOptions> _socketOptions;
