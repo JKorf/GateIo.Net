@@ -815,5 +815,14 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             int? page = null,
             int? pageSize = null,
             CancellationToken ct = default);
+
+        /// <summary>
+        /// Set margin leverage
+        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#set-user-market-leverage-multiplier" /></para>
+        /// </summary>
+        /// <param name="leverage">Leverage to set</param>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult> SetMarginLeverageAsync(decimal leverage, string? symbol = null, CancellationToken ct = default);
     }
 }
