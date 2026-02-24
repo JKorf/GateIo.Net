@@ -691,6 +691,9 @@
         <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.GetInsuranceFundHistoryAsync(GateIo.Net.Enums.BusinessType,System.String,System.DateTime,System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiAccount.SetMarginLeverageAsync(System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:GateIo.Net.Clients.SpotApi.GateIoRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -6521,6 +6524,15 @@
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiAccount.SetMarginLeverageAsync(System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Set margin leverage
+            <para><a href="https://www.gate.com/docs/developers/apiv4/en/#set-user-market-leverage-multiplier" /></para>
+            </summary>
+            <param name="leverage">Leverage to set</param>
+            <param name="symbol">Symbol</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:GateIo.Net.Interfaces.Clients.SpotApi.IGateIoRestClientSpotApiExchangeData">
             <summary>

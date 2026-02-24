@@ -1092,5 +1092,18 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
+        #region Set Margin Leverage
+        /// <inheritdoc />
+        public async Task<WebCallResult> SetMarginLeverageAsync(decimal leverage, string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("currency_pair", symbol);
+            parameters.AddString("leverage", leverage);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/margin/leverage/user_market_setting", GateIoExchange.RateLimiter.RestPrivate, 1, true);
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+        #endregion
     }
 }
