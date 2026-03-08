@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
@@ -14,7 +14,12 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
     {
         /// <summary>
         /// Get an order quote
-        /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-quote-api" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-quote-api" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/alpha/quote
+        /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Asset</param>
         /// <param name="side">["<c>side</c>"] Order side</param>
@@ -32,7 +37,12 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
 
         /// <summary>
         /// Place order using a quote
-        /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-api" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-api" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/alpha/orders
+        /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Asset</param>
         /// <param name="side">["<c>side</c>"] Order side</param>
@@ -52,7 +62,12 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
 
         /// <summary>
         /// Get order history
-        /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-list-api" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-list-api" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/alpha/orders
+        /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Asset name</param>
         /// <param name="side">["<c>side</c>"] Order side</param>
@@ -74,7 +89,12 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
 
         /// <summary>
         /// Get order info by id
-        /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-single-order-query-api" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-single-order-query-api" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/alpha/order
+        /// </para>
         /// </summary>
         /// <param name="orderId">["<c>order_id</c>"] Order id</param>
         /// <param name="ct">Cancellation token</param>

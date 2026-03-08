@@ -14,7 +14,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get the current server time
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-server-current-time" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-server-current-time" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/time
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -22,7 +27,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of supported assets
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-currency-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-currency-information" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/currencies
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -30,7 +40,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific asset
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-information" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/currencies/{asset}
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -39,7 +54,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-pair-details" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-pair-details" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/currency_pairs/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -48,7 +68,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of supported symbols
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-supported-currency-pairs" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-supported-currency-pairs" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/currency_pairs
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -56,7 +81,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get tickers for all or a single symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-currency-pair-ticker-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-currency-pair-ticker-information" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/tickers
+        /// </para>
         /// </summary>
         /// <param name="symbol">["<c>currency_pair</c>"] Filter for a single symbol, for example `ETH_USDT`</param>
         /// <param name="timezone">["<c>timezone</c>"] Timezone, utc0, utc8 or all</param>
@@ -66,7 +96,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the orderbook for a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-market-depth-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-market-depth-information" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/order_book
+        /// </para>
         /// </summary>
         /// <param name="symbol">["<c>currency_pair</c>"] Symbol name, for example `ETH_USDT`</param>
         /// <param name="mergeDepth">["<c>interval</c>"] Merge depth, defaults to 0</param>
@@ -77,7 +112,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get market trades for a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-market-transaction-records" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-market-transaction-records" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">["<c>currency_pair</c>"] Symbol name, for example `ETH_USDT`</param>
         /// <param name="limit">["<c>limit</c>"] Max amount of results</param>
@@ -92,7 +132,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline/candlesticks for a symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#market-k-line-chart" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#market-k-line-chart" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/spot/candlesticks
+        /// </para>
         /// </summary>
         /// <param name="symbol">["<c>currency_pair</c>"] Symbol name, for example `ETH_USDT`</param>
         /// <param name="interval">["<c>interval</c>"] The kline interval</param>
@@ -105,7 +150,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of networks for an asset
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-chains-supported-for-specified-currency" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-chains-supported-for-specified-currency" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/wallet/currency_chains
+        /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -114,7 +164,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get discount tiers
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/unified/currency_discount_tiers
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -122,7 +177,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get loan margin tiers
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered-loan-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered-loan-margin" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/unified/loan_margin_tiers
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -130,7 +190,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// DEPRECATED
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/margin/cross/currencies/{id}
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -139,7 +204,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// DEPRECATED
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#currencies-supported-by-cross-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#currencies-supported-by-cross-margin" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/margin/cross/currencies
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -147,7 +217,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get lending symbols
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#list-lending-markets" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#list-lending-markets" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/margin/uni/currency_pairs
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -155,7 +230,12 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get lending symbol
-        /// <para><a href="https://www.gate.com/docs/developers/apiv4/en/#get-lending-market-details" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-lending-market-details" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/margin/uni/currency_pairs/{id}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>

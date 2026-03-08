@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using GateIo.Net.Objects.Models;
@@ -12,7 +12,12 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
     {
         /// <summary>
         /// Get asset information
-        /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-information" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/alpha/currencies
+        /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="page">["<c>page</c>"] Page number</param>
@@ -22,7 +27,12 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
 
         /// <summary>
         /// Get asset tickers
-        /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-ticker" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-ticker" /><br />
+        /// Endpoint:<br />
+        /// /api/v4/alpha/tickers
+        /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="page">["<c>page</c>"] Page number</param>
