@@ -11,27 +11,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoDepositAddress
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Min deposit quantity
+        /// ["<c>min_deposit_amount</c>"] Min deposit quantity
         /// </summary>
         [JsonPropertyName("min_deposit_amount")]
         public decimal? MinDepositQuantity { get; set; }
         /// <summary>
-        /// Min number of confirmations
+        /// ["<c>min_confirms</c>"] Min number of confirmations
         /// </summary>
         [JsonPropertyName("min_confirms")]
         public int? MinConfirmations { get; set; }
         /// <summary>
-        /// Multichain addresses
+        /// ["<c>multichain_addresses</c>"] Multichain addresses
         /// </summary>
         [JsonPropertyName("multichain_addresses")]
         public GateIoMultiChainDepositAddress[] MultichainAddress { get; set; } = Array.Empty<GateIoMultiChainDepositAddress>();
@@ -44,33 +44,33 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMultiChainDepositAddress
     {
         /// <summary>
-        /// Network
+        /// ["<c>chain</c>"] Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Notes that some currencies required(e.g., Tag, Memo) when depositing
+        /// ["<c>payment_id</c>"] Notes that some currencies required(e.g., Tag, Memo) when depositing
         /// </summary>
         [JsonPropertyName("payment_id")]
         public string PaymentId { get; set; } = string.Empty;
         /// <summary>
-        /// Note type; tag or memo
+        /// ["<c>payment_name</c>"] Note type; tag or memo
         /// </summary>
         [JsonPropertyName("payment_name")]
         public string PaymentName { get; set; } = string.Empty;
         /// <summary>
-        /// Failed
+        /// ["<c>obtain_failed</c>"] Failed
         /// </summary>
         [JsonPropertyName("obtain_failed")]
         public bool Failed { get; set; }
 
         /// <summary>
-        /// Min number of confirmations
+        /// ["<c>min_confirms</c>"] Min number of confirmations
         /// </summary>
         [JsonPropertyName("min_confirms")]
         public int MinConfirmations { get; set; }

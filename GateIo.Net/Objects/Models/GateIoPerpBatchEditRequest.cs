@@ -10,17 +10,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpBatchEditRequest
     {
         /// <summary>
-        /// The order id, either this or Text should be provied
+        /// ["<c>order_id</c>"] The order id, either this or Text should be provied
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// User defined order text, either this or OrderId should be provied
+        /// ["<c>text</c>"] User defined order text, either this or OrderId should be provied
         /// </summary>
         [JsonPropertyName("text")]
         public string Text { get; set; } = string.Empty;
         /// <summary>
-        /// Amend text
+        /// ["<c>amend_text</c>"] Amend text
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string AmendText { get; set; } = string.Empty;

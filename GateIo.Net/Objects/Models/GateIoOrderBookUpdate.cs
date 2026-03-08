@@ -11,37 +11,37 @@ namespace GateIo.Net.Objects.Models
     public record GateIoOrderBookUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>u</c>"] Update id
         /// </summary>
         [JsonPropertyName("u")]
         public long LastUpdateId { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>U</c>"] Update id
         /// </summary>
         [JsonPropertyName("U")]
         public long FirstUpdateId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Event
+        /// ["<c>e</c>"] Event
         /// </summary>
         [JsonPropertyName("e")]
         public string Event { get; set; } = string.Empty;
         /// <summary>
-        /// Updated bids
+        /// ["<c>b</c>"] Updated bids
         /// </summary>
         [JsonPropertyName("b")]
         public GateIoOrderBookEntry[] Bids { get; set; } = Array.Empty<GateIoOrderBookEntry>();
         /// <summary>
-        /// Updated asks
+        /// ["<c>a</c>"] Updated asks
         /// </summary>
         [JsonPropertyName("a")]
         public GateIoOrderBookEntry[] Asks { get; set; } = Array.Empty<GateIoOrderBookEntry>();

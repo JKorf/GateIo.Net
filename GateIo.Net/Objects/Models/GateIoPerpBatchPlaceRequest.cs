@@ -11,17 +11,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpBatchPlaceRequest
     {
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity, negaative for sell, positive for buy
+        /// ["<c>size</c>"] Quantity, negaative for sell, positive for buy
         /// </summary>
         [JsonPropertyName("size")]
         public int Quantity { get; set; }
         /// <summary>
-        /// Iceberg quantity
+        /// ["<c>iceberg</c>"] Iceberg quantity
         /// </summary>
         [JsonPropertyName("iceberg")]
         public int IcebergQuantity { get; set; }

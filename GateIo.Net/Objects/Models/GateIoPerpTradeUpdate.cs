@@ -11,32 +11,32 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpTradeUpdate
     {
         /// <summary>
-        /// Trade id
+        /// ["<c>id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time_ms</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time_ms")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Trade quantity, negative means sell, positive is buy
+        /// ["<c>size</c>"] Trade quantity, negative means sell, positive is buy
         /// </summary>
         [JsonPropertyName("size")]
         public int Quantity { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Whether internal trade. Internal trade refers to the takeover of liquidation orders by the insurance fund and ADL users
+        /// ["<c>is_internal</c>"] Whether internal trade. Internal trade refers to the takeover of liquidation orders by the insurance fund and ADL users
         /// </summary>
         [JsonPropertyName("is_internal")]
         public bool IsInternal { get; set; }

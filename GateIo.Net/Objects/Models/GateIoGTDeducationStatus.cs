@@ -10,7 +10,7 @@ namespace GateIo.Net.Objects.Models
     public record GateIoGTDeducationStatus
     {
         /// <summary>
-        /// Is enabled
+        /// ["<c>enabled</c>"] Is enabled
         /// </summary>
         [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }

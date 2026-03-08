@@ -12,77 +12,77 @@ namespace GateIo.Net.Objects.Models
     public record GateIoUserTradeUpdate
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Trade id
+        /// ["<c>id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Market unique id
+        /// ["<c>id_market</c>"] Market unique id
         /// </summary>
         [JsonPropertyName("id_market")]
         public long MarketId { get; set; }
         /// <summary>
-        /// Text
+        /// ["<c>text</c>"] Text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time_ms</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time_ms")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Role
+        /// ["<c>role</c>"] Role
         /// </summary>
         [JsonPropertyName("role")]
         public Role Role { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>amount</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>price</c>"] Order price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Fee paid
+        /// ["<c>fee</c>"] Fee paid
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_currency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_currency")]
         public string? FeeAsset { get; set; }
         /// <summary>
-        /// Points used to deduct fee
+        /// ["<c>point_fee</c>"] Points used to deduct fee
         /// </summary>
         [JsonPropertyName("point_fee")]
         public decimal? PointFee { get; set; }
         /// <summary>
-        /// GT used to deduct fee
+        /// ["<c>gt_fee</c>"] GT used to deduct fee
         /// </summary>
         [JsonPropertyName("gt_fee")]
         public decimal? GtFee { get; set; }
         /// <summary>
-        ///	User id
+        ///	["<c>user_id</c>"] User id
         /// </summary>
         [JsonPropertyName("user_id")]
         public long? UserId { get; set; }

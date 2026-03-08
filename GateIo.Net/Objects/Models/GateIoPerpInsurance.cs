@@ -11,12 +11,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpInsurance
     {
         /// <summary>
-        /// Time
+        /// ["<c>t</c>"] Time
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Funding rate
+        /// ["<c>b</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("b")]
         public decimal Insurance { get; set; }

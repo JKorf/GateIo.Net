@@ -11,37 +11,37 @@ namespace GateIo.Net.Objects.Models
     public record GateIoBookTickerUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>u</c>"] Update id
         /// </summary>
         [JsonPropertyName("u")]
         public long UpdateId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Best bid price
+        /// ["<c>b</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("b")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best bid quantity
+        /// ["<c>B</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("B")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>a</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("a")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Best ask quantity
+        /// ["<c>A</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("A")]
         public decimal BestAskQuantity { get; set; }

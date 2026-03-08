@@ -11,17 +11,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoBatchEditRequest
     {
         /// <summary>
-        /// The order id
+        /// ["<c>order_id</c>"] The order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// The symbol the order is on
+        /// ["<c>currency_pair</c>"] The symbol the order is on
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// amend text
+        /// ["<c>amend_text</c>"] amend text
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string AmendText { get; set; } = string.Empty;
@@ -36,7 +36,7 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public decimal? Price { get; set; }
         /// <summary>
-        /// The type of account
+        /// ["<c>account</c>"] The type of account
         /// </summary>
         [JsonPropertyName("account")]
         public SpotAccountType AccountType { get; set; }

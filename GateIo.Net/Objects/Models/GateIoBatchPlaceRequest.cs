@@ -11,27 +11,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoBatchPlaceRequest
     {
         /// <summary>
-        /// The symbol the order is on
+        /// ["<c>currency_pair</c>"] The symbol the order is on
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Text
+        /// ["<c>text</c>"] Text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>type</c>"] Order type
         /// </summary>
         [JsonPropertyName("type")]
         public NewOrderType Type { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>time_in_force</c>"] Time in force
         /// </summary>
         [JsonPropertyName("time_in_force")]
         public TimeInForce TimeInForce { get; set; }
@@ -56,7 +56,7 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("iceberg"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public decimal? IcebergQuantity { get; set; }
         /// <summary>
-        /// The type of account
+        /// ["<c>account</c>"] The type of account
         /// </summary>
         [JsonPropertyName("account")]
         public SpotAccountType AccountType { get; set; }

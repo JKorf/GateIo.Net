@@ -11,27 +11,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoBalance
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available quantity
+        /// ["<c>available</c>"] Available quantity
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Locked quantity
+        /// ["<c>locked</c>"] Locked quantity
         /// </summary>
         [JsonPropertyName("locked")]
         public decimal Locked { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>update_id</c>"] Update id
         /// </summary>
         [JsonPropertyName("update_id")]
         public long UpdateId { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>refresh_time</c>"] Update time
         /// </summary>
         [JsonPropertyName("refresh_time")]
         public DateTime? UpdateTime { get; set; }

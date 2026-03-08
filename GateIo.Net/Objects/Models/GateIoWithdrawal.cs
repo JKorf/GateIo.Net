@@ -12,62 +12,62 @@ namespace GateIo.Net.Objects.Models
     public record GateIoWithdrawal
     {
         /// <summary>
-        /// Withdrawal id
+        /// ["<c>id</c>"] Withdrawal id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Client specified id
+        /// ["<c>withdraw_order_id</c>"] Client specified id
         /// </summary>
         [JsonPropertyName("withdraw_order_id")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Network
+        /// ["<c>chain</c>"] Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Block number including the withdrawal
+        /// ["<c>block_number</c>"] Block number including the withdrawal
         /// </summary>
         [JsonPropertyName("block_number")]
         public string? BlockNumber { get; set; }
         /// <summary>
-        /// Memo
+        /// ["<c>memo</c>"] Memo
         /// </summary>
         [JsonPropertyName("memo")]
         public string? Memo { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal? Fee { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Transaction id
+        /// ["<c>txid</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("txid")]
         public string TransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// Withdrawal status
+        /// ["<c>status</c>"] Withdrawal status
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }

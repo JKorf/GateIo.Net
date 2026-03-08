@@ -10,7 +10,7 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTransfer
     {
         /// <summary>
-        /// Transation id
+        /// ["<c>tx_id</c>"] Transation id
         /// </summary>
         [JsonPropertyName("tx_id")]
         public long TransactionId { get; set; }

@@ -13,31 +13,31 @@ namespace GateIo.Net.Objects.Models
     public record GateIoOrderBook
     {
         /// <summary>
-        /// Book sync id
+        /// ["<c>id</c>"] Book sync id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
 
         /// <summary>
-        /// The timestamp the book was requested
+        /// ["<c>current</c>"] The timestamp the book was requested
         /// </summary>
         [JsonPropertyName("current")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// The timestamp the book was last updated
+        /// ["<c>update</c>"] The timestamp the book was last updated
         /// </summary>
         [JsonPropertyName("update")]
         public DateTime UpdateTime { get; set; }
 
         /// <summary>
-        /// Asks list
+        /// ["<c>asks</c>"] Asks list
         /// </summary>
         [JsonPropertyName("asks")]
         public GateIoOrderBookEntry[] Asks { get; set; } = Array.Empty<GateIoOrderBookEntry>();
 
         /// <summary>
-        /// Bids list
+        /// ["<c>bids</c>"] Bids list
         /// </summary>
         [JsonPropertyName("bids")]
         public GateIoOrderBookEntry[] Bids { get; set; } = Array.Empty<GateIoOrderBookEntry>();

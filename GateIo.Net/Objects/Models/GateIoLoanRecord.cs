@@ -12,47 +12,47 @@ namespace GateIo.Net.Objects.Models
     public record GateIoLoanRecord
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public BorrowDirection Type { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public string Mode { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Repay type
+        /// ["<c>repayment_type</c>"] Repay type
         /// </summary>
         [JsonPropertyName("repayment_type")]
         public RepayType? RepaymentType { get; set; }
         /// <summary>
-        /// Repay type
+        /// ["<c>borrow_type</c>"] Repay type
         /// </summary>
         [JsonPropertyName("borrow_type")]
         public BorrowType? BorrowType { get; set; }

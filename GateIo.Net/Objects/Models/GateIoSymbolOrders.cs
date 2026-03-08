@@ -11,17 +11,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoSymbolOrders
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Total count
+        /// ["<c>total</c>"] Total count
         /// </summary>
         [JsonPropertyName("total")]
         public int Total { get; set; }
         /// <summary>
-        /// Orders
+        /// ["<c>orders</c>"] Orders
         /// </summary>
         [JsonPropertyName("orders")]
         public GateIoOrder[] Orders { get; set; } = Array.Empty<GateIoOrder>();

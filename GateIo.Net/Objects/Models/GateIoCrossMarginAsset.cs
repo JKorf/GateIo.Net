@@ -10,52 +10,52 @@ namespace GateIo.Net.Objects.Models
     public record GateIoCrossMarginAsset
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>name</c>"] Asset name
         /// </summary>
         [JsonPropertyName("name")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Minimum lending rate
+        /// ["<c>rate</c>"] Minimum lending rate
         /// </summary>
         [JsonPropertyName("rate")]
         public decimal MinLendingRate { get; set; }
         /// <summary>
-        /// Asset precision
+        /// ["<c>prec</c>"] Asset precision
         /// </summary>
         [JsonPropertyName("prec")]
         public decimal AssetPrecision { get; set; }
         /// <summary>
-        /// Discount
+        /// ["<c>discount</c>"] Discount
         /// </summary>
         [JsonPropertyName("discount")]
         public decimal Discount { get; set; }
         /// <summary>
-        /// Min borrow quantity
+        /// ["<c>min_borrow_amount</c>"] Min borrow quantity
         /// </summary>
         [JsonPropertyName("min_borrow_amount")]
         public decimal MinBorrowQuantity { get; set; }
         /// <summary>
-        /// Max borrow quantity per user in USDT
+        /// ["<c>user_max_borrow_amount</c>"] Max borrow quantity per user in USDT
         /// </summary>
         [JsonPropertyName("user_max_borrow_amount")]
         public decimal UserMaxBorrowQuantity { get; set; }
         /// <summary>
-        /// Max borrow quantity total in USDT
+        /// ["<c>total_max_borrow_amount</c>"] Max borrow quantity total in USDT
         /// </summary>
         [JsonPropertyName("total_max_borrow_amount")]
         public decimal TotalMaxBorrowQuantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Asset is loanable
+        /// ["<c>loanable</c>"] Asset is loanable
         /// </summary>
         [JsonPropertyName("loanable")]
         public bool Loanable { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public bool Enabled { get; set; }

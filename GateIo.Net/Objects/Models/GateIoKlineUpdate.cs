@@ -11,47 +11,47 @@ namespace GateIo.Net.Objects.Models
     public record GateIoKlineUpdate
     {
         /// <summary>
-        /// Open time
+        /// ["<c>t</c>"] Open time
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime OpenTime { get; set; }
         /// <summary>
-        /// Volume in quote asset
+        /// ["<c>v</c>"] Volume in quote asset
         /// </summary>
         [JsonPropertyName("v")]
         public decimal QuoteVolume { get; set; }
         /// <summary>
-        /// Close price
+        /// ["<c>c</c>"] Close price
         /// </summary>
         [JsonPropertyName("c")]
         public decimal ClosePrice { get; set; }
         /// <summary>
-        /// High price
+        /// ["<c>h</c>"] High price
         /// </summary>
         [JsonPropertyName("h")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Low price
+        /// ["<c>l</c>"] Low price
         /// </summary>
         [JsonPropertyName("l")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Open price
+        /// ["<c>o</c>"] Open price
         /// </summary>
         [JsonPropertyName("o")]
         public decimal OpenPrice { get; set; }
         /// <summary>
-        /// Stream
+        /// ["<c>n</c>"] Stream
         /// </summary>
         [JsonPropertyName("n")]
         public string Stream { get; set; } = string.Empty;
         /// <summary>
-        /// Open price
+        /// ["<c>a</c>"] Open price
         /// </summary>
         [JsonPropertyName("a")]
         public decimal BaseVolume { get; set; }
         /// <summary>
-        /// Is final update  for this timeframe
+        /// ["<c>w</c>"] Is final update  for this timeframe
         /// </summary>
         [JsonPropertyName("w")]
         public bool Final { get; set; }

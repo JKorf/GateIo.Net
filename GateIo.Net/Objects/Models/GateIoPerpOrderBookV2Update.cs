@@ -13,27 +13,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpOrderBookV2Update
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Whether this is a full snapshot
+        /// ["<c>full</c>"] Whether this is a full snapshot
         /// </summary>
         [JsonPropertyName("full")]
         public bool Full { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>u</c>"] Update id
         /// </summary>
         [JsonPropertyName("u")]
         public long LastUpdateId { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>U</c>"] Update id
         /// </summary>
         [JsonPropertyName("U")]
         public long FirstUpdateId { get; set; }
         /// <summary>
-        /// Topic
+        /// ["<c>s</c>"] Topic
         /// </summary>
         [JsonPropertyName("s")]
         public string Topic { get; set; } = string.Empty;
@@ -47,12 +47,12 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         public string Depth => Topic.Split('.')[2];
         /// <summary>
-        /// Updated bids
+        /// ["<c>b</c>"] Updated bids
         /// </summary>
         [JsonPropertyName("b")]
         public GateIoPerpOrderBookV2Entry[] Bids { get; set; } = Array.Empty<GateIoPerpOrderBookV2Entry>();
         /// <summary>
-        /// Updated asks
+        /// ["<c>a</c>"] Updated asks
         /// </summary>
         [JsonPropertyName("a")]
         public GateIoPerpOrderBookV2Entry[] Asks { get; set; } = Array.Empty<GateIoPerpOrderBookV2Entry>();

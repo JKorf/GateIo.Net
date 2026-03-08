@@ -10,27 +10,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMarginAccount
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Account is locked
+        /// ["<c>locked</c>"] Account is locked
         /// </summary>
         [JsonPropertyName("locked")]
         public bool Locked { get; set; }
         /// <summary>
-        /// Current risk rate
+        /// ["<c>risk</c>"] Current risk rate
         /// </summary>
         [JsonPropertyName("risk")]
         public decimal RiskRate { get; set; }
         /// <summary>
-        /// Base asset
+        /// ["<c>base</c>"] Base asset
         /// </summary>
         [JsonPropertyName("base")]
         public GateIoMarginAccountAsset Base { get; set; } = null!;
         /// <summary>
-        /// Quote asset
+        /// ["<c>quote</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quote")]
         public GateIoMarginAccountAsset Quote { get; set; } = null!;
@@ -43,27 +43,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMarginAccountAsset
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available quantity
+        /// ["<c>available</c>"] Available quantity
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Locked quantity
+        /// ["<c>locked</c>"] Locked quantity
         /// </summary>
         [JsonPropertyName("locked")]
         public decimal Locked { get; set; }
         /// <summary>
-        /// Borrowed quantity
+        /// ["<c>borrowed</c>"] Borrowed quantity
         /// </summary>
         [JsonPropertyName("borrowed")]
         public decimal Borrowed { get; set; }
         /// <summary>
-        /// Interest quantity
+        /// ["<c>interest</c>"] Interest quantity
         /// </summary>
         [JsonPropertyName("interest")]
         public decimal Interest { get; set; }

@@ -12,122 +12,122 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTriggerOrderUpdate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>market</c>"] Symbol
         /// </summary>
         [JsonPropertyName("market")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// User id
+        /// ["<c>uid</c>"] User id
         /// </summary>
         [JsonPropertyName("uid")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset
+        /// ["<c>currency_type</c>"] Base asset
         /// </summary>
         [JsonPropertyName("currency_type")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset
+        /// ["<c>exchange_type</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("exchange_type")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Reason
+        /// ["<c>reason</c>"] Reason
         /// </summary>
         [JsonPropertyName("reason")]
         public string Reason { get; set; } = string.Empty;
         /// <summary>
-        /// Error message
+        /// ["<c>err_msg</c>"] Error message
         /// </summary>
         [JsonPropertyName("err_msg")]
         public string ErrorMessage { get; set; } = string.Empty;
         /// <summary>
-        /// Id of the order which was placed after triggering
+        /// ["<c>fired_order_id</c>"] Id of the order which was placed after triggering
         /// </summary>
         [JsonPropertyName("fired_order_id")]
         public long FiredOrderId { get; set; }
         /// <summary>
-        /// Instant cancel
+        /// ["<c>instant_cancel</c>"] Instant cancel
         /// </summary>
         [JsonPropertyName("instant_cancel")]
         public bool InstantCancel { get; set; }
         /// <summary>
-        /// Trigger price
+        /// ["<c>trigger_price</c>"] Trigger price
         /// </summary>
         [JsonPropertyName("trigger_price")]
         public decimal TriggerPrice { get; set; }
         /// <summary>
-        /// Trigger type
+        /// ["<c>trigger_rule</c>"] Trigger type
         /// </summary>
         [JsonPropertyName("trigger_rule")]
         public TriggerType TriggerType { get; set; }
         /// <summary>
-        /// Expiration in seconds
+        /// ["<c>trigger_expiration</c>"] Expiration in seconds
         /// </summary>
         [JsonPropertyName("trigger_expiration")]
         public int Expiration { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Source
+        /// ["<c>source</c>"] Source
         /// </summary>
         [JsonPropertyName("source")]
         public string Source { get; set; } = string.Empty;
         /// <summary>
-        /// Order type
+        /// ["<c>order_type</c>"] Order type
         /// </summary>
         [JsonPropertyName("order_type")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide OrderSide { get; set; }
         /// <summary>
-        /// Engine type
+        /// ["<c>engine_type</c>"] Engine type
         /// </summary>
         [JsonPropertyName("engine_type")]
         public string EngineType { get; set; } = string.Empty;
         /// <summary>
-        /// Is stop order
+        /// ["<c>is_stop_order</c>"] Is stop order
         /// </summary>
         [JsonPropertyName("is_stop_order")]
         public bool IsStopOrder { get; set; }
         /// <summary>
-        /// Stop trigger price
+        /// ["<c>stop_trigger_price</c>"] Stop trigger price
         /// </summary>
         [JsonPropertyName("stop_trigger_price")]
         public decimal? StopTriggerPrice { get; set; }
         /// <summary>
-        /// Stop trigger rule
+        /// ["<c>stop_trigger_rule</c>"] Stop trigger rule
         /// </summary>
         [JsonPropertyName("stop_trigger_rule")]
         public string? StopTriggerRule { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stop_price</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stop_price")]
         public decimal? StopPrice { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>ctime</c>"] Create time
         /// </summary>
         [JsonPropertyName("ctime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Fire time
+        /// ["<c>ftime</c>"] Fire time
         /// </summary>
         [JsonPropertyName("ftime")]
         public DateTime? FireTime { get; set; }

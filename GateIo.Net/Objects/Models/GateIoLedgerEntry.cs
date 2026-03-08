@@ -11,42 +11,42 @@ namespace GateIo.Net.Objects.Models
     public record GateIoLedgerEntry
     {
         /// <summary>
-        /// Entry id
+        /// ["<c>id</c>"] Entry id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Change quantity
+        /// ["<c>change</c>"] Change quantity
         /// </summary>
         [JsonPropertyName("change")]
         public decimal Change { get; set; }
         /// <summary>
-        /// Balance after change
+        /// ["<c>balance</c>"] Balance after change
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Change type
+        /// ["<c>type</c>"] Change type
         /// </summary>
         [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;
         /// <summary>
-        /// Type code
+        /// ["<c>code</c>"] Type code
         /// </summary>
         [JsonPropertyName("code")]
         public string Code { get; set; } = string.Empty;
         /// <summary>
-        /// Additional info
+        /// ["<c>text</c>"] Additional info
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; } = string.Empty;      

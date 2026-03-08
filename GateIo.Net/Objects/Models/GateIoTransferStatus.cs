@@ -11,12 +11,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTransferStatus
     {
         /// <summary>
-        /// Transation id
+        /// ["<c>tx_id</c>"] Transation id
         /// </summary>
         [JsonPropertyName("tx_id")]
         public long TransactionId { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public TransferSuccessStatus Status { get; set; }

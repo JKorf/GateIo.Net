@@ -12,47 +12,47 @@ namespace GateIo.Net.Objects.Models
     public record GateIoBalanceUpdate
 	{
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp_ms</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp_ms")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Change
+        /// ["<c>change</c>"] Change
         /// </summary>
         [JsonPropertyName("change")]
         public decimal Change { get; set; }
         /// <summary>
-        /// Total
+        /// ["<c>total</c>"] Total
         /// </summary>
         [JsonPropertyName("total")]
         public decimal Total { get; set; }
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Frozen
+        /// ["<c>freeze</c>"] Frozen
         /// </summary>
         [JsonPropertyName("freeze")]
         public decimal Frozen { get; set; }
         /// <summary>
-        /// Change in frozen quantity
+        /// ["<c>freeze_change</c>"] Change in frozen quantity
         /// </summary>
         [JsonPropertyName("freeze_change")]
         public decimal FrozenChange { get; set; }
         /// <summary>
-        /// Change type
+        /// ["<c>change_type</c>"] Change type
         /// </summary>
         [JsonPropertyName("change_type")]
         public BalanceChangeType ChangeType { get; set; }

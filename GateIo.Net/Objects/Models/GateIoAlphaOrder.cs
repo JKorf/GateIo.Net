@@ -1,4 +1,4 @@
-﻿using GateIo.Net.Enums;
+using GateIo.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,67 +10,67 @@ namespace GateIo.Net.Objects.Models
     public record GateIoAlphaOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
         [JsonPropertyName("status")]
         public AlphaOrderStatus Status { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Gas mode
+        /// ["<c>gas_mode</c>"] Gas mode
         /// </summary>
         [JsonPropertyName("gas_mode")]
         public GasMode GasMode { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Quantity in USDT
+        /// ["<c>usdt_amount</c>"] Quantity in USDT
         /// </summary>
         [JsonPropertyName("usdt_amount")]
         public decimal? QuantityUsdt { get; set; }
         /// <summary>
-        /// Quantity in the asset
+        /// ["<c>currency_amount</c>"] Quantity in the asset
         /// </summary>
         [JsonPropertyName("currency_amount")]
         public decimal? QuantityAsset { get; set; }
         /// <summary>
-        /// Network
+        /// ["<c>chain</c>"] Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction hash
+        /// ["<c>tx_hash</c>"] Transaction hash
         /// </summary>
         [JsonPropertyName("tx_hash")]
         public string? TransactionHash { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Gas fee
+        /// ["<c>gas_fee</c>"] Gas fee
         /// </summary>
         [JsonPropertyName("gas_fee")]
         public decimal? GasFee { get; set; }
         /// <summary>
-        /// Transaction fee
+        /// ["<c>transaction_fee</c>"] Transaction fee
         /// </summary>
         [JsonPropertyName("transaction_fee")]
         public decimal? TransactionFee { get; set; }
         /// <summary>
-        /// Failed reason
+        /// ["<c>failed_reason</c>"] Failed reason
         /// </summary>
         [JsonPropertyName("failed_reason")]
         public string? FailedReason { get; set; }

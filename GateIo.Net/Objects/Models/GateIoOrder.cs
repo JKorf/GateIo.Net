@@ -12,162 +12,162 @@ namespace GateIo.Net.Objects.Models
     public record GateIoOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// User defined text
+        /// ["<c>text</c>"] User defined text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Custom data that the user remarked when amending the order
+        /// ["<c>amend_text</c>"] Custom data that the user remarked when amending the order
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string? AmendText { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>create_time_ms</c>"] Creation time
         /// </summary>
         [JsonPropertyName("create_time_ms")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Last update time
+        /// ["<c>update_time_ms</c>"] Last update time
         /// </summary>
         [JsonPropertyName("update_time_ms")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>type</c>"] Order type
         /// </summary>
         [JsonPropertyName("type")]
         public OrderType Type { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Account type
+        /// ["<c>account</c>"] Account type
         /// </summary>
         [JsonPropertyName("account")]
         public SpotAccountType AccountType { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>time_in_force</c>"] Time in force
         /// </summary>
         [JsonPropertyName("time_in_force")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Quantity remaining
+        /// ["<c>left</c>"] Quantity remaining
         /// </summary>
         [JsonPropertyName("left")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>filled_amount</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("filled_amount")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// Quote quantity filled
+        /// ["<c>filled_total</c>"] Quote quantity filled
         /// </summary>
         [JsonPropertyName("filled_total")]
         public decimal QuoteQuantityFilled { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>price</c>"] Order price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Average fill price
+        /// ["<c>avg_deal_price</c>"] Average fill price
         /// </summary>
         [JsonPropertyName("avg_deal_price")]
         public decimal? AveragePrice { get; set; }
         /// <summary>
-        /// Fee paid
+        /// ["<c>fee</c>"] Fee paid
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal? Fee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_currency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_currency")]
         public string? FeeAsset { get; set; }
         /// <summary>
-        /// Points used to deduct fee
+        /// ["<c>point_fee</c>"] Points used to deduct fee
         /// </summary>
         [JsonPropertyName("point_fee")]
         public decimal? PointFee { get; set; }
         /// <summary>
-        /// GT used to deduct fee
+        /// ["<c>gt_fee</c>"] GT used to deduct fee
         /// </summary>
         [JsonPropertyName("gt_fee")]
         public decimal? GtFee { get; set; }
         /// <summary>
-        /// GT used to deduct maker fee
+        /// ["<c>gt_maker_fee</c>"] GT used to deduct maker fee
         /// </summary>
         [JsonPropertyName("gt_maker_fee")]
         public decimal? GtMakerFee { get; set; }
         /// <summary>
-        /// GT used to deduct taker fee
+        /// ["<c>gt_taker_fee</c>"] GT used to deduct taker fee
         /// </summary>
         [JsonPropertyName("gt_taker_fee")]
         public decimal? GtTakerFee { get; set; }
         /// <summary>
-        /// Whether GT fee discount is used
+        /// ["<c>gt_discount</c>"] Whether GT fee discount is used
         /// </summary>
         [JsonPropertyName("gt_discount")]
         public bool? GtDiscount { get; set; }
         /// <summary>
-        /// Rebated fee
+        /// ["<c>rebated_fee</c>"] Rebated fee
         /// </summary>
         [JsonPropertyName("rebated_fee")]
         public decimal? RebatedFee { get; set; }
         /// <summary>
-        /// Rebated fee currency unit
+        /// ["<c>rebated_fee_currency</c>"] Rebated fee currency unit
         /// </summary>
         [JsonPropertyName("rebated_fee_currency")]
         public string? RebateFeeAsset { get; set; }
         /// <summary>
-        ///	Orders between users in the same SelfTradePreventionId group are not allowed to be self-traded
+        ///	["<c>stp_id</c>"] Orders between users in the same SelfTradePreventionId group are not allowed to be self-traded
         /// </summary>
         [JsonPropertyName("stp_id")]
         public int? SelfTradePreventionId { get; set; }
         /// <summary>
-        /// Self trade prevention mode
+        /// ["<c>stp_act</c>"] Self trade prevention mode
         /// </summary>
         [JsonPropertyName("stp_act")]
         public SelfTradePreventionMode SelfTradePreventionMode { get; set; }
         /// <summary>
-        /// Order finish type
+        /// ["<c>finish_as</c>"] Order finish type
         /// </summary>
         [JsonPropertyName("finish_as")]
         public OrderFinishType? FinishType { get; set; }
         /// <summary>
-        /// Iceberg quantity
+        /// ["<c>iceberg</c>"] Iceberg quantity
         /// </summary>
         [JsonPropertyName("iceberg")]
         public decimal? IcebergQuantity { get; set; }
         /// <summary>
-        /// Auto borrow
+        /// ["<c>auto_borrow</c>"] Auto borrow
         /// </summary>
         [JsonPropertyName("auto_borrow")]
         public bool? AutoBorrow { get; set; }
         /// <summary>
-        /// Auto repay
+        /// ["<c>auto_repay</c>"] Auto repay
         /// </summary>
         [JsonPropertyName("auto_repay")]
         public bool? AutoRepay { get; set; }
@@ -180,18 +180,18 @@ namespace GateIo.Net.Objects.Models
     public record GateIoOrderOperation : GateIoOrder
     {
         /// <summary>
-        /// Whether the operation succeeded
+        /// ["<c>succeeded</c>"] Whether the operation succeeded
         /// </summary>
         [JsonPropertyName("succeeded")]
         public bool Succeeded { get; set; }
 
         /// <summary>
-        /// Error code when operation failed
+        /// ["<c>label</c>"] Error code when operation failed
         /// </summary>
         [JsonPropertyName("label")]
         public string? ErrorCode { get; set; }
         /// <summary>
-        /// Error message when operation failed
+        /// ["<c>message</c>"] Error message when operation failed
         /// </summary>
         [JsonPropertyName("message")]
         public string? ErrorMessage { get; set; }

@@ -10,34 +10,34 @@ namespace GateIo.Net.Objects.Models
     public record GateIoCancelResult
     {
         /// <summary>
-        /// Symbol 
+        /// ["<c>currency_pair</c>"] Symbol 
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Order info
+        /// ["<c>text</c>"] Order info
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
 
         /// <summary>
-        /// Whether the operation succeeded
+        /// ["<c>succeeded</c>"] Whether the operation succeeded
         /// </summary>
         [JsonPropertyName("succeeded")]
         public bool Succeeded { get; set; }
 
         /// <summary>
-        /// Error code when operation failed
+        /// ["<c>label</c>"] Error code when operation failed
         /// </summary>
         [JsonPropertyName("label")]
         public string? ErrorCode { get; set; }
         /// <summary>
-        /// Error message when operation failed
+        /// ["<c>message</c>"] Error message when operation failed
         /// </summary>
         [JsonPropertyName("message")]
         public string? ErrorMessage { get; set; }

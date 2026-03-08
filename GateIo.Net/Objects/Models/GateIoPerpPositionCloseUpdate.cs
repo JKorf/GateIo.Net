@@ -12,32 +12,32 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpPositionCloseUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>time_ms</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time_ms")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Profit and loss
+        /// ["<c>pnl</c>"] Profit and loss
         /// </summary>
         [JsonPropertyName("pnl")]
         public decimal ProfitAndLoss { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>side</c>"] Position side
         /// </summary>
         [JsonPropertyName("side")]
         public PositionSide Side { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Text
+        /// ["<c>text</c>"] Text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public long UserId { get; set; }

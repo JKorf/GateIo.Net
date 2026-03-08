@@ -11,13 +11,13 @@ namespace GateIo.Net.Objects.Models
     public record GateIoDiscountTier
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
 
         /// <summary>
-        /// Tiers
+        /// ["<c>discount_tiers</c>"] Tiers
         /// </summary>
         [JsonPropertyName("discount_tiers")]
         public GateIoDiscountTierEntry[] Tiers { get; set; } = Array.Empty<GateIoDiscountTierEntry>();
@@ -30,27 +30,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoDiscountTierEntry
     {
         /// <summary>
-        /// Tier
+        /// ["<c>tier</c>"] Tier
         /// </summary>
         [JsonPropertyName("tier")]
         public string Tier { get; set; } = string.Empty;
         /// <summary>
-        /// Discount. 1 means full price
+        /// ["<c>discount</c>"] Discount. 1 means full price
         /// </summary>
         [JsonPropertyName("discount")]
         public decimal Discount { get; set; }
         /// <summary>
-        /// Lower volume limit
+        /// ["<c>lower_limit</c>"] Lower volume limit
         /// </summary>
         [JsonPropertyName("lower_limit")]
         public decimal LowerLimit { get; set; }
         /// <summary>
-        /// Upper volume limit. Note that this is a string as '+' is returned for the most upper tier
+        /// ["<c>upper_limit</c>"] Upper volume limit. Note that this is a string as '+' is returned for the most upper tier
         /// </summary>
         [JsonPropertyName("upper_limit")]
         public string UpperLimit { get; set; } = string.Empty;
         /// <summary>
-        /// Position leverage
+        /// ["<c>leverage</c>"] Position leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }

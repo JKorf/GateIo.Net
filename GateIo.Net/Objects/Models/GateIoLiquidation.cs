@@ -11,37 +11,37 @@ namespace GateIo.Net.Objects.Models
     public record GateIoLiquidation
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Number of forced liquidation orders
+        /// ["<c>order_size</c>"] Number of forced liquidation orders
         /// </summary>
         [JsonPropertyName("order_size")]
         public decimal NumberOfOrders { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>order_price</c>"] Order price
         /// </summary>
         [JsonPropertyName("order_price")]
         public decimal OrderPrice { get; set; }
         /// <summary>
-        /// Fill price
+        /// ["<c>fill_price</c>"] Fill price
         /// </summary>
         [JsonPropertyName("fill_price")]
         public decimal FillPrice { get; set; }
         /// <summary>
-        /// Left
+        /// ["<c>left</c>"] Left
         /// </summary>
         [JsonPropertyName("left")]
         public decimal Left { get; set; }

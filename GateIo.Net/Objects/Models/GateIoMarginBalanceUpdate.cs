@@ -11,47 +11,47 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMarginBalanceUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp_ms</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp_ms")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Change
+        /// ["<c>change</c>"] Change
         /// </summary>
         [JsonPropertyName("change")]
         public decimal Change { get; set; }
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Frozen
+        /// ["<c>freeze</c>"] Frozen
         /// </summary>
         [JsonPropertyName("freeze")]
         public decimal Frozen { get; set; }
         /// <summary>
-        /// Borrowed
+        /// ["<c>borrowed</c>"] Borrowed
         /// </summary>
         [JsonPropertyName("borrowed")]
         public decimal Borrowed { get; set; }
         /// <summary>
-        /// Interest
+        /// ["<c>interest</c>"] Interest
         /// </summary>
         [JsonPropertyName("interest")]
         public decimal Interest { get; set; }

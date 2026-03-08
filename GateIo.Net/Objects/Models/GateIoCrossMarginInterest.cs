@@ -11,37 +11,37 @@ namespace GateIo.Net.Objects.Models
     public record GateIoCrossMarginInterest
     {
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Actual rate
+        /// ["<c>actual_rate</c>"] Actual rate
         /// </summary>
         [JsonPropertyName("actual_rate")]
         public decimal ActualRate { get; set; }
         /// <summary>
-        /// Interest
+        /// ["<c>interest</c>"] Interest
         /// </summary>
         [JsonPropertyName("interest")]
         public decimal Interest { get; set; }
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;
         /// <summary>
-        /// Success
+        /// ["<c>status</c>"] Success
         /// </summary>
         [JsonPropertyName("status")]
         public bool Success { get; set; }

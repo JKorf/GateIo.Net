@@ -11,12 +11,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpConstituent
     {
         /// <summary>
-        /// Index name
+        /// ["<c>index</c>"] Index name
         /// </summary>
         [JsonPropertyName("index")]
         public string Index { get; set; } = string.Empty;
         /// <summary>
-        /// Constituents
+        /// ["<c>constituents</c>"] Constituents
         /// </summary>
         [JsonPropertyName("constituents")]
         public GateIoPerpConstituentReference[] Constituents { get; set; } = Array.Empty<GateIoPerpConstituentReference>();
@@ -29,12 +29,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpConstituentReference
     {
         /// <summary>
-        /// Exchange
+        /// ["<c>exchange</c>"] Exchange
         /// </summary>
         [JsonPropertyName("exchange")]
         public string Exchange { get; set; } = string.Empty;
         /// <summary>
-        /// Symbols
+        /// ["<c>symbols</c>"] Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
         public string[] Symbols { get; set; } = Array.Empty<string>();

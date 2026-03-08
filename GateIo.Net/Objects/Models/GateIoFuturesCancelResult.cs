@@ -10,22 +10,22 @@ namespace GateIo.Net.Objects.Models
     public record GateIoFuturesCancelResult
     {
         /// <summary>
-        /// User id
+        /// ["<c>user_id</c>"] User id
         /// </summary>
         [JsonPropertyName("user_id")]
         public long UserId { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Succeeded
+        /// ["<c>succeeded</c>"] Succeeded
         /// </summary>
         [JsonPropertyName("succeeded")]
         public bool Success { get; set; }
         /// <summary>
-        /// Message
+        /// ["<c>message</c>"] Message
         /// </summary>
         [JsonPropertyName("message")]
         public string? Message { get; set; }

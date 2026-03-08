@@ -11,7 +11,7 @@ namespace GateIo.Net.Objects.Models
     public record GateIoCancelAfter
     {
         /// <summary>
-        /// Time the cancellation is triggered
+        /// ["<c>triggerTime</c>"] Time the cancellation is triggered
         /// </summary>
         [JsonPropertyName("triggerTime")]
         public DateTime TriggerTime { get; set; }

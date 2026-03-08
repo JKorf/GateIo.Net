@@ -12,167 +12,167 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPosition
     {
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public long UserId { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Position size
+        /// ["<c>size</c>"] Position size
         /// </summary>
         [JsonPropertyName("size")]
         public long Size { get; set; }
         /// <summary>
-        /// Maximum position
+        /// ["<c>trade_max_size</c>"] Maximum position
         /// </summary>
         [JsonPropertyName("trade_max_size")]
         public long MaxTradeSize { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Risk limit
+        /// ["<c>risk_limit</c>"] Risk limit
         /// </summary>
         [JsonPropertyName("risk_limit")]
         public decimal RiskLimit { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>leverage_max</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("leverage_max")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Maintenance rate
+        /// ["<c>maintenance_rate</c>"] Maintenance rate
         /// </summary>
         [JsonPropertyName("maintenance_rate")]
         public decimal MaintenanceRate { get; set; }
         /// <summary>
-        /// Position value
+        /// ["<c>value</c>"] Position value
         /// </summary>
         [JsonPropertyName("value")]
         public decimal PositionValue { get; set; }
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [JsonPropertyName("margin")]
         public decimal Margin { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initial_margin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initial_margin")]
         public decimal? InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintenance_margin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintenance_margin")]
         public decimal? MaintenanceMargin { get; set; }
         /// <summary>
-        /// Entry price
+        /// ["<c>entry_price</c>"] Entry price
         /// </summary>
         [JsonPropertyName("entry_price")]
         public decimal? EntryPrice { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liq_price</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liq_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>mark_price</c>"] Mark price
         /// </summary>
         [JsonPropertyName("mark_price")]
         public decimal? MarkPrice { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealised_pnl</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealised_pnl")]
         public decimal? UnrealisedPnl { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>realised_pnl</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("realised_pnl")]
         public decimal? RealisedPnl { get; set; }
         /// <summary>
-        /// Realized profit and loss position
+        /// ["<c>pnl_pnl</c>"] Realized profit and loss position
         /// </summary>
         [JsonPropertyName("pnl_pnl")]
         public decimal? RealisedPnlPosition { get; set; }
         /// <summary>
-        /// Realized PNL - Funding Fees
+        /// ["<c>pnl_fund</c>"] Realized PNL - Funding Fees
         /// </summary>
         [JsonPropertyName("pnl_fund")]
         public decimal? RealisedPnlFundingFees { get; set; }
         /// <summary>
-        /// Realized PNL - Transaction Fees
+        /// ["<c>pnl_fee</c>"] Realized PNL - Transaction Fees
         /// </summary>
         [JsonPropertyName("pnl_fee")]
         public decimal? RealisedPnlFee { get; set; }
         /// <summary>
-        /// History realized PNL
+        /// ["<c>history_pnl</c>"] History realized PNL
         /// </summary>
         [JsonPropertyName("history_pnl")]
         public decimal? HistoryPnl { get; set; }
         /// <summary>
-        /// Last close pnl
+        /// ["<c>last_close_pnl</c>"] Last close pnl
         /// </summary>
         [JsonPropertyName("last_close_pnl")]
         public decimal? LastClosePnl { get; set; }
         /// <summary>
-        /// Realized POINT PNL
+        /// ["<c>realised_point</c>"] Realized POINT PNL
         /// </summary>
         [JsonPropertyName("realised_point")]
         public decimal? RealisedPointPnl { get; set; }
         /// <summary>
-        /// History realized POINT PNL
+        /// ["<c>history_point</c>"] History realized POINT PNL
         /// </summary>
         [JsonPropertyName("history_point")]
         public decimal? HistoryPointPnl { get; set; }
         /// <summary>
-        /// Auto deleverage ranking
+        /// ["<c>adl_ranking</c>"] Auto deleverage ranking
         /// </summary>
         [JsonPropertyName("adl_ranking")]
         public int? AdlRanking { get; set; }
         /// <summary>
-        /// Open orders
+        /// ["<c>pending_orders</c>"] Open orders
         /// </summary>
         [JsonPropertyName("pending_orders")]
         public int? PendingOrders { get; set; }
         /// <summary>
-        /// Position mode
+        /// ["<c>mode</c>"] Position mode
         /// </summary>
         [JsonPropertyName("mode")]
         public PositionMode? PositionMode { get; set; }
         /// <summary>
-        /// First open time
+        /// ["<c>open_time</c>"] First open time
         /// </summary>
         [JsonPropertyName("open_time")]
         public DateTime? OpenTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>update_time</c>"] Update time
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Cross margin leverage
+        /// ["<c>cross_leverage_limit</c>"] Cross margin leverage
         /// </summary>
         [JsonPropertyName("cross_leverage_limit")]
         public decimal? CrossLeverageLimit { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>update_id</c>"] Update id
         /// </summary>
         [JsonPropertyName("update_id")]
         public long? UpdateId { get; set; }
         /// <summary>
-        /// Average maintenance margin rate
+        /// ["<c>average_maintenance_rate</c>"] Average maintenance margin rate
         /// </summary>
         [JsonPropertyName("average_maintenance_rate")]
         public decimal? AverageMaintenanceRate { get; set; }
         /// <summary>
-        /// Close order
+        /// ["<c>close_order</c>"] Close order
         /// </summary>
         [JsonPropertyName("close_order")]
         public GateIoPositionCloseOrder? CloseOrder { get; set; }
@@ -185,17 +185,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPositionCloseOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public long? Id { get; set; }
         /// <summary>
-        /// Close order price
+        /// ["<c>price</c>"] Close order price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Is liquidation order
+        /// ["<c>is_liq</c>"] Is liquidation order
         /// </summary>
         [JsonPropertyName("is_liq")]
         public bool? IsLiquidation { get; set; }

@@ -10,87 +10,87 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpTickerUpdate
     {
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Last trade price
+        /// ["<c>last</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("last")]
         public decimal LastPrice { get; set; }
         /// <summary>
-        /// Change percentage compared to 24h ago
+        /// ["<c>change_percentage</c>"] Change percentage compared to 24h ago
         /// </summary>
         [JsonPropertyName("change_percentage")]
         public decimal ChangePercentage24h { get; set; }
         /// <summary>
-        /// 24h high price
+        /// ["<c>high_24h</c>"] 24h high price
         /// </summary>
         [JsonPropertyName("high_24h")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// 24h low price
+        /// ["<c>low_24h</c>"] 24h low price
         /// </summary>
         [JsonPropertyName("low_24h")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>mark_price</c>"] Mark price
         /// </summary>
         [JsonPropertyName("mark_price")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Index price
+        /// ["<c>index_price</c>"] Index price
         /// </summary>
         [JsonPropertyName("index_price")]
         public decimal IndexPrice { get; set; }
         /// <summary>
-        /// Funding rate 
+        /// ["<c>funding_rate</c>"] Funding rate 
         /// </summary>
         [JsonPropertyName("funding_rate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Funding rate indicative 
+        /// ["<c>funding_rate_indicative</c>"] Funding rate indicative 
         /// </summary>
         [JsonPropertyName("funding_rate_indicative")]
         public decimal FundingRateIndicative { get; set; }
         /// <summary>
-        /// Total contract size
+        /// ["<c>total_size</c>"] Total contract size
         /// </summary>
         [JsonPropertyName("total_size")]
         public decimal TotalSize { get; set; }
         /// <summary>
-        /// 24h Volume
+        /// ["<c>volume_24h</c>"] 24h Volume
         /// </summary>
         [JsonPropertyName("volume_24h")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// 24h Volume in BTC
+        /// ["<c>volume_24h_btc</c>"] 24h Volume in BTC
         /// </summary>
         [JsonPropertyName("volume_24h_btc")]
         public decimal VolumeBtc { get; set; }
         /// <summary>
-        /// 24h Volume in USD
+        /// ["<c>volume_24h_usd</c>"] 24h Volume in USD
         /// </summary>
         [JsonPropertyName("volume_24h_usd")]
         public decimal VolumeUsd { get; set; }
         /// <summary>
-        /// 24h Base asset volume
+        /// ["<c>volume_24h_base</c>"] 24h Base asset volume
         /// </summary>
         [JsonPropertyName("volume_24h_base")]
         public decimal BaseVolume { get; set; }
         /// <summary>
-        /// 24h Quote asset volume
+        /// ["<c>volume_24h_quote</c>"] 24h Quote asset volume
         /// </summary>
         [JsonPropertyName("volume_24h_quote")]
         public decimal QuoteVolume { get; set; }
         /// <summary>
-        /// 24h Settle asset volume
+        /// ["<c>volume_24h_settle</c>"] 24h Settle asset volume
         /// </summary>
         [JsonPropertyName("volume_24h_settle")]
         public decimal SettleVolume { get; set; }
         /// <summary>
-        /// Exchange rate of base currency and settlement currency in Quanto contract. Does not exists in contracts of other types
+        /// ["<c>quanto_base_rate</c>"] Exchange rate of base currency and settlement currency in Quanto contract. Does not exists in contracts of other types
         /// </summary>
         [JsonPropertyName("quanto_base_rate")]
         public decimal? QuantoBaseRate { get; set; }

@@ -10,17 +10,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMarginMaxBorrowable
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string? Symbol { get; set; }
         /// <summary>
-        /// Max borrowable
+        /// ["<c>borrowable</c>"] Max borrowable
         /// </summary>
         [JsonPropertyName("borrowable")]
         public decimal MaxBorrowable { get; set; }

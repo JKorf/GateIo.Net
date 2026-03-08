@@ -10,22 +10,22 @@ namespace GateIo.Net.Objects.Models
     public record GateIoSmallBalance
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available balance
+        /// ["<c>available_balance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("available_balance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Estimated value in BTC
+        /// ["<c>estimated_as_btc</c>"] Estimated value in BTC
         /// </summary>
         [JsonPropertyName("estimated_as_btc")]
         public decimal BtcValue { get; set; }
         /// <summary>
-        /// Estimated value in GT
+        /// ["<c>convertible_to_gt</c>"] Estimated value in GT
         /// </summary>
         [JsonPropertyName("convertible_to_gt")]
         public decimal GtValue { get; set; }

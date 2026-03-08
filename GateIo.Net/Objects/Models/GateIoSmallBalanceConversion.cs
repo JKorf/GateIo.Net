@@ -11,27 +11,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoSmallBalanceConversion
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Input amount
+        /// ["<c>amount</c>"] Input amount
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Output GT
+        /// ["<c>gt_amount</c>"] Output GT
         /// </summary>
         [JsonPropertyName("gt_amount")]
         public decimal GtQuantity { get; set; }

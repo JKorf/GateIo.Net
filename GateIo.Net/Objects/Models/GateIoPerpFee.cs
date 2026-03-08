@@ -10,12 +10,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpFee
     {
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>taker_fee</c>"] Taker fee rate
         /// </summary>
         [JsonPropertyName("taker_fee")]
         public decimal TakerFee { get; set; }
         /// <summary>
-        /// Maker fee rate
+        /// ["<c>maker_fee</c>"] Maker fee rate
         /// </summary>
         [JsonPropertyName("maker_fee")]
         public decimal MakerFee { get; set; }

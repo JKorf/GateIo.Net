@@ -12,53 +12,53 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTriggerOrder
     {
         /// <summary>
-        /// Order info
+        /// ["<c>put</c>"] Order info
         /// </summary>
         [JsonPropertyName("put")]
         public GateIoTriggerOrderOrder Order { get; set; } = null!;
 
         /// <summary>
-        /// Order info
+        /// ["<c>trigger</c>"] Order info
         /// </summary>
         [JsonPropertyName("trigger")]
         public GateIoTriggerOrderTrigger Trigger { get; set; } = null!;
         /// <summary>
-        /// Trigger order id
+        /// ["<c>id</c>"] Trigger order id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public long UserId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>market</c>"] Symbol
         /// </summary>
         [JsonPropertyName("market")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Create time
+        /// ["<c>ctime</c>"] Create time
         /// </summary>
         [JsonPropertyName("ctime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Trigger time
+        /// ["<c>ftime</c>"] Trigger time
         /// </summary>
         [JsonPropertyName("ftime")]
         public DateTime? TriggerTime { get; set; }
         /// <summary>
-        /// Id of the create order
+        /// ["<c>fired_order_id</c>"] Id of the create order
         /// </summary>
         [JsonPropertyName("fired_order_id")]
         public long? TriggeredOrderId { get; set; }
         /// <summary>
-        /// Trigger status
+        /// ["<c>status</c>"] Trigger status
         /// </summary>
         [JsonPropertyName("status")]
         public TriggerOrderStatus? Status { get; set; }
         /// <summary>
-        /// Additional info
+        /// ["<c>reason</c>"] Additional info
         /// </summary>
         [JsonPropertyName("reason")]
         public string? Reason { get; set; }
@@ -71,17 +71,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTriggerOrderTrigger
     {
         /// <summary>
-        /// Trigger price
+        /// ["<c>price</c>"] Trigger price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trigger type
+        /// ["<c>rule</c>"] Trigger type
         /// </summary>
         [JsonPropertyName("rule")]
         public TriggerType TriggerType { get; set; }
         /// <summary>
-        /// Expiration in seconds
+        /// ["<c>expiration</c>"] Expiration in seconds
         /// </summary>
         [JsonPropertyName("expiration")]
         public int Expiration { get; set; }
@@ -94,37 +94,37 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTriggerOrderOrder
     {
         /// <summary>
-        /// User defined text
+        /// ["<c>text</c>"] User defined text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>type</c>"] Order type
         /// </summary>
         [JsonPropertyName("type")]
         public NewOrderType Type { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Account type
+        /// ["<c>account</c>"] Account type
         /// </summary>
         [JsonPropertyName("account")]
         public TriggerAccountType AccountType { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>time_in_force</c>"] Time in force
         /// </summary>
         [JsonPropertyName("time_in_force")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>price</c>"] Order price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }

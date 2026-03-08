@@ -12,129 +12,129 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpOrder
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public long UserId { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public int Quantity { get; set; }
         /// <summary>
-        /// Iceberg quantity
+        /// ["<c>iceberg</c>"] Iceberg quantity
         /// </summary>
         [JsonPropertyName("iceberg")]
         public int? IcebergQuantity { get; set; }
         /// <summary>
-        /// Open quantity
+        /// ["<c>left</c>"] Open quantity
         /// </summary>
         [JsonPropertyName("left")]
         public int QuantityRemaining { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>price</c>"] Order price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Fill price
+        /// ["<c>fill_price</c>"] Fill price
         /// </summary>
         [JsonPropertyName("fill_price")]
         public decimal? FillPrice { get; set; }
         /// <summary>
-        /// Maker fee
+        /// ["<c>mkfr</c>"] Maker fee
         /// </summary>
         [JsonPropertyName("mkfr")]
         public decimal? MakerFee { get; set; }
         /// <summary>
-        /// Taker fee
+        /// ["<c>tkfr</c>"] Taker fee
         /// </summary>
         [JsonPropertyName("tkfr")]
         public decimal? TakerFee { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>tif</c>"] Time in force
         /// </summary>
         [JsonPropertyName("tif")]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
-        /// Reference user ID
+        /// ["<c>refu</c>"] Reference user ID
         /// </summary>
         [JsonPropertyName("refu")]
         public long? ReferenceUserId { get; set; }
         /// <summary>
-        /// Is reduce only order
+        /// ["<c>is_reduce_only</c>"] Is reduce only order
         /// </summary>
         [JsonPropertyName("is_reduce_only")]
         public bool IsReduceOnly { get; set; }
         /// <summary>
-        /// Is close position order
+        /// ["<c>is_close</c>"] Is close position order
         /// </summary>
         [JsonPropertyName("is_close")]
         public bool IsClose { get; set; }
         /// <summary>
-        /// Is liquidation position order
+        /// ["<c>is_liq</c>"] Is liquidation position order
         /// </summary>
         [JsonPropertyName("is_liq")]
         public bool IsLiquidation { get; set; }
         /// <summary>
-        /// Text
+        /// ["<c>text</c>"] Text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Finish time
+        /// ["<c>finish_time</c>"] Finish time
         /// </summary>
         [JsonPropertyName("finish_time")]
         public DateTime? FinishTime { get; set; }
         /// <summary>
-        /// Finish type
+        /// ["<c>finish_as</c>"] Finish type
         /// </summary>
         [JsonPropertyName("finish_as")]
         public OrderFinishType? FinishedAs { get; set; }
         /// <summary>
-        /// STP group id
+        /// ["<c>stp_id</c>"] STP group id
         /// </summary>
         [JsonPropertyName("stp_id")]
         public long? SelfTradePreventionId { get; set; }
         /// <summary>
-        /// STP mode
+        /// ["<c>stp_act</c>"] STP mode
         /// </summary>
         [JsonPropertyName("stp_act")]
         public SelfTradePreventionMode? SelfTradePreventionAction { get; set; }
         /// <summary>
-        /// Amend text
+        /// ["<c>amend_text</c>"] Amend text
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string? AmendText { get; set; }
 
         /// <summary>
-        /// Whether or not the requested operation succeeded
+        /// ["<c>succeeded</c>"] Whether or not the requested operation succeeded
         /// </summary>
         [JsonPropertyName("succeeded")]
         public bool? Succeeded { get; set; }
 
         /// <summary>
-        /// Error message if the requested operation failed
+        /// ["<c>label</c>"] Error message if the requested operation failed
         /// </summary>
         [JsonPropertyName("label")]
         public string? ErrorMessage { get; set; }

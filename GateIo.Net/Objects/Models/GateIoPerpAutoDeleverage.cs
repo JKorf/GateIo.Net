@@ -11,52 +11,52 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpAutoDeleverage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Entry price
+        /// ["<c>entry_price</c>"] Entry price
         /// </summary>
         [JsonPropertyName("entry_price")]
         public decimal EntryPrice { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>fill_price</c>"] Order price
         /// </summary>
         [JsonPropertyName("fill_price")]
         public decimal FillPrice { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public long UserId { get; set; }
         /// <summary>
-        /// Cross leverage limit
+        /// ["<c>cross_leverage_limit</c>"] Cross leverage limit
         /// </summary>
         [JsonPropertyName("cross_leverage_limit")]
         public decimal CrossLeverageLimit { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Position quantity
+        /// ["<c>position_size</c>"] Position quantity
         /// </summary>
         [JsonPropertyName("position_size")]
         public int PositionQuantity { get; set; }
         /// <summary>
-        /// Trade quantity
+        /// ["<c>trade_size</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("trade_size")]
         public int TradeQuantity { get; set; }

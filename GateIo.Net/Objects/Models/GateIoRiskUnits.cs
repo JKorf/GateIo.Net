@@ -11,17 +11,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoRiskUnits
     {
         /// <summary>
-        /// User id
+        /// ["<c>user_id</c>"] User id
         /// </summary>
         [JsonPropertyName("user_id")]
         public long UserId { get; set; }
         /// <summary>
-        /// Spot hedge status
+        /// ["<c>spot_hedge</c>"] Spot hedge status
         /// </summary>
         [JsonPropertyName("spot_hedge")]
         public bool SpotHedge { get; set; }
         /// <summary>
-        /// Risk units
+        /// ["<c>risk_units</c>"] Risk units
         /// </summary>
         [JsonPropertyName("risk_units")]
         public GateIoRiskUnitsDetails[] RiskUnits { get; set; } = Array.Empty<GateIoRiskUnitsDetails>();
@@ -34,42 +34,42 @@ namespace GateIo.Net.Objects.Models
     public record GateIoRiskUnitsDetails
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Spot hedging usage
+        /// ["<c>spot_in_use</c>"] Spot hedging usage
         /// </summary>
         [JsonPropertyName("spot_in_use")]
         public decimal SpotInUse { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintain_margin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintain_margin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initial_margin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initial_margin")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Delta
+        /// ["<c>delta</c>"] Delta
         /// </summary>
         [JsonPropertyName("delta")]
         public decimal Delta { get; set; }
         /// <summary>
-        /// Gamma
+        /// ["<c>gamma</c>"] Gamma
         /// </summary>
         [JsonPropertyName("gamma")]
         public decimal Gamma { get; set; }
         /// <summary>
-        /// Theta
+        /// ["<c>theta</c>"] Theta
         /// </summary>
         [JsonPropertyName("theta")]
         public decimal Theta { get; set; }
         /// <summary>
-        /// Vega
+        /// ["<c>vega</c>"] Vega
         /// </summary>
         [JsonPropertyName("vega")]
         public decimal Vega { get; set; }

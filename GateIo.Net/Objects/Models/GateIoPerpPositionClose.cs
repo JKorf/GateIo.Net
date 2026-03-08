@@ -12,67 +12,67 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpPositionClose
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Profit and loss
+        /// ["<c>pnl</c>"] Profit and loss
         /// </summary>
         [JsonPropertyName("pnl")]
         public decimal ProfitAndLoss { get; set; }
         /// <summary>
-        /// Realized profit and loss position
+        /// ["<c>pnl_pnl</c>"] Realized profit and loss position
         /// </summary>
         [JsonPropertyName("pnl_pnl")]
         public decimal? RealisedPnlPosition { get; set; }
         /// <summary>
-        /// Realized PNL - Funding Fees
+        /// ["<c>pnl_fund</c>"] Realized PNL - Funding Fees
         /// </summary>
         [JsonPropertyName("pnl_fund")]
         public decimal? RealisedPnlFundingFees { get; set; }
         /// <summary>
-        /// Realized PNL - Transaction Fees
+        /// ["<c>pnl_fee</c>"] Realized PNL - Transaction Fees
         /// </summary>
         [JsonPropertyName("pnl_fee")]
         public decimal? RealisedPnlFee { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>side</c>"] Position side
         /// </summary>
         [JsonPropertyName("side")]
         public PositionSide Side { get; set; }
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Text
+        /// ["<c>text</c>"] Text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Max Trade Size
+        /// ["<c>max_size</c>"] Max Trade Size
         /// </summary>
         [JsonPropertyName("max_size")]
         public decimal? MaxSize { get; set; }
         /// <summary>
-        /// Accumelated size
+        /// ["<c>accum_size</c>"] Accumelated size
         /// </summary>
         [JsonPropertyName("accum_size")]
         public decimal? AccumelatedSize { get; set; }
         /// <summary>
-        /// First opening time
+        /// ["<c>first_open_time</c>"] First opening time
         /// </summary>
         [JsonPropertyName("first_open_time")]
         public DateTime? FirstOpenTime { get; set; }
         /// <summary>
-        /// When 'side' is 'long,' it indicates the opening average price; when 'side' is 'short,' it indicates the closing average price.
+        /// ["<c>long_price</c>"] When 'side' is 'long,' it indicates the opening average price; when 'side' is 'short,' it indicates the closing average price.
         /// </summary>
         [JsonPropertyName("long_price")]
         public decimal LongPrice { get; set; }
         /// <summary>
-        /// When 'side' is 'long,' it indicates the opening average price; when 'side' is 'short,' it indicates the closing average price
+        /// ["<c>short_price</c>"] When 'side' is 'long,' it indicates the opening average price; when 'side' is 'short,' it indicates the closing average price
         /// </summary>
         [JsonPropertyName("short_price")]
         public decimal ShortPrice { get; set; }

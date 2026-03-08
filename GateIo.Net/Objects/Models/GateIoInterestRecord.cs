@@ -12,37 +12,37 @@ namespace GateIo.Net.Objects.Models
     public record GateIoInterestRecord
     {
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public bool Success { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Actual interest rate
+        /// ["<c>actual_rate</c>"] Actual interest rate
         /// </summary>
         [JsonPropertyName("actual_rate")]
         public decimal ActualRate { get; set; }
         /// <summary>
-        /// Interest
+        /// ["<c>interest</c>"] Interest
         /// </summary>
         [JsonPropertyName("interest")]
         public decimal Interest { get; set; }
         /// <summary>
-        /// Loan type
+        /// ["<c>type</c>"] Loan type
         /// </summary>
         [JsonPropertyName("type")]
         public LoanType Type { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime Timestamp { get; set; }

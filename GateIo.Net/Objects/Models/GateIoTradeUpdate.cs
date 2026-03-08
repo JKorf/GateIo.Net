@@ -12,42 +12,42 @@ namespace GateIo.Net.Objects.Models
     public record GateIoTradeUpdate
     {
         /// <summary>
-        /// Trade id
+        /// ["<c>id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Market unique id
+        /// ["<c>id_market</c>"] Market unique id
         /// </summary>
         [JsonPropertyName("id_market")]
         public long MarketId { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time_ms</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time_ms")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Trade quantity
+        /// ["<c>amount</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// The start and end sequence id
+        /// ["<c>range</c>"] The start and end sequence id
         /// </summary>
         [JsonPropertyName("range")]
         public string TradeRange { get; set; } = string.Empty;

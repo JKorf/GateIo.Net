@@ -10,47 +10,47 @@ namespace GateIo.Net.Objects.Models
     public record GateIoNetwork
     {
         /// <summary>
-        /// Network name
+        /// ["<c>chain</c>"] Network name
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Network name in Chinese
+        /// ["<c>name_cn</c>"] Network name in Chinese
         /// </summary>
         [JsonPropertyName("name_cn")]
         public string NetworkCn { get; set; } = string.Empty;
         /// <summary>
-        /// Network name in English
+        /// ["<c>name_en</c>"] Network name in English
         /// </summary>
         [JsonPropertyName("name_en")]
         public string NetworkEn { get; set; } = string.Empty;
         /// <summary>
-        /// Contract address
+        /// ["<c>contract_address</c>"] Contract address
         /// </summary>
         [JsonPropertyName("contract_address")]
         public string? ContractAddress { get; set; }
         /// <summary>
-        /// Withdrawal precision
+        /// ["<c>decimal</c>"] Withdrawal precision
         /// </summary>
         [JsonPropertyName("decimal")]
         public int? WithdrawalPrecision { get; set; }
         /// <summary>
-        /// Is network disabled
+        /// ["<c>is_disabled</c>"] Is network disabled
         /// </summary>
         [JsonPropertyName("is_disabled")]
         public bool IsDisabled { get; set; }
         /// <summary>
-        /// Is deposit disabled
+        /// ["<c>is_deposit_disabled</c>"] Is deposit disabled
         /// </summary>
         [JsonPropertyName("is_deposit_disabled")]
         public bool IsDepositDisabled { get; set; }
         /// <summary>
-        /// Is withdrawal disabled
+        /// ["<c>is_withdraw_disabled</c>"] Is withdrawal disabled
         /// </summary>
         [JsonPropertyName("is_withdraw_disabled")]
         public bool IsWithdrawalDisabled { get; set; }
         /// <summary>
-        /// Is tag
+        /// ["<c>is_tag</c>"] Is tag
         /// </summary>
         [JsonPropertyName("is_tag")]
         public bool IsTag { get; set; }

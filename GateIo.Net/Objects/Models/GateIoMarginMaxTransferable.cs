@@ -10,17 +10,17 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMarginMaxTransferable
     {
         /// <summary>
-        /// Asset 
+        /// ["<c>currency</c>"] Asset 
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string? Symbol { get; set; }
         /// <summary>
-        /// Max transferable
+        /// ["<c>amount</c>"] Max transferable
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal MaxTransferable { get; set; }

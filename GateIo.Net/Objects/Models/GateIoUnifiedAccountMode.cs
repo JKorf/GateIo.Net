@@ -11,12 +11,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoUnifiedAccountMode
     {
         /// <summary>
-        /// Account mode
+        /// ["<c>mode</c>"] Account mode
         /// </summary>
         [JsonPropertyName("mode")]
         public UnifiedAccountMode Mode { get; set; }
         /// <summary>
-        /// Settings
+        /// ["<c>settings</c>"] Settings
         /// </summary>
         [JsonPropertyName("settings")]
         public GateIoUnifiedAccountSettings Settings { get; set; } = null!;
@@ -29,22 +29,22 @@ namespace GateIo.Net.Objects.Models
     public record GateIoUnifiedAccountSettings
     {
         /// <summary>
-        /// USDT contract switch
+        /// ["<c>usdt_futures</c>"] USDT contract switch
         /// </summary>
         [JsonPropertyName("usdt_futures")]
         public bool UsdtFutures { get; set; }
         /// <summary>
-        /// Spot hedging switch
+        /// ["<c>spot_hedge</c>"] Spot hedging switch
         /// </summary>
         [JsonPropertyName("spot_hedge")]
         public bool SpotHedge { get; set; }
         /// <summary>
-        /// When the mode is set to combined margin mode, will funds be used as margin
+        /// ["<c>use_funding</c>"] When the mode is set to combined margin mode, will funds be used as margin
         /// </summary>
         [JsonPropertyName("use_funding")]
         public bool UseFunding { get; set; }
         /// <summary>
-        /// Option switch
+        /// ["<c>options</c>"] Option switch
         /// </summary>
         [JsonPropertyName("options")]
         public bool Options { get; set; }

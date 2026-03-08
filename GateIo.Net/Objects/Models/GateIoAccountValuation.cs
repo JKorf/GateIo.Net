@@ -10,12 +10,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoAccountValuation
     {
         /// <summary>
-        /// Details
+        /// ["<c>details</c>"] Details
         /// </summary>
         [JsonPropertyName("details")]
         public GateIoAccountValues Details { get; set; } = null!;
         /// <summary>
-        /// Total value
+        /// ["<c>total</c>"] Total value
         /// </summary>
         [JsonPropertyName("total")]
         public GateIoAccountValue Total { get; set; } = null!;
@@ -28,47 +28,47 @@ namespace GateIo.Net.Objects.Models
     public record GateIoAccountValues
     {
         /// <summary>
-        /// Cross margin value
+        /// ["<c>cross_margin</c>"] Cross margin value
         /// </summary>
         [JsonPropertyName("cross_margin")]
         public GateIoAccountValue CrossMargin { get; set; } = null!;
         /// <summary>
-        /// Spot value
+        /// ["<c>spot</c>"] Spot value
         /// </summary>
         [JsonPropertyName("spot")]
         public GateIoAccountValue Spot { get; set; } = null!;
         /// <summary>
-        /// Finance value
+        /// ["<c>finance</c>"] Finance value
         /// </summary>
         [JsonPropertyName("finance")]
         public GateIoAccountValue Finance { get; set; } = null!;
         /// <summary>
-        /// Margin value
+        /// ["<c>margin</c>"] Margin value
         /// </summary>
         [JsonPropertyName("margin")]
         public GateIoAccountValue Margin { get; set; } = null!;
         /// <summary>
-        /// Quant value
+        /// ["<c>quant</c>"] Quant value
         /// </summary>
         [JsonPropertyName("quant")]
         public GateIoAccountValue Quant { get; set; } = null!;
         /// <summary>
-        /// Futures value
+        /// ["<c>futures</c>"] Futures value
         /// </summary>
         [JsonPropertyName("futures")]
         public GateIoAccountValue Futures { get; set; } = null!;
         /// <summary>
-        /// Delivery value
+        /// ["<c>delivery</c>"] Delivery value
         /// </summary>
         [JsonPropertyName("delivery")]
         public GateIoAccountValue Delivery { get; set; } = null!;
         /// <summary>
-        /// Warrant value
+        /// ["<c>warrant</c>"] Warrant value
         /// </summary>
         [JsonPropertyName("warrant")]
         public GateIoAccountValue Warrant { get; set; } = null!;
         /// <summary>
-        /// CBBC value
+        /// ["<c>cbbc</c>"] CBBC value
         /// </summary>
         [JsonPropertyName("cbbc")]
         public GateIoAccountValue Cbbc { get; set; } = null!;
@@ -81,22 +81,22 @@ namespace GateIo.Net.Objects.Models
     public record GateIoAccountValue
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Total account balance
+        /// ["<c>amount</c>"] Total account balance
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Unrelealised profit and loss
+        /// ["<c>unrealised_pnl</c>"] Unrelealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealised_pnl")]
         public decimal? UnrealisedPnl { get; set; }
         /// <summary>
-        /// Borrowed
+        /// ["<c>borrowed</c>"] Borrowed
         /// </summary>
         [JsonPropertyName("borrowed")]
         public decimal? Borrowed { get; set; }

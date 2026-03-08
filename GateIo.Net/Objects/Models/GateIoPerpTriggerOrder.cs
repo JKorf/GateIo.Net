@@ -12,57 +12,57 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpTriggerOrder
     {
         /// <summary>
-        /// Trigger order id
+        /// ["<c>id</c>"] Trigger order id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user</c>"] User id
         /// </summary>
         [JsonPropertyName("user")]
         public long UserId { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Finish time
+        /// ["<c>finish_time</c>"] Finish time
         /// </summary>
         [JsonPropertyName("finish_time")]
         public DateTime? FinishTime { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>trade_id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("trade_id")]
         public long? TradeId { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public FuturesTriggerOrderStatus Status { get; set; }
         /// <summary>
-        /// Finish type
+        /// ["<c>finish_as</c>"] Finish type
         /// </summary>
         [JsonPropertyName("finish_as")]
         public TriggerFinishType? FinishType { get; set; }
         /// <summary>
-        /// Reason
+        /// ["<c>reason</c>"] Reason
         /// </summary>
         [JsonPropertyName("reason")]
         public string? Reason { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>order_type</c>"] Order type
         /// </summary>
         [JsonPropertyName("order_type")]
         public TriggerOrderType? OrderType { get; set; }
         /// <summary>
-        /// Order info
+        /// ["<c>initial</c>"] Order info
         /// </summary>
         [JsonPropertyName("initial")]
         public GateIoPerpTriggerOrderInitial Order { get; set; } = null!;
         /// <summary>
-        /// Trigger info
+        /// ["<c>trigger</c>"] Trigger info
         /// </summary>
         [JsonPropertyName("trigger")]
         public GateIoPerpTriggerOrderTrigger Trigger { get; set; } = null!;
@@ -75,22 +75,22 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpTriggerOrderTrigger
     {
         /// <summary>
-        /// Price type
+        /// ["<c>price_type</c>"] Price type
         /// </summary>
         [JsonPropertyName("price_type")]
         public PriceType PriceType { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trigger type
+        /// ["<c>rule</c>"] Trigger type
         /// </summary>
         [JsonPropertyName("rule")]
         public TriggerType TriggerType { get; set; }
         /// <summary>
-        /// Expire time in seconds
+        /// ["<c>expiration</c>"] Expire time in seconds
         /// </summary>
         [JsonPropertyName("expiration")]
         public int Expiration { get; set; }
@@ -103,42 +103,42 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPerpTriggerOrderInitial
     {
         /// <summary>
-        /// Contract
+        /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public int Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Close position order
+        /// ["<c>is_close</c>"] Close position order
         /// </summary>
         [JsonPropertyName("is_close")]
         public bool ClosePosition { get; set; }
         /// <summary>
-        /// Reduce only order
+        /// ["<c>is_reduce_only</c>"] Reduce only order
         /// </summary>
         [JsonPropertyName("is_reduce_only")]
         public bool ReduceOnly { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>tif</c>"] Time in force
         /// </summary>
         [JsonPropertyName("tif")]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
-        /// Text
+        /// ["<c>text</c>"] Text
         /// </summary>
         [JsonPropertyName("text")]
         public string? Text { get; set; }
         /// <summary>
-        /// Close side
+        /// ["<c>auto_size</c>"] Close side
         /// </summary>
         [JsonPropertyName("auto_size")]
         public CloseSide? CloseSide { get; set; }

@@ -11,27 +11,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoPartialOrderBookUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Update id
+        /// ["<c>lastUpdateId</c>"] Update id
         /// </summary>
         [JsonPropertyName("lastUpdateId")]
         public long LastUpdateId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Updated bids
+        /// ["<c>bids</c>"] Updated bids
         /// </summary>
         [JsonPropertyName("bids")]
         public GateIoOrderBookEntry[] Bids { get; set; } = Array.Empty<GateIoOrderBookEntry>();
         /// <summary>
-        /// Updated asks
+        /// ["<c>asks</c>"] Updated asks
         /// </summary>
         [JsonPropertyName("asks")]
         public GateIoOrderBookEntry[] Asks { get; set; } = Array.Empty<GateIoOrderBookEntry>();

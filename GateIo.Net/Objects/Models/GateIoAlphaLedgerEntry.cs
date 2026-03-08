@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -9,27 +9,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoAlphaLedgerEntry
     {
         /// <summary>
-        /// Entry id
+        /// ["<c>id</c>"] Entry id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Change quantity
+        /// ["<c>change</c>"] Change quantity
         /// </summary>
         [JsonPropertyName("change")]
         public decimal Change { get; set; }
         /// <summary>
-        /// Balance after change
+        /// ["<c>balance</c>"] Balance after change
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }

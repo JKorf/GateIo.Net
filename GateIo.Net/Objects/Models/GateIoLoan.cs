@@ -12,32 +12,32 @@ namespace GateIo.Net.Objects.Models
     public record GateIoLoan
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Loan type
+        /// ["<c>type</c>"] Loan type
         /// </summary>
         [JsonPropertyName("type")]
         public LoanType Type { get; set; }
         /// <summary>
-        /// Last update time
+        /// ["<c>change_time</c>"] Last update time
         /// </summary>
         [JsonPropertyName("change_time")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }

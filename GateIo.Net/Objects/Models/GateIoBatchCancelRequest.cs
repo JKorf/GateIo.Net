@@ -11,12 +11,12 @@ namespace GateIo.Net.Objects.Models
     public record GateIoBatchCancelRequest
     {
         /// <summary>
-        /// The symbol the order is on
+        /// ["<c>currency_pair</c>"] The symbol the order is on
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// The order id
+        /// ["<c>id</c>"] The order id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;

@@ -10,27 +10,27 @@ namespace GateIo.Net.Objects.Models
     public record GateIoAssetNetwork
     {
         /// <summary>
-        /// Network name
+        /// ["<c>name</c>"] Network name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>addr</c>"] Address
         /// </summary>
         [JsonPropertyName("addr")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Is withdrawal disabled
+        /// ["<c>withdraw_disabled</c>"] Is withdrawal disabled
         /// </summary>
         [JsonPropertyName("withdraw_disabled")]
         public bool WithdrawDisabled { get; set; }
         /// <summary>
-        /// Is withdrawal delayed
+        /// ["<c>withdraw_delayed</c>"] Is withdrawal delayed
         /// </summary>
         [JsonPropertyName("withdraw_delayed")]
         public bool WithdrawDelayed { get; set; }
         /// <summary>
-        /// Is deposit disabled
+        /// ["<c>deposit_disabled</c>"] Is deposit disabled
         /// </summary>
         [JsonPropertyName("deposit_disabled")]
         public bool DepositDisabled { get; set; }

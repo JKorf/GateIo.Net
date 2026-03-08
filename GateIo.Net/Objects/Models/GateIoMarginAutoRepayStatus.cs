@@ -10,7 +10,7 @@ namespace GateIo.Net.Objects.Models
     public record GateIoMarginAutoRepayStatus
     {
         /// <summary>
-        /// Status, on or off
+        /// ["<c>status</c>"] Status, on or off
         /// </summary>
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;

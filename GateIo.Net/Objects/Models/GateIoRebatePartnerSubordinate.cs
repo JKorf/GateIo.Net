@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using GateIo.Net.Enums;
@@ -12,19 +12,19 @@ namespace GateIo.Net.Objects.Models
     public record GateIoRebatePartnerSubordinate
     {
         /// <summary>
-        /// User Id
+        /// ["<c>user_id</c>"] User Id
         /// </summary>
         [JsonPropertyName("user_id")]
         public long UserId { get; set; }
 
         /// <summary>
-        /// User join time
+        /// ["<c>user_join_time</c>"] User join time
         /// </summary>
         [JsonPropertyName("user_join_time")]
         public DateTime UserJoinTime { get; set; }
 
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public SubordinateType Type { get; set; }

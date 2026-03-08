@@ -10,32 +10,32 @@ namespace GateIo.Net.Objects.Models
     public record GateIoRiskLimitTier
     {
         /// <summary>
-        /// Maintenance rate
+        /// ["<c>maintenance_rate</c>"] Maintenance rate
         /// </summary>
         [JsonPropertyName("maintenance_rate")]
         public decimal MaintenanceRate { get; set; }
         /// <summary>
-        /// Tier
+        /// ["<c>tier</c>"] Tier
         /// </summary>
         [JsonPropertyName("tier")]
         public int Tier { get; set; }
         /// <summary>
-        /// Initial margin rate
+        /// ["<c>initial_rate</c>"] Initial margin rate
         /// </summary>
         [JsonPropertyName("initial_rate")]
         public decimal InitialRate { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>leverage_max</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("leverage_max")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Risk limit
+        /// ["<c>risk_limit</c>"] Risk limit
         /// </summary>
         [JsonPropertyName("risk_limit")]
         public decimal RiskLimit { get; set; }
         /// <summary>
-        /// Maintenance margin quick calculation deduction
+        /// ["<c>deduction</c>"] Maintenance margin quick calculation deduction
         /// </summary>
         [JsonPropertyName("deduction")]
         public decimal? Deduction { get; set; }

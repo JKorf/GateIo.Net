@@ -10,22 +10,22 @@ namespace GateIo.Net.Objects.Models
     public record GateIoLendingSymbol
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>currency_pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("currency_pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Min borrow quantity in the base asset
+        /// ["<c>base_min_borrow_amount</c>"] Min borrow quantity in the base asset
         /// </summary>
         [JsonPropertyName("base_min_borrow_amount")]
         public decimal BaseAssetMinBorrowQuantity { get; set; }
         /// <summary>
-        /// Min borrow quantity in the quote asset
+        /// ["<c>quote_min_borrow_amount</c>"] Min borrow quantity in the quote asset
         /// </summary>
         [JsonPropertyName("quote_min_borrow_amount")]
         public decimal QuoteAssetMinBorrowQuantity { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
