@@ -22,10 +22,10 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get account ledger
         /// <para><a href="https://www.gate.com/docs/developers/alpha/en/#alpha-account-transaction-history-api" /></para>
         /// </summary>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="startTime">["<c>from</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<GateIoAlphaLedgerEntry[]>> GetLedgerAsync(
             DateTime? startTime = null,
