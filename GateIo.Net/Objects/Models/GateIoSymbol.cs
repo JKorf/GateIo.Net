@@ -112,5 +112,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("down_rate")]
         public decimal PriceDownRateLimit { get; set; }
+        /// <summary>
+        /// ["<c>funding_impact_value</c>"] Funding rate depth impact value
+        /// </summary>
+        [JsonPropertyName("funding_impact_value")]
+        public decimal FundingImpactValue { get; set; }
     }
 }
