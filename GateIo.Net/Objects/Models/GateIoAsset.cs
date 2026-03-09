@@ -59,5 +59,15 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("chains")]
         public GateIoAssetNetwork[] Networks { get; set; } = [];
+        /// <summary>
+        /// ["<c>total_supply</c>"] Total supply
+        /// </summary>
+        [JsonPropertyName("total_supply")]
+        public decimal? TotalSupply { get; set; }
+        /// <summary>
+        /// ["<c>market_cap</c>"] Total market cap
+        /// </summary>
+        [JsonPropertyName("market_cap")]
+        public decimal? MarketCap { get; set; }
     }
 }
