@@ -86,6 +86,11 @@ namespace GateIo.Net.Enums
         [Map("small")]
         TooSmall,
         /// <summary>
+        /// Price protect canceled
+        /// </summary>
+        [Map("price_protect_cancelled")]
+        PriceProtectCancelled,
+        /// <summary>
         /// Unknown
         /// </summary>
         [Map("-")]
