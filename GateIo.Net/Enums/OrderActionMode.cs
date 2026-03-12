@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum OrderActionMode
     {
         /// <summary>
-        /// Acknowledge, return only the most basic order info
+        /// ["<c>ACK</c>"] Acknowledge, return only the most basic order info
         /// </summary>
         [Map("ACK")]
         Acknowledge,
         /// <summary>
-        /// Result, return all but clearing info
+        /// ["<c>RESULT</c>"] Result, return all but clearing info
         /// </summary>
         [Map("RESULT")]
         Result,
         /// <summary>
-        /// Full order result
+        /// ["<c>FULL</c>"] Full order result
         /// </summary>
         [Map("FULL")]
         Full

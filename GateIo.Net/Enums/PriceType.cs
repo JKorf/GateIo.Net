@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum PriceType
     {
         /// <summary>
-        /// Last trade price
+        /// ["<c>0</c>"] Last trade price
         /// </summary>
         [Map("0")]
         LastTradePrice,
         /// <summary>
-        /// Mark price
+        /// ["<c>1</c>"] Mark price
         /// </summary>
         [Map("1")]
         MarkPrice,
         /// <summary>
-        /// Index price
+        /// ["<c>2</c>"] Index price
         /// </summary>
         [Map("2")]
         IndexPrice

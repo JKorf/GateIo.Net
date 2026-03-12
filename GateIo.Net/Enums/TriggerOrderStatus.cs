@@ -11,27 +11,27 @@ namespace GateIo.Net.Enums
     public enum TriggerOrderStatus
     {
         /// <summary>
-        /// Active
+        /// ["<c>open</c>"] Active
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Canceled
+        /// ["<c>cancelled</c>"] Canceled
         /// </summary>
         [Map("cancelled")]
         Canceled,
         /// <summary>
-        /// Finished
+        /// ["<c>finish</c>"] Finished
         /// </summary>
         [Map("finish")]
         Finished,
         /// <summary>
-        /// Failed to execute
+        /// ["<c>failed</c>"] Failed to execute
         /// </summary>
         [Map("failed")]
         Failed,
         /// <summary>
-        /// Trigger expired
+        /// ["<c>expired</c>"] Trigger expired
         /// </summary>
         [Map("expired")]
         Expired

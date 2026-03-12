@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum PreMarketStatus
     {
         /// <summary>
-        /// Normal
+        /// ["<c>normal</c>"] Normal
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Pre-Market
+        /// ["<c>pre-market</c>"] Pre-Market
         /// </summary>
         [Map("pre-market")]
         PreMarket

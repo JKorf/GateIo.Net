@@ -11,42 +11,42 @@ namespace GateIo.Net.Enums
     public enum TransferStatus
     {
         /// <summary>
-        /// Creating
+        /// ["<c>CREATING</c>"] Creating
         /// </summary>
         [Map("CREATING")]
         Creating,
         /// <summary>
-        /// Waiting for receiving (please contact the other party to accept the transfer on the gate official website)
+        /// ["<c>PENDING</c>"] Waiting for receiving (please contact the other party to accept the transfer on the gate official website)
         /// </summary>
         [Map("PENDING")]
         Pending,
         /// <summary>
-        /// Cancelling
+        /// ["<c>CANCELLING</c>"] Cancelling
         /// </summary>
         [Map("CANCELLING")]
         Cancelling,
         /// <summary>
-        /// Revoked
+        /// ["<c>CANCELLED</c>"] Revoked
         /// </summary>
         [Map("CANCELLED")]
         Cancelled,
         /// <summary>
-        /// Rejection
+        /// ["<c>REFUSING</c>"] Rejection
         /// </summary>
         [Map("REFUSING")]
         Refusing,
         /// <summary>
-        /// Rejected
+        /// ["<c>REFUSED</c>"] Rejected
         /// </summary>
         [Map("REFUSED")]
         Refused,
         /// <summary>
-        /// Receiving
+        /// ["<c>RECEIVING</c>"] Receiving
         /// </summary>
         [Map("RECEIVING")]
         Receiving,
         /// <summary>
-        /// Success
+        /// ["<c>RECEIVED</c>"] Success
         /// </summary>
         [Map("RECEIVED")]
         Received,

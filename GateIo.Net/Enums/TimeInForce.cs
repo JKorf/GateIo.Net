@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum TimeInForce
     {
         /// <summary>
-        /// Good till canceled
+        /// ["<c>gtc</c>"] Good till canceled
         /// </summary>
         [Map("gtc")]
         GoodTillCancel,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>ioc</c>"] Immediate or cancel
         /// </summary>
         [Map("ioc")]
         ImmediateOrCancel,
         /// <summary>
-        /// Post only order
+        /// ["<c>poc</c>"] Post only order
         /// </summary>
         [Map("poc")]
         PendingOrCancel,
         /// <summary>
-        /// Fill or kill
+        /// ["<c>fok</c>"] Fill or kill
         /// </summary>
         [Map("fok")]
         FillOrKill

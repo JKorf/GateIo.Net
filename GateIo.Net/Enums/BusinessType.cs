@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum BusinessType
     {
         /// <summary>
-        /// Margin account
+        /// ["<c>margin</c>"] Margin account
         /// </summary>
         [Map("margin")]
         Margin,
         /// <summary>
-        /// Unified account
+        /// ["<c>unified</c>"] Unified account
         /// </summary>
         [Map("unified")]
         Unified

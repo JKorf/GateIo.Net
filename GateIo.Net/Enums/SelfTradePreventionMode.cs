@@ -16,17 +16,17 @@ namespace GateIo.Net.Enums
         [Map("", "-")]
         None,
         /// <summary>
-        /// Cancel newest
+        /// ["<c>cn</c>"] Cancel newest
         /// </summary>
         [Map("cn")]
         CancelNewest,
         /// <summary>
-        /// Cancel oldest
+        /// ["<c>co</c>"] Cancel oldest
         /// </summary>
         [Map("co")]
         CancelOldest,
         /// <summary>
-        /// Cancel both
+        /// ["<c>cb</c>"] Cancel both
         /// </summary>
         [Map("cb")]
         CancelBoth

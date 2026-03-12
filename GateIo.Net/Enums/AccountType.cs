@@ -11,32 +11,32 @@ namespace GateIo.Net.Enums
     public enum AccountType
     {
         /// <summary>
-        /// Spot
+        /// ["<c>spot</c>"] Spot
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [Map("margin")]
         Margin,
         /// <summary>
-        /// Perpetual futures
+        /// ["<c>futures</c>"] Perpetual futures
         /// </summary>
         [Map("futures")]
         PerpertualFutures,
         /// <summary>
-        /// Delivery futures
+        /// ["<c>delivery</c>"] Delivery futures
         /// </summary>
         [Map("delivery")]
         DeliveryFutures,
         /// <summary>
-        /// Cross margin
+        /// ["<c>cross_margin</c>"] Cross margin
         /// </summary>
         [Map("cross_margin")]
         CrossMargin,
         /// <summary>
-        /// Options
+        /// ["<c>options</c>"] Options
         /// </summary>
         [Map("options")]
         Options

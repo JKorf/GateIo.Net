@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum BorrowType
     {
         /// <summary>
-        /// Manual borrow
+        /// ["<c>manual_borrow</c>"] Manual borrow
         /// </summary>
         [Map("manual_borrow")]
         ManualBorrow,
         /// <summary>
-        /// Auto borrow
+        /// ["<c>auto_borrow</c>"] Auto borrow
         /// </summary>
         [Map("auto_borrow")]
         AutoBorrow,

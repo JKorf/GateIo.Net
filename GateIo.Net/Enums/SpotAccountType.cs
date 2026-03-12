@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum SpotAccountType
     {
         /// <summary>
-        /// Spot account
+        /// ["<c>spot</c>"] Spot account
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Margin account
+        /// ["<c>margin</c>"] Margin account
         /// </summary>
         [Map("margin")]
         Margin,
         /// <summary>
-        /// Unified account
+        /// ["<c>unified</c>"] Unified account
         /// </summary>
         [Map("unified")]
         Unified,
         /// <summary>
-        /// Cross margin
+        /// ["<c>cross_margin</c>"] Cross margin
         /// </summary>
         [Map("cross_margin")]
         CrossMargin

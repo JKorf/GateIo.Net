@@ -11,62 +11,62 @@ namespace GateIo.Net.Enums
     public enum KlineInterval
     {
         /// <summary>
-        /// 1 second
+        /// ["<c>1s</c>"] 1 second
         /// </summary>
         [Map("1s")]
         OneSecond = 1,
         /// <summary>
-        /// 10 seconds
+        /// ["<c>10s</c>"] 10 seconds
         /// </summary>
         [Map("10s")]
         TenSeconds = 10,
         /// <summary>
-        /// 1 minute
+        /// ["<c>1m</c>"] 1 minute
         /// </summary>
         [Map("1m")]
         OneMinute = 60,
         /// <summary>
-        /// 5 minutes
+        /// ["<c>5m</c>"] 5 minutes
         /// </summary>
         [Map("5m")]
         FiveMinutes = 60 * 5,
         /// <summary>
-        /// 15 minutes
+        /// ["<c>15m</c>"] 15 minutes
         /// </summary>
         [Map("15m")]
         FifteenMinutes = 60 * 15,
         /// <summary>
-        /// 30 minutes
+        /// ["<c>30m</c>"] 30 minutes
         /// </summary>
         [Map("30m")]
         ThirtyMinutes = 60 * 30,
         /// <summary>
-        /// 1 hour
+        /// ["<c>1h</c>"] 1 hour
         /// </summary>
         [Map("1h")]
         OneHour = 60 * 60,
         /// <summary>
-        /// 4 hours
+        /// ["<c>4h</c>"] 4 hours
         /// </summary>
         [Map("4h")]
         FourHours = 60 * 60 * 4,
         /// <summary>
-        /// 8 hours
+        /// ["<c>8h</c>"] 8 hours
         /// </summary>
         [Map("8h")]
         EightHours = 60 * 60 * 8,
         /// <summary>
-        /// 1 day
+        /// ["<c>1d</c>"] 1 day
         /// </summary>
         [Map("1d")]
         OneDay = 60 * 60 * 24,
         /// <summary>
-        /// 1 week
+        /// ["<c>7d</c>"] 1 week
         /// </summary>
         [Map("7d")]
         OneWeek = 60 * 60 * 24 * 7,
         /// <summary>
-        /// 1 month
+        /// ["<c>30d</c>"] 1 month
         /// </summary>
         [Map("30d")]
         OneMonth = 60 * 60 * 24 * 30

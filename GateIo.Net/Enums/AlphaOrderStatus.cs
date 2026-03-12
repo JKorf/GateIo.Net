@@ -11,32 +11,32 @@ namespace GateIo.Net.Enums
     public enum AlphaOrderStatus
     {
         /// <summary>
-        /// Processing
+        /// ["<c>1</c>"] Processing
         /// </summary>
         [Map("1")]
         Processing,
         /// <summary>
-        /// Successful
+        /// ["<c>2</c>"] Successful
         /// </summary>
         [Map("2")]
         Successful,
         /// <summary>
-        /// Failed
+        /// ["<c>3</c>"] Failed
         /// </summary>
         [Map("3")]
         Failed,
         /// <summary>
-        /// Cancelled
+        /// ["<c>4</c>"] Cancelled
         /// </summary>
         [Map("4")]
         Cancelled,
         /// <summary>
-        /// Buy order placed but transfer not completed
+        /// ["<c>5</c>"] Buy order placed but transfer not completed
         /// </summary>
         [Map("5")]
         BuyPlacedNotTransferred,
         /// <summary>
-        /// Canceled but not transferred yet
+        /// ["<c>6</c>"] Canceled but not transferred yet
         /// </summary>
         [Map("6")]
         CanceledNotTransferred

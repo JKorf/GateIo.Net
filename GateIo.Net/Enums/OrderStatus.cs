@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Closed
+        /// ["<c>closed</c>"] Closed
         /// </summary>
         [Map("closed", "finished")]
         Closed,
         /// <summary>
-        /// Cancelled
+        /// ["<c>cancelled</c>"] Cancelled
         /// </summary>
         [Map("cancelled")]
         Canceled

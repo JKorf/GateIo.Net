@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum OrderUpdateEvent
     {
         /// <summary>
-        /// Order creation
+        /// ["<c>put</c>"] Order creation
         /// </summary>
         [Map("put")]
         Create,
         /// <summary>
-        /// Order update
+        /// ["<c>update</c>"] Order update
         /// </summary>
         [Map("update")]
         Update,
         /// <summary>
-        /// Order finished
+        /// ["<c>finish</c>"] Order finished
         /// </summary>
         [Map("finish")]
         Finish

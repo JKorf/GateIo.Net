@@ -11,87 +11,87 @@ namespace GateIo.Net.Enums
     public enum WithdrawalStatus
     {
         /// <summary>
-        /// Done
+        /// ["<c>DONE</c>"] Done
         /// </summary>
         [Map("DONE")]
         Done,
         /// <summary>
-        /// Canceled
+        /// ["<c>CANCEL</c>"] Canceled
         /// </summary>
         [Map("CANCEL")]
         Canceled,
         /// <summary>
-        /// Requested
+        /// ["<c>REQUEST</c>"] Requested
         /// </summary>
         [Map("REQUEST")]
         Requested,
         /// <summary>
-        /// Pending manual approval
+        /// ["<c>MANUAL</c>"] Pending manual approval
         /// </summary>
         [Map("MANUAL")]
         PendingApproval,
         /// <summary>
-        /// GateCode operation
+        /// ["<c>BCODE</c>"] GateCode operation
         /// </summary>
         [Map("BCODE")]
         GateCode,
         /// <summary>
-        /// Pending confirmation after sending
+        /// ["<c>EXTPEND</c>"] Pending confirmation after sending
         /// </summary>
         [Map("EXTPEND")]
         PendingConfirmation,
         /// <summary>
-        /// Failed confirmation
+        /// ["<c>FAIL</c>"] Failed confirmation
         /// </summary>
         [Map("FAIL")]
         FailedConfirmation,
         /// <summary>
-        /// Invalid order
+        /// ["<c>INVALID</c>"] Invalid order
         /// </summary>
         [Map("INVALID")]
         Invalid,
         /// <summary>
-        /// Verifying
+        /// ["<c>VERIFY</c>"] Verifying
         /// </summary>
         [Map("VERIFY")]
         Verifying,
         /// <summary>
-        /// Processing
+        /// ["<c>PROCES</c>"] Processing
         /// </summary>
         [Map("PROCES")]
         Processing,
         /// <summary>
-        /// Pending
+        /// ["<c>PEND</c>"] Pending
         /// </summary>
         [Map("PEND")]
         Pending,
         /// <summary>
-        /// Requires manual approval
+        /// ["<c>DMOVE</c>"] Requires manual approval
         /// </summary>
         [Map("DMOVE")]
         RequiresManualApproval,
         /// <summary>
-        /// Under review
+        /// ["<c>REVIEW</c>"] Under review
         /// </summary>
         [Map("REVIEW")]
         Review,
         /// <summary>
-        /// Waiting for confirmations
+        /// ["<c>TRACK</c>"] Waiting for confirmations
         /// </summary>
         [Map("TRACK")]
         Track,
         /// <summary>
-        /// Rejected
+        /// ["<c>BLOCKED</c>"] Rejected
         /// </summary>
         [Map("BLOCKED")]
         Blocked,
         /// <summary>
-        /// Deposit credited
+        /// ["<c>DEP_CREDITED</c>"] Deposit credited
         /// </summary>
         [Map("DEP_CREDITED")]
         Credited,
         /// <summary>
-        /// Funds added to spot account
+        /// ["<c>FINAL</c>"] Funds added to spot account
         /// </summary>
         [Map("FINAL")]
         Final

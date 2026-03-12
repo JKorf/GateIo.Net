@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum FuturesTriggerOrderStatus
     {
         /// <summary>
-        /// Active
+        /// ["<c>open</c>"] Active
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Finished
+        /// ["<c>finished</c>"] Finished
         /// </summary>
         [Map("finished")]
         Finished,
         /// <summary>
-        ///  Order is not active, only for close-long-order or close-short-order
+        ///  ["<c>inactive</c>"] Order is not active, only for close-long-order or close-short-order
         /// </summary>
         [Map("inactive")]
         Inactive,
         /// <summary>
-        /// Order is invalid, only for close-long-order or close-short-order
+        /// ["<c>invalid</c>"] Order is invalid, only for close-long-order or close-short-order
         /// </summary>
         [Map("invalid")]
         Invalid

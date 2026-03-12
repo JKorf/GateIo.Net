@@ -11,87 +11,87 @@ namespace GateIo.Net.Enums
     public enum OrderFinishType
     {
         /// <summary>
-        /// New order
+        /// ["<c>_new</c>"] New order
         /// </summary>
         [Map("_new")]
         New,
         /// <summary>
-        /// Still open
+        /// ["<c>open</c>"] Still open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Filled
+        /// ["<c>filled</c>"] Filled
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Manually canceled
+        /// ["<c>cancelled</c>"] Manually canceled
         /// </summary>
         [Map("cancelled")]
         Canceled,
         /// <summary>
-        /// IOC order was immediately canceled
+        /// ["<c>ioc</c>"] IOC order was immediately canceled
         /// </summary>
         [Map("ioc")]
         ImmediatelyCanceled,
         /// <summary>
-        /// Pending order policy is not met
+        /// ["<c>poc</c>"] Pending order policy is not met
         /// </summary>
         [Map("poc")]
         PendingOrCancelCancel,
         /// <summary>
-        /// Not fully filled immediately 
+        /// ["<c>fok</c>"] Not fully filled immediately 
         /// </summary>
         [Map("fok")]
         FillOrKillCancel,
         /// <summary>
-        /// Canceled because of STP
+        /// ["<c>stp</c>"] Canceled because of STP
         /// </summary>
         [Map("stp")]
         SelfTradePrevention,
         /// <summary>
-        /// Canceled because of liquidation
+        /// ["<c>liquidated</c>"] Canceled because of liquidation
         /// </summary>
         [Map("liquidated", "liquidate_cancelled")]
         Liquidated,
         /// <summary>
-        /// Finished by ADL
+        /// ["<c>auto_deleveraged</c>"] Finished by ADL
         /// </summary>
         [Map("auto_deleveraged")]
         AutoDeleveraged,
         /// <summary>
-        /// Canceled because of increasing position while reduce-only set
+        /// ["<c>reduce_only</c>"] Canceled because of increasing position while reduce-only set
         /// </summary>
         [Map("reduce_only")]
         ReduceOnly,
         /// <summary>
-        /// Canceled because of position close
+        /// ["<c>position_closed</c>"] Canceled because of position close
         /// </summary>
         [Map("position_closed")]
         PositionClosed,
         /// <summary>
-        /// Insufficient counterparties lead to order cancellation
+        /// ["<c>trader_not_enough</c>"] Insufficient counterparties lead to order cancellation
         /// </summary>
         [Map("trader_not_enough")]
         NotEnoughTraders,
         /// <summary>
-        /// Insufficient depth leads to order cancellation
+        /// ["<c>depth_not_enough</c>"] Insufficient depth leads to order cancellation
         /// </summary>
         [Map("depth_not_enough")]
         NotEnoughCounterParties,
         /// <summary>
-        /// Order amount too small
+        /// ["<c>small</c>"] Order amount too small
         /// </summary>
         [Map("small")]
         TooSmall,
         /// <summary>
-        /// Price protect canceled
+        /// ["<c>price_protect_cancelled</c>"] Price protect canceled
         /// </summary>
         [Map("price_protect_cancelled")]
         PriceProtectCancelled,
         /// <summary>
-        /// Unknown
+        /// ["<c>-</c>"] Unknown
         /// </summary>
         [Map("-")]
         Unknown

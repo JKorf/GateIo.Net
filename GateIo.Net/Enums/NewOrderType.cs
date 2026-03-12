@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum NewOrderType
     {
         /// <summary>
-        /// LImit order
+        /// ["<c>limit</c>"] LImit order
         /// </summary>
         [Map("limit")]
         Limit,
         /// <summary>
-        /// Market order
+        /// ["<c>market</c>"] Market order
         /// </summary>
         [Map("market")]
         Market

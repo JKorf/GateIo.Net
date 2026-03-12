@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum TriggerFinishType
     {
         /// <summary>
-        /// Filled
+        /// ["<c>succeeded</c>"] Filled
         /// </summary>
         [Map("succeeded")]
         Succeeeded,
         /// <summary>
-        /// Manually canceled
+        /// ["<c>cancelled</c>"] Manually canceled
         /// </summary>
         [Map("cancelled")]
         Canceled,
         /// <summary>
-        /// Failed
+        /// ["<c>failed</c>"] Failed
         /// </summary>
         [Map("failed")]
         Failed,
         /// <summary>
-        /// Expired
+        /// ["<c>expired</c>"] Expired
         /// </summary>
         [Map("expired")]
         Expired

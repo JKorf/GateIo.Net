@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum GasMode
     {
         /// <summary>
-        /// Smart mode
+        /// ["<c>speed</c>"] Smart mode
         /// </summary>
         [Map("speed")]
         SmartMode,
         /// <summary>
-        /// Custom
+        /// ["<c>custom</c>"] Custom
         /// </summary>
         [Map("custom")]
         Custom

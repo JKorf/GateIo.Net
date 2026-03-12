@@ -11,52 +11,52 @@ namespace GateIo.Net.Enums
     public enum BalanceChangeType
     {
         /// <summary>
-        /// Withdrawal
+        /// ["<c>withdraw</c>"] Withdrawal
         /// </summary>
         [Map("withdraw")]
         Withdraw,
         /// <summary>
-        /// Deposit
+        /// ["<c>deposit</c>"] Deposit
         /// </summary>
         [Map("deposit")]
         Deposit,
         /// <summary>
-        /// Trade fee deduction
+        /// ["<c>trade-fee-deduct</c>"] Trade fee deduction
         /// </summary>
         [Map("trade-fee-deduct")]
         TradeFeeDeduct,
         /// <summary>
-        /// Order creation
+        /// ["<c>order-create</c>"] Order creation
         /// </summary>
         [Map("order-create")]
         OrderCreate,
         /// <summary>
-        /// Order match
+        /// ["<c>order-match</c>"] Order match
         /// </summary>
         [Map("order-match")]
         OrderMatch,
         /// <summary>
-        /// Order update
+        /// ["<c>order-update</c>"] Order update
         /// </summary>
         [Map("order-update")]
         OrderUpdate,
         /// <summary>
-        /// Margin transfer
+        /// ["<c>margin-transfer</c>"] Margin transfer
         /// </summary>
         [Map("margin-transfer")]
         MarginTransfer,
         /// <summary>
-        /// Futures transfer
+        /// ["<c>future-transfer</c>"] Futures transfer
         /// </summary>
         [Map("future-transfer")]
         FutureTransfer,
         /// <summary>
-        /// Cross margin transfer
+        /// ["<c>cross-margin-transfer</c>"] Cross margin transfer
         /// </summary>
         [Map("cross-margin-transfer")]
         CrossMarginTransfer,
         /// <summary>
-        /// Other
+        /// ["<c>other</c>"] Other
         /// </summary>
         [Map("other")]
         Other

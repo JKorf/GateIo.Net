@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum BorrowDirection
     {
         /// <summary>
-        /// Borrow
+        /// ["<c>borrow</c>"] Borrow
         /// </summary>
         [Map("borrow")]
         Borrow,
         /// <summary>
-        /// Repay
+        /// ["<c>repay</c>"] Repay
         /// </summary>
         [Map("repay")]
         Repay

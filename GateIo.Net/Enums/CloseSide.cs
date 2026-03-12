@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum CloseSide
     {
         /// <summary>
-        /// Close long
+        /// ["<c>close_long</c>"] Close long
         /// </summary>
         [Map("close_long")]
         CloseLong,
         /// <summary>
-        /// Close short
+        /// ["<c>close_short</c>"] Close short
         /// </summary>
         [Map("close_short")]
         CloseShort

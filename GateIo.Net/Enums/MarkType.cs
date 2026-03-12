@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum MarkType
     {
         /// <summary>
-        /// Internal
+        /// ["<c>internal</c>"] Internal
         /// </summary>
         [Map("internal")]
         Internal,
         /// <summary>
-        /// Index
+        /// ["<c>index</c>"] Index
         /// </summary>
         [Map("index")]
         Index

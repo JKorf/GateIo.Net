@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum MarginMode
     {
         /// <summary>
-        /// Cross margin
+        /// ["<c>CROSS</c>"] Cross margin
         /// </summary>
         [Map("CROSS")]
         Cross,
         /// <summary>
-        /// Isolated margin
+        /// ["<c>ISOLATED</c>"] Isolated margin
         /// </summary>
         [Map("ISOLATED")]
         Isolated

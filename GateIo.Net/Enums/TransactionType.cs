@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum TransactionType
     {
         /// <summary>
-        /// Deposit
+        /// ["<c>deposit</c>"] Deposit
         /// </summary>
         [Map("deposit")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>withdraw</c>"] Withdrawal
         /// </summary>
         [Map("withdraw")]
         Withdrawal

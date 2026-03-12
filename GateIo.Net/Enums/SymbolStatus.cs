@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Not tradeable
+        /// ["<c>untradable</c>"] Not tradeable
         /// </summary>
         [Map("untradable")]
         Untradable,
         /// <summary>
-        /// Only buyable
+        /// ["<c>buyable</c>"] Only buyable
         /// </summary>
         [Map("buyable")]
         Buyable,
         /// <summary>
-        /// Only sellable
+        /// ["<c>sellable</c>"] Only sellable
         /// </summary>
         [Map("sellable")]
         Sellable,
         /// <summary>
-        /// Can be bought and sold
+        /// ["<c>tradable</c>"] Can be bought and sold
         /// </summary>
         [Map("tradable")]
         Tradable,

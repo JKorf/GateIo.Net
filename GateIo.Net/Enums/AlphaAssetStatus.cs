@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum AlphaAssetStatus
     {
         /// <summary>
-        /// Normal
+        /// ["<c>1</c>"] Normal
         /// </summary>
         [Map("1")]
         Normal,
         /// <summary>
-        /// Suspended
+        /// ["<c>2</c>"] Suspended
         /// </summary>
         [Map("2")]
         Suspended,
         /// <summary>
-        /// Delisted
+        /// ["<c>3</c>"] Delisted
         /// </summary>
         [Map("3")]
         Delisted

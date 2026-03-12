@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum LoanType
     {
         /// <summary>
-        /// Platform
+        /// ["<c>platform</c>"] Platform
         /// </summary>
         [Map("platform")]
         Platform,
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [Map("margin")]
         Margin

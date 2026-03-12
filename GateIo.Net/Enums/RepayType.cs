@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum RepayType
     {
         /// <summary>
-        /// No repay
+        /// ["<c>none</c>"] No repay
         /// </summary>
         [Map("none")]
         None,
         /// <summary>
-        /// Manual repayment
+        /// ["<c>manual_repay</c>"] Manual repayment
         /// </summary>
         [Map("manual_repay")]
         ManualRepay,
         /// <summary>
-        /// Automatic repayment
+        /// ["<c>auto_repay</c>"] Automatic repayment
         /// </summary>
         [Map("auto_repay")]
         AutoRepay,
         /// <summary>
-        /// Automatic repayment after cancelation
+        /// ["<c>cancel_auto_repay</c>"] Automatic repayment after cancelation
         /// </summary>
         [Map("cancel_auto_repay")]
         CancelAutoRepay

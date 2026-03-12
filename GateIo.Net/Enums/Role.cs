@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum Role
     {
         /// <summary>
-        /// Taker
+        /// ["<c>taker</c>"] Taker
         /// </summary>
         [Map("taker")]
         Taker,
         /// <summary>
-        /// Maker
+        /// ["<c>maker</c>"] Maker
         /// </summary>
         [Map("maker")]
         Maker

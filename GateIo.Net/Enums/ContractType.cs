@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum ContractType
     {
         /// <summary>
-        /// Inverse
+        /// ["<c>inverse</c>"] Inverse
         /// </summary>
         [Map("inverse")]
         Inverse,
         /// <summary>
-        /// Direct
+        /// ["<c>direct</c>"] Direct
         /// </summary>
         [Map("direct")]
         Direct

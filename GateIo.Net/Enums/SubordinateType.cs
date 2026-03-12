@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum SubordinateType
     {
         /// <summary>
-        /// Sub-agent
+        /// ["<c>1</c>"] Sub-agent
         /// </summary>
         [Map("1")]
         SubAgent,
         /// <summary>
-        /// Indirect direct customer
+        /// ["<c>2</c>"] Indirect direct customer
         /// </summary>
         [Map("2")]
         IndirectCustomer,
         /// <summary>
-        /// Direct direct customer
+        /// ["<c>3</c>"] Direct direct customer
         /// </summary>
         [Map("3")]
         DirectCustomer,

@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum QuoteStatus
     {
         /// <summary>
-        /// Success
+        /// ["<c>0</c>"] Success
         /// </summary>
         [Map("0")]
         Success,
         /// <summary>
-        /// Exceeds max value
+        /// ["<c>1</c>"] Exceeds max value
         /// </summary>
         [Map("1")]
         ExceedsMaxValue,
         /// <summary>
-        /// Below min value
+        /// ["<c>2</c>"] Below min value
         /// </summary>
         [Map("2")]
         BelowMinValue

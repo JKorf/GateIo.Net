@@ -11,37 +11,37 @@ namespace GateIo.Net.Enums
     public enum OrderType
     {
         /// <summary>
-        /// LImit order
+        /// ["<c>limit</c>"] LImit order
         /// </summary>
         [Map("limit")]
         Limit,
         /// <summary>
-        /// Market order
+        /// ["<c>market</c>"] Market order
         /// </summary>
         [Map("market")]
         Market,
         /// <summary>
-        /// Limit repay
+        /// ["<c>limit_repay</c>"] Limit repay
         /// </summary>
         [Map("limit_repay")]
         LimitRepay,
         /// <summary>
-        /// Market repay
+        /// ["<c>market_repay</c>"] Market repay
         /// </summary>
         [Map("market_repay")]
         MarketRepay,
         /// <summary>
-        /// Limit borrow
+        /// ["<c>limit_borrow</c>"] Limit borrow
         /// </summary>
         [Map("limit_borrow")]
         LimitBorrow,
         /// <summary>
-        /// Market borrow
+        /// ["<c>market_borrow</c>"] Market borrow
         /// </summary>
         [Map("market_borrow")]
         MarketBorrow,
         /// <summary>
-        /// Limit borrow/repay
+        /// ["<c>limit_borrow_repay</c>"] Limit borrow/repay
         /// </summary>
         [Map("limit_borrow_repay")]
         LimitBorrowRepay

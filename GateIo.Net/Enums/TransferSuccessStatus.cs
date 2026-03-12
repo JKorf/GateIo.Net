@@ -11,22 +11,22 @@ namespace GateIo.Net.Enums
     public enum TransferSuccessStatus
     {
         /// <summary>
-        /// Pending
+        /// ["<c>PENDING</c>"] Pending
         /// </summary>
         [Map("PENDING")]
         Pending,
         /// <summary>
-        /// Success
+        /// ["<c>SUCCESS</c>"] Success
         /// </summary>
         [Map("SUCCESS")]
         Success,
         /// <summary>
-        /// Failed
+        /// ["<c>FAIL</c>"] Failed
         /// </summary>
         [Map("FAIL")]
         Failed,
         /// <summary>
-        /// Partial success
+        /// ["<c>PARTIAL_SUCCESS</c>"] Partial success
         /// </summary>
         [Map("PARTIAL_SUCCESS")]
         PartialSuccess

@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum PositionMode
     {
         /// <summary>
-        /// Single
+        /// ["<c>single</c>"] Single
         /// </summary>
         [Map("single")]
         Single,
         /// <summary>
-        /// Dual long mode
+        /// ["<c>dual_long</c>"] Dual long mode
         /// </summary>
         [Map("dual_long")]
         DualLong,
         /// <summary>
-        /// Dual short mode
+        /// ["<c>dual_short</c>"] Dual short mode
         /// </summary>
         [Map("dual_short")]
         DualShort

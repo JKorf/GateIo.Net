@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum MarginAccountType
     {
         /// <summary>
-        /// Maintenance margin rate account
+        /// ["<c>mmr</c>"] Maintenance margin rate account
         /// </summary>
         [Map("mmr")]
         MaintenanceMarginRate,
         /// <summary>
-        /// Risk rate account
+        /// ["<c>risk</c>"] Risk rate account
         /// </summary>
         [Map("risk")]
         RiskRate,
         /// <summary>
-        /// Inactive
+        /// ["<c>inactive</c>"] Inactive
         /// </summary>
         [Map("inactive")]
         Inactive

@@ -11,17 +11,17 @@ namespace GateIo.Net.Enums
     public enum TriggerAccountType
     {
         /// <summary>
-        /// Normal spot
+        /// ["<c>normal</c>"] Normal spot
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [Map("margin")]
         Margin,
         /// <summary>
-        /// Cross margin
+        /// ["<c>cross_margin</c>"] Cross margin
         /// </summary>
         [Map("cross_margin")]
         CrossMargin

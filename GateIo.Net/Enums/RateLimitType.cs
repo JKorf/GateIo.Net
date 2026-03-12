@@ -11,12 +11,12 @@ namespace GateIo.Net.Enums
     public enum RateLimitType
     {
         /// <summary>
-        /// Spot
+        /// ["<c>spot</c>"] Spot
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Futures
+        /// ["<c>futures</c>"] Futures
         /// </summary>
         [Map("futures")]
         Futures
