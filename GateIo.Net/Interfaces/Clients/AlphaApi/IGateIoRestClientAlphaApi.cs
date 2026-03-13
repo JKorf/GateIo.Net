@@ -7,7 +7,7 @@ namespace GateIo.Net.Interfaces.Clients.RebateApi
     /// <summary>
     /// GateIo Alpha API endpoints
     /// </summary>
-    public interface IGateIoRestClientAlphaApi : IRestApiClient, IDisposable
+    public interface IGateIoRestClientAlphaApi : IRestApiClient<GateIoCredentials>, IDisposable
     {
         /// <summary>
         /// Alpha account endpoints

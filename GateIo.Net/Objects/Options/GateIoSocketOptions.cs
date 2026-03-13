@@ -5,7 +5,7 @@ namespace GateIo.Net.Objects.Options
     /// <summary>
     /// Options for the GateIoSocketClient
     /// </summary>
-    public class GateIoSocketOptions : SocketExchangeOptions<GateIoEnvironment>
+    public class GateIoSocketOptions : SocketExchangeOptions<GateIoEnvironment, GateIoCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -33,14 +33,14 @@ namespace GateIo.Net.Objects.Options
         /// <summary>
         /// Options for the Spot API
         /// </summary>
-        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions()
+        public SocketApiOptions<GateIoCredentials> SpotOptions { get; private set; } = new SocketApiOptions<GateIoCredentials>()
         {
         };
 
         /// <summary>
         /// Options for the Perpetual Futures API
         /// </summary>
-        public SocketApiOptions PerpetualFuturesOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<GateIoCredentials> PerpetualFuturesOptions { get; private set; } = new SocketApiOptions<GateIoCredentials>();
 
         internal GateIoSocketOptions Set(GateIoSocketOptions targetOptions)
         {

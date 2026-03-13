@@ -7,7 +7,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
     /// <summary>
     /// Gate futures API endpoints
     /// </summary>
-    public interface IGateIoRestClientPerpetualFuturesApi : IRestApiClient, IDisposable
+    public interface IGateIoRestClientPerpetualFuturesApi : IRestApiClient<GateIoCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

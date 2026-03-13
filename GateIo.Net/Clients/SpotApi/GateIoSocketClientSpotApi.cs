@@ -32,7 +32,7 @@ namespace GateIo.Net.Clients.SpotApi
     /// <summary>
     /// Client providing access to the GateIo spot websocket Api
     /// </summary>
-    internal partial class GateIoSocketClientSpotApi : SocketApiClient, IGateIoSocketClientSpotApi
+    internal partial class GateIoSocketClientSpotApi : SocketApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoSocketClientSpotApi
     {
         #region fields
         private readonly bool _demoTrading;
@@ -76,7 +76,7 @@ namespace GateIo.Net.Clients.SpotApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new GateIoSocketSpotMessageHandler();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
         public IGateIoSocketClientSpotApiShared SharedClient => this;

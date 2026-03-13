@@ -28,7 +28,7 @@ namespace GateIo.Net.UnitTests
             return new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new GateIoCredentials(key, sec) : null
             }), loggerFactory);
         }
 

@@ -22,7 +22,7 @@ using GateIo.Net.Clients.MessageHandlers;
 namespace GateIo.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IGateIoRestClientSpotApi" />
-    internal partial class GateIoRestClientSpotApi : RestApiClient, IGateIoRestClientSpotApi
+    internal partial class GateIoRestClientSpotApi : RestApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoRestClientSpotApi
     {
         #region fields 
         protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
@@ -57,7 +57,7 @@ namespace GateIo.Net.Clients.SpotApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

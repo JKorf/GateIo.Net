@@ -6,7 +6,7 @@ namespace GateIo.Net.Interfaces.Clients.RebateApi
     /// <summary>
     /// GateIo rebate API endpoints
     /// </summary>
-    public interface IGateIoRestClientRebateApi : IRestApiClient, IDisposable
+    public interface IGateIoRestClientRebateApi : IRestApiClient<GateIoCredentials>, IDisposable
     {
         /// <summary>
         /// Partner subordinate

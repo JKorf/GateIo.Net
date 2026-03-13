@@ -18,7 +18,7 @@ using Microsoft.Extensions.Options;
 namespace GateIo.Net.Clients
 {
     /// <inheritdoc cref="IGateIoRestClient" />
-    public class GateIoRestClient : BaseRestClient, IGateIoRestClient
+    public class GateIoRestClient : BaseRestClient<GateIoEnvironment, GateIoCredentials>, IGateIoRestClient
     {
         #region Api clients
 
@@ -62,15 +62,6 @@ namespace GateIo.Net.Clients
 
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            PerpetualFuturesApi.SetOptions(options);
-            RebateApi.SetOptions(options);
-            AlphaApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -78,15 +69,6 @@ namespace GateIo.Net.Clients
         public static void SetDefaultOptions(Action<GateIoRestOptions> optionsDelegate)
         {
             GateIoRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            SpotApi.SetApiCredentials(credentials);
-            PerpetualFuturesApi.SetApiCredentials(credentials);
-            RebateApi.SetApiCredentials(credentials);
-            AlphaApi.SetApiCredentials(credentials);
         }
     }
 }

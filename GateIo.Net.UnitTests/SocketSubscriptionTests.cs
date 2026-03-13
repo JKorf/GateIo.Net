@@ -40,7 +40,7 @@ namespace GateIo.Net.UnitTests
             var client = new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+                ApiCredentials = new GateIoCredentials("123", "456")
             }), logger);
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
             await tester.ValidateAsync<GateIoTickerUpdate>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", handler), "SubscribeToTickerUpdates", ignoreProperties: new List<string> { "time" });
@@ -81,7 +81,7 @@ namespace GateIo.Net.UnitTests
         {
             var client = new GateIoSocketClient(opts =>
             {
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new GateIoCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws", "result");
             await tester.ValidateAsync<GateIoPerpTickerUpdate[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToTickerUpdatesAsync("usdt", "ETH_USDT", handler), "SubscribeToTickerUpdates", ignoreProperties: new List<string> { "time" });

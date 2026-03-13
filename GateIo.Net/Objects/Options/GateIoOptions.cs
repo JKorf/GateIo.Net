@@ -6,7 +6,7 @@ namespace GateIo.Net.Objects.Options
     /// <summary>
     /// GateIo options
     /// </summary>
-    public class GateIoOptions : LibraryOptions<GateIoRestOptions, GateIoSocketOptions, ApiCredentials, GateIoEnvironment>
+    public class GateIoOptions : LibraryOptions<GateIoRestOptions, GateIoSocketOptions, GateIoCredentials, GateIoEnvironment>
     {
     }
 }

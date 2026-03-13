@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces
         /// <param name="config">Configuration</param>
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
-        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null);
+        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, GateIoCredentials credentials, SpotUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null);
         /// <summary>
         /// Create a new spot user data tracker
         /// </summary>
@@ -33,7 +33,7 @@ namespace GateIo.Net.Interfaces
         /// <param name="config">Configuration</param>
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
-        IUserFuturesDataTracker CreateUserPerpetualFuturesDataTracker(string userIdentifier, ApiCredentials credentials, string settleAsset, long userId, FuturesUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null);
+        IUserFuturesDataTracker CreateUserPerpetualFuturesDataTracker(string userIdentifier, GateIoCredentials credentials, string settleAsset, long userId, FuturesUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null);
         /// <summary>
         /// Create a new futures user data tracker
         /// </summary>

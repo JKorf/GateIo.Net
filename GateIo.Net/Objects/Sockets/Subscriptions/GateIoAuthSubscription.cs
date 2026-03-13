@@ -13,7 +13,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class GateIoAuthSubscription<T> : Subscription
     {
-        private readonly SocketApiClient _client;
+        private readonly SocketApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials> _client;
         private readonly Action<DateTime, string?, GateIoSocketMessage<T>> _handler;
         private readonly string _channel;
         private readonly string[]? _payload;
@@ -21,7 +21,13 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public GateIoAuthSubscription(ILogger logger, SocketApiClient client, string channel, IEnumerable<string> identifiers, string[]? payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler) : base(logger, false)
+        public GateIoAuthSubscription(
+            ILogger logger,
+            SocketApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials> client,
+            string channel,
+            IEnumerable<string> identifiers,
+            string[]? payload,
+            Action<DateTime, string?, GateIoSocketMessage<T>> handler) : base(logger, false)
         {
             _client = client;
             _handler = handler;
@@ -34,7 +40,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         protected override Query? GetSubQuery(SocketConnection connection)
         {
-            return connection.ApiClient.AuthenticationProvider!.GetAuthenticationQuery(_client, connection, new Dictionary<string, object?>
+            return _client.AuthenticationProvider!.GetAuthenticationQuery(_client, connection, new Dictionary<string, object?>
             {
                 { "channel", _channel },
                 { "type", "subscribe" },
@@ -45,7 +51,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         protected override Query? GetUnsubQuery(SocketConnection connection)
         {
-            return connection.ApiClient.AuthenticationProvider!.GetAuthenticationQuery(_client, connection, new Dictionary<string, object?>
+            return _client.AuthenticationProvider!.GetAuthenticationQuery(_client, connection, new Dictionary<string, object?>
             {
                 { "channel", _channel },
                 { "type", "unsubscribe" },

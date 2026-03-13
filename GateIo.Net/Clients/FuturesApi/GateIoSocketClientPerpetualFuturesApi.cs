@@ -32,7 +32,7 @@ namespace GateIo.Net.Clients.FuturesApi
     /// <summary>
     /// Client providing access to the GateIo futures websocket Api
     /// </summary>
-    internal partial class GateIoSocketClientPerpetualFuturesApi : SocketApiClient, IGateIoSocketClientPerpetualFuturesApi
+    internal partial class GateIoSocketClientPerpetualFuturesApi : SocketApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoSocketClientPerpetualFuturesApi
     {
         #region fields
 
@@ -75,7 +75,7 @@ namespace GateIo.Net.Clients.FuturesApi
         public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
         /// <inheritdoc />

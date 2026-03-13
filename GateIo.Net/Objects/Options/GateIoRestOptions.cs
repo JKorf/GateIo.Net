@@ -5,7 +5,7 @@ namespace GateIo.Net.Objects.Options
     /// <summary>
     /// Options for the GateIoRestClient
     /// </summary>
-    public class GateIoRestOptions : RestExchangeOptions<GateIoEnvironment>
+    public class GateIoRestOptions : RestExchangeOptions<GateIoEnvironment, GateIoCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -32,19 +32,19 @@ namespace GateIo.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions
+        public RestApiOptions<GateIoCredentials> SpotOptions { get; private set; } = new RestApiOptions<GateIoCredentials>
         {
         };
 
         /// <summary>
         /// Futures API options
         /// </summary>
-        public RestApiOptions PerpetualFuturesOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<GateIoCredentials> PerpetualFuturesOptions { get; private set; } = new RestApiOptions<GateIoCredentials>();
 
         /// <summary>
         /// Rebate API options
         /// </summary>
-        public RestApiOptions RebateOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<GateIoCredentials> RebateOptions { get; private set; } = new RestApiOptions<GateIoCredentials>();
 
         internal GateIoRestOptions Set(GateIoRestOptions targetOptions)
         {

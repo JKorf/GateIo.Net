@@ -14,7 +14,7 @@ using CryptoExchange.Net.Objects.Options;
 namespace GateIo.Net.Clients
 {
     /// <inheritdoc cref="IGateIoSocketClient" />
-    public class GateIoSocketClient : BaseSocketClient, IGateIoSocketClient
+    public class GateIoSocketClient : BaseSocketClient<GateIoEnvironment, GateIoCredentials>, IGateIoSocketClient
     {
         #region fields
         #endregion
@@ -54,13 +54,6 @@ namespace GateIo.Net.Clients
         }
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            PerpetualFuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -68,13 +61,6 @@ namespace GateIo.Net.Clients
         public static void SetDefaultOptions(Action<GateIoSocketOptions> optionsDelegate)
         {
             GateIoSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            SpotApi.SetApiCredentials(credentials);
-            PerpetualFuturesApi.SetApiCredentials(credentials);
         }
     }
 }

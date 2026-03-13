@@ -14,13 +14,13 @@ using System.Threading.Channels;
 
 namespace GateIo.Net
 {
-    internal class GateIoAuthenticationProvider : AuthenticationProvider
+    internal class GateIoAuthenticationProvider : AuthenticationProvider<GateIoCredentials, HMACCredential>
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
 
-        public GateIoAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public GateIoAuthenticationProvider(GateIoCredentials credentials) : base(credentials)
         {
         }
 
@@ -38,7 +38,7 @@ namespace GateIo.Net
             var signature = SignHMACSHA512(signStr).ToLowerInvariant();
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers["KEY"] = ApiKey;
+            request.Headers["KEY"] = Credential.PublicKey;
             request.Headers["Timestamp"] = timestamp.ToString();
             request.Headers["SIGN"] = signature;
 
@@ -55,7 +55,7 @@ namespace GateIo.Net
                 var query = new GateIoAuthQuery<GateIoSubscriptionResponse>(apiClient, channel, type, (string[]?)context["payload"]);
                 var request = (GateIoSocketAuthRequest<string[]>)query.Request;
                 var sign = SignHMACSHA512($"channel={channel}&event={type}&time={request.Timestamp}").ToLowerInvariant();
-                request.Auth = new GateIoSocketAuth { Key = ApiKey, Sign = sign, Method = "api_key" };
+                request.Auth = new GateIoSocketAuth { Key = Credential.PublicKey, Sign = sign, Method = "api_key" };
                 return query;
             }
             else
@@ -65,7 +65,7 @@ namespace GateIo.Net
                 var signStr = $"api\n{channel}\n\n{timestamp}";
                 var id = ExchangeHelpers.NextId();
 
-                return new GateIoLoginQuery(apiClient, id, channel, "api", ApiKey, SignHMACSHA512(signStr).ToLowerInvariant(), timestamp);
+                return new GateIoLoginQuery(apiClient, id, channel, "api", Credential.PublicKey, SignHMACSHA512(signStr).ToLowerInvariant(), timestamp);
             }
         }
 
