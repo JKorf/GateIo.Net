@@ -18,7 +18,7 @@ namespace GateIo.Net
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
 
         public GateIoAuthenticationProvider(GateIoCredentials credentials) : base(credentials)
         {
