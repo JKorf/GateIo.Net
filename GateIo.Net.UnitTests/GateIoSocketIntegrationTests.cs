@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Authentication;
 
 namespace GateIo.Net.UnitTests
 {

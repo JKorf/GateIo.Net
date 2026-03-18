@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace GateIo.Net.Objects.Options
 {
@@ -32,19 +33,19 @@ namespace GateIo.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions<GateIoCredentials> SpotOptions { get; private set; } = new RestApiOptions<GateIoCredentials>
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions
         {
         };
 
         /// <summary>
         /// Futures API options
         /// </summary>
-        public RestApiOptions<GateIoCredentials> PerpetualFuturesOptions { get; private set; } = new RestApiOptions<GateIoCredentials>();
+        public RestApiOptions PerpetualFuturesOptions { get; private set; } = new RestApiOptions();
 
         /// <summary>
         /// Rebate API options
         /// </summary>
-        public RestApiOptions<GateIoCredentials> RebateOptions { get; private set; } = new RestApiOptions<GateIoCredentials>();
+        public RestApiOptions RebateOptions { get; private set; } = new RestApiOptions();
 
         internal GateIoRestOptions Set(GateIoRestOptions targetOptions)
         {

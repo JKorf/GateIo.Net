@@ -7,6 +7,7 @@ using GateIo.Net.Objects.Models;
 using System.Collections.Generic;
 using GateIo.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
 {

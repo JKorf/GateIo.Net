@@ -14,13 +14,12 @@ using System.Threading.Channels;
 
 namespace GateIo.Net
 {
-    internal class GateIoAuthenticationProvider : AuthenticationProvider<GateIoCredentials, HMACCredential>
+    internal class GateIoAuthenticationProvider : AuthenticationProvider<GateIoCredentials, GateIoCredentials>
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
 
-        public GateIoAuthenticationProvider(GateIoCredentials credentials) : base(credentials)
+        public GateIoAuthenticationProvider(GateIoCredentials credentials) : base(credentials, credentials)
         {
         }
 

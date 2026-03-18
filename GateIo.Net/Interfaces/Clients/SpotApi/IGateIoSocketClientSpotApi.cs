@@ -7,6 +7,7 @@ using GateIo.Net.Objects.Models;
 using GateIo.Net.Enums;
 using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace GateIo.Net.Interfaces.Clients.SpotApi
 {

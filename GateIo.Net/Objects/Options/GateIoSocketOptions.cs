@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace GateIo.Net.Objects.Options
 {
@@ -33,14 +34,14 @@ namespace GateIo.Net.Objects.Options
         /// <summary>
         /// Options for the Spot API
         /// </summary>
-        public SocketApiOptions<GateIoCredentials> SpotOptions { get; private set; } = new SocketApiOptions<GateIoCredentials>()
+        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions()
         {
         };
 
         /// <summary>
         /// Options for the Perpetual Futures API
         /// </summary>
-        public SocketApiOptions<GateIoCredentials> PerpetualFuturesOptions { get; private set; } = new SocketApiOptions<GateIoCredentials>();
+        public SocketApiOptions PerpetualFuturesOptions { get; private set; } = new SocketApiOptions();
 
         internal GateIoSocketOptions Set(GateIoSocketOptions targetOptions)
         {

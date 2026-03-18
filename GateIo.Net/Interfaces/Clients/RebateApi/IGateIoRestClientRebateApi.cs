@@ -1,4 +1,5 @@
 ﻿using System;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 
 namespace GateIo.Net.Interfaces.Clients.RebateApi
