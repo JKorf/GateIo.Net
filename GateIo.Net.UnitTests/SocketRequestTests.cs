@@ -10,6 +10,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Authentication;
 
 namespace GateIo.Net.UnitTests
 {
@@ -24,7 +25,7 @@ namespace GateIo.Net.UnitTests
             {
                 OutputOriginalData = true,
                 RequestTimeout = TimeSpan.FromSeconds(5),
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+                ApiCredentials = new GateIoCredentials("123", "456")
             }), fact);
             return client;
         }

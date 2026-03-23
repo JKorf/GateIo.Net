@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Interfaces.Clients;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 using System;
 
@@ -7,7 +8,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
     /// <summary>
     /// Gate futures API endpoints
     /// </summary>
-    public interface IGateIoRestClientPerpetualFuturesApi : IRestApiClient, IDisposable
+    public interface IGateIoRestClientPerpetualFuturesApi : IRestApiClient<GateIoCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

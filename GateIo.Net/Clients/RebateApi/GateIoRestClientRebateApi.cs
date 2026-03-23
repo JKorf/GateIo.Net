@@ -18,7 +18,7 @@ using Microsoft.Extensions.Logging;
 namespace GateIo.Net.Clients.RebateApi
 {
     /// <inheritdoc cref="GateIoRestClientRebateApi" />
-    internal partial class GateIoRestClientRebateApi : RestApiClient, IGateIoRestClientRebateApi
+    internal partial class GateIoRestClientRebateApi : RestApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoRestClientRebateApi
     {
         #region fields 
         private readonly GateIoRestClient _baseClient;
@@ -47,7 +47,7 @@ namespace GateIo.Net.Clients.RebateApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

@@ -120,7 +120,7 @@ namespace GateIo.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, GateIoCredentials credentials, SpotUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IGateIoUserClientProvider>() ?? new GateIoUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -154,7 +154,7 @@ namespace GateIo.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserPerpetualFuturesDataTracker(string userIdentifier, ApiCredentials credentials, string settleAsset, long userId, FuturesUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserPerpetualFuturesDataTracker(string userIdentifier, GateIoCredentials credentials, string settleAsset, long userId, FuturesUserDataTrackerConfig? config = null, GateIoEnvironment? environment = null)
         {
             var exchangeParams = new ExchangeParameters(
                 new ExchangeParameter("GateIo", "SettleAsset", settleAsset),

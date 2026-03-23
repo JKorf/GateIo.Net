@@ -323,7 +323,7 @@ namespace GateIo.Net.Clients.SpotApi
                 orders.Data.Id.ToString(),
                 ParseOrderType(orders.Data.Type, orders.Data.TimeInForce),
                 orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(orders.Data.Status),
+                ParseOrderStatus(orders.Data.Status, orders.Data.FinishType),
                 orders.Data.CreateTime)
             {
                 ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
@@ -361,7 +361,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.Id.ToString(),
                 ParseOrderType(x.Type, x.TimeInForce),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.Status),
+                ParseOrderStatus(x.Status, x.FinishType),
                 x.CreateTime)
             {
                 ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
@@ -417,7 +417,7 @@ namespace GateIo.Net.Clients.SpotApi
                         x.Id.ToString(),
                         ParseOrderType(x.Type, x.TimeInForce),
                         x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        ParseOrderStatus(x.Status),
+                        ParseOrderStatus(x.Status, x.FinishType),
                         x.CreateTime)
                     {
                         ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
@@ -534,12 +534,22 @@ namespace GateIo.Net.Clients.SpotApi
             return order.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedId(order.Data.Id.ToString()));
         }
 
-        private SharedOrderStatus ParseOrderStatus(OrderStatus status)
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status, OrderFinishType? finishedAs)
         {
-            if (status == OrderStatus.Open) return SharedOrderStatus.Open;
-            if (status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == Enums.OrderStatus.Open)
+                return SharedOrderStatus.Open;
+            if (status == OrderStatus.Canceled)
+                return SharedOrderStatus.Canceled;
+
+            if (finishedAs == Enums.OrderFinishType.Filled)
+                return SharedOrderStatus.Filled;
+
+            if (finishedAs == OrderFinishType.Unknown)
+                return SharedOrderStatus.Unknown;
+
+            return SharedOrderStatus.Canceled;
         }
+
 
         private SharedOrderType ParseOrderType(OrderType type, TimeInForce tif)
         {
@@ -597,7 +607,7 @@ namespace GateIo.Net.Clients.SpotApi
                 orders.Data.Id.ToString(),
                 ParseOrderType(orders.Data.Type, orders.Data.TimeInForce),
                 orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(orders.Data.Status),
+                ParseOrderStatus(orders.Data.Status, orders.Data.FinishType),
                 orders.Data.CreateTime)
             {
                 ClientOrderId = orders.Data.Text?.StartsWith("t-") == true ? orders.Data.Text.Replace("t-", "") : orders.Data.Text,
@@ -740,14 +750,35 @@ namespace GateIo.Net.Clients.SpotApi
                             x.Quantity,
                             x.Status == WithdrawalStatus.Done,
                             x.Timestamp,
-                            x.Status == WithdrawalStatus.Done || x.Status == WithdrawalStatus.Final || x.Status == WithdrawalStatus.Credited ? SharedTransferStatus.Completed
-                            : x.Status == WithdrawalStatus.Blocked || x.Status == WithdrawalStatus.Invalid || x.Status == WithdrawalStatus.FailedConfirmation || x.Status == WithdrawalStatus.Canceled ? SharedTransferStatus.Failed
-                            : SharedTransferStatus.InProgress)
+                            ParseTransferStatus(x.Status))
                         {
                             Network = x.Network,
                             TransactionId = x.TransactionId,
                             Tag = x.Memo
                         }).ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(WithdrawalStatus status)
+        {
+            if (status == WithdrawalStatus.Done || status == WithdrawalStatus.Final || status == WithdrawalStatus.Credited)
+                return SharedTransferStatus.Completed;
+            if (status == WithdrawalStatus.Blocked || status == WithdrawalStatus.Invalid || status == WithdrawalStatus.FailedConfirmation || status == WithdrawalStatus.Canceled)
+                return SharedTransferStatus.Failed;
+            if (status == WithdrawalStatus.Processing
+                || status == WithdrawalStatus.Verifying
+                || status == WithdrawalStatus.Track
+                || status == WithdrawalStatus.RequiresManualApproval
+                || status == WithdrawalStatus.Requested
+                || status == WithdrawalStatus.PendingConfirmation
+                || status == WithdrawalStatus.PendingApproval
+                || status == WithdrawalStatus.Pending
+                || status == WithdrawalStatus.GateCode
+                || status == WithdrawalStatus.Review)
+            {
+                return SharedTransferStatus.InProgress;
+            }
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
@@ -965,7 +996,10 @@ namespace GateIo.Net.Clients.SpotApi
             if (orderInfo.Status == OrderStatus.Open)
                 return SharedTriggerOrderStatus.Active;
 
-            return SharedTriggerOrderStatus.Filled;
+            if (orderInfo.Status == OrderStatus.Closed)
+                return SharedTriggerOrderStatus.Filled;
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);

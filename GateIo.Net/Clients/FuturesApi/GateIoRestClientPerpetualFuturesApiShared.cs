@@ -335,7 +335,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 order.Data.Id.ToString(),
                 ParseOrderType(order.Data.TimeInForce, order.Data.Price),
                 order.Data.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(order.Data.Status),
+                ParseOrderStatus(order.Data.Status, order.Data.FinishedAs),
                 order.Data.CreateTime)
             {
                 ClientOrderId = order.Data.Text,
@@ -373,7 +373,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 x.Id.ToString(),
                 ParseOrderType(x.TimeInForce, x.Price),
                 x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.Status),
+                ParseOrderStatus(x.Status, x.FinishedAs),
                 x.CreateTime)
             {
                 ClientOrderId = x.Text,
@@ -435,7 +435,7 @@ namespace GateIo.Net.Clients.FuturesApi
                             x.Id.ToString(),
                             ParseOrderType(x.TimeInForce, x.Price),
                             x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            ParseOrderStatus(x.Status),
+                            ParseOrderStatus(x.Status, x.FinishedAs),
                             x.CreateTime)
                         {
                             ClientOrderId = x.Text,
@@ -675,11 +675,20 @@ namespace GateIo.Net.Clients.FuturesApi
             return null;
         }
 
-        private SharedOrderStatus ParseOrderStatus(OrderStatus status)
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status, OrderFinishType? finishedAs)
         {
-            if (status == OrderStatus.Open) return SharedOrderStatus.Open;
-            if (status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == Enums.OrderStatus.Open)
+                return SharedOrderStatus.Open;
+            if (status == OrderStatus.Canceled)
+                return SharedOrderStatus.Canceled;
+
+            if (finishedAs == Enums.OrderFinishType.Filled)
+                return SharedOrderStatus.Filled;
+
+            if (finishedAs == OrderFinishType.Unknown)
+                return SharedOrderStatus.Unknown;
+
+            return SharedOrderStatus.Canceled;
         }
 
         private SharedOrderType ParseOrderType(TimeInForce? tif, decimal? price)
@@ -726,7 +735,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 order.Data.Id.ToString(),
                 ParseOrderType(order.Data.TimeInForce, order.Data.Price),
                 order.Data.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(order.Data.Status),
+                ParseOrderStatus(order.Data.Status, order.Data.FinishedAs),
                 order.Data.CreateTime)
             {
                 ClientOrderId = order.Data.Text,
@@ -1377,7 +1386,10 @@ namespace GateIo.Net.Clients.FuturesApi
             if (orderInfo.Status == OrderStatus.Open)
                 return SharedTriggerOrderStatus.Active;
 
-            return SharedTriggerOrderStatus.Filled;
+            if (orderInfo.Status == OrderStatus.Closed)
+                return SharedTriggerOrderStatus.Filled;
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);

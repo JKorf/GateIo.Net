@@ -33,7 +33,7 @@ namespace GateIo.Net.UnitTests
             return new GateIoRestClient(null, loggerFactory, Options.Create(new Objects.Options.GateIoRestOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new GateIoCredentials(key, sec) : null
             }));
         }
 

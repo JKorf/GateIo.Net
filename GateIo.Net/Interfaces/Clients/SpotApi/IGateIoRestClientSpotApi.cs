@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Interfaces.Clients;
 using System;
 
 namespace GateIo.Net.Interfaces.Clients.SpotApi
@@ -6,7 +7,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// GateIo Spot API endpoints
     /// </summary>
-    public interface IGateIoRestClientSpotApi : IRestApiClient, IDisposable
+    public interface IGateIoRestClientSpotApi : IRestApiClient<GateIoCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

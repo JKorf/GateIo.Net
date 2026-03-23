@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace GateIo.Net.Clients.AlphaApi
 {
     /// <inheritdoc cref="GateIoRestClientAlphaApi" />
-    internal partial class GateIoRestClientAlphaApi : RestApiClient, IGateIoRestClientAlphaApi
+    internal partial class GateIoRestClientAlphaApi : RestApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoRestClientAlphaApi
     {
         #region fields 
         private readonly GateIoRestClient _baseClient;
@@ -60,7 +60,7 @@ namespace GateIo.Net.Clients.AlphaApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

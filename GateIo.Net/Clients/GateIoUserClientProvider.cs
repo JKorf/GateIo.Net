@@ -49,7 +49,7 @@ namespace GateIo.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, GateIoEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, GateIoCredentials credentials, GateIoEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -63,7 +63,7 @@ namespace GateIo.Net.Clients
         }
 
         /// <inheritdoc />
-        public IGateIoRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, GateIoEnvironment? environment = null)
+        public IGateIoRestClient GetRestClient(string userIdentifier, GateIoCredentials? credentials = null, GateIoEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -72,7 +72,7 @@ namespace GateIo.Net.Clients
         }
 
         /// <inheritdoc />
-        public IGateIoSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, GateIoEnvironment? environment = null)
+        public IGateIoSocketClient GetSocketClient(string userIdentifier, GateIoCredentials? credentials = null, GateIoEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -80,7 +80,7 @@ namespace GateIo.Net.Clients
             return client;
         }
 
-        private IGateIoRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, GateIoEnvironment? environment)
+        private IGateIoRestClient CreateRestClient(string userIdentifier, GateIoCredentials? credentials, GateIoEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new GateIoRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -92,7 +92,7 @@ namespace GateIo.Net.Clients
             return client;
         }
 
-        private IGateIoSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, GateIoEnvironment? environment)
+        private IGateIoSocketClient CreateSocketClient(string userIdentifier, GateIoCredentials? credentials, GateIoEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new GateIoSocketClient(clientSocketOptions!, _loggerFactory);

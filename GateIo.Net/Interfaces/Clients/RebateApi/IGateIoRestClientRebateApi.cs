@@ -1,4 +1,5 @@
 ﻿using System;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 
 namespace GateIo.Net.Interfaces.Clients.RebateApi
@@ -6,7 +7,7 @@ namespace GateIo.Net.Interfaces.Clients.RebateApi
     /// <summary>
     /// GateIo rebate API endpoints
     /// </summary>
-    public interface IGateIoRestClientRebateApi : IRestApiClient, IDisposable
+    public interface IGateIoRestClientRebateApi : IRestApiClient<GateIoCredentials>, IDisposable
     {
         /// <summary>
         /// Partner subordinate

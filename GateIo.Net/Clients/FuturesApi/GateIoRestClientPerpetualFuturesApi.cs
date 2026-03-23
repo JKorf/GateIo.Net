@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 namespace GateIo.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IGateIoRestClientPerpetualFuturesApi" />
-    internal partial class GateIoRestClientPerpetualFuturesApi : RestApiClient, IGateIoRestClientPerpetualFuturesApi
+    internal partial class GateIoRestClientPerpetualFuturesApi : RestApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoRestClientPerpetualFuturesApi
     {
         #region fields 
         internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
@@ -64,7 +64,7 @@ namespace GateIo.Net.Clients.FuturesApi
         public IGateIoRestClientPerpetualFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

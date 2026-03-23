@@ -2,6 +2,7 @@ using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
+using GateIo.Net.Enums;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using GateIo.Net.Objects.Models;
 using System;
@@ -210,7 +211,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         x.Id.ToString(),
                         ParseOrderType(x),
                         x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        x.Status == Enums.OrderStatus.Open ? SharedOrderStatus.Open : x.FinishedAs == Enums.OrderFinishType.Filled ? SharedOrderStatus.Filled : SharedOrderStatus.Canceled,
+                        ParseOrderStatus(x.Status, x.FinishedAs),
                         x.CreateTime)
                     {
                         ClientOrderId = x.Text,
@@ -226,6 +227,22 @@ namespace GateIo.Net.Clients.FuturesApi
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status, OrderFinishType? finishedAs)
+        {
+            if (status == Enums.OrderStatus.Open)
+                return SharedOrderStatus.Open;
+            if (status == OrderStatus.Canceled)
+                return SharedOrderStatus.Canceled;
+
+            if (finishedAs == Enums.OrderFinishType.Filled)
+                return SharedOrderStatus.Filled;
+
+            if (finishedAs == OrderFinishType.Unknown)
+                return SharedOrderStatus.Unknown;
+
+            return SharedOrderStatus.Canceled;
         }
 
         private SharedOrderType ParseOrderType(GateIoPerpOrder update)

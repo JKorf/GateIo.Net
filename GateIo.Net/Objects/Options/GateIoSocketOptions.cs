@@ -1,11 +1,12 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace GateIo.Net.Objects.Options
 {
     /// <summary>
     /// Options for the GateIoSocketClient
     /// </summary>
-    public class GateIoSocketOptions : SocketExchangeOptions<GateIoEnvironment>
+    public class GateIoSocketOptions : SocketExchangeOptions<GateIoEnvironment, GateIoCredentials>
     {
         /// <summary>
         /// Default options for new clients

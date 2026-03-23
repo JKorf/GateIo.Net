@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Authentication;
 
 namespace GateIo.Net.UnitTests
 {
@@ -28,7 +29,7 @@ namespace GateIo.Net.UnitTests
             return new GateIoSocketClient(Options.Create(new GateIoSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new GateIoCredentials(key, sec) : null
             }), loggerFactory);
         }
 
