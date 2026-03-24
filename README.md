@@ -46,22 +46,38 @@ The NuGet package files are added along side the source with the latest GitHub r
 
 
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new GateIoRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH_USDT");
-	var lastPrice = tickerResult.Data.First().LastPrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new GateIoSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", data =>
-	{
-		var lastPrice = data.Data.LastPrice;
-	});
-	```
+*Basic request:*
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new GateIoRestClient();
+var tickerResult = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH_USDT");
+var lastPrice = tickerResult.Data.First().LastPrice;
+```
+
+*Place order:*
+```csharp
+var restClient = new GateIoRestClient(opts => {
+	opts.ApiCredentials = new GateIoCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to go long for 10 contracts of ETH/USDT at 2000
+var orderResult = await restClient.PerpetualFuturesApi.Trading.PlaceOrderAsync(
+    "usdt",
+    "ETH_USDT",
+    OrderSide.Buy,
+    10,
+    price: 2000);
+```
+
+*WebSocket subscription:*
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new GateIoSocketClient();
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", data =>
+{
+	var lastPrice = data.Data.LastPrice;
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=GateIo.Net), or have a look at the examples [here](https://github.com/JKorf/GateIo.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
