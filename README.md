@@ -191,6 +191,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 3.10.0 - 24 Mar 2026
+    * Updated CryptoExchange.Net to version 11.0.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Updated class for supplying API credentials from ApiCredentials to GateIoCredentials
+    * Updated Shared order status parsing to default to Unknown value if not parsable
+
+    * Notes for updating:
+        * Update ApiCredentials to GateIoCredentials for authentication, i.e. `ApiCredentials = new ApiCredentials(..)` => `ApiCredentials = new GateIoCredentials(..)`
+
 * Version 3.9.0 - 09 Mar 2026
     * Added MarketCap, TotalSupply properties to GateIoAsset model
     * Added FundingImpactValue property to GateIoSymbol model
