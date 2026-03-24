@@ -43,5 +43,8 @@ namespace GateIo.Net
             Secret = secret;
             return this;
         }
+
+        /// <inheritdoc />
+        public override ApiCredentials Copy() => new GateIoCredentials(this);
     }
 }
