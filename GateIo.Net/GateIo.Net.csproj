@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>GateIo.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>3.10.0</PackageVersion>
-    <AssemblyVersion>3.10.0</AssemblyVersion>
-    <FileVersion>3.10.0</FileVersion>
+    <PackageVersion>3.10.1</PackageVersion>
+    <AssemblyVersion>3.10.1</AssemblyVersion>
+    <FileVersion>3.10.1</FileVersion>
     <Description>A high-performance .NET client library for the Gate REST and WebSocket APIs, providing strongly typed models, automatic WebSocket reconnection, client-side rate limiting, local order book support, and seamless integration with other CryptoExchange.Net based clients.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>GateIo;Gate;GateIo.Net;Gate.io;Gate.com;GateIo Client;GateIo API;CryptoCurrency;CryptoCurrency Exchange;CryptoExchange.Net</PackageTags>
