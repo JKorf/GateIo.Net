@@ -1026,7 +1026,7 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         #region Order Book client
-        GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(new[] { 1, 5000 }, false)
+        GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(1, 300, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
