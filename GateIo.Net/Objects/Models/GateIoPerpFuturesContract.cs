@@ -22,6 +22,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("type")]
         public ContractType Type { get; set; }
         /// <summary>
+        /// ["<c>contract_type</c>"] Contract target type
+        /// </summary>
+        [JsonPropertyName("contract_type")]
+        public ContractTargetType? ContractType { get; set; }
+        /// <summary>
         /// ["<c>quanto_multiplier</c>"] Multiplier used in converting from invoicing to settlement asset
         /// </summary>
         [JsonPropertyName("quanto_multiplier")]
