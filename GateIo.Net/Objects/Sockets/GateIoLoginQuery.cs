@@ -4,6 +4,7 @@ using System;
 using GateIo.Net.Objects.Internal;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace GateIo.Net.Objects.Sockets
 {

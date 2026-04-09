@@ -7,6 +7,7 @@ using GateIo.Net.Objects.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace GateIo.Net.Objects.Sockets.Subscriptions
 {

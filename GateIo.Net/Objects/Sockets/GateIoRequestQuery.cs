@@ -6,6 +6,7 @@ using GateIo.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace GateIo.Net.Objects.Sockets
 {
