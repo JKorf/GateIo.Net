@@ -1,0 +1,106 @@
+---
+description: Conventions for using GateIo.Net library when working with Gate.io cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with the Gate.io API.
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+alwaysApply: false
+---
+
+# GateIo.Net Conventions
+
+This codebase uses **GateIo.Net** for Gate.io cryptocurrency exchange access. Do not write raw `HttpClient` calls to Gate.io endpoints.
+
+## Client setup pattern
+
+```csharp
+using GateIo.Net;
+using GateIo.Net.Clients;
+using GateIo.Net.Objects;
+
+var restClient = new GateIoRestClient(options =>
+{
+    options.ApiCredentials = new GateIoCredentials("API_KEY", "API_SECRET");
+});
+```
+
+For public market data only, no credentials are needed: `new GateIoRestClient()`.
+
+## Result pattern
+
+All methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`:
+
+```csharp
+var tickers = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH_USDT");
+if (!tickers.Success) { /* tickers.Error */ return; }
+var price = tickers.Data.First().LastPrice;
+```
+
+## API surface
+
+- `restClient.SpotApi.{ExchangeData|Account|Trading}`
+- `restClient.PerpetualFuturesApi.{ExchangeData|Account|Trading}`
+- `restClient.AlphaApi.{ExchangeData|Account|Trading}`
+- `restClient.RebateApi.Partner`
+- `socketClient.SpotApi` for spot WebSocket subscriptions and socket order requests
+- `socketClient.PerpetualFuturesApi` for perpetual futures WebSocket subscriptions and socket order requests
+
+## Gate.io naming
+
+Use Gate.io symbol format: `ETH_USDT`, not `ETHUSDT`. Perpetual futures endpoints take a settlement asset first, for example `"usdt"`, then the contract, for example `"ETH_USDT"`.
+
+## Order placement
+
+```csharp
+var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    "ETH_USDT",
+    OrderSide.Buy,
+    NewOrderType.Limit,
+    quantity: 0.01m,
+    price: 2000m,
+    timeInForce: TimeInForce.GoodTillCancel);
+```
+
+For futures, quantity is an `int` number of contracts. Use contract metadata from `restClient.PerpetualFuturesApi.ExchangeData.GetContractAsync("usdt", "ETH_USDT")` or `GetContractsAsync("usdt")` to understand contract multiplier and limits.
+
+## WebSocket pattern
+
+```csharp
+var socketClient = new GateIoSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "ETH_USDT",
+    update => { /* update.Data.LastPrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Multi-exchange code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new GateIoRestClient().SpotApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")));
+```
+
+## Hard rules
+
+- Never write raw `HttpClient` to Gate.io endpoints.
+- Never use `.Result` or `.Wait()`; async-only.
+- Never instantiate clients per-request; reuse via DI.
+- Never skip checking `WebCallResult.Success` or `CallResult.Success`.
+- Never use `GateIoClient`; always use `GateIoRestClient`.
+- Always use `GateIoCredentials("key", "secret")`, not generic `ApiCredentials`.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+- Always include a settlement asset for `PerpetualFuturesApi` calls.
+- Always use underscore symbols such as `BTC_USDT` for native Gate.io methods.
+
+## Reference
+
+- Skill: `CLAUDE.md` in repo root has fuller examples.
+- LLM index: `llms.txt` and `llms-full.txt` in repo root.
+- API map: `docs/ai-api-map.md`.
+- Examples: `Examples/ai-friendly/`.
