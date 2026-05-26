@@ -19,9 +19,13 @@ namespace GateIo.Net.Clients.RebateApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoRebatePartnerSubordinateList>> GetSubordinatesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<GateIoRebatePartnerSubordinateList>> GetSubordinatesAsync(long? userId = null, int limit = 100, int offset = 0, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
+            if (userId is long uid)
+                parameters.Add("user_id", uid);
+            parameters.Add("limit", limit);
+            parameters.Add("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v4/rebate/partner/sub_list", GateIoExchange.RateLimiter.RestOther, 1, true);
             return await _baseClient.SendAsync<GateIoRebatePartnerSubordinateList>(request, parameters, ct).ConfigureAwait(false);
         }
