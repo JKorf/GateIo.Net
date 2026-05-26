@@ -160,6 +160,8 @@ namespace GateIo.Net.Clients.FuturesApi
             CloseSide? closeSide = null,
             SelfTradePreventionMode? stpMode = null,
             string? text = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? stopLossTriggerPrice = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -172,7 +174,9 @@ namespace GateIo.Net.Clients.FuturesApi
             parameters.AddOptionalString("iceberg", icebergQuantity);
             parameters.AddOptional("text", text);
             parameters.AddOptional("auto_size", closeSide);
-            parameters.AddOptional("stp_act", stpMode);
+            parameters.AddOptionalEnum("stp_act", stpMode);
+            parameters.AddOptional("tpsl_tp_trigger_price", takeProfitTriggerPrice);
+            parameters.AddOptional("tpsl_sl_trigger_price", stopLossTriggerPrice);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders", GateIoExchange.RateLimiter.RestFuturesOrderPlacement, 1, true);
             return await _baseClient.SendAsync<GateIoPerpOrder>(
                 request, 

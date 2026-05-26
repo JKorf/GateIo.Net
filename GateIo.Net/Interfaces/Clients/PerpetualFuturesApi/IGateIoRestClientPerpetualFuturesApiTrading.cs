@@ -180,6 +180,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="closeSide">["<c>auto_size</c>"] Set side to close dual-mode position</param>
         /// <param name="stpMode">["<c>stp_act</c>"] Self-Trading Prevention action</param>
         /// <param name="text">["<c>text</c>"] User defined text</param>
+        /// <param name="takeProfitTriggerPrice">["<c>tpsl_tp_trigger_price</c>"] Predefined take profit trigger price</param>
+        /// <param name="stopLossTriggerPrice">["<c>tpsl_sl_trigger_price</c>"] Predefined stop loss trigger price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoPerpOrder>> PlaceOrderAsync(
@@ -195,6 +197,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
             CloseSide? closeSide = null,
             SelfTradePreventionMode? stpMode = null,
             string? text = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? stopLossTriggerPrice = null,
             CancellationToken ct = default);
 
         /// <summary>

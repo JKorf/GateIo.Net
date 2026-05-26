@@ -60,5 +60,15 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("stp_act"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public SelfTradePreventionMode? StpMode { get; set; }
+        /// <summary>
+        /// Take profit trigger price
+        /// </summary>
+        [JsonPropertyName("tpsl_tp_trigger_price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public decimal? TakeProfitTriggerPrice { get; set; }
+        /// <summary>
+        /// Stop loss trigger price
+        /// </summary>
+        [JsonPropertyName("tpsl_sl_trigger_price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public decimal? StopLossTriggerPrice { get; set; }
     }
 }
