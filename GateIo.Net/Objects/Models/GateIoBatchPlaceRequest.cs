@@ -75,5 +75,33 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("stp_act"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public SelfTradePreventionMode? SelfTradePreventionMode { get; set; }
+
+        /// <summary>
+        /// Take profit
+        /// </summary>
+        [JsonPropertyName("stop_profit"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public GateIoTpSl? TakeProfit { get; set; }
+        /// <summary>
+        /// Stop loss
+        /// </summary>
+        [JsonPropertyName("stop_loss"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public GateIoTpSl? StopLoss { get; set; }
+    }
+
+    /// <summary>
+    /// Take profit / stop loss config
+    /// </summary>
+    public record GateIoTpSl
+    {
+        /// <summary>
+        /// Trigger price
+        /// </summary>
+        [JsonPropertyName("trigger_price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public decimal? TriggerPrice { get; set; }
+        /// <summary>
+        /// Order price
+        /// </summary>
+        [JsonPropertyName("order_price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public decimal? OrderPrice { get; set; }
     }
 }

@@ -41,5 +41,16 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("account")]
         public SpotAccountType AccountType { get; set; }
 
+        /// <summary>
+        /// Take profit
+        /// </summary>
+        [JsonPropertyName("stop_profit"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public GateIoTpSl? TakeProfit { get; set; }
+        /// <summary>
+        /// Stop loss
+        /// </summary>
+        [JsonPropertyName("stop_loss"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public GateIoTpSl? StopLoss { get; set; }
+
     }
 }

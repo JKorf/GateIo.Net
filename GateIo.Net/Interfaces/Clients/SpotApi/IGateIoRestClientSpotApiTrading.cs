@@ -36,6 +36,10 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="text">["<c>text</c>"] User defined info</param>
         /// <param name="actionMode">["<c>action_mode</c>"] Order response mode</param>
         /// <param name="slippage">["<c>slippage</c>"] Max slippage for market orders, 0.03 means 3%</param>
+        /// <param name="takeProfitTriggerPrice">["<c>stop_profit.trigger_price</c>"] Take profit trigger price, set 0 to cancel take profit</param>
+        /// <param name="takeProfitOrderPrice">["<c>stop_profit.order_price</c>"] Take profit order price</param>
+        /// <param name="stopLossTriggerPrice">["<c>stop_loss.trigger_price</c>"] Stop loss trigger price, set 0 to cancel stop loss</param>
+        /// <param name="stopLossOrderPrice">["<c>stop_loss.order_price</c>"] Stop loss order price </param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoOrder>> PlaceOrderAsync(
@@ -53,6 +57,10 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             string? text = null,
             OrderActionMode? actionMode = null,
             decimal? slippage = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? takeProfitOrderPrice = null,
+            decimal? stopLossTriggerPrice = null,
+            decimal? stopLossOrderPrice = null,
             CancellationToken ct = default);
 
         /// <summary>
@@ -179,6 +187,10 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="quantity">["<c>amount</c>"] New quantity</param>
         /// <param name="amendText">["<c>amend_text</c>"] Custom info during amending order</param>
         /// <param name="accountType">["<c>account</c>"] Specify operation account. Default to spot ,portfolio and margin account if not specified. Set to cross_margin to operate against margin account. Portfolio margin account must set to cross_margin only</param>
+        /// <param name="takeProfitTriggerPrice">["<c>stop_profit.trigger_price</c>"] Take profit trigger price, set 0 to cancel take profit</param>
+        /// <param name="takeProfitOrderPrice">["<c>stop_profit.order_price</c>"] Take profit order price</param>
+        /// <param name="stopLossTriggerPrice">["<c>stop_loss.trigger_price</c>"] Stop loss trigger price, set 0 to cancel stop loss</param>
+        /// <param name="stopLossOrderPrice">["<c>stop_loss.order_price</c>"] Stop loss order price </param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<GateIoOrder>> EditOrderAsync(
@@ -189,6 +201,10 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             decimal? quantity = null,
             string? amendText = null,
             SpotAccountType? accountType = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? takeProfitOrderPrice = null,
+            decimal? stopLossTriggerPrice = null,
+            decimal? stopLossOrderPrice = null,
             CancellationToken ct = default);
 
         /// <summary>

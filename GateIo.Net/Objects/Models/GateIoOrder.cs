@@ -171,6 +171,16 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("auto_repay")]
         public bool? AutoRepay { get; set; }
+        /// <summary>
+        /// Take profit config
+        /// </summary>
+        [JsonPropertyName("stop_profit")]
+        public GateIoTpSl? TakeProfit { get; set; }
+        /// <summary>
+        /// Stop loss config
+        /// </summary>
+        [JsonPropertyName("stop_loss")]
+        public GateIoTpSl? StopLoss { get; set; }
     }
 
     /// <summary>

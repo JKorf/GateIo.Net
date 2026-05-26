@@ -45,6 +45,10 @@ namespace GateIo.Net.Clients.SpotApi
             string? text = null,
             OrderActionMode? actionMode = null,
             decimal? slippage = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? takeProfitOrderPrice = null,
+            decimal? stopLossTriggerPrice = null,
+            decimal? stopLossOrderPrice = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -62,6 +66,23 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.AddOptional("text", text);
             parameters.AddOptionalEnum("action_mode", actionMode);
             parameters.AddOptionalString("slippage", slippage);
+            if (takeProfitTriggerPrice != null)
+            {
+                var takeProfitParams = new ParameterCollection();
+                if (takeProfitTriggerPrice != null)
+                    takeProfitParams.AddOptionalString("trigger_price", takeProfitTriggerPrice);
+                takeProfitParams.AddOptionalString("order_price", takeProfitOrderPrice);
+                parameters.Add("stop_profit", takeProfitParams);
+            }
+            if (stopLossTriggerPrice != null)
+            {
+                var stopLossParams = new ParameterCollection();
+                if (stopLossTriggerPrice != null)
+                    stopLossParams.AddOptionalString("trigger_price", stopLossTriggerPrice);
+                stopLossParams.AddOptionalString("order_price", stopLossOrderPrice);
+                parameters.Add("stop_loss", stopLossParams);
+            }
+
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrder>(
                 request,
@@ -216,6 +237,10 @@ namespace GateIo.Net.Clients.SpotApi
             decimal? quantity = null,
             string? amendText = null,
             SpotAccountType? accountType = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? takeProfitOrderPrice = null,
+            decimal? stopLossTriggerPrice = null,
+            decimal? stopLossOrderPrice = null,
             CancellationToken ct = default)
         {
             var id = orderId?.ToString() ?? clientOrderId;
@@ -228,6 +253,22 @@ namespace GateIo.Net.Clients.SpotApi
             bodyParameters.AddOptionalString("amount", quantity);
             bodyParameters.AddOptional("amend_text", amendText);
             bodyParameters.AddOptionalEnum("account", accountType);
+            if (takeProfitTriggerPrice != null)
+            {
+                var takeProfitParams = new ParameterCollection();
+                if (takeProfitTriggerPrice != null)
+                    takeProfitParams.AddOptionalString("trigger_price", takeProfitTriggerPrice);
+                takeProfitParams.AddOptionalString("order_price", takeProfitOrderPrice);
+                bodyParameters.Add("stop_profit", takeProfitParams);
+            }
+            if (stopLossTriggerPrice != null)
+            {
+                var stopLossParams = new ParameterCollection();
+                if (stopLossTriggerPrice != null)
+                    stopLossParams.AddOptionalString("trigger_price", stopLossTriggerPrice);
+                stopLossParams.AddOptionalString("order_price", stopLossOrderPrice);
+                bodyParameters.Add("stop_loss", stopLossParams);
+            }
             var request = _definitions.GetOrCreate(new HttpMethod("Patch"), "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct, rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
