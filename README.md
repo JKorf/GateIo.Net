@@ -1,6 +1,7 @@
 # ![GateIo.Net](https://github.com/JKorf/GateIo.Net/blob/07cc75279de9dc4b9c7dbcf4df6bf6a8cc3cf9ef/GateIo.Net/Icon/icon.png) GateIo.Net
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/GateIo.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/GateIo.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/GateIo.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2024-brightgreen?style=for-the-badge)
 
 GateIo.Net is a client library for accessing the [Gate REST and Websocket API](https://www.gate.com/docs/developers/apiv4).
 ## Features
