@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateIo.Examples.OrderBook",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateIo.Examples.Tracker", "GateIo.Examples.Tracker\GateIo.Examples.Tracker.csproj", "{519DF5A6-A2EB-41A1-AFE7-A30A67E84AE2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateIo.Examples.OrderPlacement", "GateIo.Examples.OrderPlacement\GateIo.Examples.OrderPlacement.csproj", "{CE2F9528-23AA-4BF9-9E11-4A07927187D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{519DF5A6-A2EB-41A1-AFE7-A30A67E84AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{519DF5A6-A2EB-41A1-AFE7-A30A67E84AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{519DF5A6-A2EB-41A1-AFE7-A30A67E84AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE2F9528-23AA-4BF9-9E11-4A07927187D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE2F9528-23AA-4BF9-9E11-4A07927187D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE2F9528-23AA-4BF9-9E11-4A07927187D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE2F9528-23AA-4BF9-9E11-4A07927187D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

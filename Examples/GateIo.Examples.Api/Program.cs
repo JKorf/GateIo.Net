@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Authentication;
+using GateIo.Net;
 using GateIo.Net.Interfaces.Clients;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +14,7 @@ builder.Services.AddGateIo();
 /*
 builder.Services.AddGateIo(options =>
 {    
-   options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
+   options.ApiCredentials = new GateIoCredentials("<APIKEY>", "<APISECRET>");
    options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
@@ -28,7 +28,10 @@ app.UseHttpsRedirection();
 app.MapGet("/{Symbol}", async ([FromServices] IGateIoRestClient client, string symbol) =>
 {
     var result = await client.SpotApi.ExchangeData.GetTickersAsync(symbol);
-    return result.Data.First().LastPrice;
+    var ticker = result.Data?.FirstOrDefault();
+    return result.Success && ticker != null
+        ? Results.Ok(ticker.LastPrice)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
@@ -36,7 +39,9 @@ app.MapGet("/{Symbol}", async ([FromServices] IGateIoRestClient client, string s
 app.MapGet("/Balances", async ([FromServices] IGateIoRestClient client) =>
 {
     var result = await client.SpotApi.Account.GetBalancesAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
