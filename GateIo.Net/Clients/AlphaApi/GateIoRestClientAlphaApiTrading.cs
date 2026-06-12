@@ -25,7 +25,7 @@ namespace GateIo.Net.Clients.AlphaApi
         #region Get Quote
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoAlphaQuote>> GetQuoteAsync(
+        public async Task<HttpResult<GateIoAlphaQuote>> GetQuoteAsync(
             string asset,
             OrderSide side,
             decimal quantity,
@@ -33,13 +33,13 @@ namespace GateIo.Net.Clients.AlphaApi
             decimal? slippage = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
-            parameters.AddEnum("side", side);
-            parameters.AddString("amount", quantity);
-            parameters.AddEnum("gas_mode", gasMode);
-            parameters.AddOptionalString("slippage", slippage);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/alpha/quote", GateIoExchange.RateLimiter.RestAlpha, 1, true);
+            parameters.Add("side", side);
+            parameters.Add("amount", quantity);
+            parameters.Add("gas_mode", gasMode);
+            parameters.Add("slippage", slippage);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v4/alpha/quote", GateIoExchange.RateLimiter.RestAlpha, 1, true);
             return await _baseClient.SendAsync<GateIoAlphaQuote>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -48,7 +48,7 @@ namespace GateIo.Net.Clients.AlphaApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoAlphaOrderResult>> PlaceOrderAsync(
+        public async Task<HttpResult<GateIoAlphaOrderResult>> PlaceOrderAsync(
             string asset,
             OrderSide side,
             decimal quantity,
@@ -57,14 +57,14 @@ namespace GateIo.Net.Clients.AlphaApi
             decimal? slippage = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
-            parameters.AddEnum("side", side);
-            parameters.AddString("amount", quantity);
+            parameters.Add("side", side);
+            parameters.Add("amount", quantity);
             parameters.Add("quote_id", quoteId);
-            parameters.AddEnum("gas_mode", gasMode);
-            parameters.AddOptionalString("slippage", slippage);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v4/alpha/orders", GateIoExchange.RateLimiter.RestAlpha, 1, true);
+            parameters.Add("gas_mode", gasMode);
+            parameters.Add("slippage", slippage);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v4/alpha/orders", GateIoExchange.RateLimiter.RestAlpha, 1, true);
             return await _baseClient.SendAsync<GateIoAlphaOrderResult>(
                 request,
                 parameters,
@@ -80,7 +80,7 @@ namespace GateIo.Net.Clients.AlphaApi
         #region Get Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoAlphaOrder[]>> GetOrdersAsync(
+        public async Task<HttpResult<GateIoAlphaOrder[]>> GetOrdersAsync(
             string asset,
             OrderSide side,
             AlphaOrderStatus status,
@@ -90,15 +90,15 @@ namespace GateIo.Net.Clients.AlphaApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
-            parameters.AddEnum("side", side);
-            parameters.AddEnum("status", status);
-            parameters.AddOptionalSeconds("from", startTime);
-            parameters.AddOptionalSeconds("to", endTime);
-            parameters.AddOptional("limit", limit);
-            parameters.AddOptional("page", page);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/alpha/orders", GateIoExchange.RateLimiter.RestAlpha, 1, true);
+            parameters.Add("side", side);
+            parameters.Add("status", status);
+            parameters.Add("from", startTime, DateTimeSerialization.SecondsNumber);
+            parameters.Add("to", endTime, DateTimeSerialization.SecondsNumber);
+            parameters.Add("limit", limit);
+            parameters.Add("page", page);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/alpha/orders", GateIoExchange.RateLimiter.RestAlpha, 1, true);
             return await _baseClient.SendAsync<GateIoAlphaOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -107,13 +107,13 @@ namespace GateIo.Net.Clients.AlphaApi
         #region Get Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoAlphaOrder>> GetOrderAsync(
+        public async Task<HttpResult<GateIoAlphaOrder>> GetOrderAsync(
             string orderId,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/alpha/order", GateIoExchange.RateLimiter.RestAlpha, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/alpha/order", GateIoExchange.RateLimiter.RestAlpha, 1, true);
             return await _baseClient.SendAsync<GateIoAlphaOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 

@@ -19,6 +19,6 @@ namespace GateIo.Net.Interfaces.Clients.RebateApi
         /// <param name="offset">List offset, starting from 0</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoRebatePartnerSubordinateList>> GetSubordinatesAsync(long? userId = null, int limit = 100, int offset = 0, CancellationToken ct = default);
+        Task<HttpResult<GateIoRebatePartnerSubordinateList>> GetSubordinatesAsync(long? userId = null, int limit = 100, int offset = 0, CancellationToken ct = default);
     }
 }

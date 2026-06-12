@@ -25,7 +25,7 @@ namespace GateIo.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             var timestamp = GetMillisecondTimestampLong(apiClient) / 1000;
@@ -33,7 +33,7 @@ namespace GateIo.Net
             var queryString = request.QueryParameters?.Count > 0 ? request.GetQueryString(false) : string.Empty;
             var bodyPayload = SignSHA512(requestBody).ToLowerInvariant();
 
-            var signStr = $"{request.Method}\n{request.Path}\n{queryString}\n{bodyPayload}\n{timestamp}";
+            var signStr = $"{request.RequestDefinition.Method}\n{request.RequestDefinition.Path}\n{queryString}\n{bodyPayload}\n{timestamp}";
             var signature = SignHMACSHA512(signStr).ToLowerInvariant();
 
             request.Headers ??= new Dictionary<string, string>();

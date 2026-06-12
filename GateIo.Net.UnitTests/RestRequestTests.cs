@@ -260,7 +260,7 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.AlphaApi.Trading.GetOrderAsync("123"), "GetOrder");
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestHeaders.Any(r => r.Key == "SIGN");
         }

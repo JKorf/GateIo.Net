@@ -30,7 +30,7 @@ namespace GateIo.Net.Objects.Sockets
             _client = client;
             RequiredResponses = 1;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketRequestResponse<T>>(id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<GateIoSocketRequestResponse<T>, T>(id.ToString(), HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketRequestResponse<T> message)
@@ -40,9 +40,9 @@ namespace GateIo.Net.Objects.Sockets
                 RequiredResponses = 2;
 
             if (message.Header.Status != 200)
-                return new CallResult<T>(new ServerError(message.Header.Status, _client.GetErrorInfo(message.Header.Status, message.Data.Error!.Message)));
+                return CallResult<T>.Fail(new ServerError(message.Header.Status, _client.GetErrorInfo(message.Header.Status, message.Data.Error!.Message)));
 
-            return new CallResult<T>(message.Data.Result!, originalData, null);
+            return CallResult<T>.Ok(message.Data.Result!, originalData);
         }
     }
 }

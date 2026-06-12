@@ -32,12 +32,11 @@ namespace GateIo.Net.UnitTests
                     return bodyParams["signature"].ToString();
                 },
                 "c8db56825ae71d6d79447849e617115f4a920fa2acdcab2b053c4b2838bd6b71",
-                new Dictionary<string, object>
+                new Parameters(GateIoExchange._parameterSerializationSettings)
                 {
                     { "symbol", "LTCBTC" },
                 },
                 DateTimeConverter.ParseFromDouble(1499827320559),
-                true,
                 false);
         }
 

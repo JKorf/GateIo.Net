@@ -17,15 +17,15 @@ namespace GateIo.Net.Objects.Sockets
         {
             _client = client;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<GateIoSocketResponse<T>>(id.ToString(), HandleMessage);
         }
 
         public CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketResponse<T> message)
         {
             if (message.Error != null)
-                return new CallResult<GateIoSocketResponse<T>>(new ServerError(message.Error.Code, _client.GetErrorInfo(message.Error.Code, message.Error.Message)));
+                return CallResult<GateIoSocketResponse<T>>.Fail(new ServerError(message.Error.Code, _client.GetErrorInfo(message.Error.Code, message.Error.Message)));
 
-            return new CallResult<GateIoSocketResponse<T>>(message, originalData, null);
+            return CallResult<GateIoSocketResponse<T>>.Ok(message, originalData);
         }
     }
 }

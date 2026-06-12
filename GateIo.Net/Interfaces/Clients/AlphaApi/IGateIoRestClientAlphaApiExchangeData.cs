@@ -23,7 +23,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaAsset[]>> GetAssetsAsync(string? asset = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoAlphaAsset[]>> GetAssetsAsync(string? asset = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get asset tickers
@@ -38,7 +38,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaTicker[]>> GetTickersAsync(string? asset = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoAlphaTicker[]>> GetTickersAsync(string? asset = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
     }
 }

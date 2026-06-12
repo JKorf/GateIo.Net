@@ -48,7 +48,7 @@ namespace GateIo.Net.Clients.SpotApi
         /// ctor
         /// </summary>
         internal GateIoSocketClientSpotApi(ILogger logger, GateIoSocketOptions options) :
-            base(logger, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
+            base(logger, GateIoExchange.Metadata.Id, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
         {
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
 
@@ -82,7 +82,7 @@ namespace GateIo.Net.Clients.SpotApi
         public IGateIoSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<GateIoTradeUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<GateIoTradeUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTradeUpdate>>((receiveTime, originalData, data) =>
             {
@@ -102,7 +102,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<GateIoTradeUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<GateIoTradeUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTradeUpdate>>((receiveTime, originalData, data) =>
             {
@@ -122,7 +122,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<GateIoTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<GateIoTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTickerUpdate>>((receiveTime, originalData, data) =>
             {
@@ -142,7 +142,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<GateIoTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<GateIoTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTickerUpdate>>((receiveTime, originalData, data) =>
             {
@@ -162,7 +162,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<GateIoKlineUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<GateIoKlineUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoKlineUpdate>>((receiveTime, originalData, data) =>
             {
@@ -183,7 +183,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<GateIoBookTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<GateIoBookTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoBookTickerUpdate>>((receiveTime, originalData, data) =>
             {
@@ -203,7 +203,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<GateIoBookTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<GateIoBookTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoBookTickerUpdate>>((receiveTime, originalData, data) =>
             {
@@ -223,7 +223,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<GateIoOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
@@ -243,7 +243,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string symbol, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookV2UpdatesAsync(string symbol, int depth, Action<DataEvent<GateIoPerpOrderBookV2Update>> onMessage, CancellationToken ct = default)
         {
             depth.ValidateIntValues(nameof(depth), 50, 400);
 
@@ -265,7 +265,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, int? updateMs, Action<DataEvent<GateIoPartialOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, int? updateMs, Action<DataEvent<GateIoPartialOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             updateMs ??= 1000;
             depth.ValidateIntValues(nameof(depth), 5, 10, 20, 50, 100);
@@ -289,10 +289,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<GateIoOrderUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<GateIoOrderUpdate[]>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoOrderUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -311,10 +311,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<GateIoUserTradeUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<GateIoUserTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoUserTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -332,10 +332,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<GateIoBalanceUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<GateIoBalanceUpdate[]>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -353,10 +353,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginBalanceUpdatesAsync(Action<DataEvent<GateIoMarginBalanceUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarginBalanceUpdatesAsync(Action<DataEvent<GateIoMarginBalanceUpdate[]>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoMarginBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -374,10 +374,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingBalanceUpdatesAsync(Action<DataEvent<GateIoFundingBalanceUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingBalanceUpdatesAsync(Action<DataEvent<GateIoFundingBalanceUpdate[]>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoFundingBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -395,10 +395,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<GateIoCrossMarginBalanceUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<GateIoCrossMarginBalanceUpdate[]>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoCrossMarginBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -416,10 +416,10 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<GateIoTriggerOrderUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<GateIoTriggerOrderUpdate>> onMessage, CancellationToken ct = default)
         {
             if (AuthenticationProvider == null)
-                return new CallResult<UpdateSubscription>(new NoApiCredentialsError());
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
 
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoTriggerOrderUpdate>>((receiveTime, originalData, data) =>
             {
@@ -437,7 +437,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> PlaceOrderAsync(string symbol,
+        public async Task<QueryResult<GateIoOrder>> PlaceOrderAsync(string symbol,
             OrderSide side,
             NewOrderType type,
             decimal quantity,
@@ -480,7 +480,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder[]>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders, CancellationToken ct = default)
+        public async Task<QueryResult<GateIoOrder[]>> PlaceMultipleOrdersAsync(IEnumerable<GateIoBatchPlaceRequest> orders, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotPlaceOrderRequest[], GateIoOrder[]>(this, id, "spot.order_place", "api", orders.Select(o => new GateIoSpotPlaceOrderRequest
@@ -508,7 +508,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> EditOrderAsync(string symbol,
+        public async Task<QueryResult<GateIoOrder>> EditOrderAsync(string symbol,
             long? orderId = null,
             string? clientOrderId = null,
             decimal? price = null,
@@ -532,7 +532,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> CancelOrderAsync(string symbol,
+        public async Task<QueryResult<GateIoOrder>> CancelOrderAsync(string symbol,
             long? orderId = null,
             string? clientOrderId = null,
             SpotAccountType? accountType = null,
@@ -550,7 +550,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoCancelResult[]>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests, CancellationToken ct = default)
+        public async Task<QueryResult<GateIoCancelResult[]>> CancelOrdersAsync(IEnumerable<GateIoBatchCancelRequest> cancelRequests, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoBatchCancelRequest[], GateIoCancelResult[]>(this, id, "spot.order_cancel_ids", "api", cancelRequests.ToArray(), true);
@@ -559,7 +559,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder[]>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null, CancellationToken ct = default)
+        public async Task<QueryResult<GateIoOrder[]>> CancelAllOrdersAsync(string symbol, OrderSide? side = null, SpotAccountType? accountType = null, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotCancelAllOrderRequest, GateIoOrder[]>(this, id, "spot.order_cancel_cp", "api", new GateIoSpotCancelAllOrderRequest
@@ -573,7 +573,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null, CancellationToken ct = default)
+        public async Task<QueryResult<GateIoOrder>> GetOrderAsync(string symbol, long orderId, SpotAccountType? accountType = null, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotGetOrderRequest, GateIoOrder>(this, id, "spot.order_status", "api", new GateIoSpotGetOrderRequest
@@ -587,7 +587,7 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<GateIoOrder[]>> GetOrdersAsync(string symbol, bool open, SpotAccountType? accountType = null, OrderSide? side = null, long? fromId = null, long? toId = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<QueryResult<GateIoOrder[]>> GetOrdersAsync(string symbol, bool open, SpotAccountType? accountType = null, OrderSide? side = null, long? fromId = null, long? toId = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
             var query = new GateIoRequestQuery<GateIoSpotListOrdersRequest, GateIoOrder[]>(this, id, "spot.order_list", "api", new GateIoSpotListOrdersRequest

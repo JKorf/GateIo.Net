@@ -23,7 +23,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get list of contract
@@ -37,7 +37,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpFuturesContract[]>> GetContractsAsync(string settlementAsset, CancellationToken ct = default);
+        Task<HttpResult<GateIoPerpFuturesContract[]>> GetContractsAsync(string settlementAsset, CancellationToken ct = default);
 
         /// <summary>
         /// Get a specific contract
@@ -52,7 +52,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">Contract name, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpFuturesContract>> GetContractAsync(string settlementAsset, string contract, CancellationToken ct = default);
+        Task<HttpResult<GateIoPerpFuturesContract>> GetContractAsync(string settlementAsset, string contract, CancellationToken ct = default);
 
         /// <summary>
         /// Get order book
@@ -69,7 +69,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="depth">["<c>limit</c>"] Number of rows</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpOrderBook>> GetOrderBookAsync(string settlementAsset, string contract, int? mergeDepth = null, int? depth = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoPerpOrderBook>> GetOrderBookAsync(string settlementAsset, string contract, int? mergeDepth = null, int? depth = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -89,7 +89,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpTrade[]>> GetTradesAsync(
+        Task<HttpResult<GateIoPerpTrade[]>> GetTradesAsync(
             string settlementAsset,
             string contract,
             int? limit = null,
@@ -116,7 +116,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpKline[]>> GetKlinesAsync(
+        Task<HttpResult<GateIoPerpKline[]>> GetKlinesAsync(
             string settlementAsset,
             string contract,
             KlineInterval interval,
@@ -142,7 +142,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpIndexKline[]>> GetIndexKlinesAsync(
+        Task<HttpResult<GateIoPerpIndexKline[]>> GetIndexKlinesAsync(
             string settlementAsset,
             string contract,
             KlineInterval interval,
@@ -164,7 +164,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">["<c>contract</c>"] Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpTicker[]>> GetTickersAsync(
+        Task<HttpResult<GateIoPerpTicker[]>> GetTickersAsync(
             string settlementAsset,
             string? contract = null,
             CancellationToken ct = default);
@@ -185,7 +185,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpFundingRate[]>> GetFundingRateHistoryAsync(
+        Task<HttpResult<GateIoPerpFundingRate[]>> GetFundingRateHistoryAsync(
             string settlementAsset,
             string contract,
             DateTime? startTime = null,
@@ -206,7 +206,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpInsurance[]>> GetInsuranceBalanceHistoryAsync(
+        Task<HttpResult<GateIoPerpInsurance[]>> GetInsuranceBalanceHistoryAsync(
             string settlementAsset,
             int? limit = null,
             CancellationToken ct = default);
@@ -226,7 +226,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="startTime">["<c>from</c>"] Filter by start time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpContractStats[]>> GetContractStatsAsync(
+        Task<HttpResult<GateIoPerpContractStats[]>> GetContractStatsAsync(
             string settlementAsset,
             string contract,
             int? limit = null,
@@ -246,7 +246,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoPerpConstituent>> GetIndexConstituentsAsync(
+        Task<HttpResult<GateIoPerpConstituent>> GetIndexConstituentsAsync(
             string settlementAsset,
             string contract,
             CancellationToken ct = default);
@@ -267,7 +267,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoLiquidation[]>> GetLiquidationsAsync(
+        Task<HttpResult<GateIoLiquidation[]>> GetLiquidationsAsync(
             string settlementAsset,
             string? contract = null,
             DateTime? startTime = null,
@@ -290,7 +290,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoRiskLimitTier[]>> GetRiskLimitTiersAsync(
+        Task<HttpResult<GateIoRiskLimitTier[]>> GetRiskLimitTiersAsync(
             string settlementAsset,
             string contract,
             int? offset = null,

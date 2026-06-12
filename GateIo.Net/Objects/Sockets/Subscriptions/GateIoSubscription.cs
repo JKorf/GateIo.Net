@@ -30,7 +30,11 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
 
             IndividualSubscriptionCount = symbols?.Length ?? 1;
 
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<GateIoSocketMessage<T>>(channel, _symbols, DoHandleMessage);
+            if (_symbols == null)
+                MessageRouter = MessageRouter.CreateForEvent<GateIoSocketMessage<T>>(channel, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.CreateForEvent<GateIoSocketMessage<T>>(channel, _symbols, DoHandleMessage);
+
         }
 
         /// <inheritdoc />
@@ -46,7 +50,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketMessage<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }
