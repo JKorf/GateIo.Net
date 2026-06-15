@@ -46,8 +46,8 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal GateIoSocketClientPerpetualFuturesApi(ILogger logger, GateIoSocketOptions options) :
-            base(logger, GateIoExchange.Metadata.Id, options.Environment.FuturesSocketClientAddress!, options, options.PerpetualFuturesOptions)
+        internal GateIoSocketClientPerpetualFuturesApi(ILoggerFactory? loggerFactory, GateIoSocketOptions options) :
+            base(loggerFactory, GateIoExchange.Metadata.Id, options.Environment.FuturesSocketClientAddress!, options, options.PerpetualFuturesOptions)
         {
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
 

@@ -49,8 +49,8 @@ namespace GateIo.Net.Clients
         {
             Initialize(options.Value);
 
-            SpotApi = AddApiClient(new GateIoSocketClientSpotApi(_logger, options.Value));
-            PerpetualFuturesApi = AddApiClient(new GateIoSocketClientPerpetualFuturesApi(_logger, options.Value));
+            SpotApi = AddApiClient(new GateIoSocketClientSpotApi(loggerFactory, options.Value));
+            PerpetualFuturesApi = AddApiClient(new GateIoSocketClientPerpetualFuturesApi(loggerFactory, options.Value));
         }
         #endregion
 

@@ -44,8 +44,8 @@ namespace GateIo.Net.Clients.AlphaApi
 
         #endregion
 
-        internal GateIoRestClientAlphaApi(ILogger logger, HttpClient? httpClient, GateIoRestClient baseClient, GateIoRestOptions options)
-            : base(logger, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.RebateOptions)
+        internal GateIoRestClientAlphaApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, GateIoRestClient baseClient, GateIoRestOptions options)
+            : base(loggerFactory, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.RebateOptions)
         {
             _baseClient = baseClient;
 

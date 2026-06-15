@@ -47,8 +47,8 @@ namespace GateIo.Net.Clients.SpotApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal GateIoSocketClientSpotApi(ILogger logger, GateIoSocketOptions options) :
-            base(logger, GateIoExchange.Metadata.Id, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
+        internal GateIoSocketClientSpotApi(ILoggerFactory? loggerFactory, GateIoSocketOptions options) :
+            base(loggerFactory, GateIoExchange.Metadata.Id, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
         {
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
 

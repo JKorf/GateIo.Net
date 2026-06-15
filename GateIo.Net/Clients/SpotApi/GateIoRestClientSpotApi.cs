@@ -42,12 +42,12 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal GateIoRestClientSpotApi(ILogger logger, HttpClient? httpClient, GateIoRestOptions options)
-            : base(logger, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
+        internal GateIoRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, GateIoRestOptions options)
+            : base(loggerFactory, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
         {
             Account = new GateIoRestClientSpotApiAccount(this);
-            ExchangeData = new GateIoRestClientSpotApiExchangeData(logger, this);
-            Trading = new GateIoRestClientSpotApiTrading(logger, this);
+            ExchangeData = new GateIoRestClientSpotApiExchangeData(_logger, this);
+            Trading = new GateIoRestClientSpotApiTrading(_logger, this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }

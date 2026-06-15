@@ -44,12 +44,12 @@ namespace GateIo.Net.Clients.FuturesApi
         #endregion
 
         #region constructor/destructor
-        internal GateIoRestClientPerpetualFuturesApi(ILogger logger, HttpClient? httpClient, GateIoRestOptions options)
-            : base(logger, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.PerpetualFuturesOptions)
+        internal GateIoRestClientPerpetualFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, GateIoRestOptions options)
+            : base(loggerFactory, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.PerpetualFuturesOptions)
         {
             Account = new GateIoRestClientPerpetualFuturesApiAccount(this);
-            ExchangeData = new GateIoRestClientPerpetualFuturesApiExchangeData(logger, this);
-            Trading = new GateIoRestClientPerpetualFuturesApiTrading(logger, this);
+            ExchangeData = new GateIoRestClientPerpetualFuturesApiExchangeData(_logger, this);
+            Trading = new GateIoRestClientPerpetualFuturesApiTrading(_logger, this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 

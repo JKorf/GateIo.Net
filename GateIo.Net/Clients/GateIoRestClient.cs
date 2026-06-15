@@ -54,10 +54,10 @@ namespace GateIo.Net.Clients
         {
             Initialize(options.Value);
 
-            SpotApi = AddApiClient(new GateIoRestClientSpotApi(_logger, httpClient, options.Value));
-            PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(_logger, httpClient, options.Value));
-            RebateApi = AddApiClient(new GateIoRestClientRebateApi(_logger, httpClient, this, options.Value));
-            AlphaApi = AddApiClient(new GateIoRestClientAlphaApi(_logger, httpClient, this, options.Value));
+            SpotApi = AddApiClient(new GateIoRestClientSpotApi(loggerFactory, httpClient, options.Value));
+            PerpetualFuturesApi = AddApiClient(new GateIoRestClientPerpetualFuturesApi(loggerFactory, httpClient, options.Value));
+            RebateApi = AddApiClient(new GateIoRestClientRebateApi(loggerFactory, httpClient, this, options.Value));
+            AlphaApi = AddApiClient(new GateIoRestClientAlphaApi(loggerFactory, httpClient, this, options.Value));
         }
 
         #endregion

@@ -34,8 +34,8 @@ namespace GateIo.Net.Clients.RebateApi
 
         #endregion
 
-        internal GateIoRestClientRebateApi(ILogger logger, HttpClient? httpClient, GateIoRestClient baseClient, GateIoRestOptions options)
-            : base(logger, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.RebateOptions)
+        internal GateIoRestClientRebateApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, GateIoRestClient baseClient, GateIoRestOptions options)
+            : base(loggerFactory, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.RebateOptions)
         {
             _baseClient = baseClient;
 
