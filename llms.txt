@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the Gate.io REST and WebSocket APIs. Supports Spot, Margin, Unified account, Perpetual Futures, Alpha API, Rebate partner endpoints, and WebSocket subscriptions. Part of the CryptoExchange.Net ecosystem providing a unified abstraction across many cryptocurrency exchanges.
 
-GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensive error handling via the `HttpResult<T>` / `WebSocketResult<T>` pattern, client-side rate limiting, local order book support, native AOT support, and SharedApis integration. Current version in this repository: 3.10.2. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensive error handling via the CryptoExchange.Net result model, client-side rate limiting, local order book support, native AOT support, and SharedApis integration. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, WebSocket request/order methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Current version in this repository: 3.10.2. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
@@ -18,8 +18,8 @@ GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensiv
 - [Spot Quickstart](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/01-spot-quickstart.cs): Client setup, ticker, account balance, limit order placement, order status check
 - [Perpetual Futures](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/02-futures.cs): Perpetual futures with settlement asset, contract lookup, leverage, order placement, position retrieval
 - [WebSocket Streams](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/03-websocket.cs): Ticker subscription, kline subscription, authenticated spot updates, futures public stream
-- [Multi-Exchange Pattern](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): Using CryptoExchange.Net SharedApis for exchange-agnostic code
-- [Error Handling](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult pattern, retry logic, common Gate.io routing mistakes and validation checks
+- [Multi-Exchange Pattern](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): Using CryptoExchange.Net SharedApis and shared capability discovery for exchange-agnostic code
+- [Error Handling](https://github.com/JKorf/GateIo.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult, WebSocketResult, QueryResult, and ExchangeCallResult patterns, retry logic, common Gate.io routing mistakes and validation checks
 - [Full Examples Repository](https://github.com/JKorf/GateIo.Net/tree/main/Examples): Additional examples for the library
 
 ## Critical Usage Rules
@@ -30,7 +30,7 @@ GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensiv
 - Perpetual futures methods require a settlement asset such as `"usdt"` plus a contract such as `"ETH_USDT"`.
 - Always check `.Success` before reading `.Data`.
 - For futures orders, `quantity` is an `int` number of contracts, not a decimal base asset amount.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` via `.SharedClient`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` via `.SharedClient` and call `.SharedClient.Discover()` to inspect supported shared features.
 
 ## Reference
 

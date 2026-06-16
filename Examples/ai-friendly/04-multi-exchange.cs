@@ -17,7 +17,10 @@ using CryptoExchange.Net.SharedApis;
 // SharedClient implements interfaces like ISpotTickerRestClient, ISpotOrderRestClient,
 // IBalanceRestClient, etc. - a common abstraction across all exchanges.
 
-ISpotTickerRestClient gateIoShared = new GateIoRestClient().SpotApi.SharedClient;
+var restClient = new GateIoRestClient();
+ISpotTickerRestClient gateIoShared = restClient.SpotApi.SharedClient;
+var capabilities = restClient.SpotApi.SharedClient.Discover();
+Console.WriteLine($"Shared spot REST features: {capabilities.Features.Count(x => x.Supported)}");
 
 // To add Binance or OKX, install the package and:
 //   ISpotTickerRestClient binanceShared = new BinanceRestClient().SpotApi.SharedClient;

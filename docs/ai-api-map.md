@@ -196,11 +196,14 @@ Use SharedApis for exchange-agnostic code across GateIo, Binance, Bybit, OKX, Kr
 | Shared perpetual futures REST client | `new GateIoRestClient().PerpetualFuturesApi.SharedClient` |
 | Shared spot socket client | `new GateIoSocketClient().SpotApi.SharedClient` |
 | Shared perpetual futures socket client | `new GateIoSocketClient().PerpetualFuturesApi.SharedClient` |
+| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
 | Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+
+Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
@@ -209,8 +212,10 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | Situation | Pattern |
 |---|---|
 | REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
+| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` where `sub` is `WebSocketResult<UpdateSubscription>` |
+| Socket request success check | `if (!query.Success) { Console.WriteLine(query.Error); return; }` where `query` is `QueryResult<T>` or `QueryResult` |
 | Read REST data | Read `result.Data` only after `result.Success` |
+| Read shared helper data | Read `ExchangeCallResult<T>.Data` only after `.Success` |
 | Retry decision | Retry only when `result.Error?.IsTransient == true` |
 | Cancellation | Pass `ct: cancellationToken` |
 

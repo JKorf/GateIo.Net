@@ -1,7 +1,7 @@
 // 05-error-handling.cs
 //
-// Demonstrates: HttpResult patterns, retry logic, common Gate.io routing
-// and validation scenarios.
+// Demonstrates: HttpResult, WebSocketResult, QueryResult, and ExchangeCallResult
+// patterns, retry logic, common Gate.io routing and validation scenarios.
 //
 // Setup: dotnet add package GateIo.Net
 
@@ -17,7 +17,10 @@ var client = new GateIoRestClient(options =>
 });
 
 // ---- 1. THE BASIC PATTERN ----
-// Every method returns HttpResult<T> (REST) or WebSocketResult<T> (WebSocket).
+// REST methods return HttpResult<T> or HttpResult.
+// WebSocket subscriptions return WebSocketResult<UpdateSubscription>.
+// WebSocket request/order methods return QueryResult<T> or QueryResult.
+// Some SharedApis symbol helper methods return ExchangeCallResult<T>.
 // .Success is true/false. .Data is the payload (only valid when .Success).
 // .Error contains structured error info when .Success is false.
 // .Error.IsTransient hints if a retry might succeed (rate limit, network, 5xx).

@@ -14,8 +14,8 @@ These examples are optimized for AI coding assistants and quick onboarding. Each
 | `01-spot-quickstart.cs` | Client setup, public ticker, authenticated balances, place limit order, query order status |
 | `02-futures.cs` | Perpetual futures: settlement asset, contract metadata, set leverage, place market-style order, get position, close position |
 | `03-websocket.cs` | Subscribe to ticker updates, klines, authenticated spot streams, futures ticker stream, with proper teardown |
-| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern for exchange-agnostic code |
-| `05-error-handling.cs` | `HttpResult` patterns, retry, common Gate.io routing and validation issues |
+| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern and shared capability discovery |
+| `05-error-handling.cs` | `HttpResult`, `WebSocketResult`, `QueryResult`, and `ExchangeCallResult` handling patterns |
 
 ## Running
 
