@@ -1299,9 +1299,9 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!long.TryParse(request.OrderId, out var orderId))
                 return HttpResult.Fail<SharedFuturesTriggerOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
-            var settleAsset = ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!;
+            var settleAsset = request.GetParamValue<string>(Exchange, "SettleAsset");
             var order = await Trading.GetTriggerOrderAsync(
-                settleAsset, 
+                settleAsset!, 
                 orderId, ct: ct).ConfigureAwait(false);
             if (!order.Success)
                 return HttpResult.Fail<SharedFuturesTriggerOrder>(order);

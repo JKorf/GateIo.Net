@@ -1,6 +1,6 @@
 // 05-error-handling.cs
 //
-// Demonstrates: WebCallResult patterns, retry logic, common Gate.io routing
+// Demonstrates: HttpResult patterns, retry logic, common Gate.io routing
 // and validation scenarios.
 //
 // Setup: dotnet add package GateIo.Net
@@ -17,7 +17,7 @@ var client = new GateIoRestClient(options =>
 });
 
 // ---- 1. THE BASIC PATTERN ----
-// Every method returns WebCallResult<T> (REST) or CallResult<T> (WebSocket).
+// Every method returns HttpResult<T> (REST) or WebSocketResult<T> (WebSocket).
 // .Success is true/false. .Data is the payload (only valid when .Success).
 // .Error contains structured error info when .Success is false.
 // .Error.IsTransient hints if a retry might succeed (rate limit, network, 5xx).
@@ -40,11 +40,11 @@ else
 // Retry only on transient errors (rate limit, network blip, server overload).
 // Do not retry on validation errors or insufficient balance; they will repeat.
 
-async Task<WebCallResult<T>> WithRetry<T>(
-    Func<Task<WebCallResult<T>>> call,
+async Task<HttpResult<T>> WithRetry<T>(
+    Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
     for (int attempt = 1; attempt <= maxAttempts; attempt++)
     {
         last = await call();
@@ -126,7 +126,7 @@ if (!order.Success)
 Console.WriteLine($"Placed order {order.Data.Id}");
 
 // ---- 6. EXCEPTIONS VS ERROR RESULTS ----
-// GateIo.Net returns API, rate-limit, and network errors via WebCallResult.Error,
+// GateIo.Net returns API, rate-limit, and network errors via HttpResult.Error,
 // not via thrown exceptions. Exceptions are generally for:
 //   - Misconfiguration, for example disposed clients or missing required arguments
 //   - OperationCanceledException when CancellationToken is triggered

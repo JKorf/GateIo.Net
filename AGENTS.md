@@ -42,7 +42,7 @@ var publicClient = new GateIoRestClient();
 
 ## Core Pattern: Result Handling
 
-Every method returns `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before accessing `.Data`.
+Every method returns `HttpResult<T>` (REST) or `WebSocketResult<T>` (WebSocket). Always check `.Success` before accessing `.Data`.
 
 ```csharp
 var ticker = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH_USDT");
@@ -224,7 +224,7 @@ services.AddGateIo(options =>
 - **Do NOT mix sync and async.** Always use `await` with `Async` methods. Never use `.Result` or `.Wait()`.
 - **Do NOT instantiate clients per-request.** Create once, reuse. Use DI in production.
 - **Do NOT forget to unsubscribe from WebSocket streams.** Leaked subscriptions consume resources.
-- **Do NOT assume `WebCallResult.Data` is non-null without checking `.Success`.** Always branch on success.
+- **Do NOT assume `HttpResult.Data` is non-null without checking `.Success`.** Always branch on success.
 - **Do NOT treat futures quantity as base asset amount.** It is an integer number of contracts.
 
 ## Environments

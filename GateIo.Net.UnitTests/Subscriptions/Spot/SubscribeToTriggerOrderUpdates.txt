@@ -30,6 +30,6 @@
     "stop_trigger_rule": "",
     "stop_price": "",
     "ctime": "1691517983131",
-    "ftime": "-62135596800000"
+    "ftime": "0"
   }
 }

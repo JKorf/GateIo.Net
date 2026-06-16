@@ -26,7 +26,7 @@ namespace GateIo.Net.UnitTests
                 OutputOriginalData = true
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws", "result");
+            var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Spot", "wss://api.gateio.ws/ws/v4", "result");
             await tester.ValidateConcurrentAsync<GateIoKlineUpdate>(
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.KlineInterval.OneHour, handler),
@@ -70,7 +70,7 @@ namespace GateIo.Net.UnitTests
                 OutputOriginalData = true
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws", "result");
+            var tester = new SocketSubscriptionValidator<GateIoSocketClient>(client, "Subscriptions/Futures", "wss://fx-ws.gateio.ws/v4/ws/usdt", "result");
             await tester.ValidateConcurrentAsync<GateIoPerpKlineUpdate[]>(
                 (client, handler) => client.PerpetualFuturesApi.SubscribeToKlineUpdatesAsync("usdt", "ETH_USDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.PerpetualFuturesApi.SubscribeToKlineUpdatesAsync("usdt", "ETH_USDT", Enums.KlineInterval.OneHour, handler),
