@@ -1309,7 +1309,7 @@ namespace GateIo.Net.Clients.FuturesApi
             GateIoPerpOrder? orderInfo = null;
             if (order.Data.TradeId > 0)
             {
-                var orderInfoResult = await Trading.GetOrderAsync(settleAsset, order.Data.TradeId).ConfigureAwait(false);
+                var orderInfoResult = await Trading.GetOrderAsync(settleAsset!, order.Data.TradeId).ConfigureAwait(false);
                 if (!orderInfoResult.Success)
                     return HttpResult.Fail<SharedFuturesTriggerOrder>(orderInfoResult);
 
