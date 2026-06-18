@@ -29,7 +29,7 @@ namespace GateIo.Net
                 return;
 
             var timestamp = GetMillisecondTimestampLong(apiClient) / 1000;
-            var requestBody = request.BodyParameters?.Count > 0 ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var requestBody = (request.BodyParameters != null && !request.BodyParameters.Empty) ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
             var queryString = request.QueryParameters?.Count > 0 ? request.GetQueryString(false) : string.Empty;
             var bodyPayload = SignSHA512(requestBody).ToLowerInvariant();
 

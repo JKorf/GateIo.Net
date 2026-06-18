@@ -94,7 +94,7 @@ namespace GateIo.Net
         /// <summary>
         /// Rate limiter configuration for the Gate API
         /// </summary>
-        public static GateIoRateLimiters RateLimiter { get; } = new GateIoRateLimiters();
+        public static GateIoRateLimiters RateLimiter { get; set; } = new GateIoRateLimiters();
     }
 
     /// <summary>
@@ -113,13 +113,19 @@ namespace GateIo.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal GateIoRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public GateIoRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             Public = new RateLimitGate("Public")
                                     .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, Array.Empty<IGuardFilter>(), 200, TimeSpan.FromSeconds(10), RateLimitWindowType.FixedAfterFirst)); // IP limit of 200 request per endpoint per 10 seconds
