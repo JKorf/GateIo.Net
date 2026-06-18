@@ -816,7 +816,13 @@ namespace GateIo.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == WithdrawalStatus.Done, x.Timestamp)
+                        new SharedWithdrawal(
+                            x.Asset,
+                            x.Address,
+                            x.Quantity,
+                            x.Status == WithdrawalStatus.Done,
+                            x.Timestamp,
+                            GetWithdrawalStatus(x))
                         {
                             Network = x.Network,
                             Tag = x.Memo,
@@ -826,6 +832,38 @@ namespace GateIo.Net.Clients.SpotApi
                     .ToArray(), nextPageRequest);
         }
 
+        private SharedTransferStatus GetWithdrawalStatus(GateIoWithdrawal x)
+        {
+            if (x.Status == WithdrawalStatus.Blocked
+                || x.Status == WithdrawalStatus.Canceled
+                || x.Status == WithdrawalStatus.FailedConfirmation
+                || x.Status == WithdrawalStatus.Invalid)
+            {
+                return SharedTransferStatus.Failed;
+            }
+
+            if (x.Status == WithdrawalStatus.Done
+                || x.Status == WithdrawalStatus.Credited
+                || x.Status == WithdrawalStatus.Final)
+            {
+                return SharedTransferStatus.Completed;
+            }
+
+            if (x.Status == WithdrawalStatus.Pending
+                || x.Status == WithdrawalStatus.PendingApproval
+                || x.Status == WithdrawalStatus.PendingConfirmation
+                || x.Status == WithdrawalStatus.Processing
+                || x.Status == WithdrawalStatus.Requested
+                || x.Status == WithdrawalStatus.RequiresManualApproval
+                || x.Status == WithdrawalStatus.Review
+                || x.Status == WithdrawalStatus.Track
+                || x.Status == WithdrawalStatus.Verifying)
+            {
+                return SharedTransferStatus.InProgress;
+            }
+
+            return SharedTransferStatus.Unknown;
+        }
         #endregion
 
         #region Withdraw client
