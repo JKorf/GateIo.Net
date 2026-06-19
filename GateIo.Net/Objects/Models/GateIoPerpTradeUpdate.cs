@@ -29,7 +29,7 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>size</c>"] Trade quantity, negative means sell, positive is buy
         /// </summary>
         [JsonPropertyName("size")]
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// ["<c>price</c>"] Trade price
         /// </summary>

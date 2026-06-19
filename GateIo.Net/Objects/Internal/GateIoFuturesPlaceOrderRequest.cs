@@ -9,7 +9,7 @@ namespace GateIo.Net.Objects.Internal
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         [JsonPropertyName("size")]
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         [JsonPropertyName("price"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? Price { get; set; }
         [JsonPropertyName("iceberg"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
