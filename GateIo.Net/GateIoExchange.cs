@@ -25,7 +25,8 @@ namespace GateIo.Net
                 "https://www.gate.com",
                 ["https://www.gate.com/docs/developers/apiv4/en/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                GateIoEnvironment.All
                 );
 
         /// <summary>
