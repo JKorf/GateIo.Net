@@ -179,7 +179,12 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToBalanceUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.ToType<SharedBalance[]>(update.Data.Select(x => new SharedBalance(x.Asset, x.Balance, x.Balance)).ToArray())),
+                update => handler(update.ToType<SharedBalance[]>(update.Data.Select(x =>
+                    new SharedBalance(
+                        SupportedTradingModes,
+                        x.Asset,
+                        x.Balance,
+                        x.Balance)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return result;

@@ -46,11 +46,11 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var result = new List<SharedBalance>();
             if (resultUsd.Result.Success)
-                result.Add(new SharedBalance(resultUsd.Result.Data.Asset, resultUsd.Result.Data.Available, resultUsd.Result.Data.Total));
+                result.Add(new SharedBalance(SupportedTradingModes, resultUsd.Result.Data.Asset, resultUsd.Result.Data.Available, resultUsd.Result.Data.Total));
             if (resultUsdt.Result.Success)
-                result.Add(new SharedBalance(resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.Available, resultUsdt.Result.Data.Total));
+                result.Add(new SharedBalance(SupportedTradingModes, resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.Available, resultUsdt.Result.Data.Total));
             if (resultBtc.Result.Success)
-                result.Add(new SharedBalance(resultBtc.Result.Data.Asset, resultBtc.Result.Data.Available, resultBtc.Result.Data.Total));
+                result.Add(new SharedBalance(SupportedTradingModes, resultBtc.Result.Data.Asset, resultBtc.Result.Data.Available, resultBtc.Result.Data.Total));
             return HttpResult.Ok((resultUsd.Result.Success ? resultUsd.Result : resultUsdt.Result.Success ? resultUsdt.Result : resultBtc.Result), result.ToArray());
         }
 

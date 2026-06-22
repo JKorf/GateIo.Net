@@ -143,7 +143,12 @@ namespace GateIo.Net.Clients.SpotApi
         async Task<WebSocketResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.ToType<SharedBalance[]>(update.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)).ToArray())),
+                update => handler(update.ToType<SharedBalance[]>(update.Data.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes,
+                        x.Asset,
+                        x.Available,
+                        x.Total)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return result;

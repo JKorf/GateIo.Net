@@ -248,7 +248,12 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedBalance[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Locked)).ToArray());
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedBalance(
+                    SupportedTradingModes,
+                    x.Asset,
+                    x.Available, 
+                    x.Available + x.Locked)).ToArray());
         }
 
         #endregion
