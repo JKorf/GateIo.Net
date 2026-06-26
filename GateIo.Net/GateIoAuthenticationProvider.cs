@@ -25,9 +25,6 @@ namespace GateIo.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            request.Headers ??= new Dictionary<string, string>();
-            request.Headers["X-Gate-Size-Decimal"] = "1";
-
             if (!request.Authenticated)
                 return;
 
@@ -39,6 +36,7 @@ namespace GateIo.Net
             var signStr = $"{request.Method}\n{request.Path}\n{queryString}\n{bodyPayload}\n{timestamp}";
             var signature = SignHMACSHA512(signStr).ToLowerInvariant();
 
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers["KEY"] = Credential.Key;
             request.Headers["Timestamp"] = timestamp.ToString();
             request.Headers["SIGN"] = signature;
