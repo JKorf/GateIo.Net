@@ -47,6 +47,11 @@ namespace GateIo.Net.Clients.FuturesApi
         internal GateIoRestClientPerpetualFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, GateIoRestOptions options)
             : base(loggerFactory, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress!, options, options.PerpetualFuturesOptions)
         {
+            StandardRequestHeaders = new Dictionary<string, string>
+            {
+                { "X-Gate-Size-Decimal", "1" }
+            };
+
             Account = new GateIoRestClientPerpetualFuturesApiAccount(this);
             ExchangeData = new GateIoRestClientPerpetualFuturesApiExchangeData(_logger, this);
             Trading = new GateIoRestClientPerpetualFuturesApiTrading(_logger, this);

@@ -19,7 +19,7 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>size</c>"] Quantity, negaative for sell, positive for buy
         /// </summary>
         [JsonPropertyName("size")]
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// ["<c>iceberg</c>"] Iceberg quantity
         /// </summary>
