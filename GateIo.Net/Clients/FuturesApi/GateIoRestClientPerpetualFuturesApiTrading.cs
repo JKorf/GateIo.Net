@@ -151,7 +151,7 @@ namespace GateIo.Net.Clients.FuturesApi
             string settlementAsset, 
             string contract,
             OrderSide orderSide,
-            int quantity,
+            decimal quantity,
             decimal? price = null,
             bool? closePosition = null,
             bool? reduceOnly = null,
@@ -166,7 +166,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract", contract);
-            parameters.Add("size", orderSide == OrderSide.Buy ? quantity: -quantity);
+            parameters.AddString("size", orderSide == OrderSide.Buy ? quantity: -quantity);
             parameters.AddString("price", price ?? 0);
             parameters.AddOptional("close", closePosition);
             parameters.AddOptional("reduce_only", reduceOnly);
@@ -497,7 +497,7 @@ namespace GateIo.Net.Clients.FuturesApi
             string settlementAsset,
             string contract,
             OrderSide orderSide,
-            int quantity,
+            decimal quantity,
             TriggerType triggerType,
             decimal triggerPrice,
             decimal? orderPrice = null,
@@ -515,7 +515,7 @@ namespace GateIo.Net.Clients.FuturesApi
             var initial = new ParameterCollection();
             initial.Add("contract", contract);
             initial.AddString("price", orderPrice ?? 0);
-            initial.Add("size", orderSide == OrderSide.Buy ? quantity : -quantity);
+            initial.AddString("size", orderSide == OrderSide.Buy ? quantity : -quantity);
             initial.AddOptional("close", closePosition);
             initial.AddOptional("reduce_only", reduceOnly);
             initial.AddOptionalEnum("tif", timeInForce);

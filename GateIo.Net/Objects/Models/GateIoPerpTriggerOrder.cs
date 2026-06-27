@@ -111,7 +111,7 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// ["<c>price</c>"] Price
         /// </summary>
