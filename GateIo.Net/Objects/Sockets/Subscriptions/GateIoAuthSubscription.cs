@@ -36,7 +36,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
             _channel = channel;
             _payload = payload;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<GateIoSocketMessage<T>>(identifiers, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -65,7 +65,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketMessage<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

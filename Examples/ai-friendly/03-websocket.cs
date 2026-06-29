@@ -12,6 +12,7 @@ using GateIo.Net.Objects;
 
 // ---- 1. PUBLIC SOCKET CLIENT - for market data streams ----
 // Reuse a single client instance across subscriptions.
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var publicSocket = new GateIoSocketClient();
 
 var tickerSub = await publicSocket.SpotApi.SubscribeToTickerUpdatesAsync(

@@ -21,7 +21,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaAccount[]>> GetAccountInfoAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoAlphaAccount[]>> GetAccountInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get account ledger
@@ -37,7 +37,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaLedgerEntry[]>> GetLedgerAsync(
+        Task<HttpResult<GateIoAlphaLedgerEntry[]>> GetLedgerAsync(
             DateTime? startTime = null,
             DateTime? endTime = null,
             int? page = null,

@@ -19,15 +19,15 @@ namespace GateIo.Net.Objects.Sockets
         {
             _client = client;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<GateIoSocketResponse<T>>(((GateIoSocketAuthRequest<string[]>)Request).Id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<GateIoSocketResponse<T>>(((GateIoSocketAuthRequest<string[]>)Request).Id.ToString(), HandleMessage);
         }
 
         public CallResult<GateIoSocketResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, GateIoSocketResponse<T> message)
         {
             if (message.Error != null)
-                return new CallResult<GateIoSocketResponse<T>>(new ServerError(message.Error.Code, _client.GetErrorInfo(message.Error.Code, message.Error.Message)), originalData);
+                return CallResult<GateIoSocketResponse<T>>.Fail(new ServerError(message.Error.Code, _client.GetErrorInfo(message.Error.Code, message.Error.Message)), originalData);
 
-            return new CallResult<GateIoSocketResponse<T>>(message, originalData, null);
+            return CallResult<GateIoSocketResponse<T>>.Ok(message, originalData);
         }
     }
 }

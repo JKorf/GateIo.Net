@@ -42,12 +42,12 @@ namespace GateIo.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal GateIoRestClientSpotApi(ILogger logger, HttpClient? httpClient, GateIoRestOptions options)
-            : base(logger, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
+        internal GateIoRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, GateIoRestOptions options)
+            : base(loggerFactory, GateIoExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
         {
             Account = new GateIoRestClientSpotApiAccount(this);
-            ExchangeData = new GateIoRestClientSpotApiExchangeData(logger, this);
-            Trading = new GateIoRestClientSpotApiTrading(logger, this);
+            ExchangeData = new GateIoRestClientSpotApiExchangeData(_logger, this);
+            Trading = new GateIoRestClientSpotApiTrading(_logger, this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
@@ -60,29 +60,23 @@ namespace GateIo.Net.Clients.SpotApi
         protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
-            => base.SendAsync(BaseAddress, definition, parameters, cancellationToken, null, weight);
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
+            => await base.SendAsync<Unit>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null, string? rateLimitKeySuffix = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight, requestHeaders, rateLimitKeySuffix);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null, string? rateLimitKeySuffix = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null, string? rateLimitKeySuffix = null) where T : class
         {
-            var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight, rateLimitKeySuffix: rateLimitKeySuffix).ConfigureAwait(false);
+            var result = await base.SendAsync<T>(definition, parameters, cancellationToken, requestHeaders, weight, rateLimitKeySuffix: rateLimitKeySuffix).ConfigureAwait(false);
             return result;
         }
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? queryParameters, ParameterCollection? bodyParameters, CancellationToken cancellationToken, int? weight = null, string? rateLimitKeySuffix = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, queryParameters, bodyParameters, cancellationToken, weight, rateLimitKeySuffix: rateLimitKeySuffix);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? queryParameters, ParameterCollection? bodyParameters, CancellationToken cancellationToken, int? weight = null, string? rateLimitKeySuffix = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? queryParameters, Parameters? bodyParameters, CancellationToken cancellationToken, int? weight = null, string? rateLimitKeySuffix = null) where T : class
         {
-            var result = await base.SendAsync<T>(baseAddress, definition, queryParameters, bodyParameters, cancellationToken, null, weight, rateLimitKeySuffix: rateLimitKeySuffix).ConfigureAwait(false);
+            var result = await base.SendAsync<T>(definition, queryParameters, bodyParameters, cancellationToken, null, weight, rateLimitKeySuffix: rateLimitKeySuffix).ConfigureAwait(false);
             return result;
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />

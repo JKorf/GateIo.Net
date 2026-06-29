@@ -25,7 +25,8 @@ namespace GateIo.Net
                 "https://www.gate.com",
                 ["https://www.gate.com/docs/developers/apiv4/en/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                GateIoEnvironment.All
                 );
 
         /// <summary>
@@ -59,6 +60,11 @@ namespace GateIo.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<GateIoSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String,
+            DateTimes = DateTimeSerialization.SecondsNumber
+        };
 
         /// <summary>
         /// Aliases for Gate assets
@@ -89,7 +95,7 @@ namespace GateIo.Net
         /// <summary>
         /// Rate limiter configuration for the Gate API
         /// </summary>
-        public static GateIoRateLimiters RateLimiter { get; } = new GateIoRateLimiters();
+        public static GateIoRateLimiters RateLimiter { get; set; } = new GateIoRateLimiters();
     }
 
     /// <summary>
@@ -108,13 +114,19 @@ namespace GateIo.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal GateIoRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public GateIoRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             Public = new RateLimitGate("Public")
                                     .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, Array.Empty<IGuardFilter>(), 200, TimeSpan.FromSeconds(10), RateLimitWindowType.FixedAfterFirst)); // IP limit of 200 request per endpoint per 10 seconds

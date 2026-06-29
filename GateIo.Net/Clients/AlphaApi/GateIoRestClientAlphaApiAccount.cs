@@ -22,10 +22,10 @@ namespace GateIo.Net.Clients.AlphaApi
         #region Get Account Info
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoAlphaAccount[]>> GetAccountInfoAsync(CancellationToken ct = default)
+        public async Task<HttpResult<GateIoAlphaAccount[]>> GetAccountInfoAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/alpha/accounts", GateIoExchange.RateLimiter.RestAlpha, 1, true);
+            var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/alpha/accounts", GateIoExchange.RateLimiter.RestAlpha, 1, true);
             return await _baseClient.SendAsync<GateIoAlphaAccount[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -34,19 +34,19 @@ namespace GateIo.Net.Clients.AlphaApi
         #region Get Ledger
 
         /// <inheritdoc />
-        public async Task<WebCallResult<GateIoAlphaLedgerEntry[]>> GetLedgerAsync(
+        public async Task<HttpResult<GateIoAlphaLedgerEntry[]>> GetLedgerAsync(
             DateTime? startTime = null,
             DateTime? endTime = null,
             int? page = null,
             int? limit = null, 
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalSeconds("from", startTime);
-            parameters.AddOptionalSeconds("to", endTime);
-            parameters.AddOptional("page", page);
-            parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v4/alpha/account_book", GateIoExchange.RateLimiter.RestAlpha, 1, true);
+            var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
+            parameters.Add("from", startTime, DateTimeSerialization.SecondsNumber);
+            parameters.Add("to", endTime, DateTimeSerialization.SecondsNumber);
+            parameters.Add("page", page);
+            parameters.Add("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/alpha/account_book", GateIoExchange.RateLimiter.RestAlpha, 1, true);
             return await _baseClient.SendAsync<GateIoAlphaLedgerEntry[]>(request, parameters, ct).ConfigureAwait(false);
         }
 

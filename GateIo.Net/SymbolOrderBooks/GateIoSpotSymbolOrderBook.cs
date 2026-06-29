@@ -72,19 +72,19 @@ namespace GateIo.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            CallResult<UpdateSubscription> subResult;
+            WebSocketResult<UpdateSubscription> subResult;
             if (Levels == null)
                 subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
             else
                 subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, _updateInterval, HandleUpdate).ConfigureAwait(false);
 
-            if (!subResult)
-                return new CallResult<UpdateSubscription>(subResult.Error!);
+            if (!subResult.Success)
+                return CallResult.Fail<UpdateSubscription>(subResult.Error!);
 
             if (ct.IsCancellationRequested)
             {
                 await subResult.Data.CloseAsync().ConfigureAwait(false);
-                return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
             }
 
             Status = OrderBookStatus.Syncing;
@@ -92,25 +92,25 @@ namespace GateIo.Net.SymbolOrderBooks
             if (Levels != null)
             {
                 var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!setResult)
+                if (!setResult.Success)
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
 
-                return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+                return setResult.Success ? CallResult.Ok(subResult.Data) : CallResult.Fail<UpdateSubscription>(setResult.Error!);
             }
 
             // Wait up to 1s until the first update has been received
             await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
 
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, null, Levels ?? 100).ConfigureAwait(false);
-            if (!bookResult)
+            if (!bookResult.Success)
             {
                 _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
                 await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                return new CallResult<UpdateSubscription>(bookResult.Error!);
+                return CallResult.Fail<UpdateSubscription>(bookResult.Error!);
             }
 
             SetSnapshot(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<UpdateSubscription>(subResult.Data);
+            return CallResult<UpdateSubscription>.Ok(subResult.Data);
         }
 
         private void HandleUpdate(DataEvent<GateIoOrderBookUpdate> data)
@@ -129,7 +129,7 @@ namespace GateIo.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
@@ -137,11 +137,11 @@ namespace GateIo.Net.SymbolOrderBooks
             // Wait up to 1s until the first update has been received
             await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, null, Levels ?? 100).ConfigureAwait(false);
-            if (!bookResult)
-                return new CallResult<bool>(bookResult.Error!);
+            if (!bookResult.Success)
+                return CallResult.Fail(bookResult.Error!);
 
             SetSnapshot(bookResult.Data.Id, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<bool>(true);
+            return CallResult.Ok();
         }
 
         /// <inheritdoc />

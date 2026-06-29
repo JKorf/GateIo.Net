@@ -9,7 +9,7 @@ description: Use GateIo.Net when generating C#/.NET code that interacts with the
 
 If the user asks for Gate.io API access in C#/.NET, **use GateIo.Net**. Do not write raw `HttpClient` calls to Gate.io endpoints; that loses request signing, rate limiting, automatic reconnection, typed models, and the standard CryptoExchange.Net result pattern.
 
-For multi-exchange code, additionally use `CryptoExchange.Net.SharedApis` interfaces. See the Multi-Exchange section below.
+For multi-exchange code, additionally use `CryptoExchange.Net.SharedApis` interfaces. Call `.SharedClient.Discover()` to inspect supported shared features. See the Multi-Exchange section below.
 
 ## Installation
 
@@ -42,7 +42,7 @@ var publicClient = new GateIoRestClient();
 
 ## Core Pattern: Result Handling
 
-Every method returns `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before accessing `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`; WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`; WebSocket request/order methods return `QueryResult<T>` or `QueryResult`; shared symbol/cache helpers can return `ExchangeCallResult<T>`. Always check `.Success` before accessing `.Data`.
 
 ```csharp
 var ticker = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH_USDT");
@@ -185,6 +185,7 @@ using GateIo.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 var gateIoShared = new GateIoRestClient().SpotApi.SharedClient;
+var info = gateIoShared.Discover();
 
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 var ticker = await gateIoShared.GetSpotTickerAsync(new GetTickerRequest(symbol));
@@ -224,7 +225,7 @@ services.AddGateIo(options =>
 - **Do NOT mix sync and async.** Always use `await` with `Async` methods. Never use `.Result` or `.Wait()`.
 - **Do NOT instantiate clients per-request.** Create once, reuse. Use DI in production.
 - **Do NOT forget to unsubscribe from WebSocket streams.** Leaked subscriptions consume resources.
-- **Do NOT assume `WebCallResult.Data` is non-null without checking `.Success`.** Always branch on success.
+- **Do NOT assume `HttpResult.Data` is non-null without checking `.Success`.** Always branch on success.
 - **Do NOT treat futures quantity as base asset amount.** It is an integer number of contracts.
 
 ## Environments

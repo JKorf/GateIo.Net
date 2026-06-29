@@ -27,7 +27,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// <param name="gasMode">["<c>gas_mode</c>"] Gas mode</param>
         /// <param name="slippage">["<c>slippage</c>"] Max slippage, 10 equals 10%. Only required when using GasMode.Custom</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaQuote>> GetQuoteAsync(
+        Task<HttpResult<GateIoAlphaQuote>> GetQuoteAsync(
             string asset,
             OrderSide side,
             decimal quantity,
@@ -51,7 +51,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// <param name="quoteId">["<c>quote_id</c>"] Quote id received from <see cref="GetQuoteAsync(string, OrderSide, decimal, GasMode, decimal?, CancellationToken)"/></param>
         /// <param name="slippage">["<c>slippage</c>"] Max slippage, 10 equals 10%. Only required when using GasMode.Custom</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaOrderResult>> PlaceOrderAsync(
+        Task<HttpResult<GateIoAlphaOrderResult>> PlaceOrderAsync(
             string asset,
             OrderSide side,
             decimal quantity,
@@ -77,7 +77,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaOrder[]>> GetOrdersAsync(
+        Task<HttpResult<GateIoAlphaOrder[]>> GetOrdersAsync(
             string asset,
             OrderSide side,
             AlphaOrderStatus status,
@@ -98,7 +98,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// </summary>
         /// <param name="orderId">["<c>order_id</c>"] Order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoAlphaOrder>> GetOrderAsync(
+        Task<HttpResult<GateIoAlphaOrder>> GetOrderAsync(
             string orderId,
             CancellationToken ct = default);
     }

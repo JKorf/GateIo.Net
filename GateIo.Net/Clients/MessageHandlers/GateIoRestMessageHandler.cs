@@ -55,7 +55,7 @@ namespace GateIo.Net.Clients.MessageHandlers
             var value = resetTime.Value.First();
             var timestamp = DateTimeConverter.ParseFromString(value, null);
 
-            error.RetryAfter = timestamp.AddSeconds(1);
+            error.RetryAfter = timestamp?.AddSeconds(1);
             return error;
         }
     }

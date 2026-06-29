@@ -20,7 +20,6 @@ namespace GateIo.Net
             SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
-                null,
                 restClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
                 restClient.SpotApi.SharedClient,
@@ -49,7 +48,6 @@ namespace GateIo.Net
             FuturesUserDataTrackerConfig? config,
             ExchangeParameters? exchangeParameters) : base(logger,
                 restClient.PerpetualFuturesApi.SharedClient,
-                null,
                 restClient.PerpetualFuturesApi.SharedClient,
                 socketClient.PerpetualFuturesApi.SharedClient,
                 restClient.PerpetualFuturesApi.SharedClient,

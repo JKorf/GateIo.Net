@@ -25,7 +25,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoBalance[]>> GetBalancesAsync(string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoBalance[]>> GetBalancesAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of balance changes for the user
@@ -45,7 +45,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="code">["<c>code</c>"] Filter by code</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoLedgerEntry[]>> GetLedgerAsync(
+        Task<HttpResult<GateIoLedgerEntry[]>> GetLedgerAsync(
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -72,7 +72,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>withdraw_order_id</c>"] Client specified id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoWithdrawal>> WithdrawAsync(string asset, decimal quantity, string address, string network, string? memo = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoWithdrawal>> WithdrawAsync(string asset, decimal quantity, string address, string network, string? memo = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a pending withdrawal
@@ -86,7 +86,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="withdrawalId">Id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoWithdrawal>> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default);
+        Task<HttpResult<GateIoWithdrawal>> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default);
 
         /// <summary>
         /// Generate deposit address
@@ -100,7 +100,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoDepositAddress>> GenerateDepositAddressAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<GateIoDepositAddress>> GenerateDepositAddressAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal history
@@ -121,7 +121,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="offset">["<c>offset</c>"] Offset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoWithdrawal[]>> GetWithdrawalsAsync(
+        Task<HttpResult<GateIoWithdrawal[]>> GetWithdrawalsAsync(
             string? asset = null,
             string? withdrawalId = null,
             string? assetClass = null,
@@ -148,7 +148,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="offset">["<c>offset</c>"] Offset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoDeposit[]>> GetDepositsAsync(
+        Task<HttpResult<GateIoDeposit[]>> GetDepositsAsync(
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -173,7 +173,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="settleAsset">["<c>settle</c>"] Settle asset, required when from or to is futures</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoTransfer>> TransferAsync(
+        Task<HttpResult<GateIoTransfer>> TransferAsync(
             string asset,
             AccountType from,
             AccountType to,
@@ -194,7 +194,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id, either this or transactionId should be provided</param>
         /// <param name="transactionId">["<c>tx_id</c>"] Transaction id, either this or clientOrderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoTransferStatus>> GetTransferStatusAsync(
+        Task<HttpResult<GateIoTransferStatus>> GetTransferStatusAsync(
             string? clientOrderId = null,
             string? transactionId = null,
             CancellationToken ct = default);
@@ -211,7 +211,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Filter for a single asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoWithdrawStatus[]>> GetWithdrawStatusAsync(
+        Task<HttpResult<GateIoWithdrawStatus[]>> GetWithdrawStatusAsync(
             string? asset = null,
             CancellationToken ct = default);
 
@@ -230,7 +230,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoSavedAddress[]>> GetSavedAddressAsync(
+        Task<HttpResult<GateIoSavedAddress[]>> GetSavedAddressAsync(
             string asset,
             string? network = null,
             int? limit = null,
@@ -250,7 +250,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="settleAsset">["<c>settle</c>"] Specify the settlement asset of the contract to get more accurate rate settings</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoFeeRate>> GetTradingFeeAsync(
+        Task<HttpResult<GateIoFeeRate>> GetTradingFeeAsync(
             string? symbol = null,
             string? settleAsset = null,
             CancellationToken ct = default);
@@ -267,7 +267,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="valuationAsset">["<c>currency</c>"] Asset unit used to calculate the balance amount</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoAccountValuation>> GetAccountBalancesAsync(
+        Task<HttpResult<GateIoAccountValuation>> GetAccountBalancesAsync(
            string? valuationAsset = null,
            CancellationToken ct = default);
 
@@ -282,7 +282,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoSmallBalance[]>> GetSmallBalancesAsync(
+        Task<HttpResult<GateIoSmallBalance[]>> GetSmallBalancesAsync(
             CancellationToken ct = default);
 
         /// <summary>
@@ -298,7 +298,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="all">["<c>is_all</c>"] Convert all</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> ConvertSmallBalancesAsync(
+        Task<HttpResult> ConvertSmallBalancesAsync(
             IEnumerable<string>? assets = null,
             bool? all = null,
             CancellationToken ct = default);
@@ -317,7 +317,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoSmallBalanceConversion[]>> GetSmallBalanceConversionsAsync(
+        Task<HttpResult<GateIoSmallBalanceConversion[]>> GetSmallBalanceConversionsAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -335,7 +335,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoUnifiedAccountInfo>> GetUnifiedAccountInfoAsync(
+        Task<HttpResult<GateIoUnifiedAccountInfo>> GetUnifiedAccountInfoAsync(
             string? asset = null,
             CancellationToken ct = default);
 
@@ -351,7 +351,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoUnifiedAccountMax>> GetUnifiedAccountBorrowableAsync(
+        Task<HttpResult<GateIoUnifiedAccountMax>> GetUnifiedAccountBorrowableAsync(
             string asset,
             CancellationToken ct = default);
 
@@ -367,7 +367,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoUnifiedAccountMax>> GetUnifiedAccountTransferableAsync(
+        Task<HttpResult<GateIoUnifiedAccountMax>> GetUnifiedAccountTransferableAsync(
             string asset,
             CancellationToken ct = default);
 
@@ -387,7 +387,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="text">["<c>text</c>"] User defined text</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> UnifiedAccountBorrowOrRepayAsync(
+        Task<HttpResult> UnifiedAccountBorrowOrRepayAsync(
             string asset,
             BorrowDirection direction,
             decimal quantity,
@@ -410,7 +410,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="type">["<c>type</c>"] Loan type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoLoan[]>> GetUnifiedAccountLoansAsync(
+        Task<HttpResult<GateIoLoan[]>> GetUnifiedAccountLoansAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -432,7 +432,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoLoanRecord[]>> GetUnifiedAccountLoanHistoryAsync(
+        Task<HttpResult<GateIoLoanRecord[]>> GetUnifiedAccountLoanHistoryAsync(
             string? asset = null,
             BorrowDirection? direction = null,
             int? page = null,
@@ -456,7 +456,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoInterestRecord[]>> GetUnifiedAccountInterestHistoryAsync(
+        Task<HttpResult<GateIoInterestRecord[]>> GetUnifiedAccountInterestHistoryAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -476,7 +476,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoRiskUnits>> GetUnifiedAccountRiskUnitsAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoRiskUnits>> GetUnifiedAccountRiskUnitsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set unified account mode
@@ -494,7 +494,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="options">["<c>settings.options</c>"] Option switch. If not transmitted, the current switch value is used. If not transmitted for the first time, the default value is off</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> SetUnifiedAccountModeAsync(UnifiedAccountMode mode, bool? usdtFutures = null, bool? spotHedge = null, bool? useFunding = null, bool? options = null, CancellationToken ct = default);
+        Task<HttpResult> SetUnifiedAccountModeAsync(UnifiedAccountMode mode, bool? usdtFutures = null, bool? spotHedge = null, bool? useFunding = null, bool? options = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get unified account mode
@@ -507,7 +507,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoUnifiedAccountMode>> GetUnifiedAccountModeAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoUnifiedAccountMode>> GetUnifiedAccountModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get estimated lending rates
@@ -521,7 +521,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["<c>currencies</c>"] Up to 10 assets, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<Dictionary<string, decimal?>>> GetUnifiedAccountEstimatedLendingRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, decimal?>>> GetUnifiedAccountEstimatedLendingRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
         /// <summary>
         /// Get unified account min and max leverage rates
@@ -534,7 +534,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoLeverageConfig>> GetUnifiedLeverageConfigsAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<GateIoLeverageConfig>> GetUnifiedLeverageConfigsAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current leverage setttings
@@ -547,7 +547,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoLeverageSetting[]>> GetUnifiedLeverageAsync(string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoLeverageSetting[]>> GetUnifiedLeverageAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set the leverage for an asset
@@ -561,7 +561,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
         /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> SetUnifiedLeverageAsync(string asset, decimal leverage, CancellationToken ct = default);
+        Task<HttpResult> SetUnifiedLeverageAsync(string asset, decimal leverage, CancellationToken ct = default);
 
         /// <summary>
         /// Get account and API key info
@@ -574,7 +574,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get margin account list
@@ -588,7 +588,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>currency_pair</c>"] Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginAccount[]>> GetMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoMarginAccount[]>> GetMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin account list
@@ -602,7 +602,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>currency_pair</c>"] Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoIsolatedMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoIsolatedMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin accounts balance change history
@@ -622,7 +622,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginBalanceChange[]>> GetMarginBalanceHistoryAsync(
+        Task<HttpResult<GateIoMarginBalanceChange[]>> GetMarginBalanceHistoryAsync(
             string? asset = null,
             string? symbol = null,
             string? type = null,
@@ -644,7 +644,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginFundingAccount[]>> GetMarginFundingAccountsAsync(
+        Task<HttpResult<GateIoMarginFundingAccount[]>> GetMarginFundingAccountsAsync(
             string? asset = null,
             CancellationToken ct = default);
 
@@ -660,7 +660,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="enabled">["<c>status</c>"] True for auto repayment on, false for auto repayment off</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginAutoRepayStatus>> SetMarginAutoRepayAsync(
+        Task<HttpResult<GateIoMarginAutoRepayStatus>> SetMarginAutoRepayAsync(
             bool enabled,
             CancellationToken ct = default);
 
@@ -675,7 +675,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginAutoRepayStatus>> GetMarginAutoRepayAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoMarginAutoRepayStatus>> GetMarginAutoRepayAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get max transferable quantity
@@ -690,7 +690,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>currency_pair</c>"] Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginMaxTransferable>> GetMarginMaxTransferableAsync(string asset, string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoMarginMaxTransferable>> GetMarginMaxTransferableAsync(string asset, string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// DEPRECATED
@@ -703,7 +703,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginAccount>> GetCrossMarginAccountsAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoCrossMarginAccount>> GetCrossMarginAccountsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// DEPRECATED
@@ -722,7 +722,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginBalanceChange[]>> GetCrossMarginBalanceHistoryAsync(string? asset = null,
+        Task<HttpResult<GateIoCrossMarginBalanceChange[]>> GetCrossMarginBalanceHistoryAsync(string? asset = null,
             string? type = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -744,7 +744,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="text">["<c>text</c>"] User defined text</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginBorrowLoan>> CreateCrossMarginLoanAsync(
+        Task<HttpResult<GateIoCrossMarginBorrowLoan>> CreateCrossMarginLoanAsync(
             string asset,
             decimal quantity,
             string? text = null,
@@ -765,7 +765,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="reverse">["<c>reverse</c>"] Reverse results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginBorrowLoan[]>> GetCrossMarginLoansAsync(
+        Task<HttpResult<GateIoCrossMarginBorrowLoan[]>> GetCrossMarginLoansAsync(
             string? asset = null,
             int? limit = null,
             int? offset = null,
@@ -784,7 +784,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="id">Loan id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginBorrowLoan>> GetCrossMarginLoanAsync(string id,
+        Task<HttpResult<GateIoCrossMarginBorrowLoan>> GetCrossMarginLoanAsync(string id,
             CancellationToken ct = default);
 
         /// <summary>
@@ -800,7 +800,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="quantity">["<c>amount</c>"] Quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginBorrowLoan[]>> CrossMarginRepayAsync(
+        Task<HttpResult<GateIoCrossMarginBorrowLoan[]>> CrossMarginRepayAsync(
             string asset,
             decimal quantity,
             CancellationToken ct = default);
@@ -821,7 +821,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="reverse">["<c>reverse</c>"] Reverse results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginRepayment[]>> GetCrossMarginRepaymentsAsync(
+        Task<HttpResult<GateIoCrossMarginRepayment[]>> GetCrossMarginRepaymentsAsync(
             string? asset = null,
             string? loanId = null,
             int? limit = null,
@@ -845,7 +845,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoCrossMarginInterest[]>> GetCrossMarginInterestHistoryAsync(
+        Task<HttpResult<GateIoCrossMarginInterest[]>> GetCrossMarginInterestHistoryAsync(
             string? asset = null,
             int? page = null,
             int? limit = null,
@@ -865,7 +865,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginMaxTransferable>> GetCrossMarginMaxTransferableAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<GateIoMarginMaxTransferable>> GetCrossMarginMaxTransferableAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// DEPRECATED
@@ -879,7 +879,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["<c>currencies</c>"] Assets, max 10, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<Dictionary<string, decimal>>> GetCrossMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, decimal>>> GetCrossMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
         /// <summary>
         /// DEPRECATED
@@ -893,7 +893,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoUnifiedAccountMax>> GetCrossMarginMaxBorrowableAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<GateIoUnifiedAccountMax>> GetCrossMarginMaxBorrowableAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin estimated interest rates
@@ -907,7 +907,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["<c>currencies</c>"] Assets, max 10, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<Dictionary<string, decimal>>> GetMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, decimal>>> GetMarginEstimatedInterestRatesAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
         /// <summary>
         /// Borrow or repay margin loan
@@ -925,7 +925,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="repayAll">["<c>repaid_all</c>"] Repay all instead of specifying quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> BorrowOrRepayAsync(
+        Task<HttpResult> BorrowOrRepayAsync(
             string asset,
             string symbol,
             BorrowDirection direction,
@@ -948,7 +948,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoLoan[]>> GetMarginLoansAsync(
+        Task<HttpResult<GateIoLoan[]>> GetMarginLoansAsync(
             string? asset = null,
             string? symbol = null,
             int? page = null,
@@ -971,7 +971,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginLoanRecord[]>> GetMarginLoanHistoryAsync(
+        Task<HttpResult<GateIoMarginLoanRecord[]>> GetMarginLoanHistoryAsync(
             string? asset = null,
             string? symbol = null,
             BorrowDirection? direction = null,
@@ -996,7 +996,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoInterestRecord[]>> GetMarginInterestHistoryAsync(
+        Task<HttpResult<GateIoInterestRecord[]>> GetMarginInterestHistoryAsync(
             string? asset = null,
             string? symbol = null,
             int? page = null,
@@ -1018,7 +1018,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>currency_pair</c>"] Symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoMarginMaxBorrowable>> GetMarginMaxBorrowableAsync(
+        Task<HttpResult<GateIoMarginMaxBorrowable>> GetMarginMaxBorrowableAsync(
             string asset,
             string symbol,
             CancellationToken ct = default);
@@ -1034,7 +1034,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoGTDeducationStatus>> GetGTDeductionStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoGTDeducationStatus>> GetGTDeductionStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set GT deduction enabled status
@@ -1048,7 +1048,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="enabled">["<c>enabled</c>"] Enabled</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> SetGTDeductionStatusAsync(bool enabled, CancellationToken ct = default);
+        Task<HttpResult> SetGTDeductionStatusAsync(bool enabled, CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer history
@@ -1066,7 +1066,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="offset">["<c>offset</c>"] Result offset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoTransferEntry[]>> GetTransferHistoryAsync(long? id = null, TransactionType? transactionType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoTransferEntry[]>> GetTransferHistoryAsync(long? id = null, TransactionType? transactionType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? offset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer to another GateIo account
@@ -1081,7 +1081,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset to transfer</param>
         /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoId>> TransferToAccountAsync(long receiveAccountId, string asset, decimal quantity, CancellationToken ct = default);
+        Task<HttpResult<GateIoId>> TransferToAccountAsync(long receiveAccountId, string asset, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
         /// Get rate limit ratios for the user
@@ -1093,7 +1093,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<GateIoUserRateLimit[]>> GetRateLimitsAsync(CancellationToken ct = default);
+        Task<HttpResult<GateIoUserRateLimit[]>> GetRateLimitsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get insurance fund history
@@ -1112,7 +1112,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<GateIoInsuranceFund[]>> GetInsuranceFundHistoryAsync(
+        Task<HttpResult<GateIoInsuranceFund[]>> GetInsuranceFundHistoryAsync(
             BusinessType businessType,
             string asset,
             DateTime startTime,
@@ -1133,7 +1133,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="leverage">["<c>leverage</c>"] Leverage to set</param>
         /// <param name="symbol">["<c>currency_pair</c>"] Symbol</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> SetMarginLeverageAsync(decimal leverage, string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult> SetMarginLeverageAsync(decimal leverage, string? symbol = null, CancellationToken ct = default);
     }
 }
 

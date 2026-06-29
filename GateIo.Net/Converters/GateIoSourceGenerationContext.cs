@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Objects;
 using GateIo.Net.Objects.Internal;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Objects.Sockets;
@@ -203,6 +204,8 @@ namespace GateIo.Net.Converters
     [JsonSerializable(typeof(decimal))]
     [JsonSerializable(typeof(DateTime))]
     [JsonSerializable(typeof(DateTime?))]
+    [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     internal partial class GateIoSourceGenerationContext : JsonSerializerContext
     {
     }

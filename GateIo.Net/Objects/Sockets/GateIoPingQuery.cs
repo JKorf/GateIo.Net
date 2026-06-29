@@ -13,7 +13,7 @@ namespace GateIo.Net.Objects.Sockets
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
 
-            MessageRouter = MessageRouter.CreateWithoutHandler<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
+            MessageRouter = MessageRouter.CreateVoid<GateIoSocketResponse<string>>(((GateIoSocketRequest<object>)Request).Id.ToString());
         }
     }
 }
