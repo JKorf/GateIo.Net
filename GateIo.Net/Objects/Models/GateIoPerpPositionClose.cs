@@ -14,7 +14,7 @@ namespace GateIo.Net.Objects.Models
         /// <summary>
         /// ["<c>time</c>"] Timestamp
         /// </summary>
-        [JsonPropertyName("time")]
+        [JsonPropertyName("time_us")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// ["<c>pnl</c>"] Profit and loss
@@ -76,5 +76,20 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("short_price")]
         public decimal ShortPrice { get; set; }
+        /// <summary>
+        /// ["<c>leverage</c>"] Leverage
+        /// </summary>
+        [JsonPropertyName("lever")]
+        public decimal Leverage { get; set; }
+        /// <summary>
+        /// ["<c>voucher_id</c>"] Voucher id
+        /// </summary>
+        [JsonPropertyName("voucher_id")]
+        public long VoucherId { get; set; }
+        /// <summary>
+        /// ["<c>margin_mode</c>"] Margin mode
+        /// </summary>
+        [JsonPropertyName("margin_mode")]
+        public MarginMode MarginMode { get; set; }
     }
 }
