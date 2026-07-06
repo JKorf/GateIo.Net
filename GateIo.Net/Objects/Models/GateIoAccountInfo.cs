@@ -41,6 +41,16 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("key")]
         public GateIoKeyInfo KeyInfo { get; set; } = null!;
+        /// <summary>
+        /// ["<c>tier_expire_time</c>"] Tier expire time
+        /// </summary>
+        [JsonPropertyName("tier_expire_time")]
+        public DateTime? TierExpireTime { get; set; }
+        /// <summary>
+        /// ["<c>spot_copy_trading_role</c>"] Spot copy trading role
+        /// </summary>
+        [JsonPropertyName("spot_copy_trading_role")]
+        public int? SpotCopyTradingRole { get; set; }
     }
 
     /// <summary>
