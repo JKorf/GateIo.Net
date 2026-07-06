@@ -62,9 +62,19 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("role")]
         public Role Role { get; set; }
         /// <summary>
-        /// ["<c>close_size</c>"] Close quantiy
+        /// ["<c>close_size</c>"] Close quantity
         /// </summary>
         [JsonPropertyName("close_size")]
         public long CloseQuantity { get; set; }
+        /// <summary>
+        /// ["<c>biz_info</c>"] Additional info
+        /// </summary>
+        [JsonPropertyName("biz_info")]
+        public string? BizInfo { get; set; }
+        /// <summary>
+        /// ["<c>amend_text</c>"] Ammend text
+        /// </summary>
+        [JsonPropertyName("amend_text")]
+        public string? AmmendText { get; set; }
     }
 }
