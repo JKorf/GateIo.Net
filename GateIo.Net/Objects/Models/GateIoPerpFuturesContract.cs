@@ -231,5 +231,50 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("market_order_size_max")]
         public decimal MarketOrderMaxQuantity { get; set; }
+        /// <summary>
+        /// ["<c>risk_limit_base</c>"] Risk limit base
+        /// </summary>
+        [JsonPropertyName("risk_limit_base")]
+        public decimal RiskLimitBase { get; set; }
+        /// <summary>
+        /// ["<c>risk_limit_max</c>"] Risk limit max
+        /// </summary>
+        [JsonPropertyName("risk_limit_max")]
+        public decimal RiskLimitMax { get; set; }
+        /// <summary>
+        /// ["<c>risk_limit_step</c>"] Risk limit step
+        /// </summary>
+        [JsonPropertyName("risk_limit_step")]
+        public decimal RiskLimitStep { get; set; }
+        /// <summary>
+        /// ["<c>enable_decimal</c>"] Whether decimal quantities are allowed
+        /// </summary>
+        [JsonPropertyName("enable_decimal")]
+        public bool EnableDecimal { get; set; }
+        /// <summary>
+        /// ["<c>cross_leverage_default</c>"] Cross leverage default setting
+        /// </summary>
+        [JsonPropertyName("cross_leverage_default")]
+        public decimal CrossLeverageDefault { get; set; }
+        /// <summary>
+        /// ["<c>is_pre_market</c>"] Is pre-market
+        /// </summary>
+        [JsonPropertyName("is_pre_market")]
+        public bool IsPreMarket { get; set; }
+        /// <summary>
+        /// ["<c>status</c>"] Status
+        /// </summary>
+        [JsonPropertyName("status")]
+        public ContractStatus Status { get; set; }
+        /// <summary>
+        /// ["<c>launch_time</c>"] Launch time
+        /// </summary>
+        [JsonPropertyName("launch_time")]
+        public DateTime LaunchTime { get; set; }
+        /// <summary>
+        /// ["<c>enable_circuit_breaker</c>"] Enable circuit breaker
+        /// </summary>
+        [JsonPropertyName("enable_circuit_breaker")]
+        public bool EnableCircuitBreaker { get; set; }
     }
 }
