@@ -13,12 +13,12 @@ namespace GateIo.Net.Enums
         /// <summary>
         /// ["<c>CROSS</c>"] Cross margin
         /// </summary>
-        [Map("CROSS")]
+        [Map("CROSS", "cross")]
         Cross,
         /// <summary>
         /// ["<c>ISOLATED</c>"] Isolated margin
         /// </summary>
-        [Map("ISOLATED")]
+        [Map("ISOLATED", "isolated")]
         Isolated
     }
 }
