@@ -19,5 +19,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("maker_fee")]
         public decimal MakerFee { get; set; }
+        /// <summary>
+        /// ["<c>rpi_maker_fee</c>"] RPI maker fee
+        /// </summary>
+        [JsonPropertyName("rpi_maker_fee")]
+        public decimal? RpiMakerFee { get; set; }
     }
 }
