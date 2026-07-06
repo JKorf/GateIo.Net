@@ -85,5 +85,55 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("long_liq_usd")]
         public decimal LongLiquidationUsd { get; set; }
+        /// <summary>
+        /// ["<c>top_long_size</c>"] Top long size
+        /// </summary>
+        [JsonPropertyName("top_long_size")]
+        public decimal TopLongSize { get; set; }
+        /// <summary>
+        /// ["<c>top_short_size</c>"] Top short size
+        /// </summary>
+        [JsonPropertyName("top_short_size")]
+        public decimal TopShortSize { get; set; }
+        /// <summary>
+        /// ["<c>short_liq_usd_new</c>"] Short liquidations in USD
+        /// </summary>
+        [JsonPropertyName("short_liq_usd_new")]
+        public decimal ShortLiquidations { get; set; }
+        /// <summary>
+        /// ["<c>long_liq_usd_new</c>"] Long liquidations in USD
+        /// </summary>
+        [JsonPropertyName("long_liq_usd_new")]
+        public decimal LongLiquidations { get; set; }
+        /// <summary>
+        /// ["<c>top_long_account</c>"] Top long accounts
+        /// </summary>
+        [JsonPropertyName("top_long_account")]
+        public int TopLongAccounts { get; set; }
+        /// <summary>
+        /// ["<c>top_short_account</c>"] Top short accounts
+        /// </summary>
+        [JsonPropertyName("top_short_account")]
+        public int TopShortAccounts { get; set; }
+        /// <summary>
+        /// ["<c>long_taker_size</c>"] Long taker size
+        /// </summary>
+        [JsonPropertyName("long_taker_size")]
+        public decimal LongTakerSize { get; set; }
+        /// <summary>
+        /// ["<c>short_taker_size</c>"] Short taker size
+        /// </summary>
+        [JsonPropertyName("short_taker_size")]
+        public decimal ShortTakerSize { get; set; }
+        /// <summary>
+        /// ["<c>long_users</c>"] Long users
+        /// </summary>
+        [JsonPropertyName("long_users")]
+        public int LongUsers { get; set; }
+        /// <summary>
+        /// ["<c>short_users</c>"] Short users
+        /// </summary>
+        [JsonPropertyName("short_users")]
+        public int ShortUsers { get; set; }
     }
 }
