@@ -71,5 +71,20 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }
+        /// <summary>
+        /// ["<c>fail_reason</c>"] Failure reason
+        /// </summary>
+        [JsonPropertyName("fail_reason")]
+        public string? FailureReason { get; set; }
+        /// <summary>
+        /// ["<c>type</c>"] Type
+        /// </summary>
+        [JsonPropertyName("type")]
+        public string? Type { get; set; }
+        /// <summary>
+        /// ["<c>timestamp2</c>"] Timestamp the withdrawal was finalized
+        /// </summary>
+        [JsonPropertyName("timestamp2")]
+        public DateTime? FinalTimestamp { get; set; }
     }
 }
