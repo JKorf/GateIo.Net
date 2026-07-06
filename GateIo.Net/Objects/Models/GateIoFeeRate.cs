@@ -69,5 +69,20 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("debit_fee")]
         public int DebitFee { get; set; }
+        /// <summary>
+        /// ["<c>rpi_maker_fee</c>"] RPI maker fee
+        /// </summary>
+        [JsonPropertyName("rpi_maker_fee")]
+        public decimal? RpiMakerFee { get; set; }
+        /// <summary>
+        /// ["<c>rpi_mm</c>"] RPI MM level
+        /// </summary>
+        [JsonPropertyName("rpi_mm")]
+        public decimal? RpiMm { get; set; }
+        /// <summary>
+        /// ["<c>point_type</c>"] Point card type: 0 - Original version, 1 - New version since 202009
+        /// </summary>
+        [JsonPropertyName("point_type")]
+        public int? PointType { get; set; }
     }
 }
