@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get futures account info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-futures-account" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#get-futures-account" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/accounts
         /// </para>
@@ -31,7 +31,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get futures account ledger
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-account-change-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-futures-account-change-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/account_book
         /// </para>
@@ -51,7 +51,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Set position mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#set-position-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#set-position-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_mode
         /// </para>
@@ -66,7 +66,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Set margin mode for a position
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#switch-position-margin-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#switch-position-margin-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/cross_mode
         /// </para>
@@ -82,7 +82,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get user trading fees
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-market-trading-fee-rates" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-futures-market-trading-fee-rates" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/fee
         /// </para>

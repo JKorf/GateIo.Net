@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#create-an-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#create-an-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/orders
         /// </para>
@@ -67,7 +67,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get all open orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#list-all-open-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#list-all-open-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/open_orders
         /// </para>
@@ -87,7 +87,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#list-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#list-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/orders
         /// </para>
@@ -117,7 +117,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a specific order by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-order-details" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-single-order-details" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/orders/{orderId}
         /// </para>
@@ -139,7 +139,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a specific symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-all-open-orders-in-specified-currency-pair" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#cancel-all-open-orders-in-specified-currency-pair" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/orders
         /// </para>
@@ -159,7 +159,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel multiple orders. Check the individual response models to see if cancellation succeeded
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-batch-orders-by-specified-id-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#cancel-batch-orders-by-specified-id-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/cancel_batch_orders
         /// </para>
@@ -175,7 +175,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Edit an active order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#amend-single-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#amend-single-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/amend_batch_orders
         /// </para>
@@ -211,7 +211,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel an order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-single-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#cancel-single-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/orders/{id}
         /// </para>
@@ -233,7 +233,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of trades for the current user
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-personal-trading-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-personal-trading-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/my_trades
         /// </para>
@@ -261,7 +261,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel orders after a certain period. Can be called at interval to act as a deadmans switch. Using TimeSpan.Zero cancels the countdown
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#countdown-cancel-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#countdown-cancel-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/countdown_cancel_all
         /// </para>
@@ -279,7 +279,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Place a new price triggered order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#create-price-triggered-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#create-price-triggered-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/price_orders
         /// </para>
@@ -315,7 +315,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get list of trigger orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-running-auto-order-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-running-auto-order-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/price_orders
         /// </para>
@@ -339,7 +339,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel all trigger orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-all-auto-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#cancel-all-auto-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/price_orders
         /// </para>
@@ -354,7 +354,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a trigger order by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-auto-order-details" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-single-auto-order-details" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/price_orders/{id}
         /// </para>
@@ -368,7 +368,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel price trigger order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-single-auto-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#cancel-single-auto-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/price_orders/{id}
         /// </para>
@@ -382,7 +382,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Place multiple orders in a single call
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#batch-place-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#batch-place-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/batch_orders
         /// </para>
@@ -398,7 +398,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Edit multiple orders in a single call
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#batch-modification-of-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#batch-modification-of-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/amend_batch_orders
         /// </para>

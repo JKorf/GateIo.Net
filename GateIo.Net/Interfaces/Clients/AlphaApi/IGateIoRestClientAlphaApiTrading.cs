@@ -16,7 +16,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get an order quote
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-quote-api" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#alpha-quote-api" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/quote
         /// </para>
@@ -39,7 +39,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Place order using a quote
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-api" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#alpha-order-api" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/orders
         /// </para>
@@ -64,7 +64,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get order history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-order-list-api" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#alpha-order-list-api" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/orders
         /// </para>
@@ -91,7 +91,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get order info by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-single-order-query-api" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#alpha-single-order-query-api" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/order
         /// </para>

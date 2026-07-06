@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get spot account balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#list-spot-trading-accounts" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#list-spot-trading-accounts" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/accounts
         /// </para>
@@ -31,7 +31,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of balance changes for the user
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-spot-account-transaction-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-spot-account-transaction-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/account_book
         /// </para>
@@ -59,7 +59,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Withdraw
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#withdraw" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#withdraw" /><br />
         /// Endpoint:<br />
         /// /api/v4/withdrawals
         /// </para>
@@ -78,7 +78,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Cancel a pending withdrawal
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-withdrawal-with-specified-id" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#cancel-withdrawal-with-specified-id" /><br />
         /// Endpoint:<br />
         /// /api/v4/withdrawals/{withdrawalId}
         /// </para>
@@ -92,7 +92,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Generate deposit address
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#generate-currency-deposit-address" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#generate-currency-deposit-address" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/deposit_address
         /// </para>
@@ -106,7 +106,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-withdrawal-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-withdrawal-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/withdrawals
         /// </para>
@@ -136,7 +136,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get deposit history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-deposit-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-deposit-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/deposits
         /// </para>
@@ -160,7 +160,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Transfer between accounts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#transfer-between-trading-accounts" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#transfer-between-trading-accounts" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/transfers
         /// </para>
@@ -186,7 +186,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get transfer status
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#transfer-status-query" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#transfer-status-query" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/order_status
         /// </para>
@@ -203,7 +203,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get account withdrawal status
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-withdrawal-status" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-withdrawal-status" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/withdraw_status
         /// </para>
@@ -219,7 +219,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get saved addresses
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-withdrawal-address-whitelist" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-withdrawal-address-whitelist" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/saved_address
         /// </para>
@@ -241,7 +241,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get trading fees
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-personal-trading-fees" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-personal-trading-fees" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/fee
         /// </para>
@@ -259,7 +259,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get account balance values
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-personal-account-totals" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-personal-account-totals" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/total_balance
         /// </para>
@@ -275,7 +275,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get small balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-list-of-convertible-small-balance-currencies" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-list-of-convertible-small-balance-currencies" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/small_balance
         /// </para>
@@ -289,7 +289,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Convert small balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#convert-small-balance-currency" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#convert-small-balance-currency" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/small_balance
         /// </para>
@@ -307,7 +307,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get small balances conversion history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-convertible-small-balance-currency-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-convertible-small-balance-currency-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/small_balance_history
         /// </para>
@@ -327,7 +327,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get unified account info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-unified-account-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-unified-account-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/accounts
         /// </para>
@@ -343,7 +343,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max borrowable amount
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-maximum-borrowable-amount-for-unified-account" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-maximum-borrowable-amount-for-unified-account" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/borrowable
         /// </para>
@@ -359,7 +359,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max transferable amount
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-maximum-transferable-amount-for-unified-account" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-maximum-transferable-amount-for-unified-account" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/transferable
         /// </para>
@@ -375,7 +375,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Borrow or repay
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#borrow-or-repay" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#borrow-or-repay" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/loans
         /// </para>
@@ -399,7 +399,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get loans
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-loans" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-loans" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/loans
         /// </para>
@@ -421,7 +421,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get loan history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-loan-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-loan-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/loan_records
         /// </para>
@@ -443,7 +443,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get interest history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-interest-deduction-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-interest-deduction-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/interest_records
         /// </para>
@@ -469,7 +469,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get user risk unit details
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-user-risk-unit-details" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-user-risk-unit-details" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/risk_units
         /// </para>
@@ -482,7 +482,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Set unified account mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#set-unified-account-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#set-unified-account-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/unified_mode
         /// </para>
@@ -500,7 +500,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get unified account mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-mode-of-the-unified-account" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-mode-of-the-unified-account" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/unified_mode
         /// </para>
@@ -513,7 +513,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get estimated lending rates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-estimated-interest-rate" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-unified-account-estimated-interest-rate" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/estimate_rate
         /// </para>
@@ -527,7 +527,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get unified account min and max leverage rates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#maximum-and-minimum-currency-leverage-that-can-be-set" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#maximum-and-minimum-currency-leverage-that-can-be-set" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/leverage/user_currency_config
         /// </para>
@@ -540,7 +540,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get the current leverage setttings
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-user-currency-leverage" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-user-currency-leverage" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/leverage/user_currency_setting
         /// </para>
@@ -553,7 +553,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Set the leverage for an asset
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#set-loan-currency-leverage" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#set-loan-currency-leverage" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/leverage/user_currency_setting
         /// </para>
@@ -567,7 +567,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get account and API key info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-user-account-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-user-account-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/account/detail
         /// </para>
@@ -580,7 +580,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin account list
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#margin-account-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#margin-account-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/accounts
         /// </para>
@@ -594,7 +594,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get isolated margin account list
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-user-s-isolated-margin-account-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-user-s-isolated-margin-account-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/user/account
         /// </para>
@@ -608,7 +608,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin accounts balance change history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-margin-account-balance-change-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-margin-account-balance-change-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/account_book
         /// </para>
@@ -636,7 +636,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin funding accounts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#funding-account-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#funding-account-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/funding_accounts
         /// </para>
@@ -652,7 +652,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Set auto repayment
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-user-auto-repayment-settings" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#update-user-auto-repayment-settings" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/auto_repay
         /// </para>
@@ -668,7 +668,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get auto repayment setting
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-user-auto-repayment-settings" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-user-auto-repayment-settings" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/auto_repay
         /// </para>
@@ -681,7 +681,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get max transferable quantity
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-maximum-transferable-amount-for-isolated-margin" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-maximum-transferable-amount-for-isolated-margin" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/transferable
         /// </para>
@@ -696,7 +696,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-cross-margin-account" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-cross-margin-account" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/accounts
         /// </para>
@@ -709,7 +709,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-cross-margin-account-change-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/account_book
         /// </para>
@@ -734,7 +734,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-cross-margin-account-change-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-cross-margin-account-change-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/loans
         /// </para>
@@ -754,7 +754,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#list-cross-margin-borrow-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#list-cross-margin-borrow-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/loans
         /// </para>
@@ -776,7 +776,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-single-borrow-loan-detail" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/loans/{id}
         /// </para>
@@ -791,7 +791,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-single-borrow-loan-detail" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-single-borrow-loan-detail" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/repayments
         /// </para>
@@ -809,7 +809,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-cross-margin-repayments" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-cross-margin-repayments" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/repayments
         /// </para>
@@ -833,7 +833,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#interest-records-for-the-cross-margin-account" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#interest-records-for-the-cross-margin-account" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/interest_records
         /// </para>
@@ -857,7 +857,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-the-max-transferable-amount-for-a-specific-cross-margin-currency" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-the-max-transferable-amount-for-a-specific-cross-margin-currency" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/transferable
         /// </para>
@@ -871,7 +871,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#estimated-interest-rates" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#estimated-interest-rates" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/estimate_rate
         /// </para>
@@ -885,7 +885,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-the-max-borrowable-amount-for-a-specific-cross-margin-currency" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-the-max-borrowable-amount-for-a-specific-cross-margin-currency" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/borrowable
         /// </para>
@@ -899,7 +899,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin estimated interest rates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#estimate-interest-rate-for-isolated-margin-currencies" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#estimate-interest-rate-for-isolated-margin-currencies" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/estimate_rate
         /// </para>
@@ -913,7 +913,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Borrow or repay margin loan
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#borrow-or-repay-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#borrow-or-repay-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/loans
         /// </para>
@@ -937,7 +937,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List margin loans
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-loans-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-loans-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/loans
         /// </para>
@@ -959,7 +959,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List margin loan history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-loan-records-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-loan-records-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/loan_records
         /// </para>
@@ -983,7 +983,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// List margin interest records
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-interest-deduction-records-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-interest-deduction-records-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/interest_records
         /// </para>
@@ -1009,7 +1009,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get margin max borrowable quantity
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-maximum-borrowable-amount-by-currency" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-maximum-borrowable-amount-by-currency" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/borrowable
         /// </para>
@@ -1027,7 +1027,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get GT deduction enabled status
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-gt-fee-deduction-configuration" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-gt-fee-deduction-configuration" /><br />
         /// Endpoint:<br />
         /// /api/v4/account/debit_fee
         /// </para>
@@ -1040,7 +1040,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Set GT deduction enabled status
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#configure-gt-fee-deduction" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#configure-gt-fee-deduction" /><br />
         /// Endpoint:<br />
         /// /api/v4/account/debit_fee
         /// </para>
@@ -1054,7 +1054,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get transfer history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-uid-transfer-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-uid-transfer-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/push
         /// </para>
@@ -1072,7 +1072,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Transfer to another GateIo account
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#uid-transfer" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#uid-transfer" /><br />
         /// Endpoint:<br />
         /// /api/v4/withdrawals/push
         /// </para>
@@ -1087,7 +1087,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get rate limit ratios for the user
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-user-transaction-rate-limit-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-user-transaction-rate-limit-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/account/rate_limit
         /// </para>
@@ -1099,7 +1099,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get insurance fund history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-spot-insurance-fund-historical-data" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-spot-insurance-fund-historical-data" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/insurance_history
         /// </para>
@@ -1125,7 +1125,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Set margin leverage
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#set-user-market-leverage-multiplier" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#set-user-market-leverage-multiplier" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/leverage/user_market_setting
         /// </para>

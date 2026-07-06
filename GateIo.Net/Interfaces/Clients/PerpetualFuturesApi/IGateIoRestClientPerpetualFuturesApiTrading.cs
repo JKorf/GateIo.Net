@@ -17,7 +17,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get positions
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-user-position-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#get-user-position-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions
         /// </para>
@@ -34,7 +34,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get single position
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-single-position-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#get-single-position-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/{contract}
         /// </para>
@@ -49,7 +49,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Update position margin
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-position-margin" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#update-position-margin" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/{contract}/margin
         /// </para>
@@ -65,7 +65,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Update position leverage
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-position-leverage" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#update-position-leverage" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/{contract}/leverage
         /// </para>
@@ -82,7 +82,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Update position risk limit
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-position-risk-limit" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#update-position-risk-limit" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/{contract}/risk_limit
         /// </para>
@@ -98,7 +98,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get positions in dual mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-position-information-in-dual-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#get-position-information-in-dual-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}
         /// </para>
@@ -113,7 +113,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Update position margin for dual position mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-position-margin-in-dual-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#update-position-margin-in-dual-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/margin
         /// </para>
@@ -130,7 +130,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Update position leverage in dual position mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-position-leverage-in-dual-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#update-position-leverage-in-dual-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/leverage
         /// </para>
@@ -147,7 +147,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Update position risk limit in dual position mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#update-position-risk-limit-in-dual-mode" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#update-position-risk-limit-in-dual-mode" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/dual_comp/positions/{contract}/risk_limit
         /// </para>
@@ -163,7 +163,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Place a new order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#place-futures-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#place-futures-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders
         /// </para>
@@ -205,7 +205,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Place multiple new orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#place-batch-futures-orders" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#place-batch-futures-orders" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/batch_orders
         /// </para>
@@ -223,7 +223,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-order-list-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-futures-order-list-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders
         /// </para>
@@ -249,7 +249,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Cancel orders after a certain period. Can be called at interval to act as a deadmans switch. Using TimeSpan.Zero cancels the countdown
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#countdown-cancel-orders-3" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#countdown-cancel-orders-3" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/countdown_cancel_all
         /// </para>
@@ -265,7 +265,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Cancel orders by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-batch-orders-by-specified-id-list-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#cancel-batch-orders-by-specified-id-list-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/batch_cancel_orders
         /// </para>
@@ -280,7 +280,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get orders with timestamp filtering
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-order-list-by-time-range" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-futures-order-list-by-time-range" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders_timerange
         /// </para>
@@ -308,7 +308,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Cancel all open orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-all-orders-with-open-status-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#cancel-all-orders-with-open-status-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders
         /// </para>
@@ -324,7 +324,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get order by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-order-details-3" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-single-order-details-3" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders/{id}
         /// </para>
@@ -344,7 +344,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Cancel an order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-single-order-3" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#cancel-single-order-3" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders/{id}
         /// </para>
@@ -364,7 +364,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Edit an existing order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#amend-single-order" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#amend-single-order" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/orders/{id}
         /// </para>
@@ -390,7 +390,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Edit multiple existing orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#batch-modify-orders-by-specified-ids" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#batch-modify-orders-by-specified-ids" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/batch_amend_orders
         /// </para>
@@ -404,7 +404,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get user trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-personal-trading-records-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-personal-trading-records-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/my_trades
         /// </para>
@@ -430,7 +430,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get user trades by timestamp filter
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-personal-trading-records-by-time-range" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-personal-trading-records-by-time-range" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/my_trades_timerange
         /// </para>
@@ -460,7 +460,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get position closing history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-position-close-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-position-close-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/position_close
         /// </para>
@@ -490,7 +490,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get user liquidation history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-liquidation-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-liquidation-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/liquidates
         /// </para>
@@ -510,7 +510,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get user auto deleveraging history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-adl-auto-deleveraging-order-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-adl-auto-deleveraging-order-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/auto_deleverages
         /// </para>
@@ -530,7 +530,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Place a new trigger order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#create-price-triggered-order-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#create-price-triggered-order-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders
         /// </para>
@@ -574,7 +574,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get trigger orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-auto-order-list" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-auto-order-list" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders
         /// </para>
@@ -598,7 +598,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Cancel all trigger orders on a contract
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-all-auto-orders-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#cancel-all-auto-orders-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders
         /// </para>
@@ -616,7 +616,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get a trigger order by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-auto-order-details-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-single-auto-order-details-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders/{orderId}
         /// </para>
@@ -634,7 +634,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Cancel a trigger order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#cancel-single-auto-order-2" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#cancel-single-auto-order-2" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/price_orders/{orderId}
         /// </para>

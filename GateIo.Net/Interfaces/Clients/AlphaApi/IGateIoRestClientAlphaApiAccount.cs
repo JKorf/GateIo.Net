@@ -15,7 +15,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get account info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-account-api" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#alpha-account-api" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/accounts
         /// </para>
@@ -27,7 +27,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get account ledger
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#alpha-account-transaction-history-api" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#alpha-account-transaction-history-api" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/account_book
         /// </para>

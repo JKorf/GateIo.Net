@@ -16,7 +16,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         ///
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-server-current-time" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#get-server-current-time" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/time
         /// </para>
@@ -29,7 +29,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get list of contract
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-futures-contracts" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-all-futures-contracts" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/contracts
         /// </para>
@@ -43,7 +43,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get a specific contract
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-contract-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-single-contract-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/contracts/{id}
         /// </para>
@@ -58,7 +58,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get order book
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-futures-market-depth-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-futures-market-depth-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/order_book
         /// </para>
@@ -75,7 +75,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get recent trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#futures-market-transaction-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#futures-market-transaction-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/trades
         /// </para>
@@ -103,7 +103,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get kline/candlesticks
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#futures-market-k-line-chart" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#futures-market-k-line-chart" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/candlesticks
         /// </para>
@@ -129,7 +129,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get premium index kline/candlesticks
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#premium-index-k-line-chart" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#premium-index-k-line-chart" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/premium_index
         /// </para>
@@ -155,7 +155,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get ticker info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-all-futures-trading-statistics" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#get-all-futures-trading-statistics" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/tickers
         /// </para>
@@ -173,7 +173,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get funding rate history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#futures-market-historical-funding-rate" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#futures-market-historical-funding-rate" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/funding_rate
         /// </para>
@@ -197,7 +197,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get insurance balance history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#futures-market-insurance-fund-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#futures-market-insurance-fund-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/insurance
         /// </para>
@@ -215,7 +215,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get contract statistics
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#futures-statistics" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#futures-statistics" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/contract_stats
         /// </para>
@@ -237,7 +237,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get constituents for a contract
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-index-constituents" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-index-constituents" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/index_constituents/{contract}
         /// </para>
@@ -255,7 +255,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get liquidation history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-liquidation-order-history" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-liquidation-order-history" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/liq_orders
         /// </para>
@@ -279,7 +279,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// Get risk limit tiers
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-risk-limit-tiers" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/futures/#query-risk-limit-tiers" /><br />
         /// Endpoint:<br />
         /// /api/v4/futures/{settlementAsset.ToLowerInvariant()}/risk_limit_tiers
         /// </para>

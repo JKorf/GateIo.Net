@@ -16,7 +16,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get the current server time
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-server-current-time" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-server-current-time" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/time
         /// </para>
@@ -29,7 +29,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of supported assets
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-currency-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-all-currency-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/currencies
         /// </para>
@@ -42,7 +42,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get info on a specific asset
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-single-currency-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/currencies/{asset}
         /// </para>
@@ -56,7 +56,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get info on a specific symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-single-currency-pair-details" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-single-currency-pair-details" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/currency_pairs/{symbol}
         /// </para>
@@ -70,7 +70,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of supported symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-all-supported-currency-pairs" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-all-supported-currency-pairs" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/currency_pairs
         /// </para>
@@ -83,7 +83,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get tickers for all or a single symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-currency-pair-ticker-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-currency-pair-ticker-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/tickers
         /// </para>
@@ -98,7 +98,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get the orderbook for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-market-depth-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-market-depth-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/order_book
         /// </para>
@@ -114,7 +114,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get market trades for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-market-transaction-records" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-market-transaction-records" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/trades
         /// </para>
@@ -134,7 +134,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get kline/candlesticks for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#market-k-line-chart" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#market-k-line-chart" /><br />
         /// Endpoint:<br />
         /// /api/v4/spot/candlesticks
         /// </para>
@@ -152,7 +152,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get a list of networks for an asset
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-chains-supported-for-specified-currency" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-chains-supported-for-specified-currency" /><br />
         /// Endpoint:<br />
         /// /api/v4/wallet/currency_chains
         /// </para>
@@ -166,7 +166,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get discount tiers
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-unified-account-tiered" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/currency_discount_tiers
         /// </para>
@@ -179,7 +179,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get loan margin tiers
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#query-unified-account-tiered-loan-margin" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#query-unified-account-tiered-loan-margin" /><br />
         /// Endpoint:<br />
         /// /api/v4/unified/loan_margin_tiers
         /// </para>
@@ -192,7 +192,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#retrieve-detail-of-one-single-currency-supported-by-cross-margin" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/currencies/{id}
         /// </para>
@@ -206,7 +206,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// DEPRECATED
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#currencies-supported-by-cross-margin" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#currencies-supported-by-cross-margin" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/cross/currencies
         /// </para>
@@ -219,7 +219,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get lending symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#list-lending-markets" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#list-lending-markets" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/currency_pairs
         /// </para>
@@ -232,7 +232,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// Get lending symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/apiv4/en/#get-lending-market-details" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/spot/#get-lending-market-details" /><br />
         /// Endpoint:<br />
         /// /api/v4/margin/uni/currency_pairs/{id}
         /// </para>

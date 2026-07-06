@@ -14,7 +14,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get asset information
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-information" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#query-currency-information" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/currencies
         /// </para>
@@ -29,7 +29,7 @@ namespace GateIo.Net.Interfaces.Clients.AlphaApi
         /// Get asset tickers
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.gate.com/docs/developers/alpha/en/#query-currency-ticker" /><br />
+        /// <a href="https://www.gate.com/docs/developers/apiv4/en/alpha/#query-currency-ticker" /><br />
         /// Endpoint:<br />
         /// /api/v4/alpha/tickers
         /// </para>
