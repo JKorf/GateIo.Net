@@ -117,5 +117,25 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("funding_impact_value")]
         public decimal FundingImpactValue { get; set; }
+        /// <summary>
+        /// ["<c>st_tag</c>"] Whether the trading pair is in ST risk assessment, false - No, true - Yes
+        /// </summary>
+        [JsonPropertyName("st_tag")]
+        public bool StTag { get; set; }
+        /// <summary>
+        /// ["<c>slippage</c>"] Max slippage
+        /// </summary>
+        [JsonPropertyName("slippage")]
+        public decimal Slippage { get; set; }
+        /// <summary>
+        /// ["<c>market_order_max_stock</c>"] Max market order quantity
+        /// </summary>
+        [JsonPropertyName("market_order_max_stock")]
+        public decimal MaxMarketOrderQuantity { get; set; }
+        /// <summary>
+        /// ["<c>market_order_max_money</c>"] Max market order value
+        /// </summary>
+        [JsonPropertyName("market_order_max_money")]
+        public decimal MaxMarketOrderValue { get; set; }
     }
 }
