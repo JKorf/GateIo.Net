@@ -72,6 +72,21 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("cbbc")]
         public GateIoAccountValue Cbbc { get; set; } = null!;
+        /// <summary>
+        /// ["<c>meme_box</c>"] MemeBox value
+        /// </summary>
+        [JsonPropertyName("meme_box")]
+        public GateIoAccountValue MemeBox { get; set; } = null!;
+        /// <summary>
+        /// ["<c>options</c>"] Options value
+        /// </summary>
+        [JsonPropertyName("options")]
+        public GateIoAccountValue Options { get; set; } = null!;
+        /// <summary>
+        /// ["<c>payment</c>"] Payment value
+        /// </summary>
+        [JsonPropertyName("payment")]
+        public GateIoAccountValue Payment { get; set; } = null!;
     }
 
     /// <summary>
