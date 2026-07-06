@@ -35,6 +35,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("change_percentage")]
         public decimal ChangePercentage { get; set; }
         /// <summary>
+        /// ["<c>change_price</c>"] 24h Change price
+        /// </summary>
+        [JsonPropertyName("change_price")]
+        public decimal ChangePrice { get; set; }
+        /// <summary>
         /// ["<c>total_size</c>"] Total contract size
         /// </summary>
         [JsonPropertyName("total_size")]
@@ -109,5 +114,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("lowest_size")]
         public decimal BestAskQuantity { get; set; }
+        /// <summary>
+        /// ["<c>quanto_multiplier</c>"] Quanto multiplier
+        /// </summary>
+        [JsonPropertyName("quanto_multiplier")]
+        public decimal? QuantoMultiplier { get; set; }
     }
 }
