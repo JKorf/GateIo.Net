@@ -34,6 +34,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("exchange")]
         public string Exchange { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>weight</c>"] Weight
+        /// </summary>
+        [JsonPropertyName("weight")]
+        public decimal? Weight { get; set; }
+        /// <summary>
         /// ["<c>symbols</c>"] Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
