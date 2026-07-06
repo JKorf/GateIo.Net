@@ -1,4 +1,6 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
+using System;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -119,6 +121,51 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("enable_tiered_mm")]
         public bool EnableTieredMaintenanceMargin { get; set; }
+        /// <summary>
+        /// ["<c>enable_credit</c>"] Credits enabled
+        /// </summary>
+        [JsonPropertyName("enable_credit")]
+        public bool EnableCredit { get; set; }
+        /// <summary>
+        /// ["<c>update_time</c>"] Update time
+        /// </summary>
+        [JsonPropertyName("update_time")]
+        public DateTime UpdateTime { get; set; }
+        /// <summary>
+        /// ["<c>position_initial_margin</c>"] Position initial margin
+        /// </summary>
+        [JsonPropertyName("position_initial_margin")]
+        public decimal? PositionInitialMargin { get; set; }
+        /// <summary>
+        /// ["<c>maintenance_margin</c>"] Maintenance margin
+        /// </summary>
+        [JsonPropertyName("maintenance_margin")]
+        public decimal? MaintenanceMargin { get; set; }
+        /// <summary>
+        /// ["<c>margin_mode</c>"] Account mode
+        /// </summary>
+        [JsonPropertyName("margin_mode")]
+        public UnifiedAccountMode? AccountMode { get; set; }
+        /// <summary>
+        /// ["<c>margin_mode_name</c>"] Account mode name
+        /// </summary>
+        [JsonPropertyName("margin_mode_name")]
+        public string AccountModeName { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>position_voucher_total</c>"] Position voucher total
+        /// </summary>
+        [JsonPropertyName("position_voucher_total")]
+        public decimal? PositionVoucherTotal { get; set; }
+        /// <summary>
+        /// ["<c>position_mode</c>"] Position mode
+        /// </summary>
+        [JsonPropertyName("position_mode")]
+        public PositionHoldMode? PositionMode { get; set; }
+        /// <summary>
+        /// ["<c>update_id</c>"] Update id
+        /// </summary>
+        [JsonPropertyName("update_id")]
+        public int UpdateId { get; set; }
     }
 
     /// <summary>
@@ -163,7 +210,7 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("point_fee")]
         public decimal TotalPointFee { get; set; }
         /// <summary>
-        /// ["<c>point_refr</c>"] Total amountof point referrer rebates
+        /// ["<c>point_refr</c>"] Total amount of point referrer rebates
         /// </summary>
         [JsonPropertyName("point_refr")]
         public decimal TotalPointReferenceRebate { get; set; }
@@ -177,5 +224,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("bonus_offset")]
         public decimal TotalBonusDeduction { get; set; }
+        /// <summary>
+        /// ["<c>cross_settle</c>"] Cross settle
+        /// </summary>
+        [JsonPropertyName("cross_settle")]
+        public decimal CrossSettle { get; set; }
     }
 }
