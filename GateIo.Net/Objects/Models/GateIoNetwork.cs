@@ -54,5 +54,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("is_tag")]
         public bool IsTag { get; set; }
+        /// <summary>
+        /// ["<c>withdraw_amount_min</c>"] Min withdrawal quantity
+        /// </summary>
+        [JsonPropertyName("withdraw_amount_min")]
+        public decimal? MinWithdrawQuantity { get; set; }
     }
 }
