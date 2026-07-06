@@ -17,6 +17,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("user")]
         public long UserId { get; set; }
         /// <summary>
+        /// ["<c>id</c>"] Position id
+        /// </summary>
+        [JsonPropertyName("id")]
+        public long PositionId { get; set; }
+        /// <summary>
         /// ["<c>contract</c>"] Contract
         /// </summary>
         [JsonPropertyName("contract")]
@@ -32,9 +37,9 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("trade_max_size")]
         public long MaxTradeSize { get; set; }
         /// <summary>
-        /// ["<c>leverage</c>"] Leverage
+        /// ["<c>lever</c>"] Leverage
         /// </summary>
-        [JsonPropertyName("leverage")]
+        [JsonPropertyName("lever")]
         public decimal Leverage { get; set; }
         /// <summary>
         /// ["<c>risk_limit</c>"] Risk limit
@@ -171,6 +176,46 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("average_maintenance_rate")]
         public decimal? AverageMaintenanceRate { get; set; }
+        /// <summary>
+        /// ["<c>trade_long_size</c>"] Trade long size
+        /// </summary>
+        [JsonPropertyName("trade_long_size")]
+        public decimal? TradeLongSize { get; set; }
+        /// <summary>
+        /// ["<c>trade_short_size</c>"] Trade short size
+        /// </summary>
+        [JsonPropertyName("trade_short_size")]
+        public decimal? TradeShortSize { get; set; }
+        /// <summary>
+        /// ["<c>risk_limit_table</c>"] Risk limit table
+        /// </summary>
+        [JsonPropertyName("risk_limit_table")]
+        public string? RiskLimitTable { get; set; }
+        /// <summary>
+        /// ["<c>voucher_size</c>"] Voucher size
+        /// </summary>
+        [JsonPropertyName("voucher_size")]
+        public decimal? VoucherSize { get; set; }
+        /// <summary>
+        /// ["<c>voucher_margin</c>"] Voucher margin
+        /// </summary>
+        [JsonPropertyName("voucher_margin")]
+        public decimal? VoucherMargin { get; set; }
+        /// <summary>
+        /// ["<c>voucher_id</c>"] Voucher id
+        /// </summary>
+        [JsonPropertyName("voucher_id")]
+        public long? VoucherId { get; set; }
+        /// <summary>
+        /// ["<c>pos_margin_mode</c>"] Margin mode
+        /// </summary>
+        [JsonPropertyName("pos_margin_mode")]
+        public MarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// ["<c>liq_lock</c>"] Liquidation lock
+        /// </summary>
+        [JsonPropertyName("liq_lock")]
+        public bool LiquidationLock { get; set; }
         /// <summary>
         /// ["<c>close_order</c>"] Close order
         /// </summary>
