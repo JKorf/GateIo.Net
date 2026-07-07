@@ -6,7 +6,7 @@ true
   "contract": "BTC_USDT",
   "size": -9440,
   "trade_max_size": "0",
-  "leverage": "0",
+  "lever": "0",
   "risk_limit": "100",
   "leverage_max": "100",
   "maintenance_rate": "0.005",

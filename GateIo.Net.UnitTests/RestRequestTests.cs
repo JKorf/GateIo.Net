@@ -206,7 +206,10 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.EditOrderAsync("usdt", 123), "EditOrder");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetUserTradesAsync("usdt"), "GetUserTrades");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetUserTradesByTimestampAsync("usdt"), "GetUserTradesByTimestamp");
-            await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetPositionCloseHistoryAsync("usdt"), "GetPositionCloseHistory");
+            await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetPositionCloseHistoryAsync("usdt"), "GetPositionCloseHistory",
+                ignoreProperties: [
+                    "time" // Covered by time_us
+                    ]);
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetLiquidationHistoryAsync("usdt"), "GetLiquidationHistory");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.GetAutoDeleveragingHistoryAsync("usdt"), "GetAutoDeleveragingHistory");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.Trading.CancelOrdersAfterAsync("usdt", TimeSpan.Zero), "CancelOrdersAfter");
