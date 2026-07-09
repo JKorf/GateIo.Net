@@ -217,6 +217,21 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("liq_lock")]
         public bool LiquidationLock { get; set; }
         /// <summary>
+        /// ["<c>hedge_status</c>"] Hedge status
+        /// </summary>
+        [JsonPropertyName("hedge_status")]
+        public HedgeStatus? HedgeStatus { get; set; }
+        /// <summary>
+        /// ["<c>hedge_size</c>"] Hedge size
+        /// </summary>
+        [JsonPropertyName("hedge_size")]
+        public decimal? HedgedSize { get; set; }
+        /// <summary>
+        /// ["<c>unhedged_size</c>"] Unhedged size
+        /// </summary>
+        [JsonPropertyName("unhedged_size")]
+        public decimal? UnhedgedSize { get; set; }
+        /// <summary>
         /// ["<c>close_order</c>"] Close order
         /// </summary>
         [JsonPropertyName("close_order")]
