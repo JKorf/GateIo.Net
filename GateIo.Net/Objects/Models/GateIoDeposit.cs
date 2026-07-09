@@ -61,5 +61,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }
+        /// <summary>
+        /// ["<c>refund_status</c>"] Refund status
+        /// </summary>
+        [JsonPropertyName("refund_status")]
+        public RefundStatus? RefundStatus { get; set; }
     }
 }
