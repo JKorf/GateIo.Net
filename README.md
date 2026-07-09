@@ -208,6 +208,32 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.1.0 - 09 Jul 2026
+    * Updated CryptoExchange.Net to v12.1.0
+    * Added FailureReason, Type and FinalTimestamp to GateIoWithdrawal
+    * Added StTag, Slippage, MaxMarketOrderQuantity and MaxMarketOrderValue to GateIoSymbol model
+    * Added BizInfo and AmendText to GateIoPerpUserTrade model
+    * Added ChangePrice and QuantoMultiplier to GateIoPerpTicker model
+    * Added Leverage, VoucherId, MarginMode to GateIoPerpPositionClose model, timestamp now maps to microseconds timestamp
+    * Added UpdateId And BizInfo to GateIoPerpLedgerEntry model
+    * Added RpiMakerFee to GateIoPerpFee model
+    * Added Weight to GateIoPerpConstituent model
+    * Added MinWithdrawQuantity to GateIoNetwork model
+    * Added RpiMakerFee, RpiMm and PointType to GateIoFeeRate model
+    * Added MemeBox, Options and Payment to GateIoAccountValuation model
+    * Added TierExpireTime and SpotCopyTradingRole to GateIoAccountInfo model
+    * Added missing enums values
+    * Added MarketOrderSlipRatio, MarginMode, TakeProfitTriggerPrice, StopLossTriggerPrice, TakeProfitBboType and StopLossBboType to GateIoPerpOrder model
+    * Added RefundStatus to GateIoDeposit model
+    * Added HedgeStatus, HedgedSize and UnhedgedSize to GateIoPosition model
+    * Updated restClient.SpotApi.Account.GetSavedAddressAsync asset parameter to optional, added verified parameter
+    * Updated GateIoPosition with missing properties
+    * Updated GateIoPerpTriggerOrder model with missing properties
+    * Updated GateIoPerpFuturesContract with missing properties
+    * Updated GateIoPerpContractStats model with missing properties
+    * Updated GateIoFuturesAccount model with missing properties
+    * Updated documentation links
+
 * Version 4.0.0 - 29 Jun 2026
     * Result types:
       * (Web)CallResult types are replaced by HttpResult, WebSocketResult and QueryResult with the same logic
