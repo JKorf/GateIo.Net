@@ -226,13 +226,15 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
         /// <param name="network">["<c>chain</c>"] Filter by network</param>
+        /// <param name="verified">["<c>verified</c>"] Filter by verification free addresses</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<HttpResult<GateIoSavedAddress[]>> GetSavedAddressAsync(
-            string asset,
+            string? asset = null,
             string? network = null,
+            bool? verified = null,
             int? limit = null,
             int? page = null,
             CancellationToken ct = default);

@@ -238,8 +238,9 @@ namespace GateIo.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public async Task<HttpResult<GateIoSavedAddress[]>> GetSavedAddressAsync(
-            string asset,
+            string? asset = null,
             string? network = null,
+            bool? verified = null,
             int? limit = null,
             int? page = null,
             CancellationToken ct = default)
@@ -247,6 +248,7 @@ namespace GateIo.Net.Clients.SpotApi
             var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
             parameters.Add("chain", network);
+            parameters.Add("verified", verified == null ? null : verified.Value ? 1 : 0);
             parameters.Add("limit", limit);
             parameters.Add("page", page);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/wallet/saved_address", GateIoExchange.RateLimiter.RestSpotOther, 1, true);
