@@ -126,6 +126,37 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("amend_text")]
         public string? AmendText { get; set; }
+        /// <summary>
+        /// ["<c>market_order_slip_ratio</c>"] Market order slippage ratio
+        /// </summary>
+        [JsonPropertyName("market_order_slip_ratio")]
+        public decimal? MarketOrderSlipRatio { get; set; }
+        /// <summary>
+        /// ["<c>pos_margin_mode</c>"] Margin mode
+        /// </summary>
+        [JsonPropertyName("pos_margin_mode")]
+        public MarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// ["<c>tpsl_tp_trigger_price</c>"] Take profit trigger price
+        /// </summary>
+        [JsonPropertyName("tpsl_tp_trigger_price")]
+        public decimal? TakeProfitTriggerPrice { get; set; }
+        /// <summary>
+        /// ["<c>tpsl_sl_trigger_price</c>"] Stop loss trigger price
+        /// </summary>
+        [JsonPropertyName("tpsl_sl_trigger_price")]
+        public decimal? StopLossTriggerPrice { get; set; }
+        /// <summary>
+        /// ["<c>tpsl_tp_bbo_type</c>"] Take profit BBO type
+        /// </summary>
+        [JsonPropertyName("tpsl_tp_bbo_type")]
+        public string? TakeProfitBboType { get; set; }
+        /// <summary>
+        /// ["<c>tpsl_sl_bbo_type</c>"] Stop loss BBO type
+        /// </summary>
+        [JsonPropertyName("tpsl_sl_bbo_type")]
+        public string? StopLossBboType { get; set; }
+
 
         /// <summary>
         /// ["<c>succeeded</c>"] Whether or not the requested operation succeeded
