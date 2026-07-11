@@ -15,7 +15,7 @@
       "funding_rate_indicative": "0.01875",
       "mark_price": "118.35",
       "index_price": "118.36",
-      "total_size": "73648",
+      "total_size": "73648.5",
       "volume_24h": "745487577",
       "volume_24h_btc": "117",
       "volume_24h_usd": "419950",

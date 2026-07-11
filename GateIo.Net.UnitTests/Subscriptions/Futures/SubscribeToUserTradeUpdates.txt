@@ -13,12 +13,13 @@
       "create_time_ms": 1628736848321,
       "contract": "BTC_USD",
       "order_id": "4872460",
-      "size": 1,
+      "size": "1.5",
       "price": "40000.4",
       "role": "maker",
       "text": "api",
       "fee": 0.0009290592,
-      "point_fee": 0
+      "point_fee": 0,
+      "close_size": "0.5"
     }
   ]
 }

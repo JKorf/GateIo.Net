@@ -1,0 +1,22 @@
+> {"time":"1","id":-999,"channel":"futures.obu","event":"subscribe","payload":["ob.ETH_USDT.50"]}
+< {"time":"1","time_ms":1717595231793,"id":-999,"conn_id":"28838ac31473dcbb","trace_id":"789a534faf3c51651b7764b0ac63b4a8","channel":"futures.obu","event":"subscribe","payload":["ob.ETH_USDT.50"],"result":{"status":"success"},"requestId":"789a534faf3c51651b7764b0ac63b4a8"}
+=
+{
+  "time": 1615366381,
+  "time_ms": 1615366381123,
+  "channel": "futures.obu",
+  "event": "update",
+  "result": {
+    "t": 1615366381417,
+    "full": true,
+    "U": 2517661101,
+    "u": 2517661113,
+    "s": "ob.ETH_USDT.50",
+    "b": [
+      ["54672.1", "58794.5"]
+    ],
+    "a": [
+      ["54742", "95.2"]
+    ]
+  }
+}

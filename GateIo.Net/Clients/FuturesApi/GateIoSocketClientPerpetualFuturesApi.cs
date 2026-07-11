@@ -79,6 +79,14 @@ namespace GateIo.Net.Clients.FuturesApi
             => new GateIoAuthenticationProvider(credentials);
 
         /// <inheritdoc />
+        protected override WebSocketParameters GetWebSocketParameters(string address)
+        {
+            var parameters = base.GetWebSocketParameters(address);
+            parameters.Headers["X-Gate-Size-Decimal"] = "1";
+            return parameters;
+        }
+
+        /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string settlementAsset, string contract, Action<DataEvent<GateIoPerpTradeUpdate[]>> onMessage, CancellationToken ct = default)
             => await SubscribeToTradeUpdatesAsync(settlementAsset, [contract], onMessage, ct).ConfigureAwait(false);
 

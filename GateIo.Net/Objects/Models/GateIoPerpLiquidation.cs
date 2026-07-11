@@ -31,6 +31,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
+        /// ["<c>order_size</c>"] Original order quantity
+        /// </summary>
+        [JsonPropertyName("order_size")]
+        public decimal OrderQuantity { get; set; }
+        /// <summary>
         /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
