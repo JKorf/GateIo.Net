@@ -194,7 +194,7 @@ namespace GateIo.Net.UnitTests
                 symbols => symbols.Single().Name == "LAB_USDT",
                 symbols => symbols.Single().MinTradeQuantity == 0.1m,
                 symbols => symbols.Single().MaxTradeQuantity == 1200m,
-                symbols => symbols.Single().QuantityStep == 0.1m);
+                symbols => symbols.Single().QuantityStep == 1m);
         }
 
         [Test]

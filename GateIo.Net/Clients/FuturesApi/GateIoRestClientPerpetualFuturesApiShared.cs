@@ -204,7 +204,7 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 MinTradeQuantity = s.MinOrderQuantity,
                 MaxTradeQuantity = s.MaxOrderQuantity,
-                QuantityStep = s.EnableDecimal ? 0.1m : 1m,
+                QuantityStep = 1,
                 PriceStep = s.OrderPriceStep,
                 ContractSize = s.Multiplier,
                 MaxLongLeverage = s.MaxLeverage,
