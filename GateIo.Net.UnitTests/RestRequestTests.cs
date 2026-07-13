@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Testing;
 using GateIo.Net.Clients;
 using GateIo.Net.Enums;
@@ -177,6 +178,23 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.ExchangeData.GetLiquidationsAsync("usdt", "ETH_USDT"), "GetLiquidations");
             await tester.ValidateAsync(client => client.PerpetualFuturesApi.ExchangeData.GetRiskLimitTiersAsync("usdt", "ETH_USDT"), "GetRiskLimitTiers");
 
+        }
+
+        [Test]
+        public async Task ValidateSharedPerpFuturesSymbolMapping()
+        {
+            var client = new GateIoRestClient(opts => opts.AutoTimestamp = false);
+            var tester = new SharedRestRequestValidator<GateIoRestClient>(client, "Endpoints/PerpetualFutures/ExchangeData", "https://api.gateio.ws", IsAuthenticated);
+
+            await tester.ValidateAsync(
+                client => client.PerpetualFuturesApi.SharedClient.GetFuturesSymbolsAsync(new GetSymbolsRequest(
+                    exchangeParameters: new ExchangeParameters(new ExchangeParameter(GateIoExchange.ExchangeName, "SettleAsset", "usdt")))),
+                "GetContracts",
+                client.PerpetualFuturesApi.SharedClient.GetFuturesSymbolsOptions,
+                symbols => symbols.Single().Name == "LAB_USDT",
+                symbols => symbols.Single().MinTradeQuantity == 0.1m,
+                symbols => symbols.Single().MaxTradeQuantity == 1200m,
+                symbols => symbols.Single().QuantityStep == 1m);
         }
 
         [Test]

@@ -1,7 +1,9 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Testing;
 using GateIo.Net.Clients;
+using GateIo.Net.Clients.FuturesApi;
 using GateIo.Net.Objects.Models;
 using GateIo.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
@@ -78,6 +80,16 @@ namespace GateIo.Net.UnitTests
         }
 
         [Test]
+        public void PerpetualFuturesSocketUsesDecimalSizeHeader()
+        {
+            var api = new TestGateIoSocketClientPerpetualFuturesApi();
+
+            var parameters = api.GetParameters("wss://fx-ws.gateio.ws/v4/ws/usdt");
+
+            Assert.That(parameters.Headers["X-Gate-Size-Decimal"], Is.EqualTo("1"));
+        }
+
+        [Test]
         public async Task ValidatePerpFuturesSubscriptions()
         {
             var client = new GateIoSocketClient(opts =>
@@ -88,6 +100,7 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync<GateIoPerpTickerUpdate[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToTickerUpdatesAsync("usdt", "ETH_USDT", handler), "SubscribeToTickerUpdates", ignoreProperties: new List<string> { "time" });
             await tester.ValidateAsync<GateIoPerpTradeUpdate[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToTradeUpdatesAsync("usdt", "ETH_USDT", handler), "SubscribeToTradeUpdates", ignoreProperties: new List<string> { "time", "create_time" });
             await tester.ValidateAsync<GateIoPerpBookTickerUpdate>((client, handler) => client.PerpetualFuturesApi.SubscribeToBookTickerUpdatesAsync("usdt", "ETH_USDT", handler), "SubscribeToBookTickerUpdates", ignoreProperties: new List<string> { "time" });
+            await tester.ValidateAsync<GateIoPerpOrderBookV2Update>((client, handler) => client.PerpetualFuturesApi.SubscribeToOrderBookV2UpdatesAsync("usdt", "ETH_USDT", 50, handler), "SubscribeToOrderBookV2Updates", ignoreProperties: new List<string> { "time" });
             await tester.ValidateAsync<GateIoPerpOrderBookUpdate>((client, handler) => client.PerpetualFuturesApi.SubscribeToOrderBookUpdatesAsync("usdt", "ETH_USDT", 100, 20, handler), "SubscribeToBookUpdates", ignoreProperties: new List<string> { "time" });
             await tester.ValidateAsync<GateIoPerpKlineUpdate[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToKlineUpdatesAsync("usdt", "ETH_USDT", GateIo.Net.Enums.KlineInterval.FiveMinutes, handler), "SubscribeToKlineUpdates", ignoreProperties: new List<string> { "time" });
             await tester.ValidateAsync<GateIoPerpOrder[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToOrderUpdatesAsync(123, "usdt", handler), "SubscribeToOrderUpdates", ignoreProperties: new List<string> { "time", "create_time_ms", "finish_time_ms", "refr" });
@@ -100,6 +113,16 @@ namespace GateIo.Net.UnitTests
             await tester.ValidateAsync<GateIoPositionUpdate[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToPositionUpdatesAsync(123, "usdt", handler), "SubscribeToPositionUpdates", ignoreProperties: new List<string> { "time", "time_ms", "create_time_ms" });
             await tester.ValidateAsync<GateIoPerpTriggerOrderUpdate[]>((client, handler) => client.PerpetualFuturesApi.SubscribeToTriggerOrderUpdatesAsync(123, "usdt", handler), "SubscribeToTriggerOrderUpdates", ignoreProperties: new List<string> { "time", "time_ms", "create_time_ms", "strategy_type", "iceberg", "stop_trigger" });
 			await tester.ValidateAsync<GateIoPerpContractStats>((client, handler) => client.PerpetualFuturesApi.SubscribeToContractStatsUpdatesAsync("usdt", "ETH_USDT", GateIo.Net.Enums.KlineInterval.OneMinute, handler), "SubscribeToContractStatsUpdates", ignoreProperties: new List<string> { "time" });
+        }
+
+        private sealed class TestGateIoSocketClientPerpetualFuturesApi : GateIoSocketClientPerpetualFuturesApi
+        {
+            public TestGateIoSocketClientPerpetualFuturesApi()
+                : base(null, new GateIoSocketOptions())
+            {
+            }
+
+            public WebSocketParameters GetParameters(string address) => GetWebSocketParameters(address);
         }
     }
 }

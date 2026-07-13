@@ -16,10 +16,10 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("t")]
         public DateTime OpenTime { get; set; }
         /// <summary>
-        /// ["<c>v</c>"] Volume in quote asset
+        /// ["<c>v</c>"] Volume in contract size
         /// </summary>
         [JsonPropertyName("v")]
-        public long QuoteVolume { get; set; }
+        public decimal QuoteVolume { get; set; }
         /// <summary>
         /// ["<c>c</c>"] Close price
         /// </summary>

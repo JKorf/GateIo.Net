@@ -40,12 +40,12 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>iceberg</c>"] Iceberg quantity
         /// </summary>
         [JsonPropertyName("iceberg")]
-        public int? IcebergQuantity { get; set; }
+        public decimal? IcebergQuantity { get; set; }
         /// <summary>
         /// ["<c>left</c>"] Open quantity
         /// </summary>
         [JsonPropertyName("left")]
-        public int QuantityRemaining { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// ["<c>price</c>"] Order price
         /// </summary>

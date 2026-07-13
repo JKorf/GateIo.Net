@@ -54,11 +54,11 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>position_size</c>"] Position quantity
         /// </summary>
         [JsonPropertyName("position_size")]
-        public int PositionQuantity { get; set; }
+        public decimal PositionQuantity { get; set; }
         /// <summary>
         /// ["<c>trade_size</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("trade_size")]
-        public int TradeQuantity { get; set; }
+        public decimal TradeQuantity { get; set; }
     }
 }

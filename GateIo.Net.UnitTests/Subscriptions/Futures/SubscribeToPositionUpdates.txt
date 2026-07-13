@@ -23,7 +23,7 @@
       "realised_pnl": -1.25e-8,
       "realised_point": 0,
       "risk_limit": 100,
-      "size": 3,
+      "size": "3.5",
       "time": 1628736848,
       "time_ms": 1628736848321,
       "user": "110",

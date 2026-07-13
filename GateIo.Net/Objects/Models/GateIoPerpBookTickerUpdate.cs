@@ -34,7 +34,7 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>B</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("B")]
-        public int BestBidQuantity { get; set; }
+        public decimal BestBidQuantity { get; set; }
         /// <summary>
         /// ["<c>a</c>"] Best ask price
         /// </summary>
@@ -44,6 +44,6 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>A</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("A")]
-        public int BestAskQuantity { get; set; }
+        public decimal BestAskQuantity { get; set; }
     }
 }

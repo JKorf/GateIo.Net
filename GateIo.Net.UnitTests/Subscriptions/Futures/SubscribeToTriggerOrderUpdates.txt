@@ -18,11 +18,11 @@
       },
       "initial": {
         "contract": "BTC_USDT",
-        "size": 10,
+        "size": "10.5",
         "price": "10000",
         "tif": "gtc",
         "text": "web",
-        "iceberg": 0,
+        "iceberg": "0.5",
         "is_close": false,
         "is_reduce_only": false,
         "auto_size": ""

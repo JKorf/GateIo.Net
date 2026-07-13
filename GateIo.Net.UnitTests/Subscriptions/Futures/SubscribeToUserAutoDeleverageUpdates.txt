@@ -10,8 +10,8 @@
     {
       "entry_price": 209,
       "fill_price": 215.1,
-      "position_size": 10,
-      "trade_size": 10,
+      "position_size": "10.5",
+      "trade_size": "0.5",
       "time": 1541486601,
       "time_ms": 1541486601123,
       "contract": "BTC_USD",
