@@ -208,6 +208,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.2.0 - 13 Jul 2026
+    * Support decimal quantities for perpetual future socket events 
+
 * Version 4.1.0 - 09 Jul 2026
     * Updated CryptoExchange.Net to v12.1.0
     * Added FailureReason, Type and FinalTimestamp to GateIoWithdrawal
