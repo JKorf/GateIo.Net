@@ -175,6 +175,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #region Futures Symbol client
 
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicId, EnvironmentName, null);
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -188,15 +189,22 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(Exchange, validationError);
 
-            var result = await ExchangeData.GetContractsAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, ct: ct).ConfigureAwait(false);
+            var settleAsset = ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!;
+            var result = await ExchangeData.GetContractsAsync(settleAsset, ct: ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(result);
 
-            IEnumerable<GateIoPerpFuturesContract> data = result.Data;
-            if (request.TradingMode.HasValue)
-                data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.Type == ContractType.Direct : x.Type == ContractType.Inverse);
-            
-            var response = HttpResult.Ok(result, data.Select(s => new SharedFuturesSymbol(
+            var data = result.Data
+               .Select(x => ParseSymbol(x))
+               .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, settleAsset, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedFuturesSymbol ParseSymbol(GateIoPerpFuturesContract s)
+        {
+            var result = new SharedFuturesSymbol(
                 s.Type == ContractType.Inverse ? TradingMode.PerpetualInverse : TradingMode.PerpetualLinear,
                 s.Name.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries)[0], s.Name.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries)[1],
                 s.Name,
@@ -208,11 +216,46 @@ namespace GateIo.Net.Clients.FuturesApi
                 PriceStep = s.OrderPriceStep,
                 ContractSize = s.Multiplier,
                 MaxLongLeverage = s.MaxLeverage,
-                MaxShortLeverage = s.MaxLeverage
-                }).ToArray());
+                MaxShortLeverage = s.MaxLeverage,
+                DisplayName = s.Name,
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (result.TradingMode.IsInverse())
+            {
+                result.QuoteAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.QuoteAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(result.QuoteAsset))
+                    result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            if (s.ContractType == ContractTargetType.Metals || s.ContractType == ContractTargetType.Commodities)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else if(s.ContractType == ContractTargetType.Forex)
+            {
+                result.BaseAssetType = SharedAssetType.Fiat;
+            }
+            else if(s.ContractType == ContractTargetType.Stocks)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Stock;
+            }
+            else if (s.ContractType == ContractTargetType.Indices)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Index;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
