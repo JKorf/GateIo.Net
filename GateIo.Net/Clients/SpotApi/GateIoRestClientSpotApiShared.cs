@@ -110,7 +110,8 @@ namespace GateIo.Net.Clients.SpotApi
                 MinNotionalValue = s.MinQuoteQuantity,
                 PriceDecimals = s.PricePrecision,
                 QuantityDecimals = s.QuantityPrecision,
-                QuoteAssetType = SharedAssetType.Crypto
+                QuoteAssetType = SharedAssetType.Crypto,
+                DisplayName = s.Name
             };
 
             if (LibraryHelpers.IsStableCoin(result.QuoteAsset))
@@ -121,7 +122,7 @@ namespace GateIo.Net.Clients.SpotApi
                 result.BaseAssetType = SharedAssetType.Crypto;
                 result.BaseAssetSubType = SharedAssetSubType.StableCoin;
             }
-            else if (LibraryHelpers.IsCommodity(result.BaseAsset))
+            else if (LibraryHelpers.IsCommodity(result.BaseAsset, "XU3O8", "SLVON", "IAUON"))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Commodity;
