@@ -240,15 +240,11 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 result.BaseAssetType = SharedAssetType.Fiat;
             }
-            else if(s.ContractType == ContractTargetType.Stocks)
+            else if(s.ContractType == ContractTargetType.Stocks
+                || s.ContractType == ContractTargetType.Indices)
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
-                result.BaseAssetSubType = SharedAssetSubType.Stock;
-            }
-            else if (s.ContractType == ContractTargetType.Indices)
-            {
-                result.BaseAssetType = SharedAssetType.TradFi;
-                result.BaseAssetSubType = SharedAssetSubType.Index;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
             }
             else
             {
