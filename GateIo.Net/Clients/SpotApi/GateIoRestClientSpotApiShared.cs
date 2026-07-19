@@ -122,12 +122,21 @@ namespace GateIo.Net.Clients.SpotApi
                 result.BaseAssetType = SharedAssetType.Crypto;
                 result.BaseAssetSubType = SharedAssetSubType.StableCoin;
             }
+            else if (LibraryHelpers.IsEquity(result.BaseAsset)
+                || (result.BaseAsset.EndsWith("X") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 1)))
+                || (result.BaseAsset.EndsWith("G") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 1)))
+                || (result.BaseAsset.EndsWith("3L") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 2)))
+                || (result.BaseAsset.EndsWith("3S") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 2))))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
+            }
             else if (LibraryHelpers.IsCommodity(result.BaseAsset, "XU3O8", "SLVON", "IAUON"))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Commodity;
             }
-            else if (LibraryHelpers.IsCryptoCurrency(result.BaseAsset))
+            else
             {
                 result.BaseAssetType = SharedAssetType.Crypto;
             }            
