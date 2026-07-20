@@ -122,11 +122,7 @@ namespace GateIo.Net.Clients.SpotApi
                 result.BaseAssetType = SharedAssetType.Crypto;
                 result.BaseAssetSubType = SharedAssetSubType.StableCoin;
             }
-            else if (LibraryHelpers.IsEquity(result.BaseAsset)
-                || (result.BaseAsset.EndsWith("X") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 1)))
-                || (result.BaseAsset.EndsWith("G") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 1)))
-                || (result.BaseAsset.EndsWith("3L") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 2)))
-                || (result.BaseAsset.EndsWith("3S") && LibraryHelpers.IsEquity(result.BaseAsset.Substring(0, result.BaseAsset.Length - 2))))
+            else if (LibraryHelpers.IsEquity(result.BaseAsset, ["X", "G", "3L", "3S"], []))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Equity;
