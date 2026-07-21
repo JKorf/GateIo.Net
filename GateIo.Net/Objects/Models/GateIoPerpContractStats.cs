@@ -135,5 +135,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("short_users")]
         public int ShortUsers { get; set; }
+        /// <summary>
+        /// ["<c>last_funding_rate</c>"] Last funding rate
+        /// </summary>
+        [JsonPropertyName("last_funding_rate")]
+        public decimal? LastFundingRate { get; set; }
     }
 }
