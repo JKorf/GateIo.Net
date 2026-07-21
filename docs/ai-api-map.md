@@ -197,6 +197,9 @@ Use SharedApis for exchange-agnostic code across GateIo, Binance, Bybit, OKX, Kr
 | Shared spot socket client | `new GateIoSocketClient().SpotApi.SharedClient` |
 | Shared perpetual futures socket client | `new GateIoSocketClient().PerpetualFuturesApi.SharedClient` |
 | Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
+| Read cached shared spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
+| Read cached shared futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
+| Filter shared symbols by asset classification | Set `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, or `QuoteAssetSubType` on `GetSymbolsRequest` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
@@ -204,6 +207,8 @@ Use SharedApis for exchange-agnostic code across GateIo, Binance, Bybit, OKX, Kr
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
+
+Shared spot and futures symbol results populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. Catalogs are backed by the symbol cache populated by shared symbol retrieval.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 

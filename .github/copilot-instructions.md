@@ -54,6 +54,8 @@ Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketC
 
 For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces (`ISpotTickerRestClient`, `IFuturesOrderRestClient`, etc.) accessed via `.SharedClient` properties. Same pattern works for 25+ other exchanges in the CryptoExchange.Net family.
 
+Shared `ISpotSymbolRestClient` and `IFuturesSymbolRestClient` expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Returned shared symbols include display names and base/quote asset type and subtype metadata; use `GetSymbolsRequest` to filter on that metadata.
+
 ## Avoid
 
 - Legacy `GateIoClient` class (use `GateIoRestClient`)

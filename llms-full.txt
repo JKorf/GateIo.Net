@@ -4,8 +4,8 @@
 
 GateIo.Net is a strongly typed .NET client library for the Gate.io REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 3.10.2.
-CryptoExchange.Net dependency: 11.1.0.
+Current package version in this repository: 4.3.0.
+CryptoExchange.Net dependency: 12.2.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -423,6 +423,8 @@ Console.WriteLine(ticker.Data.LastPrice);
 ```
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. Shared symbol helpers can return `ExchangeCallResult<T>`.
+
+The shared symbol REST interfaces expose cached catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` on their shared symbol models. Use the corresponding fields on `GetSymbolsRequest` to filter symbols by crypto, fiat, or traditional-finance type and by stablecoin, equity, or commodity subtype. Futures requests still require the `SettleAsset` exchange parameter.
 
 For shared interface variables, unsubscribe through the concrete socket client:
 

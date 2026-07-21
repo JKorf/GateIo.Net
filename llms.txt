@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the Gate.io REST and WebSocket APIs. Supports Spot, Margin, Unified account, Perpetual Futures, Alpha API, Rebate partner endpoints, and WebSocket subscriptions. Part of the CryptoExchange.Net ecosystem providing a unified abstraction across many cryptocurrency exchanges.
 
-GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensive error handling via the CryptoExchange.Net result model, client-side rate limiting, local order book support, native AOT support, and SharedApis integration. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, WebSocket request/order methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Current version in this repository: 3.10.2. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensive error handling via the CryptoExchange.Net result model, client-side rate limiting, local order book support, native AOT support, and SharedApis integration. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, WebSocket request/order methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Current version in this repository: 4.3.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
@@ -31,6 +31,7 @@ GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensiv
 - Always check `.Success` before reading `.Data`.
 - For futures orders, `quantity` is an `int` number of contracts, not a decimal base asset amount.
 - For multi-exchange code, use `CryptoExchange.Net.SharedApis` via `.SharedClient` and call `.SharedClient.Discover()` to inspect supported shared features.
+- Shared spot and futures symbol clients expose symbol catalogs and return display names plus base/quote asset type metadata; `GetSymbolsRequest` can filter by those asset types and subtypes.
 
 ## Reference
 
