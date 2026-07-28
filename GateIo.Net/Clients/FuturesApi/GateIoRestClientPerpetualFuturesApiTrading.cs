@@ -512,7 +512,8 @@ namespace GateIo.Net.Clients.FuturesApi
             var initial = new Parameters(GateIoExchange._parameterSerializationSettings);
             initial.Add("contract", contract);
             initial.Add("price", orderPrice ?? 0);
-            initial.Add("size", orderSide == OrderSide.Buy ? quantity : -quantity);
+            // Trigger order endpoints doesn't accept decimal value as other endpoints do, it still only accepts integer values in number format
+            initial.Add("size", orderSide == OrderSide.Buy ? quantity : -quantity, DecimalSerialization.Number);
             initial.Add("close", closePosition);
             initial.Add("reduce_only", reduceOnly);
             initial.Add("tif", timeInForce);
