@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -45,9 +46,16 @@ namespace GateIo.Net.Clients.FuturesApi
             {
                 foreach (var data in update.Data)
                 {
-                    handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, data.Contract), data.Contract, data.LastPrice, data.HighPrice, data.LowPrice, data.BaseVolume, data.ChangePercentage24h)
+                    handler(update.ToType(
+                        new SharedSpotTicker(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, data.Contract),
+                            data.Contract,
+                            data.LastPrice,
+                            data.HighPrice,
+                            data.LowPrice,
+                            new SharedOrderQuantity(data.BaseVolume, data.QuoteVolume, data.Volume),                            
+                            data.ChangePercentage24h)
                     {
-                        QuoteVolume = data.QuoteVolume
                     }));
                 }
             }, ct).ConfigureAwait(false);
@@ -74,7 +82,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToTradeUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbols, update => handler(update.ToType<SharedTrade[]>(update.Data.Select(x =>
-                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), x.Contract, Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray())), ct).ConfigureAwait(false);
+                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), x.Contract, new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)), x.Price, x.CreateTime)).ToArray())), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -131,10 +139,22 @@ namespace GateIo.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToKlineUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, interval, update => {
+            var result = await SubscribeToKlineUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, interval, update =>
+            {
                 foreach (var item in update.Data)
-                    handler(update.ToType(new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, item.Contract), item.Contract, item.OpenTime, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.QuoteVolume)));
-                }, ct).ConfigureAwait(false);
+                {
+                    handler(update.ToType(
+                        new SharedKline(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, item.Contract),
+                            item.Contract, 
+                            item.OpenTime, 
+                            item.ClosePrice,
+                            item.HighPrice,
+                            item.LowPrice,
+                            item.OpenPrice,
+                            new SharedOrderQuantity(null, item.QuoteVolume))));
+                }
+            }, ct).ConfigureAwait(false);
 
             return result;
         }

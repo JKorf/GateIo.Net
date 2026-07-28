@@ -36,9 +36,16 @@ namespace GateIo.Net.Clients.SpotApi
             
             // USDT_USD returns error..
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Where(x => x.SymbolName != "USDT_USD").Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.BaseVolume, update.Data.ChangePercentage24h)
+            var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                    update.Data.Symbol,
+                    update.Data.LastPrice,
+                    update.Data.HighPrice,
+                    update.Data.LowPrice,
+                    new SharedOrderQuantity(update.Data.BaseVolume, update.Data.QuoteVolume),
+                    update.Data.ChangePercentage24h)
             {
-                QuoteVolume = update.Data.QuoteVolume
             })), ct).ConfigureAwait(false);
 
             return result;
@@ -63,7 +70,7 @@ namespace GateIo.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, ArgumentError.Invalid(nameof(SubscribeTradeRequest.Symbol), "Invalid symbol(s)"));
             
             var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.ToType<SharedTrade[]>(new[] { 
-                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.Quantity, update.Data.Price, update.Data.CreateTime){
+                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, new SharedOrderQuantity(update.Data.Quantity), update.Data.Price, update.Data.CreateTime){
                 Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             } })), ct).ConfigureAwait(false);
 
@@ -117,7 +124,15 @@ namespace GateIo.Net.Clients.SpotApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => handler(update.ToType(
-                new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.OpenPrice, update.Data.BaseVolume))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    request.Symbol,
+                    symbol, 
+                    update.Data.OpenTime,
+                    update.Data.ClosePrice, 
+                    update.Data.HighPrice,
+                    update.Data.LowPrice, 
+                    update.Data.OpenPrice,
+                    new SharedOrderQuantity(update.Data.BaseVolume, update.Data.QuoteVolume)))), ct).ConfigureAwait(false);
 
             return result;
         }

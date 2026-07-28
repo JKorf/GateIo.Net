@@ -73,7 +73,15 @@ namespace GateIo.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.BaseVolume))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol,
+                            x.OpenTime,
+                            x.ClosePrice,
+                            x.HighPrice,
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(x.BaseVolume, x.QuoteVolume)))
                     .ToArray(), nextPageRequest);
         }
 
@@ -194,9 +202,16 @@ namespace GateIo.Net.Clients.SpotApi
                 return HttpResult.Fail<SharedSpotTicker>(result);
 
             var ticker = result.Data.Single();
-            return HttpResult.Ok(result, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, ticker.Symbol), ticker.Symbol, ticker.LastPrice, ticker.HighPrice, ticker.LowPrice, ticker.BaseVolume, ticker.ChangePercentage24h)
+            return HttpResult.Ok(result,
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, ticker.Symbol),
+                    ticker.Symbol,
+                    ticker.LastPrice,
+                    ticker.HighPrice,
+                    ticker.LowPrice,
+                    new SharedOrderQuantity(ticker.BaseVolume, ticker.QuoteVolume),
+                    ticker.ChangePercentage24h)
             {
-                QuoteVolume = ticker.QuoteVolume
             });
         }
 
@@ -211,7 +226,15 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.BaseVolume, x.ChangePercentage24h)).ToArray());
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    x.Symbol, 
+                    x.LastPrice,
+                    x.HighPrice,
+                    x.LowPrice,
+                    new SharedOrderQuantity(x.BaseVolume, x.QuoteVolume),
+                    x.ChangePercentage24h)).ToArray());
         }
 
         #endregion
@@ -262,7 +285,7 @@ namespace GateIo.Net.Clients.SpotApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Select(x => 
-                new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.CreateTime)
+                new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.CreateTime)
                 {
                     Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
                 }).ToArray());

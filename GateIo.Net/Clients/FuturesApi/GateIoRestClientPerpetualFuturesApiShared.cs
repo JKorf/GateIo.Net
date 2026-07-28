@@ -1,15 +1,16 @@
-using GateIo.Net.Interfaces.Clients.SpotApi;
-using GateIo.Net.Enums;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
+using GateIo.Net.Enums;
+using GateIo.Net.Interfaces.Clients.SpotApi;
+using GateIo.Net.Objects.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net;
-using GateIo.Net.Objects.Models;
-using CryptoExchange.Net.Objects.Errors;
+using System.Timers;
 
 namespace GateIo.Net.Clients.FuturesApi
 {
@@ -84,7 +85,15 @@ namespace GateIo.Net.Clients.FuturesApi
             if (ticker == null)
                 return HttpResult.Fail<SharedFuturesTicker>(resultTicker.Result, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
-            return HttpResult.Ok(resultContract.Result, new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultContract.Result.Data.Name), resultContract.Result.Data.Name, ticker.LastPrice, ticker.HighPrice, ticker.LowPrice, ticker.Volume, ticker.ChangePercentage)
+            return HttpResult.Ok(resultContract.Result, 
+                new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultContract.Result.Data.Name),
+                    resultContract.Result.Data.Name, 
+                    ticker.LastPrice,
+                    ticker.HighPrice,
+                    ticker.LowPrice,
+                    new SharedOrderQuantity(ticker.BaseVolume, ticker.QuoteVolume, ticker.Volume), 
+                    ticker.ChangePercentage)
             {
                 MarkPrice = ticker.MarkPrice,
                 IndexPrice = ticker.IndexPrice,
@@ -126,7 +135,14 @@ namespace GateIo.Net.Clients.FuturesApi
                     }
                 }    
 
-                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), x.Contract, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.ChangePercentage)
+                return new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract),
+                    x.Contract, 
+                    x.LastPrice, 
+                    x.HighPrice, 
+                    x.LowPrice,
+                    new SharedOrderQuantity(x.BaseVolume, x.QuoteVolume, x.Volume), 
+                    x.ChangePercentage)
                 {
                     IndexPrice = contract.IndexPrice,
                     MarkPrice = contract.MarkPrice,
@@ -851,7 +867,15 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol, 
+                            symbol,
+                            x.OpenTime,
+                            x.ClosePrice, 
+                            x.HighPrice, 
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(null, x.QuoteVolume, x.Volume)))
                     .ToArray(), nextPageRequest);
         }
 
@@ -933,7 +957,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Select(x => 
-                new SharedTrade(request.Symbol, symbol, Math.Abs(x.Quantity), x.Price, x.CreateTime)).ToArray());
+                new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)), x.Price, x.CreateTime)).ToArray());
         }
 
         #endregion
@@ -980,7 +1004,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.CreateTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
-                        new SharedTrade(request.Symbol, symbol, Math.Abs(x.Quantity), x.Price, x.CreateTime))
+                        new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)), x.Price, x.CreateTime))
                     .ToArray(), nextPageRequest);
         }
         #endregion
