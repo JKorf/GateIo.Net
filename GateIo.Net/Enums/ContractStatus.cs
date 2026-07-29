@@ -19,6 +19,11 @@ namespace GateIo.Net.Enums
         /// ["<c>trading</c>"]Trading
         /// </summary>
         [Map("trading")]
-        Trading
+        Trading,
+        /// <summary>
+        /// ["<c>prelaunch</c>"] Prelaunch
+        /// </summary>
+        [Map("prelaunch")]
+        Prelaunch
     }
 }
