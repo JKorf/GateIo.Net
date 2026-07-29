@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the Gate.io REST and WebSocket APIs. Supports Spot, Margin, Unified account, Perpetual Futures, Alpha API, Rebate partner endpoints, and WebSocket subscriptions. Part of the CryptoExchange.Net ecosystem providing a unified abstraction across many cryptocurrency exchanges.
 
-GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensive error handling via the CryptoExchange.Net result model, client-side rate limiting, local order book support, native AOT support, and SharedApis integration. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, WebSocket request/order methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Current version in this repository: 4.3.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensive error handling via the CryptoExchange.Net result model, client-side rate limiting, local order book support, native AOT support, and SharedApis integration. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, WebSocket request/order methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Current version in this repository: 4.4.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
