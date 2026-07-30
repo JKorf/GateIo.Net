@@ -87,6 +87,16 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("in_delisting")]
         public bool Delisting { get; set; }
         /// <summary>
+        /// ["<c>delisting_time</c>"] Delisting time
+        /// </summary>
+        [JsonPropertyName("delisting_time")]
+        public DateTime? DelistingTime { get; set; }
+        /// <summary>
+        /// ["<c>delisted_time</c>"] Delisted time
+        /// </summary>
+        [JsonPropertyName("delisted_time")]
+        public DateTime? DelistedTime { get; set; }
+        /// <summary>
         /// ["<c>interest_rate</c>"] Interest rate
         /// </summary>
         [JsonPropertyName("interest_rate")]
