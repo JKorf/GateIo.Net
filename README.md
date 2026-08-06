@@ -96,6 +96,54 @@ GateIo.Net includes AI-oriented documentation and examples for code generation t
 
 See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
 
+## Shared / unified API
+
+The CryptoExchange.Net [Shared APIs](https://cryptoexchange.jkorf.dev/client-libs/shared) provide exchange-agnostic, unified interfaces for common operations such as retrieving tickers, order books and balances, placing orders, and subscribing to market updates.
+
+This allows the same application code to work with different exchange libraries. The supported Gate.io API surfaces expose their shared functionality through a `SharedClient` property. Because support differs between exchanges and API surfaces, call `Discover()` to inspect the available trading modes, environments, endpoints, and subscriptions at runtime.
+
+### Supported shared interfaces
+
+| API | Type | Supported interfaces |
+|--|--|--|
+| `SpotApi` | REST | `IAssetsRestClient`, `IBalanceRestClient`, `IBookTickerRestClient`, `IDepositRestClient`, `IFeeRestClient`, `IKlineRestClient`, `IOrderBookRestClient`, `IRecentTradeRestClient`, `ISpotOrderClientIdRestClient`, `ISpotOrderRestClient`, `ISpotSymbolRestClient`, `ISpotTickerRestClient`, `ISpotTriggerOrderRestClient`, `ITransferRestClient`, `IWithdrawalRestClient`, `IWithdrawRestClient` |
+| `SpotApi` | WebSocket | `IBalanceSocketClient`, `IBookTickerSocketClient`, `IKlineSocketClient`, `IOrderBookSocketClient`, `ISpotOrderSocketClient`, `ITickerSocketClient`, `ITradeSocketClient`, `IUserTradeSocketClient` |
+| `PerpetualFuturesApi` | REST | `IBalanceRestClient`, `IBookTickerRestClient`, `IFeeRestClient`, `IFundingRateRestClient`, `IFuturesOrderClientIdRestClient`, `IFuturesOrderRestClient`, `IFuturesSymbolRestClient`, `IFuturesTickerRestClient`, `IFuturesTpSlRestClient`, `IFuturesTriggerOrderRestClient`, `IIndexPriceKlineRestClient`, `IKlineRestClient`, `ILeverageRestClient`, `IOpenInterestRestClient`, `IOrderBookRestClient`, `IPositionHistoryRestClient`, `IPositionModeRestClient`, `IRecentTradeRestClient`, `ITradeHistoryRestClient` |
+| `PerpetualFuturesApi` | WebSocket | `IBalanceSocketClient`, `IBookTickerSocketClient`, `IFuturesOrderSocketClient`, `IKlineSocketClient`, `IOrderBookSocketClient`, `IPositionSocketClient`, `ITickerSocketClient`, `ITradeSocketClient`, `IUserTradeSocketClient` |
+
+### Discover supported functionality
+
+```csharp
+var sharedClient = new GateIoRestClient().SpotApi.SharedClient;
+var clientInfo = sharedClient.Discover();
+
+Console.WriteLine(clientInfo);
+```
+
+### Example
+
+```csharp
+using GateIo.Net.Clients;
+using CryptoExchange.Net.SharedApis;
+
+var sharedClient = new GateIoRestClient().SpotApi.SharedClient;
+ISpotTickerRestClient tickerClient = sharedClient;
+
+var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
+var result = await tickerClient.GetSpotTickerAsync(
+    new GetTickerRequest(symbol));
+
+if (!result.Success)
+{
+    Console.WriteLine(result.Error);
+    return;
+}
+
+Console.WriteLine(result.Data.LastPrice);
+```
+
+The request and response models belong to `CryptoExchange.Net.SharedApis`, so the same pattern can be used with another exchange's `SharedClient`.
+
 ## CryptoExchange.Net
 GateIo.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
@@ -200,10 +248,8 @@ The following modules are supported of the latest V4 API.
 Any support is greatly appreciated.
 
 ### Donate
-Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
-
-**Btc**:  bc1q277a5n54s2l2mzlu778ef7lpkwhjhyvghuv8qf
-**Eth**:  0xcb1b63aCF9fef2755eBf4a0506250074496Ad5b7
+Make a one time donation in a crypto currency of your choice. If you prefer to donate in a different currency or network send me a message.
+   
 **USDT (TRX)**  TKigKeJPXZYyMVDgMyXxMf17MWYia92Rjd
 
 ### Sponsor
