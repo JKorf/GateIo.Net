@@ -16,6 +16,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("index")]
         public string Index { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>time</c>"] Timestamp
+        /// </summary>
+        [JsonPropertyName("time")]
+        public DateTime Timestamp { get; set; }
+        /// <summary>
         /// ["<c>constituents</c>"] Constituents
         /// </summary>
         [JsonPropertyName("constituents")]
@@ -38,6 +43,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("weight")]
         public decimal? Weight { get; set; }
+        /// <summary>
+        /// ["<c>price</c>"] Price
+        /// </summary>
+        [JsonPropertyName("price")]
+        public decimal? Price { get; set; }
         /// <summary>
         /// ["<c>symbols</c>"] Symbols
         /// </summary>
