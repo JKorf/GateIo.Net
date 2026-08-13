@@ -851,7 +851,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 interval,
                 startTime: pageParams.StartTime,
                 endTime: pageParams.EndTime,
-                limit: pageParams.Limit,
+                limit: pageParams.StartTime == null ? pageParams.Limit : null,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result.Success)
@@ -885,6 +885,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         GetIndexPriceKlinesOptions IIndexPriceKlineRestClient.GetIndexPriceKlinesOptions { get; } = new GetIndexPriceKlinesOptions(_exchangeName, false, true, true, 1000, false)
         {
+            MaxAge = TimeSpan.FromDays(180),
             RequiredExchangeParameters = new List<ParameterDescription>
             {
                 new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
@@ -899,7 +900,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesKline[]>(Exchange, validationError);
 
-            int limit = request.Limit ?? 1000;
+            int limit = request.Limit ?? Math.Min(1000, (int)(TimeSpan.FromDays(179).TotalSeconds / (int)request.Interval));
             var direction = DataDirection.Descending;
             var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
 
@@ -1091,7 +1092,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #region Open Interest client
 
-        GetOpenInterestOptions IOpenInterestRestClient.GetOpenInterestOptions { get; } = new GetOpenInterestOptions(_exchangeName, true)
+        GetOpenInterestOptions IOpenInterestRestClient.GetOpenInterestOptions { get; } = new GetOpenInterestOptions(_exchangeName, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
