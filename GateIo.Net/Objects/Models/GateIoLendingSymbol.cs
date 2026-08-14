@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -29,5 +30,16 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
+
+        /// <summary>
+        /// ["<c>status</c>"] Status
+        /// </summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>delisted_time</c>"] Delist time
+        /// </summary>
+        [JsonPropertyName("delisted_time")]
+        public DateTime? DelistTime { get; set; } 
     }
 }
