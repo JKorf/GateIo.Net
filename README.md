@@ -269,6 +269,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.5.0 - 14 Aug 2026
+    * Added DelistingTime, DelistedTime to GateIoPerpFuturesContract model
+    * Added Timestamp to GateIoPerpConstituent model, Price to GateIoPerpConstituentReference model
+    * Added Status, DelistTime to GateIoLendingSymbol model
+    * Fixed Shared GetKlinesAsync limit getting send in combination with timestamps
+
 * Version 4.4.0 - 29 Jul 2026
     * Updated CryptoExchange.Net to version 12.4.0
     * Added calculation of AveragePrice on Shared order models if data is available and AveragePrice is not set
