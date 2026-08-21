@@ -269,6 +269,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.6.0 - 21 Aug 2026
+    * Updated to CryptoExchange.Net v12.5.0
+    * Added Shared ISpotOrderManagementSocketClient, IFuturesOrderManagementSocketClient implementations
+    * Added UpperPriceLimitPercentage, LowerPriceLimitPercentage to SharedSpotSymbol mapping
+    * Added MakerFeePercentage, TakerFeePercentage, LowerFundingCap, UpperFundingCap , UpperPriceLimitPercentage, LowerPriceLimitPercentage to SharedFuturesSymbol mapping
+
 * Version 4.5.0 - 14 Aug 2026
     * Added DelistingTime, DelistedTime to GateIoPerpFuturesContract model
     * Added Timestamp to GateIoPerpConstituent model, Price to GateIoPerpConstituentReference model

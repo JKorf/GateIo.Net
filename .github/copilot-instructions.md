@@ -23,7 +23,7 @@ var restClient = new GateIoRestClient(options =>
 
 ## Result handling
 
-Methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`. The error is on `.Error`.
+REST methods return `HttpResult<T>` / `HttpResult`; WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`; socket requests return `QueryResult<T>` / `QueryResult`. Always check `.Success` before reading `.Data`. The error is on `.Error`.
 
 ## API structure
 

@@ -200,7 +200,7 @@ new GateIoSocketClient().SpotApi.SharedClient
 new GateIoSocketClient().PerpetualFuturesApi.SharedClient
 ```
 
-Available shared interfaces include `ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, `IBalanceRestClient`, `ITickerSocketClient`, `IOrderBookSocketClient`, and many more.
+Available shared interfaces include `ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, `IBalanceRestClient`, `ITickerSocketClient`, `IOrderBookSocketClient`, `ISpotOrderManagementSocketClient`, `IFuturesOrderManagementSocketClient`, and many more.
 
 The shared `ISpotSymbolRestClient` and `IFuturesSymbolRestClient` expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Symbol responses populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`, and `GetSymbolsRequest` can filter on those asset type fields.
 
