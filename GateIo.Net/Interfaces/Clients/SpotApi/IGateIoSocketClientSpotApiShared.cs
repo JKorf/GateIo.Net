@@ -13,7 +13,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         IOrderBookSocketClient,
         IBalanceSocketClient,
         IUserTradeSocketClient,
-        ISpotOrderSocketClient
+        ISpotOrderSocketClient,
+        ISpotOrderManagementSocketClient
     {
     }
 }

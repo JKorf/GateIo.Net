@@ -105,7 +105,15 @@ namespace GateIo.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToBookTickerUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbols, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Contract), update.Data.Contract,update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbols, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Contract),
+                        update.Data.Contract,
+                        update.Data.BestAskPrice,
+                        new SharedOrderQuantity(contractQuantity: update.Data.BestAskQuantity), 
+                        update.Data.BestBidPrice, 
+                        new SharedOrderQuantity(contractQuantity: update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -175,7 +183,9 @@ namespace GateIo.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToOrderBookUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, 100, request.Limit ?? 20, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToOrderBookUpdatesAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, symbol, 100, request.Limit ?? 20, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.Contracts, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -304,7 +314,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         x.OrderId.ToString(),
                         x.Id.ToString(),
                         x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        Math.Abs(x.Quantity),
+                        new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                         x.Price,
                         x.CreateTime)
                     {
@@ -337,19 +347,127 @@ namespace GateIo.Net.Clients.FuturesApi
             var result = await SubscribeToPositionUpdatesAsync(
                 ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "UserId")!,
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
-                update => handler(update.ToType<SharedPosition[]>(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), x.Contract, Math.Abs(x.Size), update.DataTime ?? update.ReceiveTime)
-                {
-                    AverageOpenPrice = x.EntryPrice == 0 ? null : x.EntryPrice,
-                    PositionMode = x.PositionMode == Enums.PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
-                    Leverage = x.Leverage == 0 ? null : x.Leverage
-                }).ToArray())),
+                update => handler(update.ToType<SharedPosition[]>(update.Data.Select(x => 
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), 
+                        x.Contract, 
+                        new SharedOrderQuantity(contractQuantity: Math.Abs(x.Size)), 
+                        update.DataTime ?? update.ReceiveTime)
+                    {
+                        AverageOpenPrice = x.EntryPrice == 0 ? null : x.EntryPrice,
+                        PositionMode = x.PositionMode == Enums.PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = x.PositionMode == Enums.PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == Enums.PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long,
+                        LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                        Leverage = x.Leverage == 0 ? null : x.Leverage
+                    }).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return result;
         }
 
+        #endregion
+
+        #region Futures Order Client
+
+        SharedFeeDeductionType IFuturesOrderManagementSocketClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
+        SharedFeeAssetType IFuturesOrderManagementSocketClient.FuturesFeeAssetType => SharedFeeAssetType.InputAsset;
+        SharedOrderType[] IFuturesOrderManagementSocketClient.FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
+        SharedTimeInForce[] IFuturesOrderManagementSocketClient.FuturesSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
+        SharedQuantitySupport IFuturesOrderManagementSocketClient.FuturesSupportedOrderQuantity { get; } = new SharedQuantitySupport(
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts);
+
+        string IFuturesOrderManagementSocketClient.GenerateClientOrderId() => "t-" + ExchangeHelpers.RandomString(26);
+
+        PlaceFuturesOrderSocketOptions IFuturesOrderManagementSocketClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderSocketOptions(_exchangeName, false)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<QueryResult<SharedId>> IFuturesOrderManagementSocketClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
+        {
+            var validationError = SharedClient.PlaceFuturesOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return QueryResult.Fail<SharedId>(Exchange, validationError);
+
+            var isReduce = (request.Side == SharedOrderSide.Buy && request.PositionSide == SharedPositionSide.Short)
+                || (request.Side == SharedOrderSide.Sell && request.PositionSide == SharedPositionSide.Long);
+            var result = await PlaceOrderAsync(
+                    ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
+                    request.Symbol!.GetSymbol(FormatSymbol),
+                    GetOrderSide(request.Side, request.PositionSide),
+                    quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
+                    price: request.Price,
+                    reduceOnly: request.ReduceOnly ?? isReduce,
+                    timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
+                    text: request.ClientOrderId,
+                    ct: ct).ConfigureAwait(false);
+
+            if (!result.Success)
+                return QueryResult.Fail<SharedId>(result);
+
+            return QueryResult.Ok(result, new SharedId(result.Data.Id.ToString()));
+
+        }
+
+        CancelFuturesOrderSocketOptions IFuturesOrderManagementSocketClient.CancelFuturesOrderOptions { get; } = new CancelFuturesOrderSocketOptions(_exchangeName, true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
+            }
+        };
+        async Task<QueryResult<SharedId>> IFuturesOrderManagementSocketClient.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = SharedClient.CancelFuturesOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return QueryResult.Fail<SharedId>(Exchange, validationError);
+
+            if (!long.TryParse(request.OrderId, out var orderId))
+                return QueryResult.Fail<SharedId>(Exchange, ArgumentError.Invalid(nameof(CancelOrderRequest.OrderId), "Invalid order id"));
+
+            var order = await CancelOrderAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, orderId).ConfigureAwait(false);
+            if (!order.Success)
+                return QueryResult.Fail<SharedId>(order);
+
+            return QueryResult.Ok(order, new SharedId(order.Data.Id.ToString()));
+        }
+
+        private OrderSide GetOrderSide(SharedOrderSide side, SharedPositionSide? posSide)
+        {
+            if (posSide == null)
+                return side == SharedOrderSide.Sell ? OrderSide.Sell : OrderSide.Buy;
+
+            if (posSide == SharedPositionSide.Long)
+            {
+                if (side == SharedOrderSide.Buy) return OrderSide.Buy;
+                return OrderSide.Sell;
+            }
+
+            if (side == SharedOrderSide.Buy) return OrderSide.Buy;
+            return OrderSide.Sell;
+        }
+
+        private TimeInForce? GetTimeInForce(SharedOrderType type, SharedTimeInForce? tif)
+        {
+            if (tif == null)
+            {
+                if (type == SharedOrderType.Market)
+                    return TimeInForce.ImmediateOrCancel;
+
+                return null;
+            }
+
+            if (tif == SharedTimeInForce.ImmediateOrCancel) return TimeInForce.ImmediateOrCancel;
+            if (tif == SharedTimeInForce.FillOrKill) return TimeInForce.FillOrKill;
+            if (tif == SharedTimeInForce.GoodTillCanceled) return TimeInForce.GoodTillCancel;
+
+            return null;
+        }
         #endregion
     }
 }

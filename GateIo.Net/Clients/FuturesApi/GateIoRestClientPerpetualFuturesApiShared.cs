@@ -182,9 +182,9 @@ namespace GateIo.Net.Clients.FuturesApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
                 symbol,
                 resultTicker.Data.Asks[0].Price,
-                resultTicker.Data.Asks[0].Quantity,
+                new SharedOrderQuantity(contractQuantity: resultTicker.Data.Asks[0].Quantity),
                 resultTicker.Data.Bids[0].Price,
-                resultTicker.Data.Bids[0].Quantity));
+                new SharedOrderQuantity(contractQuantity: resultTicker.Data.Bids[0].Quantity)));
         }
 
         #endregion
@@ -234,6 +234,12 @@ namespace GateIo.Net.Clients.FuturesApi
                 MaxLongLeverage = s.MaxLeverage,
                 MaxShortLeverage = s.MaxLeverage,
                 DisplayName = s.Name,
+                MakerFeePercentage = s.MakerFeeRate * 100,
+                TakerFeePercentage = s.TakerFeeRate * 100,
+                LowerFundingCap = -s.FundingRateLimit,
+                UpperFundingCap = s.FundingRateLimit,
+                LowerPriceLimitPercentage = -s.OrderPriceDeviation * 100,
+                UpperPriceLimitPercentage = s.OrderPriceDeviation * 100
             };
 
             if (result.TradingMode.IsInverse())
@@ -521,7 +527,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                Math.Abs(x.Quantity),
+                new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                 x.Price,
                 x.CreateTime)
             {
@@ -575,7 +581,7 @@ namespace GateIo.Net.Clients.FuturesApi
                             x.OrderId.ToString(),
                             x.Id.ToString(),
                             x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            Math.Abs(x.Quantity),
+                            new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                             x.Price,
                             x.CreateTime)
                         {
@@ -627,15 +633,20 @@ namespace GateIo.Net.Clients.FuturesApi
                 var result = await Trading.GetPositionsAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, ct: ct).ConfigureAwait(false);
                 if (!result.Success)
                     return HttpResult.Fail<SharedPosition[]>(result);
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), x.Contract, Math.Abs(x.Size), x.UpdateTime)
-                {
-                    UnrealizedPnl = x.UnrealisedPnl,
-                    LiquidationPrice = x.LiquidationPrice,
-                    AverageOpenPrice = x.EntryPrice,
-                    Leverage = x.Leverage,
-                    PositionMode = x.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
-                }).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Contract), 
+                        x.Contract, 
+                        new SharedOrderQuantity(contractQuantity: Math.Abs(x.Size)), 
+                        x.UpdateTime)
+                    {
+                        UnrealizedPnl = x.UnrealisedPnl,
+                        LiquidationPrice = x.LiquidationPrice,
+                        AverageOpenPrice = x.EntryPrice,
+                        Leverage = x.Leverage,
+                        PositionMode = x.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                    }).ToArray());
             }
             else
             {
@@ -643,15 +654,21 @@ namespace GateIo.Net.Clients.FuturesApi
                 if (!result.Success)
                     return HttpResult.Fail<SharedPosition[]>(result);
 
-                return HttpResult.Ok(result, new[] { new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, result.Data.Contract), result.Data.Contract, Math.Abs(result.Data.Size), result.Data.UpdateTime)
-                {
-                    UnrealizedPnl = result.Data.UnrealisedPnl,
-                    LiquidationPrice = result.Data.LiquidationPrice,
-                    AverageOpenPrice = result.Data.EntryPrice,
-                    Leverage = result.Data.Leverage,
-                    PositionMode = result.Data.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = result.Data.PositionMode == PositionMode.Single ? (result.Data.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : result.Data.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
-                } });
+                return HttpResult.Ok(result, new[] { 
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, result.Data.Contract), 
+                        result.Data.Contract,
+                        new SharedOrderQuantity(contractQuantity: Math.Abs(result.Data.Size)),
+                        result.Data.UpdateTime)
+                    {
+                        UnrealizedPnl = result.Data.UnrealisedPnl,
+                        LiquidationPrice = result.Data.LiquidationPrice,
+                        AverageOpenPrice = result.Data.EntryPrice,
+                        Leverage = result.Data.Leverage,
+                        PositionMode = result.Data.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = result.Data.PositionMode == PositionMode.Single ? (result.Data.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : result.Data.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                    } 
+                });
             }
         }
 
@@ -1085,7 +1102,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -1109,7 +1126,7 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOpenInterest>(result);
 
-            return HttpResult.Ok(result, new SharedOpenInterest(result.Data.PositionSize));
+            return HttpResult.Ok(result, new SharedOpenInterest(new SharedOrderQuantity(contractQuantity: result.Data.PositionSize * 2)));
         }
 
         #endregion
@@ -1251,7 +1268,7 @@ namespace GateIo.Net.Clients.FuturesApi
                             x.Side == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                             x.Side == PositionSide.Long ? x.LongPrice : x.ShortPrice,
                             x.Side == PositionSide.Short ? x.LongPrice : x.ShortPrice,
-                            x.AccumelatedSize ?? 0,
+                            new SharedOrderQuantity(contractQuantity: x.AccumelatedSize),
                             x.RealisedPnlPosition ?? 0,
                             x.Timestamp)
                         {

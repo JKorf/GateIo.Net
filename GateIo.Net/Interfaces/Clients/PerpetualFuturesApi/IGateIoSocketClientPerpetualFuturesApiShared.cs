@@ -14,7 +14,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         IBalanceSocketClient,
         IFuturesOrderSocketClient,
         IUserTradeSocketClient,
-        IPositionSocketClient
+        IPositionSocketClient,
+        IFuturesOrderManagementSocketClient
     {
     }
 }

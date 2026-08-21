@@ -119,7 +119,9 @@ namespace GateIo.Net.Clients.SpotApi
                 PriceDecimals = s.PricePrecision,
                 QuantityDecimals = s.QuantityPrecision,
                 QuoteAssetType = SharedAssetType.Crypto,
-                DisplayName = s.Name
+                DisplayName = s.Name,
+                UpperPriceLimitPercentage = s.PriceUpRateLimit * 100,
+                LowerPriceLimitPercentage = -s.PriceDownRateLimit * 100
             };
 
             if (LibraryHelpers.IsStableCoin(result.QuoteAsset))
@@ -260,9 +262,9 @@ namespace GateIo.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
                 symbol,
                 resultTicker.Data.Asks[0].Price,
-                resultTicker.Data.Asks[0].Quantity,
+                new SharedOrderQuantity(resultTicker.Data.Asks[0].Quantity),
                 resultTicker.Data.Bids[0].Price,
-                resultTicker.Data.Bids[0].Quantity));
+                new SharedOrderQuantity(resultTicker.Data.Bids[0].Quantity)));
         }
 
         #endregion
@@ -501,7 +503,7 @@ namespace GateIo.Net.Clients.SpotApi
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(x.Quantity),
                 x.Price,
                 x.CreateTime)
             {
@@ -551,7 +553,7 @@ namespace GateIo.Net.Clients.SpotApi
                             x.OrderId.ToString(),
                             x.Id.ToString(),
                             x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity,
+                            new SharedOrderQuantity(x.Quantity),
                             x.Price,
                             x.CreateTime)
                         {
@@ -840,7 +842,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Asks, result.Data.Bids));
         }
         #endregion
 

@@ -95,7 +95,15 @@ namespace GateIo.Net.Clients.SpotApi
             if (!symbols.Any())
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, ArgumentError.Invalid(nameof(SubscribeTradeRequest.Symbol), "Invalid symbol(s)"));
 
-            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                        update.Data.Symbol,
+                        update.Data.BestAskPrice,
+                        new SharedOrderQuantity(update.Data.BestAskQuantity), 
+                        update.Data.BestBidPrice,
+                        new SharedOrderQuantity(update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -147,7 +155,9 @@ namespace GateIo.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbol, request.Limit ?? 20, 100, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbol, request.Limit ?? 20, 100, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -204,39 +214,6 @@ namespace GateIo.Net.Clients.SpotApi
 
             return result;
         }
-        #endregion
-
-        #region User Trade client
-        SubscribeUserTradeOptions IUserTradeSocketClient.SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, false);
-        async Task<WebSocketResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<DataEvent<SharedUserTrade[]>> handler, CancellationToken ct)
-        {
-            var validationError = SharedClient.SubscribeUserTradeOptions.ValidateRequest(request, this);
-            if (validationError != null)
-                return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
-
-            var result = await SubscribeToUserTradeUpdatesAsync(
-                update => handler(update.ToType<SharedUserTrade[]>(update.Data.Select(x =>
-                    new SharedUserTrade(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
-                        x.Symbol,
-                        x.OrderId.ToString(),
-                        x.Id.ToString(),
-                        x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        x.Quantity,
-                        x.Price!.Value,
-                        x.CreateTime)
-                    {
-                        ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
-                        Role = x.Role == Enums.Role.Maker ? SharedRole.Maker : SharedRole.Taker,
-                        Fee = x.Fee,
-                        FeeAsset = x.FeeAsset
-                    }
-                ).ToArray())),
-                ct: ct).ConfigureAwait(false);
-
-            return result;
-        }
-        #endregion
 
         private SharedOrderStatus GetOrderStatus(GateIoOrderUpdate update)
         {
@@ -255,5 +232,116 @@ namespace GateIo.Net.Clients.SpotApi
                 return SharedOrderStatus.Canceled;
             }
         }
+        #endregion
+
+        #region User Trade client
+        SubscribeUserTradeOptions IUserTradeSocketClient.SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, false);
+        async Task<WebSocketResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<DataEvent<SharedUserTrade[]>> handler, CancellationToken ct)
+        {
+            var validationError = SharedClient.SubscribeUserTradeOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
+
+            var result = await SubscribeToUserTradeUpdatesAsync(
+                update => handler(update.ToType<SharedUserTrade[]>(update.Data.Select(x =>
+                    new SharedUserTrade(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                        x.Symbol,
+                        x.OrderId.ToString(),
+                        x.Id.ToString(),
+                        x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        new SharedOrderQuantity(x.Quantity),
+                        x.Price!.Value,
+                        x.CreateTime)
+                    {
+                        ClientOrderId = x.Text?.StartsWith("t-") == true ? x.Text.Replace("t-", "") : x.Text,
+                        Role = x.Role == Enums.Role.Maker ? SharedRole.Maker : SharedRole.Taker,
+                        Fee = x.Fee,
+                        FeeAsset = x.FeeAsset
+                    }
+                ).ToArray())),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
+        #endregion
+
+        #region Spot Order Management client
+
+        SharedFeeDeductionType ISpotOrderManagementSocketClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
+        SharedFeeAssetType ISpotOrderManagementSocketClient.SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
+        SharedOrderType[] ISpotOrderManagementSocketClient.SpotSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market, SharedOrderType.LimitMaker };
+        SharedTimeInForce[] ISpotOrderManagementSocketClient.SpotSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
+
+        SharedQuantitySupport ISpotOrderManagementSocketClient.SpotSupportedOrderQuantity { get; } = new SharedQuantitySupport(
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.QuoteAsset,
+                SharedQuantityType.BaseAsset);
+
+        string ISpotOrderManagementSocketClient.GenerateClientOrderId() => "t-" + ExchangeHelpers.RandomString(26);
+
+        PlaceSpotOrderSocketOptions ISpotOrderManagementSocketClient.PlaceSpotOrderOptions { get; } = new PlaceSpotOrderSocketOptions(_exchangeName);
+        async Task<QueryResult<SharedId>> ISpotOrderManagementSocketClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
+        {
+            var validationError = SharedClient.PlaceSpotOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return QueryResult.Fail<SharedId>(Exchange, validationError);
+
+            var result = await PlaceOrderAsync(
+                request.Symbol!.GetSymbol(FormatSymbol),
+                request.Side == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
+                GetOrderType(request.OrderType),
+                quantity: (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy ? request.Quantity?.QuantityInQuoteAsset : request.Quantity?.QuantityInBaseAsset) ?? 0,
+                price: request.Price,
+                timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
+                text: string.IsNullOrEmpty(request.ClientOrderId) ? null : request.ClientOrderId,
+                accountType: SpotAccountType.Spot,
+                ct: ct
+                ).ConfigureAwait(false);
+
+            if (!result.Success)
+                return QueryResult.Fail<SharedId>(result);
+
+            return QueryResult.Ok(result, new SharedId(result.Data.Id.ToString()));
+        }
+
+        CancelSpotOrderSocketOptions ISpotOrderManagementSocketClient.CancelSpotOrderOptions { get; } = new CancelSpotOrderSocketOptions(_exchangeName, true);
+        async Task<QueryResult<SharedId>> ISpotOrderManagementSocketClient.CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = SharedClient.CancelSpotOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return QueryResult.Fail<SharedId>(Exchange, validationError);
+
+            string? clientOrderId = null;
+
+            if (!long.TryParse(request.OrderId, out var orderId))
+                clientOrderId = $"t-{request.OrderId}";
+
+            var order = await CancelOrderAsync(request.Symbol!.GetSymbol(FormatSymbol), orderId == 0 ? null : orderId, clientOrderId).ConfigureAwait(false);
+            if (!order.Success)
+                return QueryResult.Fail<SharedId>(order);
+
+            return QueryResult.Ok(order, new SharedId(order.Data.Id.ToString()));
+        }
+
+        private NewOrderType GetOrderType(SharedOrderType type)
+        {
+            if (type == SharedOrderType.Market) return NewOrderType.Market;
+
+            return NewOrderType.Limit;
+        }
+
+        private TimeInForce? GetTimeInForce(SharedOrderType orderType, SharedTimeInForce? tif)
+        {
+            if (orderType == SharedOrderType.LimitMaker) return TimeInForce.PendingOrCancel;
+            if (tif == SharedTimeInForce.ImmediateOrCancel) return TimeInForce.ImmediateOrCancel;
+            if (tif == SharedTimeInForce.FillOrKill) return TimeInForce.FillOrKill;
+            if (tif == SharedTimeInForce.GoodTillCanceled) return TimeInForce.GoodTillCancel;
+            if (orderType == SharedOrderType.Market) return TimeInForce.ImmediateOrCancel;
+
+            return null;
+        }
+        #endregion
     }
 }
