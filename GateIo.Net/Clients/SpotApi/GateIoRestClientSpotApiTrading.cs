@@ -267,7 +267,7 @@ namespace GateIo.Net.Clients.SpotApi
                 stopLossParams.Add("order_price", stopLossOrderPrice);
                 bodyParameters.Add("stop_loss", stopLossParams);
             }
-            var request = _definitions.GetOrCreate(new HttpMethod("Patch"), _baseClient.BaseAddress, "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
+            var request = _definitions.GetOrCreate(new HttpMethod("PATCH"), _baseClient.BaseAddress, "/api/v4/spot/orders/" + id, GateIoExchange.RateLimiter.RestSpotOrderPlacement, 1, true);
             return await _baseClient.SendAsync<GateIoOrder>(request, queryParameters, bodyParameters, ct, rateLimitKeySuffix: symbol).ConfigureAwait(false);
         }
 
