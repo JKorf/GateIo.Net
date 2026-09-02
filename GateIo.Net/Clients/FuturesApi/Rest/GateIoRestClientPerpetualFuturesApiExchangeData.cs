@@ -30,7 +30,9 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/spot/time", GateIoExchange.RateLimiter.Public, 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v4/spot/time", GateIoExchange.RateLimiter.Public, 1, false,
+                preventCaching: true,
+                preventRequestCoalescing: true);
             var result = await _baseClient.SendAsync<GateIoServerTime>(request, null, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<DateTime>(result);
