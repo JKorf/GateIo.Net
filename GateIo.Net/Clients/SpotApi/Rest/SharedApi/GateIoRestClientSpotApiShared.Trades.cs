@@ -1,0 +1,43 @@
+using GateIo.Net.Interfaces.Clients.SpotApi;
+using GateIo.Net.Enums;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using GateIo.Net.Objects.Models;
+using CryptoExchange.Net;
+
+namespace GateIo.Net.Clients.SpotApi
+{
+    internal partial class GateIoRestClientSpotSharedApi
+    {
+        #region Recent Trade client
+        public GetRecentTradesOptions GetRecentTradesOptions { get; } = new GetRecentTradesOptions(_exchangeName, 1000, false);
+
+        public async Task<HttpResult<SharedTrade[]>> GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+        {
+            var validationError = GetRecentTradesOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedTrade[]>(Exchange, validationError);
+
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
+            var result = await _api.ExchangeData.GetTradesAsync(
+                symbol,
+                limit: request.Limit,
+                ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedTrade[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.CreateTime)
+                {
+                    Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+                }).ToArray());
+        }
+
+        #endregion
+    }
+}

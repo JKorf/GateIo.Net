@@ -18,4 +18,24 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         IFuturesOrderManagementSocketClient
     {
     }
+
+    /// <summary>
+    /// Shared API interface. Shared APIs provide a common,
+    /// exchange-independent contract for accessing functionality across different
+    /// exchange client libraries.
+    /// </summary>
+    public interface IGateIoSocketClientPerpetualFuturesSharedApi :
+        ISubscribeTickerSocket,
+        ISubscribeTradesSocket,
+        ISubscribeBookTickerSocket,
+        ISubscribeKlinesSocket,
+        ISubscribeOrderBookSocket,
+        ISubscribeBalancesSocket,
+        ISubscribeFuturesOrdersSocket,
+        ISubscribeUserTradesSocket,
+        ISubscribePositionsSocket,
+        IPlaceFuturesOrderSocket,
+        ICancelFuturesOrderSocket
+    {
+    }
 }
