@@ -16,7 +16,6 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesSharedApi
     {
-        #region Position client
         public SubscribePositionOptions SubscribePositionOptions { get; } = new SubscribePositionOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -25,6 +24,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
+        #region Subscribe To Position Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<DataEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribePositionOptions.ValidateRequest(request, this);
@@ -53,5 +54,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

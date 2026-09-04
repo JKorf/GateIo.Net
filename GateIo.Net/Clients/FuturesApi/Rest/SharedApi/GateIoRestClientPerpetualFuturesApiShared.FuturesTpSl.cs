@@ -16,7 +16,11 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Tp/SL Client
+        #region Set Futures Tp Sl
+
+        async Task<ICallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+            => await SetFuturesTpSlAsync(request, ct).ConfigureAwait(false);
+
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -55,6 +59,8 @@ namespace GateIo.Net.Clients.FuturesApi
             return HttpResult.Ok(result, new SharedId(result.Data.Id.ToString()));
         }
 
+        #endregion
+
         private TriggerType GetTriggerType(SetTpSlRequest request)
         {
             if (request.PositionSide == SharedPositionSide.Long)
@@ -62,6 +68,11 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return request.TpSlSide == SharedTpSlSide.TakeProfit ? TriggerType.EqualOrLower : TriggerType.EqualOrHigher;
         }
+
+        #region Cancel Futures Tp Sl
+
+        async Task<ICallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+            => await CancelFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
@@ -92,5 +103,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

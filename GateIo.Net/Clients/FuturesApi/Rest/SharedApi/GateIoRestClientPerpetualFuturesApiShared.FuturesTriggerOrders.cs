@@ -16,7 +16,11 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Futures Trigger Order Client
+        #region Place Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesTriggerOrder.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
+
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -51,6 +55,8 @@ namespace GateIo.Net.Clients.FuturesApi
             return HttpResult.Ok(result, new SharedId(result.Data.Id.ToString()));
         }
 
+        #endregion
+
         private PriceType? GetPriceType(PlaceFuturesTriggerOrderRequest request)
         {
             if (request.TriggerPriceType == null)
@@ -72,6 +78,11 @@ namespace GateIo.Net.Clients.FuturesApi
             
             return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Sell : OrderSide.Buy;
         }
+
+        #region Get Futures Trigger Order
+
+        async Task<ICallResult<SharedFuturesTriggerOrder>> IGetFuturesTriggerOrder.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTriggerOrderOptions GetFuturesTriggerOrderOptions { get; } = new GetFuturesTriggerOrderOptions(_exchangeName, true)
         {
@@ -129,6 +140,8 @@ namespace GateIo.Net.Clients.FuturesApi
             });
         }
 
+        #endregion
+
         private SharedTriggerOrderStatus ParseTriggerOrderStatus(FuturesTriggerOrderStatus? status, GateIoPerpOrder? orderInfo)
         {
             if (status == FuturesTriggerOrderStatus.Invalid)
@@ -149,6 +162,11 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return SharedTriggerOrderStatus.Unknown;
         }
+
+        #region Cancel Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> ICancelFuturesTriggerOrder.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTriggerOrderOptions CancelFuturesTriggerOrderOptions { get; } = new CancelFuturesTriggerOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedId>> CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
@@ -172,5 +190,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

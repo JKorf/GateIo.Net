@@ -16,7 +16,11 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Balance Client
+        #region Get Balances
+
+        async Task<ICallResult<SharedBalance[]>> IGetBalances.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
+            => await GetBalancesAsync(request, ct).ConfigureAwait(false);
+
         public GetBalancesOptions GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, AccountTypeFilter.Futures);
 
         public async Task<HttpResult<SharedBalance[]>> GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
@@ -47,5 +51,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

@@ -14,7 +14,11 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoRestClientSpotSharedApi
     {
-        #region Book Ticker client
+
+        #region Get Book Ticker
+
+        async Task<ICallResult<SharedBookTicker>> IGetBookTicker.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+            => await GetBookTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetBookTickerOptions GetBookTickerOptions { get; } = new GetBookTickerOptions(_exchangeName, false);
         public async Task<HttpResult<SharedBookTicker>> GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
@@ -41,5 +45,6 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

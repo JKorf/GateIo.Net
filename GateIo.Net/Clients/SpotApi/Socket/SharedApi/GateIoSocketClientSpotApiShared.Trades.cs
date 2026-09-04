@@ -15,12 +15,13 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoSocketClientSpotSharedApi
     {
-        #region Trade client
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
         {
             SupportsMultipleSymbols = true
         };
+        #region Subscribe To Trade Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribeTradeOptions.ValidateRequest(request, this);
@@ -39,6 +40,7 @@ namespace GateIo.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

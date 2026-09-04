@@ -16,7 +16,11 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Ticker client
+
+        #region Get Futures Ticker
+
+        async Task<ICallResult<SharedFuturesTicker>> IGetFuturesTicker.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
+            => await GetFuturesTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTickerOptions GetFuturesTickerOptions { get; } = new GetFuturesTickerOptions(_exchangeName)
         {
@@ -60,6 +64,13 @@ namespace GateIo.Net.Clients.FuturesApi
                 NextFundingTime = resultContract.Result.Data.NextFundingTime
             });
         }
+
+        #endregion
+
+        #region Get All Futures Tickers
+
+        async Task<ICallResult<SharedFuturesTicker[]>> IGetAllFuturesTickers.GetAllFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => await GetAllFuturesTickersAsync(request, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedFuturesTicker[]>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
             => GetAllFuturesTickersAsync(request, ct);
@@ -116,5 +127,6 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

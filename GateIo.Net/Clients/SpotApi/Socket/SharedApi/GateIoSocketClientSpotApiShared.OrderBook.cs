@@ -15,8 +15,9 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoSocketClientSpotSharedApi
     {
-        #region Order Book client
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 10, 20, 50, 100 });
+        #region Subscribe To Order Book Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
             var validationError = SubscribeOrderBookOptions.ValidateRequest(request, this);
@@ -30,6 +31,7 @@ namespace GateIo.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

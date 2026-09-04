@@ -14,7 +14,11 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoRestClientSpotSharedApi
     {
-        #region Order Book client
+        #region Get Order Book
+
+        async Task<ICallResult<SharedOrderBook>> IGetOrderBook.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
+            => await GetOrderBookAsync(request, ct).ConfigureAwait(false);
+
         public GetOrderBookOptions GetOrderBookOptions { get; } = new GetOrderBookOptions(_exchangeName, 1, 5000, false);
         public async Task<HttpResult<SharedOrderBook>> GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {
@@ -31,6 +35,7 @@ namespace GateIo.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Id, result.Data.Asks, result.Data.Bids));
         }
+
         #endregion
     }
 }

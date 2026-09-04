@@ -14,7 +14,11 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoRestClientSpotSharedApi
     {
-        #region Withdrawal client
+
+        #region Get Withdrawal History
+
+        async Task<ICallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetWithdrawalHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetWithdrawalHistoryAsync(request, pageRequest, ct);
@@ -69,6 +73,8 @@ namespace GateIo.Net.Clients.SpotApi
                     .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus GetWithdrawalStatus(GateIoWithdrawal x)
         {
             if (x.Status == WithdrawalStatus.Blocked
@@ -101,9 +107,12 @@ namespace GateIo.Net.Clients.SpotApi
 
             return SharedTransferStatus.Unknown;
         }
-        #endregion
 
-        #region Withdraw client
+
+        #region Withdraw
+
+        async Task<ICallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
+            => await WithdrawAsync(request, ct).ConfigureAwait(false);
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
@@ -133,5 +142,6 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

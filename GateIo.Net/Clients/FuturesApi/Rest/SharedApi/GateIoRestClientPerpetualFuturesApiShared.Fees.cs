@@ -16,7 +16,6 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Fee Client
         public GetFeeOptions GetFeeOptions { get; } = new GetFeeOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -24,6 +23,11 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
             }
         };
+
+        #region Get Fees
+
+        async Task<ICallResult<SharedFee>> IGetFees.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
+            => await GetFeesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedFee>> GetFeesAsync(GetFeeRequest request, CancellationToken ct)
         {
@@ -44,6 +48,7 @@ namespace GateIo.Net.Clients.FuturesApi
             // Return
             return HttpResult.Ok(result, new SharedFee(symbol.Value.MakerFee * 100, symbol.Value.TakerFee * 100));
         }
+
         #endregion
     }
 }

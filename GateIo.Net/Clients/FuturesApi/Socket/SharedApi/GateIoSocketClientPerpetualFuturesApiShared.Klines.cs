@@ -16,7 +16,6 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesSharedApi
     {
-        #region Kline client
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.ThreeMinutes,
@@ -35,6 +34,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
             }
         };
+        #region Subscribe To Kline Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(SubscribeKlineRequest request, Action<DataEvent<SharedKline>> handler, CancellationToken ct)
         {
             var interval = (Enums.KlineInterval)request.Interval;
@@ -63,6 +64,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

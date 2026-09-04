@@ -15,8 +15,9 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoSocketClientSpotSharedApi
     {
-        #region Balance client
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
+        #region Subscribe To Balance Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var result = await _api.SubscribeToBalanceUpdatesAsync(
@@ -30,6 +31,7 @@ namespace GateIo.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

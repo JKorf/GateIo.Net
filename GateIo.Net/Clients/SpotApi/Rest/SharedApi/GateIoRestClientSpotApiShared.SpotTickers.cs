@@ -14,7 +14,11 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoRestClientSpotSharedApi
     {
-        #region Ticker client
+
+        #region Get Spot Ticker
+
+        async Task<ICallResult<SharedSpotTicker>> IGetSpotTicker.GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
+            => await GetSpotTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetSpotTickerOptions GetSpotTickerOptions { get; } = new GetSpotTickerOptions(_exchangeName);
         public async Task<HttpResult<SharedSpotTicker>> GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
@@ -40,6 +44,13 @@ namespace GateIo.Net.Clients.SpotApi
             {
             });
         }
+
+        #endregion
+
+        #region Get All Spot Tickers
+
+        async Task<ICallResult<SharedSpotTicker[]>> IGetAllSpotTickers.GetAllSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => await GetAllSpotTickersAsync(request, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedSpotTicker[]>> ISpotTickerRestClient.GetSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
             => GetAllSpotTickersAsync(request, ct);
@@ -68,5 +79,6 @@ namespace GateIo.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

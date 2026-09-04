@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using System;
 using System.Net.Http;
@@ -118,6 +118,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<ILoggerFactory>(),
                 x.GetRequiredService<IOptions<GateIoRestOptions>>(),
                 x.GetRequiredService<IOptions<GateIoSocketOptions>>()));
+
+            services.AddTransient<IGateIoSharedApiClient, GateIoSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedApi);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient);

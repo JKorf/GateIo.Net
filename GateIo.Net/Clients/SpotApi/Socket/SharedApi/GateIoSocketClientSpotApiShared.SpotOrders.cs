@@ -15,7 +15,8 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoSocketClientSpotSharedApi
     {
-        #region Spot Order client
+
+        #region Subscribe To Spot Order Updates
 
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
             => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -55,6 +56,8 @@ namespace GateIo.Net.Clients.SpotApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus GetOrderStatus(GateIoOrderUpdate update)
         {
             if (update.QuantityRemaining == 0)
@@ -72,9 +75,7 @@ namespace GateIo.Net.Clients.SpotApi
                 return SharedOrderStatus.Canceled;
             }
         }
-        #endregion
 
-        #region Spot Order Management client
 
         public SharedFeeDeductionType SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
         public SharedFeeAssetType SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
@@ -88,6 +89,8 @@ namespace GateIo.Net.Clients.SpotApi
                 SharedQuantityType.BaseAsset);
 
         public string GenerateClientOrderId() => "t-" + ExchangeHelpers.RandomString(26);
+
+        #region Place Spot Order
 
         async Task<ICallResult<SharedId>> IPlaceSpotOrder.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
             => await PlaceSpotOrderAsync(request, ct).ConfigureAwait(false);
@@ -119,6 +122,15 @@ namespace GateIo.Net.Clients.SpotApi
             return QueryResult.Ok(result, new SharedId(result.Data.Id.ToString()));
         }
 
+        #endregion
+
+        #region Cancel Spot Order
+
+        async Task<ICallResult<SharedId>> ICancelSpotOrder.CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelSpotOrderAsync(request, ct).ConfigureAwait(false);
+
+        CancelSpotOrderOptions ICancelSpotOrder.CancelSpotOrderOptions => CancelSpotOrderOptions;
+
         public CancelSpotOrderSocketOptions CancelSpotOrderOptions { get; } = new CancelSpotOrderSocketOptions(_exchangeName, true);
         public async Task<QueryResult<SharedId>> CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
@@ -138,6 +150,8 @@ namespace GateIo.Net.Clients.SpotApi
             return QueryResult.Ok(order, new SharedId(order.Data.Id.ToString()));
         }
 
+        #endregion
+
         private NewOrderType GetOrderType(SharedOrderType type)
         {
             if (type == SharedOrderType.Market) return NewOrderType.Market;
@@ -155,6 +169,5 @@ namespace GateIo.Net.Clients.SpotApi
 
             return null;
         }
-        #endregion
     }
 }

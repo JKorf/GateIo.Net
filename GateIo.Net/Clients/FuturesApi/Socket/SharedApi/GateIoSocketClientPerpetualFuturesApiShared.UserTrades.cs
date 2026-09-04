@@ -16,7 +16,6 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesSharedApi
     {
-        #region User Trade client
         public SubscribeUserTradeOptions SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -25,6 +24,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
+        #region Subscribe To User Trade Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<DataEvent<SharedUserTrade[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribeUserTradeOptions.ValidateRequest(request, this);
@@ -54,6 +55,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

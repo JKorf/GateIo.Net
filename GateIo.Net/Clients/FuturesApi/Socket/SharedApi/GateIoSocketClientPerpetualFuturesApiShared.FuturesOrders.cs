@@ -16,7 +16,8 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesSharedApi
     {
-        #region Futures Order client
+
+        #region Subscribe To Futures Order Updates
 
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -62,6 +63,8 @@ namespace GateIo.Net.Clients.FuturesApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(OrderStatus status, OrderFinishType? finishedAs)
         {
             if (status == Enums.OrderStatus.Open)
@@ -85,9 +88,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return SharedOrderType.Limit;
         }
-        #endregion
 
-        #region Futures Order Client
 
         public SharedFeeDeductionType FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
         public SharedFeeAssetType FuturesFeeAssetType => SharedFeeAssetType.InputAsset;
@@ -100,6 +101,13 @@ namespace GateIo.Net.Clients.FuturesApi
                 SharedQuantityType.Contracts);
 
         public string GenerateClientOrderId() => "t-" + ExchangeHelpers.RandomString(26);
+
+        #region Place Futures Order
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
+
+        PlaceFuturesOrderOptions IPlaceFuturesOrder.PlaceFuturesOrderOptions => PlaceFuturesOrderOptions;
 
         public PlaceFuturesOrderSocketOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderSocketOptions(_exchangeName, false)
         {
@@ -134,6 +142,15 @@ namespace GateIo.Net.Clients.FuturesApi
 
         }
 
+        #endregion
+
+        #region Cancel Futures Order
+
+        async Task<ICallResult<SharedId>> ICancelFuturesOrder.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesOrderAsync(request, ct).ConfigureAwait(false);
+
+        CancelFuturesOrderOptions ICancelFuturesOrder.CancelFuturesOrderOptions => CancelFuturesOrderOptions;
+
         public CancelFuturesOrderSocketOptions CancelFuturesOrderOptions { get; } = new CancelFuturesOrderSocketOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -156,6 +173,8 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return QueryResult.Ok(order, new SharedId(order.Data.Id.ToString()));
         }
+
+        #endregion
 
         private OrderSide GetOrderSide(SharedOrderSide side, SharedPositionSide? posSide)
         {
@@ -188,6 +207,5 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return null;
         }
-        #endregion
     }
 }

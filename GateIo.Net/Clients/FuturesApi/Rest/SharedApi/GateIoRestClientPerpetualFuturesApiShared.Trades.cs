@@ -16,7 +16,11 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Recent Trade client
+
+        #region Get Recent Trades
+
+        async Task<ICallResult<SharedTrade[]>> IGetRecentTrades.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+            => await GetRecentTradesAsync(request, ct).ConfigureAwait(false);
 
         public GetRecentTradesOptions GetRecentTradesOptions { get; } = new GetRecentTradesOptions(_exchangeName, 1000, false)
         {
@@ -46,7 +50,12 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
-        #region Trade History client
+
+        #region Get Trade History
+
+        async Task<ICallResult<SharedTrade[]>> IGetTradeHistory.GetTradeHistoryAsync(GetTradeHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetTradeHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public GetTradeHistoryOptions GetTradeHistoryOptions { get; } = new GetTradeHistoryOptions(_exchangeName, false, true, true, 1000, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -91,6 +100,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)), x.Price, x.CreateTime))
                     .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

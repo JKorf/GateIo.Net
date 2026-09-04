@@ -16,7 +16,6 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesSharedApi
     {
-        #region Book Ticker client
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
         {
@@ -26,6 +25,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
             }
         };
+        #region Subscribe To Book Ticker Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(SubscribeBookTickerRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
         {
             var validationError = SubscribeBookTickerOptions.ValidateRequest(request, this);
@@ -45,6 +46,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

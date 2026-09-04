@@ -16,7 +16,11 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
-        #region Funding Rate client
+        #region Get Funding Rate History
+
+        async Task<ICallResult<SharedFundingRate[]>> IGetFundingRateHistory.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetFundingRateHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public GetFundingRateHistoryOptions GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(_exchangeName, false, true, true, 1000, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -59,6 +63,7 @@ namespace GateIo.Net.Clients.FuturesApi
                         new SharedFundingRate(x.FundingRate, x.Timestamp))
                     .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

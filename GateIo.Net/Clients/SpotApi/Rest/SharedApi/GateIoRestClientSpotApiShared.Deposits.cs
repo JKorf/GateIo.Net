@@ -14,7 +14,11 @@ namespace GateIo.Net.Clients.SpotApi
 {
     internal partial class GateIoRestClientSpotSharedApi
     {
-        #region Deposit client
+
+        #region Get Deposit Addresses
+
+        async Task<ICallResult<SharedDepositAddress[]>> IGetDepositAddresses.GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
+            => await GetDepositAddressesAsync(request, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedDeposit[]>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetDepositHistoryAsync(request, pageRequest, ct);
@@ -38,6 +42,13 @@ namespace GateIo.Net.Clients.SpotApi
                 }
             ).ToArray());
         }
+
+        #endregion
+
+        #region Get Deposit History
+
+        async Task<ICallResult<SharedDeposit[]>> IGetDepositHistory.GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetDepositHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, false, true, true, 500);
         public async Task<HttpResult<SharedDeposit[]>> GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -85,6 +96,8 @@ namespace GateIo.Net.Clients.SpotApi
                         }).ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus ParseTransferStatus(WithdrawalStatus status)
         {
             if (status == WithdrawalStatus.Done || status == WithdrawalStatus.Final || status == WithdrawalStatus.Credited)
@@ -108,6 +121,5 @@ namespace GateIo.Net.Clients.SpotApi
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
     }
 }

@@ -16,7 +16,6 @@ namespace GateIo.Net.Clients.FuturesApi
 {
     internal partial class GateIoSocketClientPerpetualFuturesSharedApi
     {
-        #region Balance client
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -25,6 +24,8 @@ namespace GateIo.Net.Clients.FuturesApi
                 new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
             }
         };
+        #region Subscribe To Balance Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribeBalanceOptions.ValidateRequest(request, this);
@@ -44,6 +45,7 @@ namespace GateIo.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }
