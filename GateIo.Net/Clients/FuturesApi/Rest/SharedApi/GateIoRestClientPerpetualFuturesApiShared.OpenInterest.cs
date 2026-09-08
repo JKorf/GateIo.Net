@@ -24,10 +24,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public GetOpenInterestOptions GetOpenInterestOptions { get; } = new GetOpenInterestOptions(_exchangeName, false)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<HttpResult<SharedOpenInterest>> GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
         {

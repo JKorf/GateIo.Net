@@ -24,11 +24,10 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public SubscribeFuturesOrderOptions SubscribeFuturesOrderOptions { get; } = new SubscribeFuturesOrderOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt"),
-                new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt"),
+                ExchangeParameterRule.Required("UserId", "The user id of the current API credentials", 123123123L)
+            ]
         };
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrderUpdate[]>> handler, CancellationToken ct)
         {
@@ -111,10 +110,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public PlaceFuturesOrderSocketOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderSocketOptions(_exchangeName, false)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<QueryResult<SharedId>> PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
@@ -153,10 +151,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public CancelFuturesOrderSocketOptions CancelFuturesOrderOptions { get; } = new CancelFuturesOrderSocketOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<QueryResult<SharedId>> CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {

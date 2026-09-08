@@ -18,10 +18,9 @@ namespace GateIo.Net.Clients.FuturesApi
     {
         public GetFeeOptions GetFeeOptions { get; } = new GetFeeOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
 
         #region Get Fees

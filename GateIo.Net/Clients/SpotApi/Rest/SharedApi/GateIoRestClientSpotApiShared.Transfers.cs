@@ -31,10 +31,9 @@ namespace GateIo.Net.Clients.SpotApi
             SharedAccountType.Option,
             ])
         {
-            OptionalExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "The settle asset for futures transfer", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Optional("SettleAsset", "The settle asset for futures transfer", "usdt")
+            ]
         };
         public async Task<HttpResult<SharedId>> TransferAsync(TransferRequest request, CancellationToken ct)
         {

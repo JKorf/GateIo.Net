@@ -34,10 +34,9 @@ namespace GateIo.Net.Clients.FuturesApi
             SharedKlineInterval.OneWeek,
             SharedKlineInterval.OneMonth)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
 
         public async Task<HttpResult<SharedKline[]>> GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -99,10 +98,9 @@ namespace GateIo.Net.Clients.FuturesApi
         public GetIndexPriceKlinesOptions GetIndexPriceKlinesOptions { get; } = new GetIndexPriceKlinesOptions(_exchangeName, false, true, true, 1000, false)
         {
             MaxAge = TimeSpan.FromDays(180),
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
 
         public async Task<HttpResult<SharedFuturesKline[]>> GetIndexPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)

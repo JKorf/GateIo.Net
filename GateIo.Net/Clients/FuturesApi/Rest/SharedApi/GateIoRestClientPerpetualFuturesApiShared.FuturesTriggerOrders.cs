@@ -23,10 +23,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
         {
@@ -46,6 +45,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 triggerPrice: request.TriggerPrice,
                 text: request.ClientOrderId,
                 priceType: GetPriceType(request),
+                reduceOnly: request.ReduceOnly,
                 timeInForce: GetTimeInForce(orderType == NewOrderType.Market ? SharedOrderType.Market : SharedOrderType.Limit, request.TimeInForce) ?? (orderType == NewOrderType.Market ? TimeInForce.ImmediateOrCancel : TimeInForce.GoodTillCancel),
                 ct: ct).ConfigureAwait(false);
             if (!result.Success)
@@ -86,10 +86,9 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public GetFuturesTriggerOrderOptions GetFuturesTriggerOrderOptions { get; } = new GetFuturesTriggerOrderOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<HttpResult<SharedFuturesTriggerOrder>> GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
         {

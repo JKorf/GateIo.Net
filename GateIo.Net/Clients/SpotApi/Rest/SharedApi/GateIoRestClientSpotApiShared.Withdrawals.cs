@@ -116,10 +116,9 @@ namespace GateIo.Net.Clients.SpotApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(WithdrawRequest.Network), typeof(string), "Network is required for withdrawing", "TRX")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
+            ]
         };
         public async Task<HttpResult<SharedId>> WithdrawAsync(WithdrawRequest request, CancellationToken ct)
         {

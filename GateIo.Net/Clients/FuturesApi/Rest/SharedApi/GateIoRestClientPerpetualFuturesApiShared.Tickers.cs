@@ -17,21 +17,31 @@ namespace GateIo.Net.Clients.FuturesApi
     internal partial class GateIoRestClientPerpetualFuturesSharedApi
     {
 
-        #region Get Futures Ticker
+        #region Get Ticker
 
-        async Task<ICallResult<SharedFuturesTicker>> IGetFuturesTicker.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
-            => await GetFuturesTickerAsync(request, ct).ConfigureAwait(false);
+        async Task<ICallResult<SharedTicker>> IGetTicker.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
+            => await ((IGetTickerRest)this).GetTickerAsync(request, ct).ConfigureAwait(false);
 
-        public GetFuturesTickerOptions GetFuturesTickerOptions { get; } = new GetFuturesTickerOptions(_exchangeName)
+        async Task<HttpResult<SharedTicker>> IGetTickerRest.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            var result = await GetFuturesTickerAsync(request, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedTicker>(result);
+
+            return HttpResult.Ok<SharedTicker>(result, result.Data);
+        }
+
+        GetTickerOptions IFuturesTickerRestClient.GetFuturesTickerOptions => GetTickerOptions;
+
+        public GetTickerOptions GetTickerOptions { get; } = new GetTickerOptions(_exchangeName)
+        {
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<HttpResult<SharedFuturesTicker>> GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var validationError = GetFuturesTickerOptions.ValidateRequest(request, this);
+            var validationError = GetTickerOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesTicker>(Exchange, validationError);
 
@@ -48,14 +58,14 @@ namespace GateIo.Net.Clients.FuturesApi
             if (ticker == null)
                 return HttpResult.Fail<SharedFuturesTicker>(resultTicker.Result, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
-            return HttpResult.Ok(resultContract.Result, 
+            return HttpResult.Ok(resultContract.Result,
                 new SharedFuturesTicker(
                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, resultContract.Result.Data.Name),
-                    resultContract.Result.Data.Name, 
+                    resultContract.Result.Data.Name,
                     ticker.LastPrice,
                     ticker.HighPrice,
                     ticker.LowPrice,
-                    new SharedOrderQuantity(ticker.BaseVolume, ticker.QuoteVolume, ticker.Volume), 
+                    new SharedOrderQuantity(ticker.BaseVolume, ticker.QuoteVolume, ticker.Volume),
                     ticker.ChangePercentage)
             {
                 MarkPrice = ticker.MarkPrice,
@@ -67,25 +77,33 @@ namespace GateIo.Net.Clients.FuturesApi
 
         #endregion
 
-        #region Get All Futures Tickers
+        #region Get All Tickers
 
-        async Task<ICallResult<SharedFuturesTicker[]>> IGetAllFuturesTickers.GetAllFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
-            => await GetAllFuturesTickersAsync(request, ct).ConfigureAwait(false);
+        async Task<ICallResult<SharedTicker[]>> IGetAllTickers.GetAllTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => await ((IGetAllTickersRest)this).GetAllTickersAsync(request, ct).ConfigureAwait(false);
+
+        async Task<HttpResult<SharedTicker[]>> IGetAllTickersRest.GetAllTickersAsync(GetTickersRequest request, CancellationToken ct)
+        {
+            var result = await GetAllFuturesTickersAsync(request, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedTicker[]>(result);
+
+            return HttpResult.Ok<SharedTicker[]>(result, result.Data);
+        }
 
         Task<HttpResult<SharedFuturesTicker[]>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
             => GetAllFuturesTickersAsync(request, ct);
-        GetAllFuturesTickersOptions IFuturesTickerRestClient.GetFuturesTickersOptions => GetAllFuturesTickersOptions;
+        GetAllTickersOptions IFuturesTickerRestClient.GetFuturesTickersOptions => GetAllTickersOptions;
 
-        public GetAllFuturesTickersOptions GetAllFuturesTickersOptions { get; } = new GetAllFuturesTickersOptions(_exchangeName)
+        public GetAllTickersOptions GetAllTickersOptions { get; } = new GetAllTickersOptions(_exchangeName)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         public async Task<HttpResult<SharedFuturesTicker[]>> GetAllFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
         {
-            var validationError = GetAllFuturesTickersOptions.ValidateRequest(request, this);
+            var validationError = GetAllTickersOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesTicker[]>(Exchange, validationError);
 
@@ -107,15 +125,15 @@ namespace GateIo.Net.Clients.FuturesApi
                     {
                         return null;
                     }
-                }    
+                }
 
                 return new SharedFuturesTicker(
                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, x.Contract),
-                    x.Contract, 
-                    x.LastPrice, 
-                    x.HighPrice, 
+                    x.Contract,
+                    x.LastPrice,
+                    x.HighPrice,
                     x.LowPrice,
-                    new SharedOrderQuantity(x.BaseVolume, x.QuoteVolume, x.Volume), 
+                    new SharedOrderQuantity(x.BaseVolume, x.QuoteVolume, x.Volume),
                     x.ChangePercentage)
                 {
                     IndexPrice = contract.IndexPrice,

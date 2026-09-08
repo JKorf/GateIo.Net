@@ -29,10 +29,9 @@ namespace GateIo.Net.Clients.FuturesApi
             SharedKlineInterval.OneWeek,
             SharedKlineInterval.OneMonth)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt")
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
+            ]
         };
         #region Subscribe To Kline Updates
 

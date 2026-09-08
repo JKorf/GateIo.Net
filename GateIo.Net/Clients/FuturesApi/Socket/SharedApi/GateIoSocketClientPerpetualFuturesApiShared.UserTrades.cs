@@ -18,11 +18,10 @@ namespace GateIo.Net.Clients.FuturesApi
     {
         public SubscribeUserTradeOptions SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("SettleAsset", typeof(string), "Settlement asset, btc, usd or usdt", "usdt"),
-                new ParameterDescription("UserId", typeof(long), "The user id of the current API credentials", 123123123L)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt"),
+                ExchangeParameterRule.Required("UserId", "The user id of the current API credentials", 123123123L)
+            ]
         };
         #region Subscribe To User Trade Updates
 

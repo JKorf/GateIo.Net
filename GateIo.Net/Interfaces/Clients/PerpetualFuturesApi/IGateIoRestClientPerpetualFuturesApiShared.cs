@@ -35,8 +35,8 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IGateIoRestClientPerpetualFuturesSharedApi :
         IGetBalancesRest,
-        IGetFuturesTickerRest,
-        IGetAllFuturesTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetFuturesSymbolsRest,
         IPlaceFuturesOrderRest,
         IGetFuturesOrderRest,
@@ -46,7 +46,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         IGetFuturesUserTradeHistoryRest,
         ICancelFuturesOrderRest,
         IGetPositionsRest,
-        IClosePositionRest,
+        ICloseFullPositionRest,
         IGetKlinesRest,
         IGetTradeHistoryRest,
         IGetLeverageRest,
