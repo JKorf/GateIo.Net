@@ -34,8 +34,12 @@ namespace GateIo.Net.Clients.FuturesApi
         async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
             => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
 
-        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, false)
+        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.Leverage),
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.MarginMode)
+            ],
             ExchangeParameterRules = [
                 ExchangeParameterRule.Required("SettleAsset", "Settlement asset, btc, usd or usdt", "usdt")
             ]
@@ -57,6 +61,8 @@ namespace GateIo.Net.Clients.FuturesApi
                     reduceOnly: request.ReduceOnly ?? isReduce,
                     timeInForce: GetTimeInForce(request.OrderType, request.TimeInForce),
                     text: request.ClientOrderId,
+                    takeProfitTriggerPrice: request.TakeProfitPrice,
+                    stopLossTriggerPrice: request.StopLossPrice,
                     ct: ct).ConfigureAwait(false);
 
                 if (!result.Success)
