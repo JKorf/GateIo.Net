@@ -110,7 +110,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         public GetOpenSpotOrdersOptions GetOpenSpotOrdersOptions { get; } = new GetOpenSpotOrdersOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetOpenOrdersRequest>.NotSupported(x => x.Symbol),
                 ]
         };

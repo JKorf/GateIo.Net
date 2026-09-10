@@ -116,7 +116,7 @@ namespace GateIo.Net.Clients.SpotApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
             ]
         };
