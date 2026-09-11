@@ -1,3 +1,4 @@
+using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using GateIo.Net.Interfaces.Clients.SpotApi;
 
@@ -6,7 +7,7 @@ namespace GateIo.Net.Interfaces.Clients
     /// <summary>
     /// Client for the shared REST and WebSocket API implementations of Gate.io
     /// </summary>
-    public interface IGateIoSharedApiClient
+    public interface IGateIoSharedApiClient : ISharedApiClientBase
     {
         /// <summary>
         /// Spot REST shared API implementations

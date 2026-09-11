@@ -58,9 +58,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = GateIoEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddGateIoCore(services, options.SocketClientLifeTime);
         }
@@ -88,8 +88,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? GateIoEnvironment.Live;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddGateIoCore(services, options.SocketClientLifeTime);
         }
@@ -125,6 +126,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedApi(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedApi);
+
+            services.RegisterSharedApiClientCapabilities<IGateIoSharedApiClient>();
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient);

@@ -1,11 +1,14 @@
+using CryptoExchange.Net.SharedApis;
 using GateIo.Net.Interfaces.Clients;
 using GateIo.Net.Interfaces.Clients.PerpetualFuturesApi;
 using GateIo.Net.Interfaces.Clients.SpotApi;
+using GateIo.Net.Objects.Options;
+using Microsoft.Extensions.Options;
 
 namespace GateIo.Net.Clients
 {
     /// <inheritdoc />
-    public class GateIoSharedApiClient : IGateIoSharedApiClient
+    public class GateIoSharedApiClient : SharedApiClientBase, IGateIoSharedApiClient
     {
         /// <inheritdoc />
         public IGateIoRestClientSpotSharedApi SpotRest { get; }
@@ -21,7 +24,14 @@ namespace GateIo.Net.Clients
         /// </summary>
         public GateIoSharedApiClient(
             IGateIoRestClient restClient,
-            IGateIoSocketClient socketClient)
+            IGateIoSocketClient socketClient,
+            IOptions<GateIoOptions> options)
+            : base(options.Value.SharedApi.PreferredTransport,
+                    restClient.SpotApi.SharedApi,
+                    restClient.PerpetualFuturesApi.SharedApi,
+                    socketClient.SpotApi.SharedApi,
+                    socketClient.PerpetualFuturesApi.SharedApi
+                  )
         {
             SpotRest = restClient.SpotApi.SharedApi;
             PerpetualFuturesRest = restClient.PerpetualFuturesApi.SharedApi;
