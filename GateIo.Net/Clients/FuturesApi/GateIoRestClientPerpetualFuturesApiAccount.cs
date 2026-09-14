@@ -37,11 +37,11 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Account Ledger
 
         /// <inheritdoc />
-        public async Task<HttpResult<GateIoPerpLedgerEntry[]>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default)
+        public async Task<HttpResult<GateIoPerpLedgerEntry[]>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? limit = null, string? type = null, CancellationToken ct = default)
         {
             var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("contract", contract);
-            parameters.Add("page", page);
+            parameters.Add("offset", offset);
             parameters.Add("limit", limit);
             parameters.Add("type", type);
             parameters.Add("from", startTime, DateTimeSerialization.SecondsNumber);
