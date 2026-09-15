@@ -35,30 +35,7 @@ namespace Microsoft.Extensions.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            var options = new GateIoOptions();
-            // Reset environment so we know if they're overridden
-            options.Rest.Environment = null!;
-            options.Socket.Environment = null!;
-
-            try
-            {
-                configuration.Bind(options);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Invalid configuration provided", ex);
-            }
-
-            if (options.Rest == null || options.Socket == null)
-                throw new ArgumentException("Options null");
-
-            var restEnvName = options.Rest.Environment?.Name ?? options.Environment?.Name ?? GateIoEnvironment.Live.Name;
-            var socketEnvName = options.Socket.Environment?.Name ?? options.Environment?.Name ?? GateIoEnvironment.Live.Name;
-            options.Rest.Environment = GateIoEnvironment.GetEnvironmentByName(restEnvName) ?? options.Rest.Environment!;
-            options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
-            options.Socket.Environment = GateIoEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
-            options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
-
+            var options = GateIoOptions.CreateFromConfiguration(configuration);
             services.AddSingleton(Options.Options.Create(options.Rest));
             services.AddSingleton(Options.Options.Create(options.Socket));
             services.AddSingleton(Options.Options.Create(options));
@@ -76,19 +53,7 @@ namespace Microsoft.Extensions.DependencyInjection
             this IServiceCollection services,
             Action<GateIoOptions>? optionsDelegate = null)
         {
-            var options = new GateIoOptions();
-            // Reset environment so we know if they're overridden
-            options.Rest.Environment = null!;
-            options.Socket.Environment = null!;
-            optionsDelegate?.Invoke(options);
-            if (options.Rest == null || options.Socket == null)
-                throw new ArgumentException("Options null");
-
-            options.Rest.Environment = options.Rest.Environment ?? options.Environment ?? GateIoEnvironment.Live;
-            options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
-            options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? GateIoEnvironment.Live;
-            options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
-
+            var options = GateIoOptions.Create(optionsDelegate);
             services.AddSingleton(Options.Options.Create(options.Rest));
             services.AddSingleton(Options.Options.Create(options.Socket));
             services.AddSingleton(Options.Options.Create(options));
