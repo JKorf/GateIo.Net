@@ -1,18 +1,19 @@
+using CryptoExchange.Net;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
-using System;
-using System.Net.Http;
+using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.SharedApis;
+using GateIo.Net;
 using GateIo.Net.Clients;
 using GateIo.Net.Interfaces;
 using GateIo.Net.Interfaces.Clients;
 using GateIo.Net.Objects.Options;
 using GateIo.Net.SymbolOrderBooks;
-using CryptoExchange.Net;
-using GateIo.Net;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
-using CryptoExchange.Net.Interfaces.Clients;
+using System;
+using System.Net.Http;
 using System.Threading;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -120,19 +121,19 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<GateIoRestOptions>>(),
                 x.GetRequiredService<IOptions<GateIoSocketOptions>>()));
 
-            services.AddTransient<IGateIoSharedApiClient, GateIoSharedApiClient>();
-
-            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedApi);
-
-            services.RegisterSharedApiClientCapabilities<IGateIoSharedApiClient>();
-
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IGateIoRestClient>().PerpetualFuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IGateIoSocketClient>().PerpetualFuturesApi.SharedClient);
+
+            services.RegisterSharedApiClient<
+                IGateIoSharedApiClient,
+                GateIoSharedApiClient>(sharedApis => sharedApis
+                    .Add(client => client.SpotRest)
+                    .Add(client => client.SpotSocket)
+                    .Add(client => client.PerpetualFuturesRest)
+                    .Add(client => client.PerpetualFuturesSocket)
+                    );
 
             return services;
         }
