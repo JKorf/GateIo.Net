@@ -137,6 +137,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("pos_margin_mode")]
         public MarginMode? MarginMode { get; set; }
         /// <summary>
+        /// ["<c>leverage</c>"] Leverage used by the order, when supplied by the server
+        /// </summary>
+        [JsonPropertyName("leverage")]
+        public decimal? Leverage { get; set; }
+        /// <summary>
         /// ["<c>tpsl_tp_trigger_price</c>"] Take profit trigger price
         /// </summary>
         [JsonPropertyName("tpsl_tp_trigger_price")]

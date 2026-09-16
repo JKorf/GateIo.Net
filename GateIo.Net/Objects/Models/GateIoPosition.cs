@@ -35,7 +35,7 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>trade_max_size</c>"] Maximum position
         /// </summary>
         [JsonPropertyName("trade_max_size")]
-        public long MaxTradeSize { get; set; }
+        public decimal MaxTradeSize { get; set; }
         /// <summary>
         /// ["<c>lever</c>"] Leverage
         /// </summary>

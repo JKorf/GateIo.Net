@@ -1,0 +1,13 @@
+POST
+/api/v4/futures/usdt/orders
+true
+BodyParams: {"contract":"ETH_USDT","size":-0.1,"price":0,"reduce_only":true}
+{
+  "id": 15675395,
+  "contract": "ETH_USDT",
+  "size": "-0.1",
+  "left": "-0.1",
+  "price": "0",
+  "is_reduce_only": true,
+  "leverage": "2.5"
+}

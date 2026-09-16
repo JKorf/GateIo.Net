@@ -1,14 +1,15 @@
 POST
 /api/v4/futures/usdt/orders
 true
+BodyParams: {"contract":"ETH_USDT","size":0.1,"price":0}
 {
   "id": 15675394,
   "user": 100000,
-  "contract": "BTC_USDT",
+  "contract": "ETH_USDT",
   "create_time": 1546569968,
-  "size": 6024,
+  "size": "0.1",
   "iceberg": 0,
-  "left": 6024,
+  "left": "0.1",
   "price": "3765",
   "fill_price": "0",
   "mkfr": "-0.00025",
@@ -16,6 +17,7 @@ true
   "tif": "gtc",
   "refu": 0,
   "is_reduce_only": false,
+  "leverage": "2.5",
   "is_close": false,
   "is_liq": false,
   "text": "t-my-custom-id",
