@@ -24,6 +24,11 @@ namespace GateIo.Net.Enums
         /// ["<c>prelaunch</c>"] Prelaunch
         /// </summary>
         [Map("prelaunch")]
-        Prelaunch
+        Prelaunch,
+        /// <summary>
+        /// ["<c>suspend</c>"] Suspend
+        /// </summary>
+        [Map("suspend")]
+        Suspend
     }
 }
