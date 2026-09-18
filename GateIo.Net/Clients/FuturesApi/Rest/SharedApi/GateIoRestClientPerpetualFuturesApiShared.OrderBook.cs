@@ -18,7 +18,7 @@ namespace GateIo.Net.Clients.FuturesApi
     {
         #region Get Order Book
 
-        async Task<ICallResult<SharedOrderBook>> IGetOrderBook.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedOrderBook>> IGetOrderBook.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
             => await GetOrderBookAsync(request, ct).ConfigureAwait(false);
 
         public GetOrderBookOptions GetOrderBookOptions { get; } = new GetOrderBookOptions(_exchangeName, 1, 300, false)

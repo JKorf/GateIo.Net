@@ -29,7 +29,7 @@ namespace GateIo.Net.Clients.FuturesApi
         public GateIoSocketClientPerpetualFuturesSharedApi(GateIoSocketClientPerpetualFuturesApi api)
            : base(
                  SharedTransport.Socket,
-                 api.Exchange,
+                 api,
                  [TradingMode.PerpetualLinear, TradingMode.PerpetualInverse],
                  () => api.Authenticated,
                  api.FormatSymbol)

@@ -28,7 +28,7 @@ namespace GateIo.Net.Clients.SpotApi
         public GateIoSocketClientSpotSharedApi(GateIoSocketClientSpotApi api)
            : base(
                  SharedTransport.Socket,
-                 api.Exchange,
+                 api,
                  [TradingMode.Spot],
                  () => api.Authenticated,
                  api.FormatSymbol)
