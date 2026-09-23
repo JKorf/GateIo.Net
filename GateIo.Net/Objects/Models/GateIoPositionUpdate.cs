@@ -36,6 +36,16 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
+        /// ["<c>lever</c>"] Effective leverage, replacing the legacy leverage fields
+        /// </summary>
+        [JsonPropertyName("lever")]
+        public decimal? EffectiveLeverage { get; set; }
+        /// <summary>
+        /// ["<c>pos_margin_mode</c>"] Position margin mode
+        /// </summary>
+        [JsonPropertyName("pos_margin_mode")]
+        public MarginMode? MarginMode { get; set; }
+        /// <summary>
         /// ["<c>risk_limit</c>"] Risk limit
         /// </summary>
         [JsonPropertyName("risk_limit")]

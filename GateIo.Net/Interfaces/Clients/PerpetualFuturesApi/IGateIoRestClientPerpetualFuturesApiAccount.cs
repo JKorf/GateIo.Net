@@ -40,12 +40,12 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">["<c>contract</c>"] Filter by contract, for example `ETH_USDT`</param>
         /// <param name="startTime">["<c>from</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
-        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="offset">["<c>offset</c>"] Number of records to skip, starting from 0</param>
         /// <param name="limit">["<c>limit</c>"] Max amount of results</param>
         /// <param name="type">["<c>type</c>"] Filter by type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<HttpResult<GateIoPerpLedgerEntry[]>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, string? type = null, CancellationToken ct = default);
+        Task<HttpResult<GateIoPerpLedgerEntry[]>> GetLedgerAsync(string settlementAsset, string? contract = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? limit = null, string? type = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set position mode

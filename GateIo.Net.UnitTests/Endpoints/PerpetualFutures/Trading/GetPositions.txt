@@ -6,7 +6,7 @@ true
     "user": 10000,
     "contract": "BTC_USDT",
     "size": -9440,
-    "trade_max_size": "0",
+    "trade_max_size": "0.1",
     "lever": "0",
     "risk_limit": "100",
     "leverage_max": "100",
