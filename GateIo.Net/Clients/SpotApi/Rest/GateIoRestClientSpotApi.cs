@@ -25,6 +25,8 @@ namespace GateIo.Net.Clients.SpotApi
     internal partial class GateIoRestClientSpotApi : RestApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoRestClientSpotApi
     {
         #region fields 
+        private readonly GateIoRestClientSpotSharedApi _sharedApi;
+
         protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
         internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
@@ -48,6 +50,8 @@ namespace GateIo.Net.Clients.SpotApi
             Account = new GateIoRestClientSpotApiAccount(this);
             ExchangeData = new GateIoRestClientSpotApiExchangeData(_logger, this);
             Trading = new GateIoRestClientSpotApiTrading(_logger, this);
+
+            _sharedApi = new GateIoRestClientSpotSharedApi(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
@@ -83,6 +87,7 @@ namespace GateIo.Net.Clients.SpotApi
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
                 => GateIoExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
-        public IGateIoRestClientSpotApiShared SharedClient => this;
+        public IGateIoRestClientSpotApiShared SharedClient => _sharedApi;
+        public IGateIoRestClientSpotSharedApi SharedApi => _sharedApi;
     }
 }

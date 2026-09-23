@@ -35,6 +35,7 @@ namespace GateIo.Net.Clients.FuturesApi
     internal partial class GateIoSocketClientPerpetualFuturesApi : SocketApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoSocketClientPerpetualFuturesApi
     {
         #region fields
+        private readonly GateIoSocketClientPerpetualFuturesSharedApi _sharedApi;
 
         private readonly bool _demoTrading;
 
@@ -50,6 +51,8 @@ namespace GateIo.Net.Clients.FuturesApi
             base(loggerFactory, GateIoExchange.Metadata.Id, options.Environment.FuturesSocketClientAddress!, options, options.PerpetualFuturesOptions)
         {
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
+
+            _sharedApi = new GateIoSocketClientPerpetualFuturesSharedApi(this);
 
             RegisterPeriodicQuery(
                 "Ping",
@@ -72,7 +75,8 @@ namespace GateIo.Net.Clients.FuturesApi
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new GateIoSocketFuturesMessageHandler();
 
-        public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => this;
+        public IGateIoSocketClientPerpetualFuturesApiShared SharedClient => _sharedApi;
+        public IGateIoSocketClientPerpetualFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)

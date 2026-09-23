@@ -26,6 +26,8 @@ namespace GateIo.Net.Clients.FuturesApi
     internal partial class GateIoRestClientPerpetualFuturesApi : RestApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoRestClientPerpetualFuturesApi
     {
         #region fields 
+        private readonly GateIoRestClientPerpetualFuturesSharedApi _sharedApi;
+
         internal new GateIoRestOptions ClientOptions => (GateIoRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => GateIoErrors.RestErrors;
         protected override IRestMessageHandler MessageHandler { get; } = new GateIoRestMessageHandler(GateIoErrors.RestErrors);
@@ -56,6 +58,8 @@ namespace GateIo.Net.Clients.FuturesApi
             ExchangeData = new GateIoRestClientPerpetualFuturesApiExchangeData(_logger, this);
             Trading = new GateIoRestClientPerpetualFuturesApiTrading(_logger, this);
 
+            _sharedApi = new GateIoRestClientPerpetualFuturesSharedApi(this);
+
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 
             RequestBodyEmptyContent = "";
@@ -66,7 +70,8 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(GateIoExchange._serializerContext));
 
-        public IGateIoRestClientPerpetualFuturesApiShared SharedClient => this;
+        public IGateIoRestClientPerpetualFuturesApiShared SharedClient => _sharedApi;
+        public IGateIoRestClientPerpetualFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)

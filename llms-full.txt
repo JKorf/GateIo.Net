@@ -34,7 +34,7 @@ Primary documentation:
 - Use underscore symbols such as `BTC_USDT` for native Gate.io methods.
 - Include a settlement asset such as `"usdt"` for `PerpetualFuturesApi` methods.
 - For futures orders, quantity is an `int` number of contracts. Inspect contract metadata before sizing.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.SharedClient.Discover()` to inspect supported features.
+- Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -198,12 +198,12 @@ GateIoRestClient
     .ExchangeData
     .Account
     .Trading
-    .SharedClient
+    .SharedApi
   .PerpetualFuturesApi
     .ExchangeData
     .Account
     .Trading
-    .SharedClient
+    .SharedApi
   .AlphaApi
     .ExchangeData
     .Account
@@ -217,14 +217,14 @@ WebSocket:
 ```text
 GateIoSocketClient
   .SpotApi
-    .SharedClient
+    .SharedApi
     SubscribeToTickerUpdatesAsync
     SubscribeToKlineUpdatesAsync
     SubscribeToOrderBookUpdatesAsync
     SubscribeToOrderUpdatesAsync
     PlaceOrderAsync / CancelOrderAsync / GetOrderAsync
   .PerpetualFuturesApi
-    .SharedClient
+    .SharedApi
     SubscribeToTickerUpdatesAsync
     SubscribeToKlineUpdatesAsync
     SubscribeToPositionUpdatesAsync
@@ -407,12 +407,11 @@ using GateIo.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 var restClient = new GateIoRestClient();
-ISpotTickerRestClient tickerClient = restClient.SpotApi.SharedClient;
+IGetTickerRest tickerClient = restClient.SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
-var info = restClient.SpotApi.SharedClient.Discover();
-var supportedFeatures = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+// Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
 {
     Console.WriteLine(ticker.Error);
@@ -424,17 +423,17 @@ Console.WriteLine(ticker.Data.LastPrice);
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. Shared symbol helpers can return `ExchangeCallResult<T>`.
 
-The spot shared socket client implements `ISpotOrderManagementSocketClient`; the futures shared socket client implements `IFuturesOrderManagementSocketClient`. Their place and cancel methods return `QueryResult<SharedId>`. Spot market buys use quote-asset quantity and other spot orders use base-asset quantity. Shared futures order quantities are contract quantities and requests require the `SettleAsset` exchange parameter.
+The spot shared socket client implements `IPlaceSpotOrderSocket` and `ICancelSpotOrderSocket`; the futures shared socket client implements `IPlaceFuturesOrderSocket` and `ICancelFuturesOrderSocket`. Their place and cancel methods return `QueryResult<SharedId>`. Spot market buys use quote-asset quantity and other spot orders use base-asset quantity. Shared futures order quantities are contract quantities and requests require the `SettleAsset` exchange parameter.
 
 Shared market and account results use `SharedOrderQuantity` to identify quantity units. Spot books, trades, and orders use base/quote asset quantities as appropriate; futures books, trades, positions, and orders use contract quantities.
 
-The shared symbol REST interfaces expose cached catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` on their shared symbol models. Use the corresponding fields on `GetSymbolsRequest` to filter symbols by crypto, fiat, or traditional-finance type and by stablecoin, equity, or commodity subtype. Futures requests still require the `SettleAsset` exchange parameter.
+The shared symbol REST interfaces expose cached catalogs through `IGetSpotSymbolsRest.SpotSymbolCatalog` and `IGetFuturesSymbolsRest.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` on their shared symbol models. Use the corresponding fields on `GetSymbolsRequest` to filter symbols by crypto, fiat, or traditional-finance type and by stablecoin, equity, or commodity subtype. Futures requests still require the `SettleAsset` exchange parameter.
 
 For shared interface variables, unsubscribe through the concrete socket client:
 
 ```csharp
 var socketClient = new GateIoSocketClient();
-ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+ISubscribeTickerSocket tickerSocket = socketClient.SpotApi.SharedApi;
 
 var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
     new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")),
@@ -451,7 +450,7 @@ Console.ReadLine();
 await socketClient.UnsubscribeAsync(sub.Data);
 ```
 
-Do not call `tickerSocket.UnsubscribeAsync(...)` on `ITickerSocketClient`; that shared interface does not expose the method.
+Do not call `tickerSocket.UnsubscribeAsync(...)` on `ISubscribeTickerSocket`; that shared interface does not expose the method.
 
 ## Symbol And Sizing Handling
 

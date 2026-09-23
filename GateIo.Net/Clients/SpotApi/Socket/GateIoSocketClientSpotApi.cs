@@ -35,6 +35,8 @@ namespace GateIo.Net.Clients.SpotApi
     internal partial class GateIoSocketClientSpotApi : SocketApiClient<GateIoEnvironment, GateIoAuthenticationProvider, GateIoCredentials>, IGateIoSocketClientSpotApi
     {
         #region fields
+        private readonly GateIoSocketClientSpotSharedApi _sharedApi;
+
         private readonly bool _demoTrading;
 
         private new GateIoSocketOptions ClientOptions => (GateIoSocketOptions)base.ClientOptions;
@@ -51,6 +53,8 @@ namespace GateIo.Net.Clients.SpotApi
             base(loggerFactory, GateIoExchange.Metadata.Id, options.Environment.SpotSocketClientAddress!, options, options.SpotOptions)
         {
             _demoTrading = options.Environment.Name == TradeEnvironmentNames.Testnet;
+
+            _sharedApi = new GateIoSocketClientSpotSharedApi(this);
 
             SetDedicatedConnection($"{BaseAddress.AppendPath(GetSocketPath())}/", true);
 
@@ -79,7 +83,8 @@ namespace GateIo.Net.Clients.SpotApi
         protected override GateIoAuthenticationProvider CreateAuthenticationProvider(GateIoCredentials credentials)
             => new GateIoAuthenticationProvider(credentials);
 
-        public IGateIoSocketClientSpotApiShared SharedClient => this;
+        public IGateIoSocketClientSpotApiShared SharedClient => _sharedApi;
+        public IGateIoSocketClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<GateIoTradeUpdate>> onMessage, CancellationToken ct = default)

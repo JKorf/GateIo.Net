@@ -192,21 +192,21 @@ Use SharedApis for exchange-agnostic code across GateIo, Binance, Bybit, OKX, Kr
 
 | User intent | GateIo.Net member or interface |
 |---|---|
-| Shared spot REST client | `new GateIoRestClient().SpotApi.SharedClient` |
-| Shared perpetual futures REST client | `new GateIoRestClient().PerpetualFuturesApi.SharedClient` |
-| Shared spot socket client | `new GateIoSocketClient().SpotApi.SharedClient` |
-| Shared perpetual futures socket client | `new GateIoSocketClient().PerpetualFuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
-| Read cached shared spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
-| Read cached shared futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
+| Shared spot REST client | `new GateIoRestClient().SpotApi.SharedApi` |
+| Shared perpetual futures REST client | `new GateIoRestClient().PerpetualFuturesApi.SharedApi` |
+| Shared spot socket client | `new GateIoSocketClient().SpotApi.SharedApi` |
+| Shared perpetual futures socket client | `new GateIoSocketClient().PerpetualFuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IGateIoSharedApiClient.GetCapability(...)` |
+| Read cached shared spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` |
+| Read cached shared futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` |
 | Filter shared symbols by asset classification | Set `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, or `QuoteAssetSubType` on `GetSymbolsRequest` |
-| Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
-| Shared spot socket order placement/cancellation | `ISpotOrderManagementSocketClient.PlaceSpotOrderAsync(...)` / `CancelSpotOrderAsync(...)` |
-| Shared futures socket order placement/cancellation | `IFuturesOrderManagementSocketClient.PlaceFuturesOrderAsync(...)` / `CancelFuturesOrderAsync(...)` |
-| Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
+| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
+| Shared spot socket order placement/cancellation | `IPlaceSpotOrderSocket.PlaceSpotOrderAsync(...)` / `ICancelSpotOrderSocket.CancelSpotOrderAsync(...)` |
+| Shared futures socket order placement/cancellation | `IPlaceFuturesOrderSocket.PlaceFuturesOrderAsync(...)` / `ICancelFuturesOrderSocket.CancelFuturesOrderAsync(...)` |
+| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
 
@@ -240,4 +240,4 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | Decimal futures order quantity | Integer contract quantity |
 | `SpotApi.Margin` | `SpotApi.Account` / `SpotApi.ExchangeData` margin methods |
 | `.Data` without `.Success` check | Check `.Success` first |
-| `ITickerSocketClient.UnsubscribeAsync(...)` | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
