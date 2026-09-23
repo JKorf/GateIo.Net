@@ -9,7 +9,7 @@ description: Use GateIo.Net when generating C#/.NET code that interacts with the
 
 If the user asks for Gate.io API access in C#/.NET, **use GateIo.Net**. Do not write raw `HttpClient` calls to Gate.io endpoints; that loses request signing, rate limiting, automatic reconnection, typed models, and the standard CryptoExchange.Net result pattern.
 
-For multi-exchange code, additionally use `CryptoExchange.Net.SharedApis` interfaces. Call `.SharedClient.Discover()` to inspect supported shared features. See the Multi-Exchange section below.
+Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -184,25 +184,25 @@ For exchange-agnostic code, use the unified shared interfaces. Same code works a
 using GateIo.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-var gateIoShared = new GateIoRestClient().SpotApi.SharedClient;
-var info = gateIoShared.Discover();
+var gateIoShared = new GateIoRestClient().SpotApi.SharedApi;
+// Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-var ticker = await gateIoShared.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await gateIoShared.GetTickerAsync(new GetTickerRequest(symbol));
 ```
 
 GateIo shared clients are available on:
 
 ```csharp
-new GateIoRestClient().SpotApi.SharedClient
-new GateIoRestClient().PerpetualFuturesApi.SharedClient
-new GateIoSocketClient().SpotApi.SharedClient
-new GateIoSocketClient().PerpetualFuturesApi.SharedClient
+new GateIoRestClient().SpotApi.SharedApi
+new GateIoRestClient().PerpetualFuturesApi.SharedApi
+new GateIoSocketClient().SpotApi.SharedApi
+new GateIoSocketClient().PerpetualFuturesApi.SharedApi
 ```
 
-Available shared interfaces include `ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, `IBalanceRestClient`, `ITickerSocketClient`, `IOrderBookSocketClient`, `ISpotOrderManagementSocketClient`, `IFuturesOrderManagementSocketClient`, and many more.
+Available shared interfaces include `IGetTickerRest`, `IPlaceSpotOrderRest`, `IPlaceFuturesOrderRest`, `IGetBalancesRest`, `ISubscribeTickerSocket`, `ISubscribeOrderBookSocket`, `IPlaceSpotOrderSocket` and `ICancelSpotOrderSocket`, `IPlaceFuturesOrderSocket` and `ICancelFuturesOrderSocket`, and many more.
 
-The shared `ISpotSymbolRestClient` and `IFuturesSymbolRestClient` expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Symbol responses populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`, and `GetSymbolsRequest` can filter on those asset type fields.
+The shared `IGetSpotSymbolsRest` and `IGetFuturesSymbolsRest` expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Symbol responses populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`, and `GetSymbolsRequest` can filter on those asset type fields.
 
 ## Dependency Injection
 

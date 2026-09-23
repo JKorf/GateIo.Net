@@ -30,7 +30,7 @@ GateIo.Net provides typed models, automatic WebSocket reconnection, comprehensiv
 - Perpetual futures methods require a settlement asset such as `"usdt"` plus a contract such as `"ETH_USDT"`.
 - Always check `.Success` before reading `.Data`.
 - For futures orders, `quantity` is an `int` number of contracts, not a decimal base asset amount.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` via `.SharedClient` and call `.SharedClient.Discover()` to inspect supported shared features.
+- Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Shared spot and futures symbol clients expose symbol catalogs and return display names plus base/quote asset type metadata; `GetSymbolsRequest` can filter by those asset types and subtypes.
 
 ## Reference
