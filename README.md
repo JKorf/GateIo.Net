@@ -252,6 +252,29 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.7.0 - 24 Sep 2026
+    * Updated CryptoExchange.Net to v13.0.0
+    * Shared APIs
+      * Added SharedApi V2 support
+      * Added `.SharedApi` property to clients
+      * Added `(I)GateIoSharedApiClient` containing all V2 SharedApi references
+      * Added `SharedApi` to `GateIoOptions` to provide SharedApi related options
+      * See https://cryptoexchange.jkorf.dev/docs/shared-api?sharedApiVersion=v2 for more info about the V2 update and https://github.com/JKorf/CryptoExchange.Net/blob/master/docs/SHARED_API_V2_MIGRATION.md for migrating from V1
+      * SharedApi V1 will still be supported 
+    * Rate limiting
+      * Added rate limit admission callback to client options to allow rate limit admission ruling on request definition
+      * Added `WithRateLimitAdmissionAsync` to client to allow rate limit admission ruling on a specific request
+      * Update rate limit safety margin logic
+      * Fixed some rate limit calculation issues
+    * Request coalescing
+      * Sending identical public GET requests on the same client at the same time will only send a single request to the server and use the same response
+      * Coalescing is enabled by default and can be disabled with the `RequestCoalescingEnabled` client option
+    * Added Suspend value to ContractStatus Enum
+    * Added Leverage property GateIoPerpOrder model
+    * Added EffectiveLeverage and MarginMode to GateIoPositionUpdate model
+    * Updated MaxTradeSize from long to decimal type in GateIoPosition model
+    * Renamed PerpetualFuturesApi.Account.GetLedgerAsync page parameter to offset
+
 * Version 4.6.1 - 01 Sep 2026
     * Updated CryptoExchange.Net to v12.5.1
     * Fixed restClient.SpotApi.Trading.EditOrderAsync request signature
