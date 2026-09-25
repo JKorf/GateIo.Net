@@ -42,11 +42,11 @@ namespace GateIo.Net.Clients.FuturesApi
         #region Get Position
 
         /// <inheritdoc />
-        public async Task<HttpResult<GateIoPosition>> GetPositionAsync(string settlementAsset, string contract, CancellationToken ct = default)
+        public async Task<HttpResult<GateIoPosition[]>> GetPositionAsync(string settlementAsset, string contract, CancellationToken ct = default)
         {
             var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/{contract}", GateIoExchange.RateLimiter.RestFuturesOther, 1, true);
-            return await _baseClient.SendAsync<GateIoPosition>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<GateIoPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

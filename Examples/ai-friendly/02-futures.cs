@@ -66,30 +66,31 @@ if (!openOrder.Success)
 Console.WriteLine($"Opened position via order {openOrder.Data.Id}");
 
 // ---- 4. GET CURRENT POSITION ----
-var position = await client.PerpetualFuturesApi.Trading.GetPositionAsync(settlementAsset, contract);
-if (!position.Success)
+var positionResult = await client.PerpetualFuturesApi.Trading.GetPositionAsync(settlementAsset, contract);
+if (!positionResult.Success)
 {
-    Console.WriteLine($"Failed to get position: {position.Error}");
+    Console.WriteLine($"Failed to get position: {positionResult.Error}");
     return;
 }
 
-if (position.Data.Size == 0)
+var position = positionResult.Data.FirstOrDefault();
+if (position?.Size == null || position?.Size == 0)
 {
     Console.WriteLine("No open position found (the order may not have filled yet).");
     return;
 }
 
-Console.WriteLine($"Position: {position.Data.Size} contracts {position.Data.Contract}");
-Console.WriteLine($"Entry price: {position.Data.EntryPrice}");
-Console.WriteLine($"Leverage: {position.Data.Leverage}x");
+Console.WriteLine($"Position: {position.Size} contracts {position.Contract}");
+Console.WriteLine($"Entry price: {position.EntryPrice}");
+Console.WriteLine($"Leverage: {position.Leverage}x");
 
 // ---- 5. CLOSE THE POSITION ----
 // Opposite side, same absolute contract size, reduceOnly=true to avoid flipping position.
 var closeOrder = await client.PerpetualFuturesApi.Trading.PlaceOrderAsync(
     settlementAsset: settlementAsset,
     contract: contract,
-    orderSide: position.Data.Size > 0 ? OrderSide.Sell : OrderSide.Buy,
-    quantity: (int)Math.Abs(position.Data.Size),
+    orderSide: position.Size > 0 ? OrderSide.Sell : OrderSide.Buy,
+    quantity: (int)Math.Abs(position.Size),
     price: 0m,
     reduceOnly: true,
     timeInForce: TimeInForce.ImmediateOrCancel);
