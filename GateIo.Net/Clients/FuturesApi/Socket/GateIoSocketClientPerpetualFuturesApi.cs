@@ -250,6 +250,47 @@ namespace GateIo.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToContractInfoUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoPerpContractInfo>> onMessage, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpContractInfo>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.Timestamp);
+
+                onMessage(
+                    new DataEvent<GateIoPerpContractInfo>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(data.Event == "all" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpContractInfo>(_logger, this, "futures.contract_info", null, ["futures.contract_info"], [], internalHandler, false);
+            return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToContractInfoUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpContractInfo>> onMessage, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpContractInfo>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.Timestamp);
+
+                onMessage(
+                    new DataEvent<GateIoPerpContractInfo>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(data.Event == "all" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var contractsArray = contracts.ToArray();
+            var subscription = new GateIoSubscription<GateIoPerpContractInfo>(_logger, this, "futures.contract_info", contractsArray, ["futures.contract_info"], contractsArray, internalHandler, false);
+            return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(long userId, string settlementAsset, Action<DataEvent<GateIoPerpOrder[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpOrder[]>>((receiveTime, originalData, data) =>
