@@ -212,6 +212,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="text">User defined info</param>
         /// <param name="actionMode">Order response mode</param>
         /// <param name="slippage">Max slippage for market orders, 0.03 means 3%</param>
+        /// <param name="tradeQuote">Actual quote asset used for the order. Required for unified quote-side markets; omit it or send an empty value for regular markets.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<QueryResult<GateIoOrder>> PlaceOrderAsync(string symbol,
@@ -228,6 +229,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             string? text = null,
             OrderActionMode? actionMode = null,
             decimal? slippage = null,
+            string? tradeQuote = null,
             CancellationToken ct = default);
 
         /// <summary>

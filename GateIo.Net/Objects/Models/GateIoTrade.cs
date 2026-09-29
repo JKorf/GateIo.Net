@@ -99,5 +99,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("deal")]
         public decimal Value { get; set; }
+        /// <summary>
+        /// ["<c>trade_quote</c>"] Actual quote currency used for the trade
+        /// </summary>
+        [JsonPropertyName("trade_quote")]
+        public string? TradeQuote { get; set; }
     }
 }

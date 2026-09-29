@@ -34,6 +34,8 @@ namespace GateIo.Net.Objects.Internal
         public SelfTradePreventionMode? StpMode { get; set; }
         [JsonPropertyName("action_mode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public OrderActionMode? ActionMode { get; set; }
+        [JsonPropertyName("trade_quote"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? TradeQuote { get; set; }
 
     }
 }

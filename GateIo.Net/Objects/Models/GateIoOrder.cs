@@ -181,6 +181,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("stop_loss")]
         public GateIoTpSl? StopLoss { get; set; }
+        /// <summary>
+        /// ["<c>trade_quote</c>"] Actual quote currency used for the trade; can be specified only in a unified market
+        /// </summary>
+        [JsonPropertyName("trade_quote")]
+        public string? TradeQuote { get; set; }
     }
 
     /// <summary>

@@ -49,6 +49,7 @@ namespace GateIo.Net.Clients.SpotApi
             decimal? takeProfitOrderPrice = null,
             decimal? stopLossTriggerPrice = null,
             decimal? stopLossOrderPrice = null,
+            string? tradeQuote = null,
             CancellationToken ct = default)
         {
             var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
@@ -66,6 +67,7 @@ namespace GateIo.Net.Clients.SpotApi
             parameters.Add("text", text);
             parameters.Add("action_mode", actionMode);
             parameters.Add("slippage", slippage);
+            parameters.Add("trade_quote", tradeQuote);
             if (takeProfitTriggerPrice != null)
             {
                 var takeProfitParams = new Parameters(GateIoExchange._parameterSerializationSettings);
@@ -196,12 +198,14 @@ namespace GateIo.Net.Clients.SpotApi
             string symbol,
             OrderSide? side = null,
             SpotAccountType? accountType = null,
+            string? tradeQuote = null,
             CancellationToken ct = default)
         {
             var parameters = new Parameters(GateIoExchange._parameterSerializationSettings);
             parameters.Add("currency_pair", symbol);
             parameters.Add("side", side);
             parameters.Add("account", accountType);
+            parameters.Add("trade_quote", tradeQuote);
             var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "/api/v4/spot/orders", GateIoExchange.RateLimiter.RestSpotOrderCancelation, 1, true);
             var result = await _baseClient.SendAsync<GateIoOrderOperation[]>(request, parameters, ct).ConfigureAwait(false);
             return result;

@@ -25,6 +25,7 @@ namespace GateIo.Net.Clients.MessageHandlers
             AddTopicMapping<GateIoSocketMessage<GateIoPerpKlineUpdate[]>>(x => x.Result.First().Contract + x.Result.First().Interval);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpContractStats>>(x => x.Result.Contract);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpContractInfo>>(x => x.Result.Contract);
+            AddTopicMapping<GateIoSocketMessage<GateIoPerpAdlUpdate>>(x => x.Result.Contract);
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
