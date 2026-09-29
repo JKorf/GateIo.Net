@@ -265,7 +265,7 @@ namespace GateIo.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new GateIoSubscription<GateIoPerpContractInfo>(_logger, this, "futures.contract_info", null, ["futures.contract_info"], [], internalHandler, false);
+            var subscription = new GateIoSubscription<GateIoPerpContractInfo>(_logger, this, "futures.contract_info", null, ["futures.contract_info"], ["!all"], internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
@@ -287,6 +287,47 @@ namespace GateIo.Net.Clients.FuturesApi
 
             var contractsArray = contracts.ToArray();
             var subscription = new GateIoSubscription<GateIoPerpContractInfo>(_logger, this, "futures.contract_info", contractsArray, ["futures.contract_info"], contractsArray, internalHandler, false);
+            return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarketAdlUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoPerpAdlUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpAdlUpdate>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.Timestamp);
+
+                onMessage(
+                    new DataEvent<GateIoPerpAdlUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(data.Event == "all" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new GateIoSubscription<GateIoPerpAdlUpdate>(_logger, this, "futures.adl_warning", null, ["futures.adl_warning"], ["!all"], internalHandler, false);
+            return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarketAdlUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpAdlUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, GateIoSocketMessage<GateIoPerpAdlUpdate>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.Timestamp);
+
+                onMessage(
+                    new DataEvent<GateIoPerpAdlUpdate>(GateIoExchange.ExchangeName, data.Result, receiveTime, originalData)
+                        .WithUpdateType(data.Event == "all" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithSymbol(data.Result.Contract)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var contractsArray = contracts.ToArray();
+            var subscription = new GateIoSubscription<GateIoPerpAdlUpdate>(_logger, this, "futures.adl_warning", contractsArray, ["futures.adl_warning"], contractsArray, internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath(GetSocketPath(settlementAsset)), subscription, ct).ConfigureAwait(false);
         }
 
