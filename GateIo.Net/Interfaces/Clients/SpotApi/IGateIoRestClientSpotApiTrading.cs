@@ -40,6 +40,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="takeProfitOrderPrice">["<c>stop_profit.order_price</c>"] Take profit order price</param>
         /// <param name="stopLossTriggerPrice">["<c>stop_loss.trigger_price</c>"] Stop loss trigger price, set 0 to cancel stop loss</param>
         /// <param name="stopLossOrderPrice">["<c>stop_loss.order_price</c>"] Stop loss order price </param>
+        /// <param name="tradeQuote">["<c>trade_quote</c>"] Actual quote asset used for the trade; can be specified only in a unified market</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<HttpResult<GateIoOrder>> PlaceOrderAsync(
@@ -61,6 +62,7 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
             decimal? takeProfitOrderPrice = null,
             decimal? stopLossTriggerPrice = null,
             decimal? stopLossOrderPrice = null,
+            string? tradeQuote = null,
             CancellationToken ct = default);
 
         /// <summary>
@@ -147,12 +149,14 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>currency_pair</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="side">["<c>side</c>"] Only cancel orders on this side</param>
         /// <param name="accountType">["<c>account</c>"] Account type</param>
+        /// <param name="tradeQuote">["<c>trade_quote</c>"] In a unified market only, specifies the actual quote currency for cancellation</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<HttpResult<GateIoOrderOperation[]>> CancelAllOrdersAsync(
             string symbol,
             OrderSide? side = null,
             SpotAccountType? accountType = null,
+            string? tradeQuote = null,
             CancellationToken ct = default);
 
         /// <summary>

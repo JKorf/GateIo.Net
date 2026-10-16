@@ -28,12 +28,15 @@ namespace GateIo.Net.Clients.SpotApi
             if (validationError != null)
                 return HttpResult.Fail<SharedSpotSymbol[]>(Exchange, validationError);
 
+            var assets = await _api.ExchangeData.GetAssetsAsync(ct: ct).ConfigureAwait(false);
             var result = await _api.ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
+            if (!assets.Success)
+                return HttpResult.Fail<SharedSpotSymbol[]>(assets);
 
             var data = result.Data
-               .Select(x => ParseSymbol(x))
+               .Select(x => ParseSymbol(x, assets.Data))
                .ToArray();
 
             ExchangeSymbolCache.UpdateSymbolInfo(_topicId, _api.EnvironmentName, null, data);
@@ -42,8 +45,11 @@ namespace GateIo.Net.Clients.SpotApi
 
         #endregion
 
-        private SharedSpotSymbol ParseSymbol(GateIoSymbol s)
+        private SharedSpotSymbol ParseSymbol(GateIoSymbol s, GateIoAsset[] assets)
         {
+            var baseAsset = assets.FirstOrDefault(a => a.Asset == s.BaseAsset);
+            var quoteAsset = assets.FirstOrDefault(a => a.Asset == s.QuoteAsset);
+
             var result = new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.TradeStatus == SymbolStatus.Tradable)
             {
                 MinTradeQuantity = s.MinBaseQuantity,
@@ -60,25 +66,50 @@ namespace GateIo.Net.Clients.SpotApi
             if (LibraryHelpers.IsStableCoin(result.QuoteAsset))
                 result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
 
-            if (LibraryHelpers.IsStableCoin(result.BaseAsset))
+            if (baseAsset == null)
+                return result;
+
+            if (baseAsset.Asset.EndsWith("3L")
+                || baseAsset.Asset.EndsWith("5L")
+                || baseAsset.Asset.EndsWith("3S")
+                || baseAsset.Asset.EndsWith("5S"))
             {
-                result.BaseAssetType = SharedAssetType.Crypto;
-                result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+                var withoutSuffix = baseAsset.Asset.Substring(0, baseAsset.Asset.Length - 2);
+                baseAsset = assets.FirstOrDefault(x => x.Asset == withoutSuffix) ?? baseAsset;
             }
-            else if (LibraryHelpers.IsEquity(result.BaseAsset, ["X", "G", "3L", "3S"], []))
+
+            if (baseAsset.Categories.Contains(AssetCategory.Stocks)
+                || baseAsset.Categories.Contains(AssetCategory.GStocks)
+                || baseAsset.Categories.Contains(AssetCategory.OndoStocks)
+                || baseAsset.Categories.Contains(AssetCategory.XStocks)
+                || baseAsset.Categories.Contains(AssetCategory.Indices))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Equity;
             }
-            else if (LibraryHelpers.IsCommodity(result.BaseAsset, "XU3O8", "SLVON", "IAUON"))
+            else if (baseAsset.Categories.Contains(AssetCategory.Metals)
+                || baseAsset.Categories.Contains(AssetCategory.Commodities))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Commodity;
             }
+            else if (baseAsset.Categories.Contains(AssetCategory.Forex))
+            {
+                if (LibraryHelpers.IsStableCoin(result.BaseAsset))
+                {
+                    result.BaseAssetType = SharedAssetType.Crypto;
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+                }
+                else
+                {
+                    result.BaseAssetType = SharedAssetType.Fiat;
+                }
+            }
             else
             {
+
                 result.BaseAssetType = SharedAssetType.Crypto;
-            }            
+            }
 
             return result;
         }

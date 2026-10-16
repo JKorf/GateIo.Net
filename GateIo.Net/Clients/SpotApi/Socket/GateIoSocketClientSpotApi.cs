@@ -456,6 +456,7 @@ namespace GateIo.Net.Clients.SpotApi
             string? text = null,
             OrderActionMode? actionMode = null,
             decimal? slippage = null,
+            string? tradeQuote = null,
             CancellationToken ct = default)
         {
             var id = ExchangeHelpers.NextId();
@@ -474,7 +475,8 @@ namespace GateIo.Net.Clients.SpotApi
                 StpMode = selfTradePreventionMode,
                 Text = text ?? "t-" + ExchangeHelpers.RandomString(20),
                 ActionMode = actionMode,
-                Slippage = slippage
+                Slippage = slippage,
+                TradeQuote = tradeQuote
             }, true,
             new Dictionary<string, string>
             {

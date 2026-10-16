@@ -41,7 +41,10 @@ namespace GateIo.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedLeverage>(result);
 
-            return HttpResult.Ok(result, new SharedLeverage(result.Data.Leverage)
+            if (result.Data.Length == 0)
+                return HttpResult.Fail<SharedLeverage>(Exchange, new ServerError(ErrorType.Unknown, "No position found for the given symbol and settle asset"));
+
+            return HttpResult.Ok(result, new SharedLeverage(result.Data[0].Leverage)
             {
                 Side = request.PositionSide
             });

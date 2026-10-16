@@ -43,7 +43,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<HttpResult<GateIoPosition>> GetPositionAsync(string settlementAsset, string contract, CancellationToken ct = default);
+        Task<HttpResult<GateIoPosition[]>> GetPositionAsync(string settlementAsset, string contract, CancellationToken ct = default);
 
         /// <summary>
         /// Update position margin

@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
+using GateIo.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace GateIo.Net.Objects.Models
@@ -69,5 +70,10 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("market_cap")]
         public decimal? MarketCap { get; set; }
+        /// <summary>
+        /// Categories
+        /// </summary>
+        [JsonPropertyName("category")]
+        public AssetCategory[] Categories { get; set; } = [];
     }
 }

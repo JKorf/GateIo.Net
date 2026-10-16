@@ -143,6 +143,48 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         Task<WebSocketResult<UpdateSubscription>> SubscribeToContractStatsUpdatesAsync(string settlementAsset, string contract, KlineInterval interval, Action<DataEvent<GateIoPerpContractStats>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to contract info updates for all contracts
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#contract-info-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToContractInfoUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoPerpContractInfo>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to contract info updates for specified contracts
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#contract-info-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contracts">The contracts to subscribe to</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToContractInfoUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpContractInfo>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to ADL warning updates for specified contracts
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#adl-risk-warning-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="contracts">The contracts to subscribe to</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarketAdlUpdatesAsync(string settlementAsset, IEnumerable<string> contracts, Action<DataEvent<GateIoPerpAdlUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to ADL warning updates for all contracts
+        /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#adl-risk-warning-api" /></para>
+        /// </summary>
+        /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarketAdlUpdatesAsync(string settlementAsset, Action<DataEvent<GateIoPerpAdlUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to user order updates
         /// <para><a href="https://www.gate.com/docs/developers/futures/ws/en/#orders-subscription" /></para>
         /// </summary>

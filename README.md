@@ -252,6 +252,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.8.0 - 30 Sep 2026
+    * Updated CryptoExchange.Net to V13.1.0
+    * Added Categories to GateIoAsset model, updated Shared API GetSpotSymbolsAsync asset type mapping
+    * Added Futures SubscribeToContractInfoUpdatesAsync subscription
+    * Added Futures SubscribeToMarketAdlUpdatesAsync subscription
+    * Added tradeQuote parameter to Spot PlaceOrderAsync, PlaceMultipleOrdersAsync, CancelAllOrdersAsync endpoints, added TradeQuote to response models
+    * Updated GetPositionAsync response type to array
+
 * Version 4.7.0 - 24 Sep 2026
     * Updated CryptoExchange.Net to v13.0.0
     * Shared APIs

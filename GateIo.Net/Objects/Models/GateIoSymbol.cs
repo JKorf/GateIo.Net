@@ -37,6 +37,11 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("quote_name")]
         public string QuoteAssetName { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>trade_quotes</c>"] Quote assets supported by the unified market; null means that the market does not support unified quote currencies
+        /// </summary>
+        [JsonPropertyName("trade_quotes")]
+        public string[]? TradeQuotes { get; set; }
+        /// <summary>
         /// ["<c>fee</c>"] Trade fee
         /// </summary>
         [JsonPropertyName("fee")]

@@ -383,48 +383,26 @@ namespace GateIo.Net.Clients.FuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedPosition[]>(Exchange, validationError);
 
-            if (request.Symbol == null)
-            {
-                var result = await _api.Trading.GetPositionsAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, ct: ct).ConfigureAwait(false);
-                if (!result.Success)
-                    return HttpResult.Fail<SharedPosition[]>(result);
-                return HttpResult.Ok(result, result.Data.Select(x => 
-                    new SharedPosition(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, x.Contract), 
-                        x.Contract, 
-                        new SharedOrderQuantity(contractQuantity: Math.Abs(x.Size)), 
-                        x.UpdateTime)
-                    {
-                        UnrealizedPnl = x.UnrealisedPnl,
-                        LiquidationPrice = x.LiquidationPrice,
-                        AverageOpenPrice = x.EntryPrice,
-                        Leverage = x.Leverage,
-                        PositionMode = x.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                        PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
-                    }).ToArray());
-            }
-            else
-            {
-                var result = await _api.Trading.GetPositionAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
-                if (!result.Success)
-                    return HttpResult.Fail<SharedPosition[]>(result);
+            var result = request.Symbol == null
+                ? await _api.Trading.GetPositionsAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, ct: ct).ConfigureAwait(false)
+                : await _api.Trading.GetPositionAsync(ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!, request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
 
-                return HttpResult.Ok(result, new[] { 
-                    new SharedPosition(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, result.Data.Contract), 
-                        result.Data.Contract,
-                        new SharedOrderQuantity(contractQuantity: Math.Abs(result.Data.Size)),
-                        result.Data.UpdateTime)
-                    {
-                        UnrealizedPnl = result.Data.UnrealisedPnl,
-                        LiquidationPrice = result.Data.LiquidationPrice,
-                        AverageOpenPrice = result.Data.EntryPrice,
-                        Leverage = result.Data.Leverage,
-                        PositionMode = result.Data.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                        PositionSide = result.Data.PositionMode == PositionMode.Single ? (result.Data.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : result.Data.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
-                    } 
-                });
-            }
+            if (!result.Success)
+                return HttpResult.Fail<SharedPosition[]>(result);
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, x.Contract), 
+                    x.Contract, 
+                    new SharedOrderQuantity(contractQuantity: Math.Abs(x.Size)), 
+                    x.UpdateTime)
+                {
+                    UnrealizedPnl = x.UnrealisedPnl,
+                    LiquidationPrice = x.LiquidationPrice,
+                    AverageOpenPrice = x.EntryPrice,
+                    Leverage = x.Leverage,
+                    PositionMode = x.PositionMode == PositionMode.Single ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                    PositionSide = x.PositionMode == PositionMode.Single ? (x.Size > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionMode == PositionMode.DualShort ? SharedPositionSide.Short : SharedPositionSide.Long
+                }).ToArray());
         }
 
         #endregion
