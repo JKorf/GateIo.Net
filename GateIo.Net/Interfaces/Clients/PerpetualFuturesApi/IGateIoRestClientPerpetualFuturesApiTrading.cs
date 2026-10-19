@@ -372,7 +372,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
-        /// <param name="quantity">["<c>size</c>"] New quantity</param>
+        /// <param name="quantity">["<c>size</c>"] New total contracts, including fills. Positive for buy and negative for sell; the side must match the existing order.</param>
         /// <param name="price">["<c>price</c>"] New price</param>
         /// <param name="amendText">["<c>amend_text</c>"] Amend text</param>
         /// <param name="ct">Cancellation token</param>
@@ -381,7 +381,7 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
             string settlementAsset,
             long? orderId = null,
             string? clientOrderId = null,
-            int? quantity = null,
+            decimal? quantity = null,
             decimal? price = null,
             string? amendText = null,
             CancellationToken ct = default);

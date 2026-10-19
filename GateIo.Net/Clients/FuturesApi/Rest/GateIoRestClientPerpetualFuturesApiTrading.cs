@@ -343,7 +343,7 @@ namespace GateIo.Net.Clients.FuturesApi
             string settlementAsset,
             long? orderId = null,
             string? clientOrderId = null,
-            int? quantity = null,
+            decimal? quantity = null,
             decimal? price = null,
             string? amendText = null,
             CancellationToken ct = default)
