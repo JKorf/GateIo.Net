@@ -29,21 +29,21 @@ namespace GateIo.Net.Objects.Models
         /// ["<c>b</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("b")]
-        public decimal BestBidPrice { get; set; }
+        public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// ["<c>B</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("B")]
-        public decimal BestBidQuantity { get; set; }
+        public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// ["<c>a</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("a")]
-        public decimal BestAskPrice { get; set; }
+        public decimal? BestAskPrice { get; set; }
         /// <summary>
         /// ["<c>A</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("A")]
-        public decimal BestAskQuantity { get; set; }
+        public decimal? BestAskQuantity { get; set; }
     }
 }
