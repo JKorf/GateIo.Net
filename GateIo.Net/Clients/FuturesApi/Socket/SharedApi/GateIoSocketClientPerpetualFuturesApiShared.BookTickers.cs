@@ -38,9 +38,9 @@ namespace GateIo.Net.Clients.FuturesApi
                     new SharedBookTicker(
                         ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Data.Contract),
                         update.Data.Contract,
-                        update.Data.BestAskPrice,
+                        update.Data.BestAskPrice ?? 0,
                         new SharedOrderQuantity(contractQuantity: update.Data.BestAskQuantity), 
-                        update.Data.BestBidPrice, 
+                        update.Data.BestBidPrice ?? 0,
                         new SharedOrderQuantity(contractQuantity: update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
 
             return result;
