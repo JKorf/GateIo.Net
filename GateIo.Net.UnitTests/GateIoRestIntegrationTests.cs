@@ -6,7 +6,6 @@ using GateIo.Net.Objects;
 using GateIo.Net.SymbolOrderBooks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
