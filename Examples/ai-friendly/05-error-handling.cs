@@ -40,7 +40,8 @@ else
 }
 
 // ---- 2. SIMPLE RETRY WITH BACKOFF ----
-// Retry only on transient errors (rate limit, network blip, server overload).
+// For public reads only: retry transient failures with a bounded attempt count.
+// Do not use this helper to retry account-changing submissions.
 // Do not retry on validation errors or insufficient balance; they will repeat.
 
 async Task<HttpResult<T>> WithRetry<T>(
@@ -78,7 +79,7 @@ if (ticker.Success)
 //   "usdt", "btc", or "usd".
 //
 // Wrong futures quantity type:
-//   Futures PlaceOrderAsync quantity is an int number of contracts.
+//   Futures PlaceOrderAsync quantity is a decimal contract count; validate contract size constraints.
 //   Use ExchangeData.GetContractAsync to inspect the contract multiplier.
 //
 // Missing credentials:
@@ -119,7 +120,7 @@ var order = await client.SpotApi.Trading.PlaceOrderAsync(
 if (!order.Success)
 {
     string category = order.Error?.IsTransient == true
-        ? "Transient - retry with backoff"
+        ? "Transient - reconcile submission state before deciding whether to resubmit"
         : "Permanent - surface to caller or fix request";
 
     Console.WriteLine($"{category}: {order.Error?.Code} {order.Error?.Message}");
@@ -139,4 +140,4 @@ Console.WriteLine($"Placed order {order.Data.Id}");
 // Common variations:
 //   With CancellationToken:    pass `ct: cancellationToken` to any method
 //   With timeout per request:  options.RequestTimeout = TimeSpan.FromSeconds(10)
-//   Polly integration:         use IsTransient as the IsTransientPredicate
+//   Polly integration:         use IsTransient for bounded read retries; reconcile writes first

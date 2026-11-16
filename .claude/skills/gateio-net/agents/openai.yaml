@@ -1,0 +1,4 @@
+interface:
+  display_name: "GateIo.Net"
+  short_description: "Build C# Gate.io spot and futures integrations."
+  default_prompt: "Use $gateio-net to implement a GateIo.Net REST, websocket, account, or trading workflow."

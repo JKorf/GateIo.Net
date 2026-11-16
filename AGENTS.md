@@ -1,258 +1,51 @@
----
-name: gateio-net
-description: Use GateIo.Net when generating C#/.NET code that interacts with the Gate.io cryptocurrency exchange, including Spot, Margin, Unified account, Perpetual Futures, Alpha, Rebate, REST endpoints, WebSocket subscriptions, account management, market data, or order placement. Triggers on any request mentioning Gate.io or GateIo integration in C#, .NET, dotnet, F#, or VB.NET context. Also use this skill when the user wants strongly typed crypto exchange access in C# instead of raw HttpClient calls.
----
+# Working on GateIo.Net
 
-# GateIo.Net Skill
+For library development, use this file. For code that consumes the library, read the [GateIo.Net skill](.claude/skills/gateio-net/SKILL.md). [llms.txt](llms.txt) indexes the remaining documentation.
 
-## Quick decision
+## Repository layout
 
-If the user asks for Gate.io API access in C#/.NET, **use GateIo.Net**. Do not write raw `HttpClient` calls to Gate.io endpoints; that loses request signing, rate limiting, automatic reconnection, typed models, and the standard CryptoExchange.Net result pattern.
+- [Client interfaces](GateIo.Net/Interfaces/Clients/): public endpoint signatures and XML documentation.
+- [Clients](GateIo.Net/Clients/): REST, WebSocket, and Shared API implementations, grouped by API and transport.
+- [Models](GateIo.Net/Objects/Models/), [options](GateIo.Net/Objects/Options/), and [enums](GateIo.Net/Enums/): wire models and configuration.
+- [Unit tests](GateIo.Net.UnitTests/): request/response fixtures, subscription validation, and example compilation.
+- [AI-friendly examples](Examples/ai-friendly/): complete consumer programs.
 
-Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
+## Build and validation
 
-## Installation
+Run commands from the repository root. Use the SDK configured in the [build workflow](.github/workflows/dotnet.yml); targets and dependencies are defined in the [library project](GateIo.Net/GateIo.Net.csproj).
 
-```bash
-dotnet add package GateIo.Net
+```sh
+dotnet restore GateIo.Net.sln
+dotnet build GateIo.Net.sln --no-restore
+dotnet test GateIo.Net.UnitTests/GateIo.Net.UnitTests.csproj --no-build --filter "FullyQualifiedName!~IntegrationTests"
 ```
 
-Targets: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0. Native AOT supported on compatible .NET targets.
+Debug builds select a subset of frameworks. To check every supported target:
 
-## Core Pattern: REST Client Setup
-
-Always create the client via `GateIoRestClient`. For trading, configure credentials.
-
-```csharp
-using GateIo.Net;
-using GateIo.Net.Clients;
-using GateIo.Net.Objects;
-
-var restClient = new GateIoRestClient(options =>
-{
-    options.ApiCredentials = new GateIoCredentials("API_KEY", "API_SECRET");
-});
+```sh
+dotnet build GateIo.Net/GateIo.Net.csproj -p:BuildAllFrameworks=true
 ```
 
-For read-only public market data, credentials are not required:
+Run focused tests for the change. For edits to consumer examples:
 
-```csharp
-var publicClient = new GateIoRestClient();
+```sh
+dotnet test GateIo.Net.UnitTests/GateIo.Net.UnitTests.csproj --filter FullyQualifiedName~AiExampleCompileTests
 ```
 
-## Core Pattern: Result Handling
+That test compiles the examples; it does not execute their exchange operations or validate Markdown snippets. The normal test command above excludes integration fixtures. Native REST and socket integration fixtures have `Run = false`; Shared REST integration can be enabled with `INTEGRATION=1`. Inspect integration fixtures before running the unfiltered CI test command; they can contact the exchange. Do not enable authenticated exchange calls as part of routine validation.
 
-REST methods return `HttpResult<T>` or `HttpResult`; WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`; WebSocket request/order methods return `QueryResult<T>` or `QueryResult`; shared symbol/cache helpers can return `ExchangeCallResult<T>`. Always check `.Success` before accessing `.Data`.
+## Implementation conventions
 
-```csharp
-var ticker = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH_USDT");
-if (!ticker.Success)
-{
-    Console.WriteLine($"Error: {ticker.Error}");
-    return;
-}
+- Use the matching client interface and a neighboring endpoint implementation as the starting point. Preserve endpoint metadata, serialization, signing, rate limits, and cancellation behavior.
+- Update public interfaces and XML documentation together with implementations. Add meaningful request/response or subscription coverage when behavior changes.
+- Keep Shared API adapters consistent with native endpoint behavior; verify capability support and trading modes against the implemented surface.
+- Preserve serialization compatibility and source-generated JSON metadata when changing models.
+- Keep changes compatible with every target in the library project; gate framework-specific APIs where required.
 
-var price = ticker.Data.First().LastPrice;
-```
+## AI documentation ownership
 
-## Core Pattern: API Surface
-
-The REST client exposes nested groups by API area:
-
-```csharp
-restClient.SpotApi.ExchangeData              // public spot data: assets, symbols, tickers, orderbook, trades, klines
-restClient.SpotApi.Account                   // balances, ledger, deposit/withdrawal, transfers, unified and margin account
-restClient.SpotApi.Trading                   // spot orders, trigger orders, batch orders, user trades
-
-restClient.PerpetualFuturesApi.ExchangeData  // futures contracts, tickers, orderbook, trades, klines, funding, risk
-restClient.PerpetualFuturesApi.Account       // futures account, ledger, position mode, margin mode, fees
-restClient.PerpetualFuturesApi.Trading       // futures positions, leverage, orders, trigger orders
-
-restClient.AlphaApi.ExchangeData             // Alpha assets and tickers
-restClient.AlphaApi.Account                  // Alpha account and ledger
-restClient.AlphaApi.Trading                  // Alpha quote and orders
-restClient.RebateApi.Partner                 // rebate partner subordinate endpoints
-```
-
-The socket client exposes:
-
-```csharp
-socketClient.SpotApi                         // spot subscriptions and socket order requests
-socketClient.PerpetualFuturesApi             // perpetual futures subscriptions and socket order requests
-```
-
-## Gate.io Symbol and Futures Shape
-
-Native Gate.io methods use underscore symbols such as `BTC_USDT` and `ETH_USDT`.
-
-Perpetual futures methods require a settlement asset first, then the contract:
-
-```csharp
-await restClient.PerpetualFuturesApi.ExchangeData.GetTickersAsync("usdt", "ETH_USDT");
-await restClient.PerpetualFuturesApi.Trading.GetPositionAsync("usdt", "ETH_USDT");
-```
-
-Settlement asset values are strings such as `"usdt"`, `"btc"`, or `"usd"`.
-
-## Core Pattern: Placing a Spot Order
-
-```csharp
-using GateIo.Net.Enums;
-
-var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
-    symbol: "ETH_USDT",
-    side: OrderSide.Buy,
-    type: NewOrderType.Limit,
-    quantity: 0.01m,
-    price: 2000m,
-    timeInForce: TimeInForce.GoodTillCancel);
-
-if (!order.Success) { /* handle */ return; }
-var orderId = order.Data.Id;
-```
-
-For Gate.io spot market buys, the `quantity` parameter is in quote asset. For limit orders, `quantity` is the base asset quantity.
-
-## Core Pattern: Placing a Perpetual Futures Order
-
-```csharp
-using GateIo.Net.Enums;
-
-const string settle = "usdt";
-const string contract = "ETH_USDT";
-
-await restClient.PerpetualFuturesApi.Trading.UpdatePositionLeverageAsync(settle, contract, 5);
-
-var order = await restClient.PerpetualFuturesApi.Trading.PlaceOrderAsync(
-    settlementAsset: settle,
-    contract: contract,
-    orderSide: OrderSide.Buy,
-    quantity: 1,
-    price: 0m,
-    timeInForce: TimeInForce.ImmediateOrCancel);
-```
-
-Futures quantity is an `int` number of contracts. Use `PerpetualFuturesApi.ExchangeData.GetContractAsync(settle, contract)` or `GetContractsAsync(settle)` to inspect `Multiplier` and contract limits before sizing orders.
-
-## Core Pattern: WebSocket Subscriptions
-
-Use `GateIoSocketClient`. Always store the `UpdateSubscription` and unsubscribe when done.
-
-```csharp
-using GateIo.Net.Clients;
-
-var socketClient = new GateIoSocketClient();
-
-var subscription = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
-    "ETH_USDT",
-    update =>
-    {
-        Console.WriteLine($"ETH_USDT: {update.Data.LastPrice}");
-    });
-
-if (!subscription.Success) { /* handle */ return; }
-
-await socketClient.UnsubscribeAsync(subscription.Data);
-```
-
-For authenticated spot streams:
-
-```csharp
-var socketClient = new GateIoSocketClient(options =>
-{
-    options.ApiCredentials = new GateIoCredentials("API_KEY", "API_SECRET");
-});
-
-await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(
-    update => Console.WriteLine($"Order updates: {update.Data.Length}"));
-```
-
-Perpetual futures user streams require the Gate.io user id in addition to the settlement asset:
-
-```csharp
-await socketClient.PerpetualFuturesApi.SubscribeToPositionUpdatesAsync(
-    userId: 123456,
-    settlementAsset: "usdt",
-    onMessage: update => Console.WriteLine(update.Data.Length));
-```
-
-## Multi-Exchange via CryptoExchange.Net.SharedApis
-
-For exchange-agnostic code, use the unified shared interfaces. Same code works against GateIo, Binance, Bybit, OKX, Kraken, and other CryptoExchange.Net libraries.
-
-```csharp
-using GateIo.Net.Clients;
-using CryptoExchange.Net.SharedApis;
-
-var gateIoShared = new GateIoRestClient().SpotApi.SharedApi;
-// Use the exchange-level `IGateIoSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-
-var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-var ticker = await gateIoShared.GetTickerAsync(new GetTickerRequest(symbol));
-```
-
-GateIo shared clients are available on:
-
-```csharp
-new GateIoRestClient().SpotApi.SharedApi
-new GateIoRestClient().PerpetualFuturesApi.SharedApi
-new GateIoSocketClient().SpotApi.SharedApi
-new GateIoSocketClient().PerpetualFuturesApi.SharedApi
-```
-
-Available shared interfaces include `IGetTickerRest`, `IPlaceSpotOrderRest`, `IPlaceFuturesOrderRest`, `IGetBalancesRest`, `ISubscribeTickerSocket`, `ISubscribeOrderBookSocket`, `IPlaceSpotOrderSocket` and `ICancelSpotOrderSocket`, `IPlaceFuturesOrderSocket` and `ICancelFuturesOrderSocket`, and many more.
-
-The shared `IGetSpotSymbolsRest` and `IGetFuturesSymbolsRest` expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Symbol responses populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`, and `GetSymbolsRequest` can filter on those asset type fields.
-
-## Dependency Injection
-
-```csharp
-using GateIo.Net;
-
-services.AddGateIo(options =>
-{
-    options.Rest.ApiCredentials = new GateIoCredentials("API_KEY", "API_SECRET");
-    options.Socket.ApiCredentials = new GateIoCredentials("API_KEY", "API_SECRET");
-});
-
-// Inject IGateIoRestClient and IGateIoSocketClient into your services.
-```
-
-## Common Pitfalls - AVOID
-
-- **Do NOT use raw `HttpClient` to call Gate.io endpoints.** Always use `GateIoRestClient` or `GateIoSocketClient`.
-- **Do NOT use Binance symbol formatting.** Native Gate.io methods use `ETH_USDT`, not `ETHUSDT`.
-- **Do NOT omit the settlement asset for futures.** `PerpetualFuturesApi` methods typically need `"usdt"`, `"btc"`, or `"usd"` before the contract.
-- **Do NOT confuse `GateIoCredentials` with generic `ApiCredentials`.** GateIo has its own credentials class.
-- **Do NOT mix sync and async.** Always use `await` with `Async` methods. Never use `.Result` or `.Wait()`.
-- **Do NOT instantiate clients per-request.** Create once, reuse. Use DI in production.
-- **Do NOT forget to unsubscribe from WebSocket streams.** Leaked subscriptions consume resources.
-- **Do NOT assume `HttpResult.Data` is non-null without checking `.Success`.** Always branch on success.
-- **Do NOT treat futures quantity as base asset amount.** It is an integer number of contracts.
-
-## Environments
-
-```csharp
-using GateIo.Net;
-
-var live = new GateIoRestClient(o => o.Environment = GateIoEnvironment.Live);
-var demo = new GateIoRestClient(o => o.Environment = GateIoEnvironment.Demo);
-```
-
-## When the user wants other Gate.io features
-
-- **Unified account**: `restClient.SpotApi.Account.GetUnifiedAccountInfoAsync`, `GetUnifiedAccountLoansAsync`, `UnifiedAccountBorrowOrRepayAsync`
-- **Margin**: `restClient.SpotApi.Account.GetMarginAccountsAsync`, `BorrowOrRepayAsync`, `SetMarginLeverageAsync`; market info under `SpotApi.ExchangeData`
-- **Wallet**: `restClient.SpotApi.Account.GetDepositsAsync`, `GetWithdrawalsAsync`, `WithdrawAsync`, `TransferAsync`
-- **Futures position/leverage**: `restClient.PerpetualFuturesApi.Trading.GetPositionAsync`, `UpdatePositionLeverageAsync`, `UpdatePositionMarginAsync`
-- **Futures account mode**: `restClient.PerpetualFuturesApi.Account.UpdatePositionModeAsync`, `SetMarginModeAsync`
-- **Alpha**: `restClient.AlphaApi.ExchangeData`, `AlphaApi.Account`, `AlphaApi.Trading`
-- **Rebate partner**: `restClient.RebateApi.Partner.GetSubordinatesAsync`
-
-## Reference
-
-- Full client reference: https://cryptoexchange.jkorf.dev/GateIo.Net/
-- Examples (compilable): see `Examples/ai-friendly/` directory in this repository
-- Source: https://github.com/JKorf/GateIo.Net
-- NuGet: https://www.nuget.org/packages/GateIo.Net
-- Discord: https://discord.gg/MSpeEtSY8t
+- [SKILL.md](.claude/skills/gateio-net/SKILL.md) owns consumer conventions and routes to detailed skill references.
+- [API surfaces](.claude/skills/gateio-net/references/api-surfaces.md) owns endpoint routing; [usage](.claude/skills/gateio-net/references/usage.md) owns snippets.
+- Link to those files instead of repeating API guides here or in tool-specific instructions.
+- Keep skill links relative. References outside the skill are checkout-only; packaged guidance must remain usable without repository sources.
+- The project packs [.claude/skills](.claude/skills/) into `skills/` in NuGet. After changing its layout, inspect package entries and verify referenced resources are included.
