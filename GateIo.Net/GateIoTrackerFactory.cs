@@ -52,17 +52,17 @@ namespace GateIo.Net
             var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
 
-            IKlineRestClient sharedRestClient;
-            IKlineSocketClient sharedSocketClient;
+            IGetKlinesRest sharedRestClient;
+            ISubscribeKlinesSocket sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                sharedRestClient = restClient.SpotApi.SharedClient;
-                sharedSocketClient = socketClient.SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedApi;
+                sharedSocketClient = socketClient.SpotApi.SharedApi;
             }
             else
             {
-                sharedRestClient = restClient.PerpetualFuturesApi.SharedClient;
-                sharedSocketClient = socketClient.PerpetualFuturesApi.SharedClient;
+                sharedRestClient = restClient.PerpetualFuturesApi.SharedApi;
+                sharedSocketClient = socketClient.PerpetualFuturesApi.SharedApi;
             }
 
             return new KlineTracker(
@@ -82,19 +82,19 @@ namespace GateIo.Net
             var restClient = _serviceProvider?.GetRequiredService<IGateIoRestClient>() ?? new GateIoRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IGateIoSocketClient>() ?? new GateIoSocketClient();
 
-            IRecentTradeRestClient? sharedRestClient;
-            ITradeSocketClient sharedSocketClient;
+            IGetRecentTradesRest? sharedRestClient;
+            ISubscribeTradesSocket sharedSocketClient;
             TradeQuantityType tradeQuantityType;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                sharedRestClient = restClient.SpotApi.SharedClient;
-                sharedSocketClient = socketClient.SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedApi;
+                sharedSocketClient = socketClient.SpotApi.SharedApi;
                 tradeQuantityType = TradeQuantityType.BaseAsset;
             }
             else
             {
-                sharedRestClient = restClient.PerpetualFuturesApi.SharedClient;
-                sharedSocketClient = socketClient.PerpetualFuturesApi.SharedClient;
+                sharedRestClient = restClient.PerpetualFuturesApi.SharedApi;
+                sharedSocketClient = socketClient.PerpetualFuturesApi.SharedApi;
                 tradeQuantityType = TradeQuantityType.Contracts;
             }
 
