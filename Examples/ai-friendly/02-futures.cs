@@ -20,7 +20,7 @@ const string settlementAsset = "usdt";
 const string contract = "ETH_USDT";
 
 // ---- 1. INSPECT CONTRACT METADATA ----
-// Futures quantity is an integer number of contracts, not a decimal ETH amount.
+// Futures quantity is a contract count, not an ETH amount.
 // Use contract metadata to understand multiplier, allowed size, and price precision.
 var contractInfo = await client.PerpetualFuturesApi.ExchangeData.GetContractAsync(settlementAsset, contract);
 if (!contractInfo.Success)
@@ -47,7 +47,7 @@ if (!leverage.Success)
 Console.WriteLine($"Leverage set to {leverage.Data.Leverage}x for {contract}");
 
 // ---- 3. PLACE MARKET-STYLE ORDER (open long position) ----
-// Gate.io futures PlaceOrderAsync uses an int contract quantity.
+// Gate.io futures PlaceOrderAsync accepts a decimal contract quantity.
 // price: 0m with ImmediateOrCancel is the Gate.io market-style futures pattern.
 var openOrder = await client.PerpetualFuturesApi.Trading.PlaceOrderAsync(
     settlementAsset: settlementAsset,
@@ -90,7 +90,7 @@ var closeOrder = await client.PerpetualFuturesApi.Trading.PlaceOrderAsync(
     settlementAsset: settlementAsset,
     contract: contract,
     orderSide: position.Size > 0 ? OrderSide.Sell : OrderSide.Buy,
-    quantity: (int)Math.Abs(position.Size),
+    quantity: Math.Abs(position.Size),
     price: 0m,
     reduceOnly: true,
     timeInForce: TimeInForce.ImmediateOrCancel);

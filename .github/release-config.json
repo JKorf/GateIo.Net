@@ -1,0 +1,18 @@
+{
+  "baseBranch": "main",
+  "sdk": "11.0.100",
+  "packages": [
+    {
+      "key": "gateio",
+      "project": "GateIo.Net/GateIo.Net.csproj",
+      "testProjects": [
+        "GateIo.Net.UnitTests/GateIo.Net.UnitTests.csproj"
+      ],
+      "packageId": "GateIo.Net",
+      "readme": "README.md",
+      "tagPrefix": "GateIo.Net.",
+      "releaseIntegrationTests": false,
+      "publishToGitHubPackages": true
+    }
+  ]
+}

@@ -1,19 +1,12 @@
-# GateIo.Net AI API Quick Map
+# API surfaces
 
-Use this file to route common user intents to the correct GateIo.Net client member. If a method name or parameter is not listed here, inspect `GateIo.Net/Interfaces/Clients/**` before generating code.
+## Client roots, symbols, and settlement
 
-## Client Roots
+`client` below is a `GateIoRestClient`; `socketClient` is a `GateIoSocketClient`. REST provides `SpotApi`, `PerpetualFuturesApi`, and `AlphaApi` with `ExchangeData`, `Account`, and `Trading` groups, plus `RebateApi.Partner`. Sockets expose `SpotApi` and `PerpetualFuturesApi` directly.
 
-| Intent | Use |
-|---|---|
-| REST calls | `new GateIoRestClient()` |
-| WebSocket streams and socket API requests | `new GateIoSocketClient()` |
-| API key authentication | `options.ApiCredentials = new GateIoCredentials("key", "secret")` |
-| Live environment | `GateIoEnvironment.Live` |
-| Demo/test environment | `GateIoEnvironment.Demo` |
-| Dependency injection | `services.AddGateIo(options => { ... })` |
-| Native spot symbol format | `"BTC_USDT"` / `"ETH_USDT"` |
-| Perpetual futures settlement asset | `"usdt"`, `"btc"`, or `"usd"` |
+Spot symbols and futures contracts use underscores, for example `ETH_USDT`. Most futures operations take settlement asset first (`usdt`, `btc`, or `usd` as supported), then contract. Keep the same settlement/contract for metadata, orders, positions, and cancellation. `GateIoExchange.FormatSymbol` formats a native symbol from shared assets/mode, but does not replace settlement selection.
+
+Spot order types use `NewOrderType`; account selection uses `SpotAccountType`; futures position and margin settings have their own enums. Native futures placement accepts a `decimal` quantity in contracts. Convert to exposure with contract `Multiplier` and inspect size/price limits; decimal support does not mean any fractional size is valid for every contract.
 
 ## Spot REST
 
@@ -186,58 +179,34 @@ Perpetual futures methods use a settlement asset such as `"usdt"`, `"btc"`, or `
 | Socket API get futures order | `socketClient.PerpetualFuturesApi.GetOrderAsync(settle, orderId)` |
 | Socket API get futures orders | `socketClient.PerpetualFuturesApi.GetOrdersAsync(...)` |
 
-## SharedApis
+## Shared API V2
 
-Use SharedApis for exchange-agnostic code across GateIo, Binance, Bybit, OKX, Kraken, and other CryptoExchange.Net libraries.
+Shared surfaces are `client.SpotApi.SharedApi`, `client.PerpetualFuturesApi.SharedApi`, `socketClient.SpotApi.SharedApi`, and `socketClient.PerpetualFuturesApi.SharedApi`. The DI aggregate `IGateIoSharedApiClient` exposes `SpotRest`, `PerpetualFuturesRest`, `SpotSocket`, and `PerpetualFuturesSocket`. Alpha, rebate, and detailed margin/unified workflows use native APIs.
 
-| User intent | GateIo.Net member or interface |
-|---|---|
-| Shared spot REST client | `new GateIoRestClient().SpotApi.SharedApi` |
-| Shared perpetual futures REST client | `new GateIoRestClient().PerpetualFuturesApi.SharedApi` |
-| Shared spot socket client | `new GateIoSocketClient().SpotApi.SharedApi` |
-| Shared perpetual futures socket client | `new GateIoSocketClient().PerpetualFuturesApi.SharedApi` |
-| Resolve a runtime-selected Shared API capability | `IGateIoSharedApiClient.GetCapability(...)` |
-| Read cached shared spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` |
-| Read cached shared futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` |
-| Filter shared symbols by asset classification | Set `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, or `QuoteAssetSubType` on `GetSymbolsRequest` |
-| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
-| Shared spot socket order placement/cancellation | `IPlaceSpotOrderSocket.PlaceSpotOrderAsync(...)` / `ICancelSpotOrderSocket.CancelSpotOrderAsync(...)` |
-| Shared futures socket order placement/cancellation | `IPlaceFuturesOrderSocket.PlaceFuturesOrderAsync(...)` / `ICancelFuturesOrderSocket.CancelFuturesOrderAsync(...)` |
-| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
+| Surface | Representative capabilities |
+| --- | --- |
+| Spot REST | `IGetSpotSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, assets, balances, deposits/withdrawals, fees, `ITransferRest`, `IPlaceSpotOrderRest`, order/client-ID lifecycle and trigger orders |
+| Perpetual futures REST | `IGetFuturesSymbolsRest`, `IGetTickerRest`, balances, `IPlaceFuturesOrderRest`, order/client-ID lifecycle, `IGetPositionsRest`, `ICloseFullPositionRest`, leverage, position mode/history, funding, TP/SL, trigger orders, and index klines |
+| Spot socket subscriptions | `ISubscribeTickerSocket`, `ISubscribeTradesSocket`, `ISubscribeBookTickerSocket`, `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeBalancesSocket`, `ISubscribeUserTradesSocket`, `ISubscribeSpotOrdersSocket` |
+| Futures socket subscriptions | Public ticker/trade/book-ticker/kline/book capabilities, `ISubscribeBalancesSocket`, `ISubscribeFuturesOrdersSocket`, `ISubscribeUserTradesSocket`, `ISubscribePositionsSocket` |
+| Socket order queries | Spot `IPlaceSpotOrderSocket` / `ICancelSpotOrderSocket`; futures `IPlaceFuturesOrderSocket` / `ICancelFuturesOrderSocket` |
 
-Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
+Both REST surfaces provide candles, books, recent trades, and book tickers; perpetual futures also exposes historical trades. Do not assume every native API area has shared capability coverage.
 
-Shared spot and futures symbol results populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. Catalogs are backed by the symbol cache populated by shared symbol retrieval.
+For dynamic selection, call the aggregate's `GetCapability` with a descriptor such as `SharedCapabilities.Tickers.GetTicker.Rest` and the required trading mode. Check for a missing match before accessing `Capability` and `Options`. `GetCapabilities` enumerates implementations; `Discover()` describes supported operations. With multiple exchanges registered, resolve `IEnumerable<TCapability>` and select by exchange and supported mode.
 
-Shared quantity values use `SharedOrderQuantity`: spot data identifies base/quote asset quantities, while futures data identifies contract quantities. Shared socket order-management place/cancel methods return `QueryResult<SharedId>`; futures requests require `SettleAsset`.
+### Catalogs, quantities, and exchange parameters
 
-For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
+Use `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest())` and `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest())`. Futures symbol requests require `SettleAsset` in `ExchangeParameters`. After a successful request, read `SpotSymbolCatalog` or `FuturesSymbolCatalog`; populating one settlement group does not imply all settlements were loaded. Requests support base/quote asset type and subtype filters; metadata includes `DisplayName`, constraints, and classifications (`Crypto`, `Fiat`, `TradFi`; applicable `StableCoin`, `Equity`, `Commodity` subtypes).
 
-## Result Handling
+Shared orders use `SharedOrderQuantity`. Spot limit orders and market sells use base-asset quantity; market buys use quote-asset quantity. Shared futures orders use `QuantityInContracts`. Spot shared books use `SharedQuantityType.BaseAsset`, while futures REST/socket books use `SharedQuantityType.Contracts`.
 
-| Situation | Pattern |
-|---|---|
-| REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` where `sub` is `WebSocketResult<UpdateSubscription>` |
-| Socket request success check | `if (!query.Success) { Console.WriteLine(query.Error); return; }` where `query` is `QueryResult<T>` or `QueryResult` |
-| Read REST data | Read `result.Data` only after `result.Success` |
-| Read shared helper data | Read `ExchangeCallResult<T>.Data` only after `.Success` |
-| Retry decision | Retry only when `result.Error?.IsTransient == true` |
-| Cancellation | Pass `ct: cancellationToken` |
+Many shared futures REST and socket requests require `SettleAsset`. Private futures subscription requests also require `UserId`, matching the credential owner. Socket order-query parameter requirements differ from subscription requirements, so inspect the selected capability's rules. Shared futures placement does not set leverage or margin mode inline; configure them separately through supported native/shared operations.
 
-## Common Routing Pitfalls
+Shared REST uses `HttpResult<T>` / `HttpResult`, subscriptions use `WebSocketResult<UpdateSubscription>`, socket order queries use `QueryResult<T>` / `QueryResult`, and non-I/O symbol/cache helpers can return `ExchangeCallResult<T>`.
 
-| Do not use | Use instead |
-|---|---|
-| `GateIoClient` | `GateIoRestClient` |
-| `ApiCredentials` | `GateIoCredentials` |
-| `ETHUSDT` in native Gate.io calls | `ETH_USDT` |
-| `UsdFuturesApi` / `CoinFuturesApi` | `PerpetualFuturesApi` |
-| Futures call without settlement asset | Include `"usdt"`, `"btc"`, or `"usd"` first |
-| Decimal futures order quantity | Integer contract quantity |
-| `SpotApi.Margin` | `SpotApi.Account` / `SpotApi.ExchangeData` margin methods |
-| `.Data` without `.Success` check | Check `.Success` first |
-| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+## Environments and helpers
+
+Clients default to `GateIoEnvironment.Live`; select `GateIoEnvironment.Demo` explicitly with matching credentials for demo workflows. `CreateCustom` takes a name, REST address, spot socket address, and futures socket address.
+
+Checkout-only: [public interfaces](../../../../GateIo.Net/Interfaces/Clients/), [local order books](../../../../GateIo.Net/SymbolOrderBooks/), and [tracker factory](../../../../GateIo.Net/GateIoTrackerFactory.cs). Use maintained local books when synchronized state is required rather than treating a delta as a full snapshot.

@@ -1,15 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0;net10.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0;net11.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug' and '$(BuildAllFrameworks)' != 'true'">
+    <TargetFrameworks>netstandard2.0;net11.0</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>GateIo.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>4.9.0</PackageVersion>
-    <AssemblyVersion>4.9.0</AssemblyVersion>
-    <FileVersion>4.9.0</FileVersion>
+    <PackageVersion>4.10.0</PackageVersion>
+    <AssemblyVersion>4.10.0</AssemblyVersion>
+    <FileVersion>4.10.0</FileVersion>
     <Description>A high-performance .NET client library for the Gate REST and WebSocket APIs, providing strongly typed models, automatic WebSocket reconnection, client-side rate limiting, local order book support, and seamless integration with other CryptoExchange.Net based clients.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>GateIo;Gate;GateIo.Net;Gate.io;Gate.com;GateIo Client;GateIo API;CryptoCurrency;CryptoCurrency Exchange;CryptoExchange.Net;ccxt</PackageTags>
@@ -47,14 +51,15 @@
   <ItemGroup>
     <None Include="Icon\icon.png" Pack="true" PackagePath="\" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\.claude\skills\**\*" Pack="true" PackagePath="skills\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="13.2.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.101">
+    <PackageReference Include="CryptoExchange.Net" Version="13.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="11.0.100">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
