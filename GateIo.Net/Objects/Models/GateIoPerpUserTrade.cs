@@ -27,6 +27,12 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
+        /// ["<c>create_time_ms</c>"] Trade timestamp in milliseconds, supplied by WebSocket updates.
+        /// Prefer this value when present; REST supplies fractional seconds in <see cref="CreateTime"/>.
+        /// </summary>
+        [JsonPropertyName("create_time_ms")]
+        public DateTime? CreateTimeMilliseconds { get; set; }
+        /// <summary>
         /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
