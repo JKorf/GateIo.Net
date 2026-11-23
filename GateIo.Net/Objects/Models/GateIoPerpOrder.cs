@@ -32,6 +32,12 @@ namespace GateIo.Net.Objects.Models
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
+        /// ["<c>create_time_ms</c>"] Order creation timestamp in milliseconds, supplied by WebSocket updates.
+        /// Prefer this value when present; REST supplies fractional seconds in <see cref="CreateTime"/>.
+        /// </summary>
+        [JsonPropertyName("create_time_ms")]
+        public DateTime? CreateTimeMilliseconds { get; set; }
+        /// <summary>
         /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
@@ -106,6 +112,12 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("finish_time")]
         public DateTime? FinishTime { get; set; }
+        /// <summary>
+        /// ["<c>finish_time_ms</c>"] Order completion timestamp in milliseconds, supplied by WebSocket updates.
+        /// Prefer this value when present; REST supplies fractional seconds in <see cref="FinishTime"/>.
+        /// </summary>
+        [JsonPropertyName("finish_time_ms")]
+        public DateTime? FinishTimeMilliseconds { get; set; }
         /// <summary>
         /// ["<c>finish_as</c>"] Finish type
         /// </summary>
