@@ -243,6 +243,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf).
 
 ## Release notes
+* Version 4.11.0 - 27 Nov 2026
+    * Updated CryptoExchange.Net to v13.4.0
+    * Added milliseconds timestamp properties to GateIoPerpOrder, GateIoPerpUserTrade models
+    * Fixed some websocket routing issues
+
 * Version 4.10.0 - 17 Nov 2026
     * Updated CryptoExchange.Net to v13.3.0
     * Updated GateIoPerpBookTickerUpdate to use nullable decimal for price and quantity properties
