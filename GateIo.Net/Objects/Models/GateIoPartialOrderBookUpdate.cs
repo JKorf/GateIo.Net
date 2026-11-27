@@ -35,5 +35,11 @@ namespace GateIo.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("asks")]
         public GateIoOrderBookEntry[] Asks { get; set; } = Array.Empty<GateIoOrderBookEntry>();
+
+        /// <summary>
+        /// Depth
+        /// </summary>
+        [JsonPropertyName("l")]
+        public int? Depth { get; set; }
     }
 }

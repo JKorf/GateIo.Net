@@ -21,7 +21,7 @@ namespace GateIo.Net.Clients.MessageHandlers
             AddTopicMapping<GateIoSocketMessage<GateIoPerpTradeUpdate[]>>(x => x.Result.First().Contract);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpTickerUpdate[]>>(x => x.Result.First().Contract);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpBookTickerUpdate>>(x => x.Result.Contract);
-            AddTopicMapping<GateIoSocketMessage<GateIoPerpOrderBookUpdate>>(x => x.Result.Contract);
+            AddTopicMapping<GateIoSocketMessage<GateIoPerpOrderBookUpdate>>(x => x.Result.Contract + x.Result.Depth);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpKlineUpdate[]>>(x => x.Result.First().Contract + x.Result.First().Interval);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpContractStats>>(x => x.Result.Contract);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpContractInfo>>(x => x.Result.Contract);

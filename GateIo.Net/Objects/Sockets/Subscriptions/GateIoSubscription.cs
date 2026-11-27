@@ -20,7 +20,7 @@ namespace GateIo.Net.Objects.Sockets.Subscriptions
         private readonly string[] _payload;
         private readonly string[]? _symbols;
 
-        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, string[]? symbols, IEnumerable<string> identifiers, string[] payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler, bool auth) : base(logger, auth)
+        public GateIoSubscription(ILogger logger, SocketApiClient client, string channel, string[]? symbols, string[] payload, Action<DateTime, string?, GateIoSocketMessage<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;

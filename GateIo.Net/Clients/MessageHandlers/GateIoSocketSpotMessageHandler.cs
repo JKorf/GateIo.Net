@@ -19,7 +19,7 @@ namespace GateIo.Net.Clients.MessageHandlers
             AddTopicMapping<GateIoSocketMessage<GateIoKlineUpdate>>(x => x.Result.Symbol + x.Result.Interval);
             AddTopicMapping<GateIoSocketMessage<GateIoBookTickerUpdate>>(x => x.Result.Symbol);
             AddTopicMapping<GateIoSocketMessage<GateIoOrderBookUpdate>>(x => x.Result.Symbol);
-            AddTopicMapping<GateIoSocketMessage<GateIoPartialOrderBookUpdate>>(x => x.Result.Symbol);
+            AddTopicMapping<GateIoSocketMessage<GateIoPartialOrderBookUpdate>>(x => x.Result.Symbol + x.Result.Depth);
             AddTopicMapping<GateIoSocketMessage<GateIoPerpOrderBookV2Update>>(x => x.Result.Contract + x.Result.Depth);
         }
 

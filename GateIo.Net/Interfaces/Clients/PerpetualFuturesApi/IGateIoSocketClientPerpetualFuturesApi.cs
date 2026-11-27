@@ -111,8 +111,8 @@ namespace GateIo.Net.Interfaces.Clients.PerpetualFuturesApi
         /// </summary>
         /// <param name="settlementAsset">The settlement asset. btc, usdt or usd</param>
         /// <param name="contract">Contract, for example `ETH_USDT`</param>
-        /// <param name="updateMs">Update interval in ms. 20, 100 or 1000</param>
-        /// <param name="depth">Book depth. 5, 10, 20, 50 or 100. For the 20ms update interval only 20 depth is supported</param>
+        /// <param name="updateMs">Update interval in ms. 20 or 100</param>
+        /// <param name="depth">Book depth. 20, 50, 100. For the 20ms update interval only 20 depth is supported</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
